@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .font-primary {
+    font-family: "DM Sans", sans-serif;
+  }
+
+  .font-secondary {
+    font-family: "Rubik", sans-serif;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-secondary;
+}
+
+p {
+  @apply font-primary;
+}
