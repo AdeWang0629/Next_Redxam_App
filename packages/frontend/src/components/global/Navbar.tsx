@@ -9,7 +9,7 @@ import Logo from "@public/logo.svg";
 const Navbar: NextComponentType = () => {
   return (
     <div
-      className="py-6"
+      className="py-6 z-10 bg-white fixed w-full top-0"
       style={{
         boxShadow: "0 2px 2px -2px rgb(0 0 0 / 20%)",
       }}
