@@ -1,0 +1,58 @@
+import type { NextPage } from "next";
+
+const Plan: NextPage = () => {
+  return (
+    <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48">
+      <div className="flex flex-col bg-calculator-bg px-40 py-[7.5rem] rounded-[30px]">
+        <h2 className="text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black">
+          Get the right
+          <br />
+          investment Plan.
+        </h2>
+        <div className="flex items-center justify-center mt-24">
+          <div
+            className="w-[20.625rem] min-h-[24.6875rem] flex flex-col items-center text-center mx-auto rounded-[20px] bg-white border-[0.3px] border-[#AAACAE] py-9"
+            style={{ boxShadow: "0px 50px 70px rgb(30 88 25 / 5%)" }}
+          >
+            <span className="font-primary text-lg tracking-[-0.562737px] text-[#696871] leading-[1.8] text-opacity-80">
+              redxam Plans
+            </span>
+            <span className="font-primary font-medium text-4xl my-8 leading-[1.8] tracking-[-0.04em] text-[#1D293F] text-opacity-80">
+              Passive
+            </span>
+            <ul className="list-none">
+              <li className="mb-6 font-secondary tracking-[-0.531474px] text-[#696871]">
+                USDC -{" "}
+                <span className="font-bold leading-[-0.02em] text-lighter-black">
+                  33%
+                </span>
+              </li>
+              <li className="mb-6 font-secondary tracking-[-0.531474px] text-[#696871]">
+                USDT -{" "}
+                <span className="font-bold leading-[-0.02em] text-lighter-black">
+                  33%
+                </span>
+              </li>
+              <li className="mb-6 font-secondary tracking-[-0.531474px] text-[#696871]">
+                DAI -{" "}
+                <span className="font-bold leading-[-0.02em] text-lighter-black">
+                  33%
+                </span>
+              </li>
+            </ul>
+            <a
+              href="https://medium.com/p/bbf8c58e2f7d"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="font-primary text-[15px] px-16 py-5 leading-[-0.02em] font-bold text-center rounded-[30px] text-lighter-black mt-2.5 bg-buttons-green"
+            >
+              Read more
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Plan;
