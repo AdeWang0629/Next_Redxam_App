@@ -56,7 +56,7 @@ const Card: NextPage<CardProps> = ({ color, icon, title, description }) => {
         className="mb-6 rounded-full h-20 w-20 flex items-center justify-center"
         style={{ background: color }}
       >
-        <Image src={icon} />
+        <Image src={icon} alt="" />
       </div>
       <div className="flex flex-col">
         <h3 className="text-black text-opacity-80 mb-2.5 text-4xl text-center">

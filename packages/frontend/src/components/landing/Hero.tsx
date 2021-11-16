@@ -19,8 +19,8 @@ const Hero: NextComponentType = () => {
       <button className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green">
         Join the Waitlist
       </button>
-      <Image src={MouseIcon} />
-      <Image src={HeroImage} />
+      <Image src={MouseIcon} alt="scroll" />
+      <Image src={HeroImage} alt="screenshots from the app" />
     </section>
   );
 };

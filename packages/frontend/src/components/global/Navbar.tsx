@@ -8,7 +8,7 @@ import Logo from "@public/logo.svg";
 
 const Navbar: NextComponentType = () => {
   return (
-    <div
+    <nav
       className="py-6 z-10 bg-white fixed w-full top-0"
       style={{
         boxShadow: "0 2px 2px -2px rgb(0 0 0 / 20%)",
@@ -16,7 +16,7 @@ const Navbar: NextComponentType = () => {
     >
       <div className="flex flex-row max-w-7xl mx-auto items-center">
         <div className="flex flex-1">
-          <Image src={Logo} />
+          <Image src={Logo} alt="redxam logo" />
           <h2 className="ml-4 font-medium text-2xl text-lighter-black">
             redxam
           </h2>
@@ -50,7 +50,7 @@ const Navbar: NextComponentType = () => {
           </button>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

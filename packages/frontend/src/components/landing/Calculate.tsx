@@ -159,7 +159,7 @@ const CalculateAsset: NextPage<CalculateAssetProps> = ({
         } w-20 h-20 mb-2.5`}
         onClick={onClick}
       >
-        <Image src={image} />
+        <Image src={image} alt={name} />
       </button>
       <span className="font-primary tracking-[-0.02em] text-darker-primary text-center w-16 mx-auto text-xs">
         {name}

@@ -17,7 +17,7 @@ const Relax: NextPage = () => {
           </h2>
           <div className="flex flex-row items-center mb-8">
             <div>
-              <Image src={ListBullet} />
+              <Image src={ListBullet} alt="" />
             </div>
             <div className="flex-1 ml-10">
               <h3 className="mb-2.5 text-4xl text-black text-opacity-80">
@@ -31,7 +31,7 @@ const Relax: NextPage = () => {
           </div>
           <div className="flex flex-row items-center mb-8">
             <div>
-              <Image src={ListBullet} />
+              <Image src={ListBullet} alt="" />
             </div>
             <div className="flex-1 ml-10">
               <h3 className="mb-2.5 text-4xl text-black text-opacity-80">
@@ -45,7 +45,7 @@ const Relax: NextPage = () => {
           </div>
           <div className="flex flex-row items-center">
             <div>
-              <Image src={ListBullet} />
+              <Image src={ListBullet} alt="" />
             </div>
             <div className="flex-1 ml-10">
               <h3 className="mb-2.5 text-4xl text-black text-opacity-80">
@@ -58,8 +58,20 @@ const Relax: NextPage = () => {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center">
-          <Image src={RelaxLogo} layout="fixed" width="306px" height="177px" />
-          <Image src={RelaxImage} layout="fixed" width="306px" height="311px" />
+          <Image
+            src={RelaxLogo}
+            alt=""
+            layout="fixed"
+            width="306px"
+            height="177px"
+          />
+          <Image
+            src={RelaxImage}
+            alt=""
+            layout="fixed"
+            width="306px"
+            height="311px"
+          />
         </div>
       </div>
     </section>

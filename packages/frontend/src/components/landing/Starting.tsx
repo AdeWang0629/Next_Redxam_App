@@ -30,6 +30,7 @@ const Starting: NextPage = () => {
                 ? SecondStartImage
                 : ThirdStartImage
             }
+            alt={`step $${step + 1}`}
             layout="fixed"
             width="323px"
             height="628px"

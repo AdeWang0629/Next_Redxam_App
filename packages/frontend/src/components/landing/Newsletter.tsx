@@ -28,7 +28,7 @@ const Newsletter: NextPage = () => {
   return (
     <section className="flex flex-row mt-24 mb-48">
       <div className="self-center">
-        <Image src={NewsletterImage} />
+        <Image src={NewsletterImage} alt="" />
       </div>
       <div className="max-w-4xl self-end mb-48 flex flex-col items-center flex-1">
         <h2 className="text-black font-bold text-[2.8125rem] tracking-[-0.03em] font-secondary">
@@ -53,7 +53,7 @@ const Newsletter: NextPage = () => {
           </>
         ) : (
           <h3 className="text-[2.125rem] leading-10 tracking-[-0.04em] mt-2 font-secondary font-medium text-black text-opacity-80">
-            We'll keep you posted!
+            We&apos;ll keep you posted!
           </h3>
         )}
       </div>

@@ -78,7 +78,7 @@ const FAQ: NextPage = () => {
         </div>
       </div>
       <div>
-        <Image src={QuestionsImage} />
+        <Image src={QuestionsImage} alt="" />
       </div>
     </section>
   );
