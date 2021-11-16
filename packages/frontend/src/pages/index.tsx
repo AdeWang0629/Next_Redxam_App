@@ -8,6 +8,7 @@ import Relax from "@components/landing/Relax";
 import Calculate from "@components/landing/Calculate";
 import Banks from "@components/landing/Banks";
 import Plan from "@components/landing/Plan";
+import FAQ from "@components/landing/FAQ";
 
 const Home: NextPage = () => {
   return (
@@ -53,6 +54,7 @@ const Home: NextPage = () => {
       <Calculate />
       <Banks />
       <Plan />
+      <FAQ />
     </>
   );
 };
