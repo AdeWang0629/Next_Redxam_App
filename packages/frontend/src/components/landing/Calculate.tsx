@@ -65,7 +65,7 @@ const Calculate: NextPage = () => {
   return (
     <section className="max-w-7xl mx-auto flex flex-col items-center justify-center mt-24 mb-48">
       <h2 className="mb-[6.25rem] text-[2.8125rem] leading-[1.5] font-bold font-secondary text-lighter-black">
-        Let's calculate how much you'd earn
+        Let&apos;s calculate how much you&apos;d earn
       </h2>
       <div
         className="flex flex-row w-[46.0625rem] h-[24.5625rem] py-[1.875rem] px-[4.375rem] bg-calculator-bg backdrop-filter backdrop-blur-[30px] border-2 border-white rounded-[30px] mb-5"
