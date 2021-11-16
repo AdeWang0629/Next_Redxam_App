@@ -10,6 +10,7 @@ import Banks from "@components/landing/Banks";
 import Plan from "@components/landing/Plan";
 import FAQ from "@components/landing/FAQ";
 import Newsletter from "@components/landing/Newsletter";
+import Footer from "@components/global/Footer";
 
 const Home: NextPage = () => {
   return (
@@ -57,6 +58,7 @@ const Home: NextPage = () => {
       <Plan />
       <FAQ />
       <Newsletter />
+      <Footer />
     </>
   );
 };
