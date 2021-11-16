@@ -9,12 +9,13 @@ import Calculate from "@components/landing/Calculate";
 import Banks from "@components/landing/Banks";
 import Plan from "@components/landing/Plan";
 import FAQ from "@components/landing/FAQ";
+import Newsletter from "@components/landing/Newsletter";
 
 const Home: NextPage = () => {
   return (
     <>
       <Navbar />
-      <Particles
+      {/* <Particles
         params={{
           particles: {
             number: {
@@ -46,7 +47,7 @@ const Home: NextPage = () => {
           height: "100%",
           width: "100%",
         }}
-      />
+      /> */}
       <Hero />
       <WhyUs />
       <Starting />
@@ -55,6 +56,7 @@ const Home: NextPage = () => {
       <Banks />
       <Plan />
       <FAQ />
+      <Newsletter />
     </>
   );
 };
