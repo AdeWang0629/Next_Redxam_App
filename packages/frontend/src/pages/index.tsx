@@ -6,6 +6,7 @@ import WhyUs from "@components/landing/WhyUs";
 import Starting from "@components/landing/Starting";
 import Relax from "@components/landing/Relax";
 import Calculate from "@components/landing/Calculate";
+import Banks from "@components/landing/Banks";
 
 const Home: NextPage = () => {
   return (
@@ -49,6 +50,7 @@ const Home: NextPage = () => {
       <Starting />
       <Relax />
       <Calculate />
+      <Banks />
     </>
   );
 };
