@@ -5,6 +5,7 @@ import Hero from "@components/landing/Hero";
 import WhyUs from "@components/landing/WhyUs";
 import Starting from "@components/landing/Starting";
 import Relax from "@components/landing/Relax";
+import Calculate from "@components/landing/Calculate";
 
 const Home: NextPage = () => {
   return (
@@ -47,6 +48,7 @@ const Home: NextPage = () => {
       <WhyUs />
       <Starting />
       <Relax />
+      <Calculate />
     </>
   );
 };

@@ -8,13 +8,13 @@ import RelaxImage from "@public/images/relax.png";
 const Relax: NextPage = () => {
   return (
     <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48">
-      <h2 className="w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-12">
-        Relax while your
-        <br /> Money grows with <br />
-        Top security
-      </h2>
       <div className="flex flex-row items-center">
         <div className="flex flex-col flex-1">
+          <h2 className="w-[600px] self-start text-left tracking-[-0.03em] text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-[3.125rem]">
+            Relax while your
+            <br /> Money grows with <br />
+            Top security
+          </h2>
           <div className="flex flex-row items-center mb-8">
             <div>
               <Image src={ListBullet} />
@@ -57,7 +57,7 @@ const Relax: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col justify-center items-center">
           <Image src={RelaxLogo} layout="fixed" width="306px" height="177px" />
           <Image src={RelaxImage} layout="fixed" width="306px" height="311px" />
         </div>
