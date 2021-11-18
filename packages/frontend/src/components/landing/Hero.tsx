@@ -6,8 +6,8 @@ import HeroImage from "@public/images/hero.svg";
 
 const Hero: NextComponentType = () => {
   return (
-    <section className="max-w-7xl mx-auto flex flex-col items-center mt-40 mb-72">
-      <h1 className="text-7xl leading-tight mb-10 text-center font-bold text-lighter-black">
+    <section className="max-w-7xl px-16 md:px-0 mx-auto flex flex-col items-center mt-40 mb-72">
+      <h1 className="text-5xl md:text-7xl leading-tight mb-10 text-center font-bold text-lighter-black">
         Your Personal Crypto Investment Assistant. Worry-Free Crypto Holdings.
       </h1>
       <p className="font-primary text-[1.0625rem] max-w-[43.0625rem] mb-[1.875rem] text-center text-black text-opacity-80">

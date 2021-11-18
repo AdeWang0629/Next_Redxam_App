@@ -33,19 +33,19 @@ const FAQ: NextPage = () => {
   ];
 
   return (
-    <section className="flex flex-row mt-24 mb-48">
-      <div className="max-w-4xl mx-auto flex flex-col">
+    <section className="flex flex-col-reverse md:flex-row mt-24 mb-48">
+      <div className="max-w-4xl mx-auto flex flex-col p-4 md:p-0">
         <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
           frequently asked questions
         </h4>
-        <h2 className="w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-36">
+        <h2 className="w-full md:w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-36">
           Quick answer to
           <br /> your questions.
         </h2>
         <div className="flex flex-col">
           {questions.map((question, idx) => (
             <div
-              className="flex flex-col w-[63.75rem] py-8 px-16 bg-[#F6F6FA] rounded-[30px] mb-8 transition-all duration-500"
+              className="flex flex-col w-full md:w-[63.75rem] py-8 px-8 md:px-16 bg-[#F6F6FA] rounded-[30px] mb-8 transition-all duration-500"
               key={"question" + idx}
             >
               <div
@@ -54,7 +54,7 @@ const FAQ: NextPage = () => {
                   setActiveQuestion((prev) => (prev === idx ? -1 : idx))
                 }
               >
-                <span className="text-4xl leading-10 w-auto font-primary font-medium text-black text-opacity-50 tracking-[-0.04em]">
+                <span className="text-2xl md:text-4xl leading-10 w-auto font-primary font-medium text-black text-opacity-50 tracking-[-0.04em]">
                   {question.title}
                 </span>
                 <FontAwesomeIcon
@@ -77,7 +77,7 @@ const FAQ: NextPage = () => {
           ))}
         </div>
       </div>
-      <div>
+      <div className="self-end">
         <Image src={QuestionsImage} alt="" />
       </div>
     </section>

@@ -12,8 +12,8 @@ import RedxamLogo from "@public/images/redxam-logo.svg";
 
 const Footer: NextComponentType = () => {
   return (
-    <footer className="pt-16 bg-footer-bg">
-      <div className="max-w-7xl mx-auto flex flex-row items-start justify-between">
+    <footer className="pt-16 bg-footer-bg px-4 md:px-0">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between">
         <div className="flex flex-col flex-1">
           <div className="flex flex-row items-center mb-4">
             <Image src={RedxamLogo} alt="redxam" width="50" height="43.75" />
@@ -25,8 +25,8 @@ const Footer: NextComponentType = () => {
             &copy; 2021 redxam, Inc.
           </span>
         </div>
-        <div className="flex flex-row flex-1">
-          <div className="flex flex-col flex-1">
+        <div className="flex flex-row flex-wrap justify-between md:justify-start mt-8 md:mt-0 flex-1">
+          <div className="flex flex-col md:flex-1">
             <h4 className="font-secondary font-medium tracking-[0.3em] uppercase text-[#828282] mb-10">
               links
             </h4>
@@ -54,7 +54,7 @@ const Footer: NextComponentType = () => {
               </li>
             </ul>
           </div>
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col md:flex-1">
             <h4 className="font-secondary font-medium tracking-[0.3em] uppercase text-[#828282] mb-10">
               privacy
             </h4>
@@ -83,7 +83,7 @@ const Footer: NextComponentType = () => {
               </li>
             </ul>
           </div>
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col md:flex-1">
             <h4 className="font-secondary font-medium tracking-[0.3em] uppercase text-[#828282] mb-10">
               reach out
             </h4>

@@ -9,10 +9,10 @@ import WealthIcon from "@public/icons/wealth-icon.svg";
 const WhyUs: NextPage = () => {
   return (
     <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48">
-      <h2 className="w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-24">
+      <h2 className="w-full md:w-[600px] self-start text-left text-3xl md:text-[2.8125rem] text-center leading-normal text-lighter-black font-secondary font-bold mb-24">
         Why you should Invest with redxam
       </h2>
-      <div className="grid grid-cols-2 grid-rows-2 gap-x-40 gap-y-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-1 md:grid-rows-2 gap-x-40 gap-y-16">
         <Card
           color="rgba(242, 153, 74, 0.1)"
           icon={DepositIcon}
@@ -51,7 +51,7 @@ interface CardProps {
 
 const Card: NextPage<CardProps> = ({ color, icon, title, description }) => {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center p-4 md:p-0">
       <div
         className="mb-6 rounded-full h-20 w-20 flex items-center justify-center"
         style={{ background: color }}

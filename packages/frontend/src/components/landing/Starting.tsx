@@ -10,17 +10,17 @@ const Starting: NextPage = () => {
   const [step, setStep] = useState(0);
 
   return (
-    <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48">
+    <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48 p-4 md:p-0">
       <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
         how to start
       </h4>
-      <h2 className="w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-3.5">
+      <h2 className="w-full md:w-[600px] self-start text-left text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-3.5">
         Starting is very Simple
       </h2>
       <p className="font-primary text-lg text-black text-opacity-80 leading-[1.8] ">
         Start investing with redxam in three simple steps
       </p>
-      <div className="flex flex-row items-center mt-40">
+      <div className="flex flex-col-reverse md:flex-row items-center mt-40">
         <div className="flex flex-col flex-1">
           <Image
             src={
@@ -47,7 +47,7 @@ const Starting: NextPage = () => {
             onMouseEnter={() => setStep(0)}
           >
             <div
-              className={`w-20 h-20 rounded-full border border-darker-primary ${
+              className={`w-20 h-20 min-h-[5rem] min-w-[5rem] rounded-full border border-darker-primary ${
                 step === 0
                   ? "bg-darker-primary text-white"
                   : "hover:bg-darker-primary text-darker-primary hover:text-white"
@@ -56,10 +56,10 @@ const Starting: NextPage = () => {
               <span className="text-4xl text-center font-secondary">1</span>
             </div>
             <div>
-              <h3 className="mb-1.5 text-3xl text-black text-opacity-80">
+              <h3 className="mb-1.5 text-2xl md:text-3xl text-black text-opacity-80">
                 Create an Account
               </h3>
-              <p className="w-[20.9375rem] text-black text-opacity-80">
+              <p className="w-full md:w-[20.9375rem] text-black text-opacity-80">
                 Signup for an account with just name and email.
               </p>
             </div>
@@ -74,7 +74,7 @@ const Starting: NextPage = () => {
             onMouseEnter={() => setStep(1)}
           >
             <div
-              className={`w-20 h-20 rounded-full border border-darker-primary ${
+              className={`w-20 h-20 min-h-[5rem] min-w-[5rem] rounded-full border border-darker-primary ${
                 step === 1
                   ? "bg-darker-primary text-white"
                   : "hover:bg-darker-primary text-darker-primary hover:text-white"
@@ -83,10 +83,10 @@ const Starting: NextPage = () => {
               <span className="text-4xl text-center font-secondary">2</span>
             </div>
             <div>
-              <h3 className="mb-1.5 text-3xl text-black text-opacity-80">
+              <h3 className="mb-1.5 text-2xl md:text-3xl text-black text-opacity-80">
                 Deposit Funds
               </h3>
-              <p className="w-[20.9375rem] text-black text-opacity-80">
+              <p className="w-full md:w-[20.9375rem] text-black text-opacity-80">
                 Choose preferred deposit option like bank transfer, credit/debit
                 card or directly send digital assets.
               </p>
@@ -102,7 +102,7 @@ const Starting: NextPage = () => {
             onMouseEnter={() => setStep(2)}
           >
             <div
-              className={`w-20 h-20 rounded-full border border-darker-primary ${
+              className={`w-20 h-20 min-h-[5rem] min-w-[5rem] rounded-full border border-darker-primary ${
                 step === 2
                   ? "bg-darker-primary text-white"
                   : "hover:bg-darker-primary text-darker-primary hover:text-white"
@@ -111,10 +111,10 @@ const Starting: NextPage = () => {
               <span className="text-4xl text-center font-secondary">3</span>
             </div>
             <div>
-              <h3 className="mb-1.5 text-3xl text-black text-opacity-80">
+              <h3 className="mb-1.5 text-2xl md:text-3xl text-black text-opacity-80">
                 Watch your money Grow
               </h3>
-              <p className="w-[20.9375rem] text-black text-opacity-80">
+              <p className="w-full md:w-[20.9375rem] text-black text-opacity-80">
                 Sit back and relax! Let your let your money work for you all
                 day.
               </p>

@@ -2,16 +2,16 @@ import type { NextPage } from "next";
 
 const Plan: NextPage = () => {
   return (
-    <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48">
-      <div className="flex flex-col bg-calculator-bg px-40 py-[7.5rem] rounded-[30px]">
-        <h2 className="text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black">
+    <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48 p-6 md:p-0">
+      <div className="flex flex-col bg-calculator-bg px-8 md:px-40 py-8 md:py-[7.5rem] rounded-[30px]">
+        <h2 className="text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black">
           Get the right
           <br />
           investment Plan.
         </h2>
         <div className="flex items-center justify-center mt-24">
           <div
-            className="w-[20.625rem] min-h-[24.6875rem] flex flex-col items-center text-center mx-auto rounded-[20px] bg-white border-[0.3px] border-[#AAACAE] py-9"
+            className="w-full md:w-[20.625rem] min-h-[24.6875rem] flex flex-col items-center text-center mx-auto rounded-[20px] bg-white border-[0.3px] border-[#AAACAE] py-9"
             style={{ boxShadow: "0px 50px 70px rgb(30 88 25 / 5%)" }}
           >
             <span className="font-primary text-lg tracking-[-0.562737px] text-[#696871] leading-[1.8] text-opacity-80">
