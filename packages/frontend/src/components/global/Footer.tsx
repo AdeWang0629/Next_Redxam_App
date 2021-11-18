@@ -25,8 +25,8 @@ const Footer: NextComponentType = () => {
             &copy; 2021 redxam, Inc.
           </span>
         </div>
-        <div className="flex flex-row flex-wrap justify-between md:justify-start mt-8 md:mt-0 flex-1">
-          <div className="flex flex-col md:flex-1">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-0 mt-8 md:mt-0 flex-1">
+          <div className="flex flex-col">
             <h4 className="font-secondary font-medium tracking-[0.3em] uppercase text-[#828282] mb-10">
               links
             </h4>
@@ -54,7 +54,7 @@ const Footer: NextComponentType = () => {
               </li>
             </ul>
           </div>
-          <div className="flex flex-col md:flex-1">
+          <div className="flex flex-col">
             <h4 className="font-secondary font-medium tracking-[0.3em] uppercase text-[#828282] mb-10">
               privacy
             </h4>
@@ -83,7 +83,7 @@ const Footer: NextComponentType = () => {
               </li>
             </ul>
           </div>
-          <div className="flex flex-col md:flex-1">
+          <div className="flex flex-col">
             <h4 className="font-secondary font-medium tracking-[0.3em] uppercase text-[#828282] mb-10">
               reach out
             </h4>

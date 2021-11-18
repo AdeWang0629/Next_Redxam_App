@@ -7,7 +7,10 @@ import RelaxImage from "@public/images/relax.png";
 
 const Relax: NextPage = () => {
   return (
-    <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48 p-4 md:p-0">
+    <section
+      className="max-w-7xl mx-auto flex flex-col pt-24 pb-48 px-4 md:px-0"
+      id="security"
+    >
       <div className="flex flex-col md:flex-row items-center">
         <div className="flex flex-col flex-1">
           <h2 className="w-full md:w-[600px] self-start text-left tracking-[-0.03em] text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-[3.125rem]">
