@@ -1,5 +1,6 @@
 import type { NextComponentType } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 import MouseIcon from "@public/icons/mouse.svg";
 import HeroImage from "@public/images/hero.svg";
@@ -19,7 +20,9 @@ const Hero: NextComponentType = () => {
       <button className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green">
         Join the Waitlist
       </button>
-      <Image src={MouseIcon} alt="scroll" />
+      <Link href="/#benefits" shallow scroll>
+        <Image src={MouseIcon} alt="scroll" />
+      </Link>
       <Image src={HeroImage} alt="screenshots from the app" />
     </section>
   );

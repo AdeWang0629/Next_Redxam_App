@@ -65,7 +65,7 @@ const About: NextPage = () => {
             whether you are an individual or an institution, we help you buy,
             sell and store your cryptocurrency
           </p>
-          <Link href="#investingWay" shallow scroll>
+          <Link href="/about#investingWay" shallow scroll>
             <Image src={MouseIcon} alt="Scroll Down" />
           </Link>
         </div>
