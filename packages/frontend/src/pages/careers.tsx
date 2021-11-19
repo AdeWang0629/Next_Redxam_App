@@ -207,7 +207,7 @@ const Careers: NextPage = () => {
           Job openings at redxam
         </h2>
 
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col items-center w-full">
           {openJobs.map((job, idx) => (
             <div
               className="flex flex-col w-full md:w-[63.75rem] py-4 px-4 md:px-16 bg-[#F6F6FA] rounded-[30px] mb-8 transition-all duration-500"
