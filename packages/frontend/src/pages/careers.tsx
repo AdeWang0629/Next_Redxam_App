@@ -76,7 +76,7 @@ const Careers: NextPage = () => {
       <Switcher activePage="careers" />
       <section className="flex flex-col items-center justify-center max-w-7xl mx-auto h-full px-4 md:px-0 mb-8">
         <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-lighter-black mt-16 leading-[1.2] text-center w-full md:max-w-[62.5rem]">
-          We're on a mission to make Investing comfortable for everyone.
+          We&apos;re on a mission to make Investing comfortable for everyone.
         </h1>
 
         <p className="text-black font-primary text-[1.0625rem] max-w-[43.0625rem] mb-[1.875rem] text-center text-opacity-80">
