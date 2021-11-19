@@ -30,3 +30,8 @@ h2 {
 p {
   @apply font-primary;
 }
+
+.careers-image > span,
+.careers-image > span > img {
+  @apply w-full h-full !important;
+}
