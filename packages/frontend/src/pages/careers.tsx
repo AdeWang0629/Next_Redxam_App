@@ -96,19 +96,19 @@ const Careers: NextPage = () => {
         </Link>
       </section>
       <section
-        className="grid grid-cols-3 grid-rows-2 gap-8 my-8 px-4 md:px-0"
+        className="grid grid-cols-3 grid-rows-2 gap-2 md:gap-8 my-8 px-2 md:px-0 grid-"
         style={{
           gridTemplateRows: "301px 179px",
         }}
       >
-        <div className="row-span-2 h-full flex careers-image">
+        <div className="row-start-2 md:row-start-[unset] row-span-2 h-full flex careers-image">
           <Image
             src={HeroImage1}
             alt=""
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="col-span-2 h-full w-full flex careers-image">
+        <div className="col-span-3 md:col-span-2 h-full w-full flex careers-image">
           <Image
             src={HeroImage2}
             alt=""
