@@ -32,6 +32,8 @@ p {
 }
 
 .careers-image > span,
-.careers-image > span > img {
+.careers-image > span > img,
+.blog-image > span,
+.blog-image > span > img {
   @apply w-full h-full !important;
 }
