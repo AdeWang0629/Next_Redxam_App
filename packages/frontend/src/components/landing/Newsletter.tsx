@@ -28,7 +28,7 @@ const Newsletter: NextPage = () => {
   return (
     <section className="flex flex-col-reverse md:flex-row mt-24 mb-48">
       <div className="self-center">
-        <Image src={NewsletterImage} alt="" />
+        <Image src={NewsletterImage} alt="" placeholder="blur" />
       </div>
       <div className="max-w-4xl self-center md:self-end md:mb-48 flex flex-col items-center flex-1 p-4 md:p-0">
         <h2 className="text-black font-bold text-[2.8125rem] tracking-[-0.03em] font-secondary">

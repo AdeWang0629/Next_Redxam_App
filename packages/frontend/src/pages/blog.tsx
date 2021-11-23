@@ -36,7 +36,7 @@ const Blog: NextPage = () => {
         </p>
 
         <Link href="/blog#posts" shallow scroll>
-          <Image src={MouseIcon} alt="Scroll Down" />
+          <Image src={MouseIcon} alt="Scroll Down" placeholder="blur" />
         </Link>
       </section>
 
@@ -80,7 +80,12 @@ const BlogPost: NextPage<BlogPostProps> = ({
   return (
     <div className="text-center md:text-left mb-28 md:mb-0">
       <div className="my-0 mx-auto md:mx-0 w-full blog-image">
-        <Image src={image} alt="" className="w-full object-cover" />
+        <Image
+          src={image}
+          alt=""
+          className="w-full object-cover"
+          placeholder="blur"
+        />
       </div>
       <h4 className="mt-8 mb-2.5 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
         {date}

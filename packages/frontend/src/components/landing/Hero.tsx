@@ -22,7 +22,10 @@ const Hero: NextComponentType = () => {
           financial solutions platform to make cryptocurrency purchases simple
           and user-friendly.
         </p>
-        <button className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green" onClick={() => setWaitlistModelOpened(true)}>
+        <button
+          className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green"
+          onClick={() => setWaitlistModelOpened(true)}
+        >
           Join the Waitlist
         </button>
         <Link href="/#benefits" shallow scroll>

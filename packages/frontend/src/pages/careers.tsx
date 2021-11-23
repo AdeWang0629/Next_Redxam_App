@@ -106,6 +106,7 @@ const Careers: NextPage = () => {
             src={HeroImage1}
             alt=""
             className="object-cover w-full h-full"
+            placeholder="blur"
           />
         </div>
         <div className="col-span-3 md:col-span-2 h-full w-full flex careers-image">
@@ -113,10 +114,21 @@ const Careers: NextPage = () => {
             src={HeroImage2}
             alt=""
             className="object-cover w-full h-full"
+            placeholder="blur"
           />
         </div>
-        <Image src={HeroImage3} alt="" className="object-cover w-full h-full" />
-        <Image src={HeroImage4} alt="" className="object-cover w-full h-full" />
+        <Image
+          src={HeroImage3}
+          alt=""
+          className="object-cover w-full h-full"
+          placeholder="blur"
+        />
+        <Image
+          src={HeroImage4}
+          alt=""
+          className="object-cover w-full h-full"
+          placeholder="blur"
+        />
       </section>
       <section
         className="pt-48 pb-72 flex flex-col md:flex-row justify-center items-start max-w-7xl mx-auto px-4 md:px-0"
