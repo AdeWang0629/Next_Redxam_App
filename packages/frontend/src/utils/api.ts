@@ -16,15 +16,30 @@ class API {
     });
   }
 
-  createWaitlist(email: string) {
+  createWaitlist(email: string, firstName?: string, lastName?: string) {
     let mutation = `mutation {
         createWaitlist(arg: {
-          email: "${email}"
+          email: "${email}"${
+      firstName?.length ? `, firstName: "${firstName}"` : ""
+    }${lastName?.length ? `, lastName: "${lastName}"` : ""}
         }) {
             success
             message
         }
     }`;
+
+    return this.axios.post(`/api/v1?query=${mutation}`);
+  }
+
+  login(email: string) {
+    let mutation = `mutation {
+        updateToken(arg: {
+            email: "${email}"
+          }) {
+              success
+              message
+          }
+        }`;
 
     return this.axios.post(`/api/v1?query=${mutation}`);
   }
