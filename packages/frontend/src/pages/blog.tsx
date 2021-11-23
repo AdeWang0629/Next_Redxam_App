@@ -36,7 +36,7 @@ const Blog: NextPage = () => {
         </p>
 
         <Link href="/blog#posts" shallow scroll>
-          <Image src={MouseIcon} alt="Scroll Down" placeholder="blur" />
+          <Image src={MouseIcon} alt="Scroll Down" />
         </Link>
       </section>
 
