@@ -170,13 +170,20 @@ const About: NextPage = () => {
             <Image
               src={WorkWithUsImage2}
               alt=""
+              placeholder="blur"
               width="300px"
               height="400px"
               className="w-full h-full"
             />
           </div>
           <div className="mx-auto md:mx-0 md:mb-0 right-64 -bottom-8 md:absolute w-full h-full flex items-center md:items-end flex-col md:flex-row mt-2 md:mt-0">
-            <Image src={WorkWithUsImage1} alt="" width="300px" height="270px" />
+            <Image
+              src={WorkWithUsImage1}
+              alt=""
+              placeholder="blur"
+              width="300px"
+              height="270px"
+            />
           </div>
         </div>
       </section>
@@ -201,6 +208,7 @@ const TeamMember: NextPage<TeamMemberProps> = ({ picture, name, role }) => {
         className="rounded-2xl"
         src={picture}
         alt={name}
+        placeholder="blur"
       />
       <h5 className="my-1 text-2xl text-black">{name}</h5>
       <p>{role}</p>

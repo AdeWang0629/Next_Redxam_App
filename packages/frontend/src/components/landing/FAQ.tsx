@@ -78,7 +78,7 @@ const FAQ: NextPage = () => {
         </div>
       </div>
       <div className="self-end">
-        <Image src={QuestionsImage} alt="" />
+        <Image src={QuestionsImage} alt="" placeholder="blur" />
       </div>
     </section>
   );

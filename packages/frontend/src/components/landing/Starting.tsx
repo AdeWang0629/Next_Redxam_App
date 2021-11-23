@@ -34,6 +34,7 @@ const Starting: NextPage = () => {
             layout="fixed"
             width="323px"
             height="628px"
+            placeholder="blur"
           />
         </div>
         <div className="flex flex-col flex-1">

@@ -34,7 +34,13 @@ interface BankProps {
 const Bank: NextPage<BankProps> = ({ image, name, rate }) => {
   return (
     <div className="flex flex-col items-center">
-      <Image src={image} alt={name} width="60" height="60" />
+      <Image
+        src={image}
+        alt={name}
+        width="60"
+        height="60"
+        placeholder={name === "Redxam" ? "empty" : "blur"}
+      />
       <div className="flex flex-col items-center">
         <span className="font-semibold text-2xl leading-7 text-black text-opacity-80 my-4 font-secondary">
           {name}
