@@ -49,7 +49,12 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
             <div className="flex items-center md:flex-1">
               <Link href="/">
                 <>
-                  <Image src={Logo} alt="redxam logo" />
+                  <Image
+                    src={Logo}
+                    alt="redxam logo"
+                    width="36px"
+                    height="32px"
+                  />
                   <h2
                     className={`ml-4 font-medium text-2xl  ${
                       transparentBackground && scrollTop <= 0 && !navMobile
