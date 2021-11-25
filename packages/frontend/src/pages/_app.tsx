@@ -5,7 +5,7 @@ import EnvironmentsSwitcher from "@components/global/EnvironmentsSwitcher";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <EnvironmentsSwitcher />
+      {process.env.NODE_ENV === "development" ? <EnvironmentsSwitcher /> : null}
       <Component {...pageProps} />
     </>
   );
