@@ -51,6 +51,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
         alert("An error occurred!");
       })
       .finally(() => {
+        setSubmitted(true);
         setLoading(false);
       });
   }
