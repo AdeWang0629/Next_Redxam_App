@@ -17,6 +17,7 @@ module.exports = {
         "footer-bg": "#F0FCE3",
         "buttons-green": "#ace96b",
         "palette-gray": "#CBD1D4",
+        "card-button": "#58BE05",
       },
       keyframes: {
         "fade-in-down": {
