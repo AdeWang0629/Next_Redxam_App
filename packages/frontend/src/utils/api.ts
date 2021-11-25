@@ -1,19 +1,24 @@
 import axios, { AxiosInstance } from "axios";
 
 class API {
-  private baseURL: string;
   private token: string | null;
   private axios: AxiosInstance;
 
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_PROD_BASE_URL as string;
     this.token =
       typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
 
     this.axios = axios.create({
-      baseURL: this.baseURL,
       headers: this.token ? { Authorization: `Bearer ${this.token}` } : {},
     });
+  }
+
+  get baseURL() {
+    return (typeof window !== "undefined" &&
+    sessionStorage.getItem("environment") &&
+    sessionStorage.getItem("environment") === "development"
+      ? process.env.NEXT_PUBLIC_DEV_BASE_URL
+      : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string;
   }
 
   createWaitlist(email: string, firstName?: string, lastName?: string) {
@@ -28,7 +33,7 @@ class API {
         }
     }`;
 
-    return this.axios.post(`/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
   }
 
   login(email: string) {
@@ -41,7 +46,7 @@ class API {
           }
         }`;
 
-    return this.axios.post(`/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
   }
 }
 
