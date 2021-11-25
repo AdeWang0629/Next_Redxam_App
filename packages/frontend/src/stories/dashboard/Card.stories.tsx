@@ -2,12 +2,12 @@ import React, { ComponentProps } from "react";
 
 import { Story, Meta } from "@storybook/react";
 
-import Card from "@components/global/Card";
+import Card from "@components/dashboard/Card";
 
 import kycImage from "@public/images/kyc/kyc.svg";
 
 export default {
-  title: "Global/Card",
+  title: "dashboard/Card",
   component: Card,
 } as Meta;
 
