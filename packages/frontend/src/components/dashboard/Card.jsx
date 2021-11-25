@@ -3,9 +3,9 @@ import Image from "next/image";
 
 const Card = ({ cardImage, cardText, buttonText }) => {
   return (
-    <div className="w-full bg-white flex flex-col justify-center items-center rounded-3xl py-16 px-8 shadow-card">
+    <div className="w-full bg-white flex flex-col justify-center items-center rounded-[25px] py-16 px-8 shadow-card">
       <Image src={cardImage} alt="Settings Icon" width="324px" height="175px" />
-      <p className="mt-6 mb-16 text-center text-sm" style={{ width: "373px" }}>
+      <p className="mt-6 mb-16 text-center text-sm w-full md:w-[23.3125rem]">
         {cardText}
       </p>
       <button

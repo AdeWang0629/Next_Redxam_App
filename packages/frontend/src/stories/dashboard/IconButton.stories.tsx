@@ -2,7 +2,7 @@ import React, { ComponentProps } from "react";
 
 import { Story, Meta } from "@storybook/react";
 
-import IconButton from "@components/global/IconButton";
+import IconButton from "@components/dashboard/IconButton";
 
 export default {
   title: "Global/IconButton",

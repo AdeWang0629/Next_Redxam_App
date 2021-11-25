@@ -5,11 +5,8 @@ import leafsBg from "@public/images/dashboard/leafs-bg.svg";
 
 const BalanceCard = () => {
   return (
-    <div
-      className="shadow-card rounded-3xl relative"
-      style={{ width: "440px" }}
-    >
-      <div className="absolute" style={{ right: "10px", top: "-55px" }}>
+    <div className="shadow-card rounded-[25px] relative w-full md:w-[27.5rem]">
+      <div className="absolute right-2.5 top-[-55px]">
         <Image
           src={leafsBg}
           alt="Leafs Background"
@@ -26,18 +23,12 @@ const BalanceCard = () => {
           $30,700.00
         </p>
       </div>
-      <p
-        className="mt-6 text-center bg-light-gray py-1 font-secondary text-sm"
-        style={{ color: "#95989B" }}
-      >
+      <p className="mt-6 text-center bg-light-gray py-1 font-secondary text-sm text-[#95989B]">
         Your pending balance is{" "}
         <span className="text-lighter-black font-medium ml-1.5">$2200.00</span>
       </p>
       <div className="w-full">
-        <button
-          className="w-1/2 font-medium font-secondary text-base underline py-4"
-          style={{ borderRight: "1px solid #EAEAEB" }}
-        >
+        <button className="w-1/2 font-medium font-secondary text-base underline py-4 border-r border-r-[#EAEAEB]">
           Deposit
         </button>
         <button className="w-1/2 font-medium font-secondary text-base underline py-4">
