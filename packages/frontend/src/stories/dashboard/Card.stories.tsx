@@ -4,24 +4,13 @@ import { Story, Meta } from "@storybook/react";
 
 import Card from "@components/dashboard/Card";
 
-import kycImage from "@public/images/kyc/kyc.svg";
-
 export default {
-  title: "dashboard/Card",
+  title: "Dashboard/Card",
   component: Card,
 } as Meta;
 
-const Template: Story = (args) => (
-  <div className="bg-black min-h-screen">
-    <Card {...args} />
-  </div>
+const Template: Story<ComponentProps<typeof Card>> = (children) => (
+  <Card>{children}</Card>
 );
 
-export const CardKYC = Template.bind({});
-
-CardKYC.args = {
-  cardImage: kycImage,
-  cardText:
-    "To continue adding a bank account to redxam you will need to complete your KYC verification. Which will be completed using sumsub.",
-  buttonText: "Start KYC Verification ",
-};
+export const Default = Template.bind({});
