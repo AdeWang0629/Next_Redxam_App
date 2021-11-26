@@ -10,7 +10,7 @@ export default {
 } as Meta;
 
 const Template: Story<ComponentProps<typeof ReferCard>> = (args) => (
-  <ReferCard {...args} />
+  <ReferCard />
 );
 
 export const Default = Template.bind({});
