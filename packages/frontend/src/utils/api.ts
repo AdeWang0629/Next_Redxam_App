@@ -1,16 +1,10 @@
 import axios, { AxiosInstance } from "axios";
 
 class API {
-  private token: string | null;
   private axios: AxiosInstance;
 
   constructor() {
-    this.token =
-      typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
-
-    this.axios = axios.create({
-      headers: this.token ? { Authorization: `Bearer ${this.token}` } : {},
-    });
+    this.axios = axios.create();
   }
 
   get baseURL() {
@@ -19,6 +13,22 @@ class API {
     sessionStorage.getItem("environment") === "development"
       ? process.env.NEXT_PUBLIC_DEV_BASE_URL
       : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string;
+  }
+
+  getToken() {
+    return typeof window !== "undefined"
+      ? sessionStorage.getItem("token")
+      : null;
+  }
+
+  getAuthorizationHeader() {
+    return (this.getToken()
+      ? { Authorization: `Bearer ${this.getToken()}` }
+      : {}) as
+      | {
+          Authorization: string;
+        }
+      | {};
   }
 
   createWaitlist(email: string, firstName?: string, lastName?: string) {
@@ -47,6 +57,40 @@ class API {
         }`;
 
     return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+  }
+
+  verify(token: string) {
+    let mutation = `mutation {
+        verifyToken(arg: {token: "${token}"}) {
+            message
+            success
+            token
+        }
+      }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+  }
+
+  getUserData() {
+    const query = `query {
+        user {
+          firstName
+          email
+          phone
+          contribution
+          level
+          deposited
+          withdrawn
+          wallet {
+            address
+          }
+        }
+      }
+    `;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
   }
 }
 
