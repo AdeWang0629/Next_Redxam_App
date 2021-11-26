@@ -10,7 +10,7 @@ export default {
 } as Meta;
 
 const Template: Story<ComponentProps<typeof BalanceCard>> = (args) => (
-  <BalanceCard {...args} />
+  <BalanceCard />
 );
 
 export const Default = Template.bind({});
