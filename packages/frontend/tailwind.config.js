@@ -16,6 +16,12 @@ module.exports = {
         question: "#828282",
         "footer-bg": "#F0FCE3",
         "buttons-green": "#ace96b",
+        "palette-gray": "#CBD1D4",
+        "light-gray": "#FAFAFA",
+        "card-button": "#58BE05",
+      },
+      boxShadow: {
+        card: "0px 2px 8px rgba(61, 88, 11, 0.08)",
       },
       keyframes: {
         "fade-in-down": {
