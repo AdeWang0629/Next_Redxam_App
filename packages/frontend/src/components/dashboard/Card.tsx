@@ -1,7 +1,6 @@
-import React from "react";
+import { ReactNode } from "react";
+import type { NextPage } from "next";
 
-const Container = ({ children }) => {
+export default function CardContainer({ children }: { children: ReactNode }) {
   return <div className="shadow-card rounded-[25px] py-4 px-8">{children}</div>;
 };
-
-export default Container;

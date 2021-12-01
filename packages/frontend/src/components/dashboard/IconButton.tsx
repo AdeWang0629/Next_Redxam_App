@@ -1,18 +1,18 @@
-import React from "react";
+import type { NextPage } from "next";
 import Image from "next/image";
 
-// interface IconButtonProps {
-//   buttonText?: string;
-//   buttonIcon?:
-// }
+interface IconButtonProps {
+  buttonText?: string;
+  buttonIcon?: StaticImageData
+}
 
-const IconButton = ({ buttonText, buttonIcon }) => {
+const IconButton: NextPage<IconButtonProps> = ({ buttonText, buttonIcon }) => {
   return (
     <div className="bg-white">
       <div className="flex jutify-center items-center">
         <div className="flex jutify-center items-center mr-2 rounded-full bg-lighter-black p-2.5">
           <Image
-            src={buttonIcon}
+            src={buttonIcon || ''}
             alt="Settings Icon"
             width="24px"
             height="24px"
