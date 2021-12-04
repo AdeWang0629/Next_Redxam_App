@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 class API {
-  private axios: AxiosInstance;
+  axios: AxiosInstance;
 
   constructor() {
     this.axios = axios.create();
@@ -90,6 +90,43 @@ class API {
 
     return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
       headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  getAdminDetails(token: string) {
+    const query = `query { admin { email } }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  adminLogin(email: string, password: string) {
+    const query = `query { adminLogin { token } }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, {
+      email,
+      password,
+    });
+  }
+
+  getAllUsers(token: string) {
+    const query = `
+      query FetchUsers {
+        users {
+          ... {
+            _id
+            email
+            firstName
+            lastName
+            accountStatus
+          }
+        }
+      }
+    `;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { Authorization: `Bearer ${token}` },
     });
   }
 }

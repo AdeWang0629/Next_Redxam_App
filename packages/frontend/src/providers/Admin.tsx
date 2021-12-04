@@ -9,7 +9,7 @@ import {
 import api from "@utils/api";
 
 export type Context = {
-  user: null | { token: string; id: string };
+  user: null | { email: string };
   setUser: Dispatch<SetStateAction<null>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
@@ -17,7 +17,7 @@ export type Context = {
   setNoUser: Dispatch<SetStateAction<boolean>>;
 };
 
-export const UserContext = createContext<Context>({
+export const AdminContext = createContext<Context>({
   user: null,
   setUser: () => {},
   loading: false,
@@ -26,20 +26,20 @@ export const UserContext = createContext<Context>({
   setNoUser: () => {},
 });
 
-export default function UserProvider({ children }: { children: ReactNode }) {
+export default function AdminProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [noUser, setNoUser] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (sessionStorage.getItem("token")) {
+      if (sessionStorage.getItem("admin_token")) {
         setLoading(true);
         api
-          .getUserData()
+          .getAdminDetails(sessionStorage.getItem("admin_token") as string)
           .then(({ data }) => {
             setNoUser(false);
-            setUser(data.data.user[0]);
+            setUser(data.data.admin);
           })
           .catch(() => setNoUser(true))
           .finally(() => setLoading(false));
@@ -48,10 +48,10 @@ export default function UserProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <UserContext.Provider
+    <AdminContext.Provider
       value={{ user, setUser, loading, setLoading, noUser, setNoUser }}
     >
       {children}
-    </UserContext.Provider>
+    </AdminContext.Provider>
   );
 }
