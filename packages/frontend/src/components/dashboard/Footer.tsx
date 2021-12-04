@@ -19,6 +19,7 @@ const Footer: NextPage = () => {
           src={isAnimating ? AnimatedLogo : Logo}
           width={isAnimating ? "22px" : "20px"}
           height={"17.5px"}
+          alt="redxam Animated Logo"
         />
         <span className="text-palette-gray group-hover:text-buttons-green font-secondary text-xs mt-1.5">
           redxam
