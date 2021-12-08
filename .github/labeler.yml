@@ -1,0 +1,5 @@
+# Add 'frontend' to any changes within 'packages/frontend/' folder or any subfolders
+frontend:
+- packages/frontend/*
+
+backend: packages/backend/*
