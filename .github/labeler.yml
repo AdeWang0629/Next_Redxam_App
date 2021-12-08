@@ -3,3 +3,5 @@ frontend:
 - packages/frontend/*
 
 backend: packages/backend/*
+
+github: ./github/*
