@@ -8,7 +8,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AdminProvider>
       <UserProvider>
-        {process.env.NODE_ENV === "development" ? (
+        {typeof window !== "undefined" &&
+        !document.baseURI.includes("redxam.com") ? (
           <EnvironmentsSwitcher />
         ) : null}
         <Component {...pageProps} />
