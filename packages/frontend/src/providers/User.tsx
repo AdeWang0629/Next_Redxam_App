@@ -6,6 +6,7 @@ import {
   SetStateAction,
   ReactNode,
 } from "react";
+import { getCookie } from "cookies-next";
 import api from "@utils/api";
 
 export type Context = {
@@ -33,7 +34,7 @@ export default function UserProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (sessionStorage.getItem("token")) {
+      if (getCookie("token")) {
         setLoading(true);
         api
           .getUserData()

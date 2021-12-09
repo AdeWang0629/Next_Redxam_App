@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { getCookie } from "cookies-next";
 
 class API {
   axios: AxiosInstance;
@@ -9,16 +10,14 @@ class API {
 
   get baseURL() {
     return (typeof window !== "undefined" &&
-    sessionStorage.getItem("environment") &&
-    sessionStorage.getItem("environment") === "development"
+    getCookie("environment") &&
+    getCookie("environment") === "development"
       ? process.env.NEXT_PUBLIC_DEV_BASE_URL
       : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string;
   }
 
   getToken() {
-    return typeof window !== "undefined"
-      ? sessionStorage.getItem("token")
-      : null;
+    return typeof window !== "undefined" ? getCookie("token") : null;
   }
 
   getAuthorizationHeader() {

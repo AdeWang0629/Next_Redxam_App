@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
 import api from "@utils/api";
 
 export default function Users() {
@@ -8,7 +9,7 @@ export default function Users() {
     (async () => {
       try {
         const { data } = await api.getAllUsers(
-          sessionStorage.getItem("admin_token") as string
+          getCookie("admin_token") as string
         );
         setUsers(data.data.users);
       } catch (error) {

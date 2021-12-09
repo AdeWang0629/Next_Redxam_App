@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useState, BaseSyntheticEvent, Dispatch, SetStateAction } from "react";
+import { getCookie } from "cookies-next";
 import api from "@utils/api";
 
 interface CreateUserProps {
@@ -76,7 +77,7 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
     api.axios
       .post(`${api.baseURL}/api/v1?query=${query}`, null, {
         headers: {
-          authorization: "Bearer " + sessionStorage.getItem("admin_token"),
+          authorization: "Bearer " + getCookie("admin_token"),
         },
       })
       .then(({ data }) => {

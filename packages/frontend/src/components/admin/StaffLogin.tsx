@@ -6,6 +6,7 @@ import api from "@utils/api";
 import Image from "next/image";
 import Link from "next/link";
 import { AdminContext } from "@providers/Admin";
+import { setCookies } from "cookies-next";
 
 import logo from "@public/logo.svg";
 
@@ -29,7 +30,7 @@ const StaffLogin: NextPage = () => {
     try {
       let { data } = await api.adminLogin(email, password);
 
-      sessionStorage.setItem("admin_token", data.data.adminLogin.token);
+      setCookies("admin_token", data.data.adminLogin.token);
 
       api
         .getAdminDetails(data.data.adminLogin.token)

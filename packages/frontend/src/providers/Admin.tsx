@@ -6,6 +6,7 @@ import {
   SetStateAction,
   ReactNode,
 } from "react";
+import { getCookie } from "cookies-next";
 import api from "@utils/api";
 
 export type Context = {
@@ -33,10 +34,10 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (sessionStorage.getItem("admin_token")) {
+      if (getCookie("admin_token")) {
         setLoading(true);
         api
-          .getAdminDetails(sessionStorage.getItem("admin_token") as string)
+          .getAdminDetails(getCookie("admin_token") as string)
           .then(({ data }) => {
             setNoUser(false);
             setUser(data.data.admin);

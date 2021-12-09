@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { UserContext } from "@providers/User";
+import { setCookies } from "cookies-next";
 import api from "src/utils/api";
 
 const Verify: NextPage = () => {
@@ -16,7 +17,7 @@ const Verify: NextPage = () => {
       .verify(router.query.token as string)
       .then(async ({ data }) => {
         if (data.data.verifyToken.success) {
-          sessionStorage.setItem("token", data.data.verifyToken.token);
+          setCookies("token", data.data.verifyToken.token);
           api.getUserData().then(({ data: data2 }) => {
             setUser(data2.data.user[0]);
             setNoUser(false);

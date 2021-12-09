@@ -1,19 +1,20 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getCookie, setCookies } from "cookies-next";
 import type { NextPage } from "next";
 import { useState, useEffect } from "react";
 
 const EnvironmentsSwitcher: NextPage = () => {
   let [currentEnvironment, setCurrentEnvironment] = useState(
     typeof window !== "undefined"
-      ? sessionStorage.getItem("environment") || "production"
+      ? (getCookie("environment") as string) || "production"
       : "production"
   );
   let [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined")
-      sessionStorage.setItem("environment", currentEnvironment);
+      setCookies("environment", currentEnvironment);
   }, [currentEnvironment]);
 
   return (
