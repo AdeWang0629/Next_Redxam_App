@@ -21,7 +21,9 @@ const Verify: NextPage = () => {
           api.getUserData().then(({ data: data2 }) => {
             setUser(data2.data.user[0]);
             setNoUser(false);
-            router.push("/home");
+            if (data2.data.user[0].accountStatus === "invited") {
+              router.push("/invite");
+            } else router.push("/home");
           });
         } else {
           alert(data.data.verifyToken.message);

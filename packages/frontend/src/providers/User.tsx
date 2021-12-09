@@ -10,7 +10,13 @@ import { getCookie } from "cookies-next";
 import api from "@utils/api";
 
 export type Context = {
-  user: null | { token: string; id: string; email: string; phone: string };
+  user: null | {
+    token: string;
+    id: string;
+    email: string;
+    phone: string;
+    accountStatus: string;
+  };
   setUser: Dispatch<SetStateAction<null>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;

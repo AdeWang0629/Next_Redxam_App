@@ -13,7 +13,7 @@ import Banks from "@components/dashboard/deposits/Banks";
 import BackIcon from "@public/icons/back.svg";
 
 const Deposit: NextPage = () => {
-  const { loading, noUser } = useContext(UserContext);
+  const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
 
   const [activeSection, setActiveSection] = useState("bank");
@@ -25,6 +25,17 @@ const Deposit: NextPage = () => {
   useEffect(() => {
     if (noUser) return router.push("/login");
   }, [noUser]);
+
+  useEffect(() => {
+    if (
+      !noUser &&
+      !loading &&
+      user?.accountStatus &&
+      user?.accountStatus === "invited"
+    ) {
+      router.push("/invite");
+    }
+  }, [user?.accountStatus]);
 
   useEffect(() => {
     (async () => {

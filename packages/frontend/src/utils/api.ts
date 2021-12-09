@@ -70,6 +70,19 @@ class API {
     return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
   }
 
+  invite(code: string) {
+    let mutation = `mutation {
+      changeAccountStatus(arg: "${code}") {
+        success,
+        message
+      }
+    }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
   getUserData() {
     const query = `query {
         user {
@@ -79,6 +92,7 @@ class API {
           contribution
           level
           deposited
+          accountStatus
           withdrawn
           wallet {
             address

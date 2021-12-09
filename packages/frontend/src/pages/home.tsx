@@ -19,6 +19,17 @@ const Home: NextPage = () => {
     if (noUser) return router.push("/login");
   }, [noUser]);
 
+  useEffect(() => {
+    if (
+      !noUser &&
+      !loading &&
+      user?.accountStatus &&
+      user?.accountStatus === "invited"
+    ) {
+      router.push("/invite");
+    }
+  }, [user?.accountStatus]);
+
   if (loading) return <span>loading</span>;
 
   return (
