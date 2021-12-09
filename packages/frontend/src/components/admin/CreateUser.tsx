@@ -95,28 +95,28 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
       <form className="flex flex-col" onSubmit={handleSubmit}>
         <div className="flex flex-row border-b mb-8">
           <button
-            className="flex flex-col items-center justify-center h-16 w-8 p-4 flex-1 transition-all duration-300 rounded-t font-secondary hover:bg-gray-100 disabled:bg-gray-200"
+            className="flex flex-col items-center justify-center h-16 w-8 p-4 flex-1 transition-all duration-300 rounded-t font-secondary font-medium hover:bg-gray-100 disabled:bg-gray-200"
             disabled={activeTab === 0}
             onClick={() => setActiveTab(0)}
           >
             Personal Information
           </button>
           <button
-            className="flex flex-col items-center justify-center h-16 w-8 p-4 flex-1 transition-all duration-300 rounded-t font-secondary hover:bg-gray-100 disabled:bg-gray-200"
+            className="flex flex-col items-center justify-center h-16 w-8 p-4 flex-1 transition-all duration-300 rounded-t font-secondary font-medium hover:bg-gray-100 disabled:bg-gray-200"
             disabled={activeTab === 1}
             onClick={() => setActiveTab(1)}
           >
             Other identities
           </button>
           <button
-            className="flex flex-col items-center justify-center h-16 w-8 p-4 flex-1 transition-all duration-300 rounded-t font-secondary hover:bg-gray-100 disabled:bg-gray-200"
+            className="flex flex-col items-center justify-center h-16 w-8 p-4 flex-1 transition-all duration-300 rounded-t font-secondary font-medium hover:bg-gray-100 disabled:bg-gray-200"
             disabled={activeTab === 2}
             onClick={() => setActiveTab(2)}
           >
             Tax information
           </button>
           <button
-            className="flex flex-col items-center justify-center h-16 w-8 p-4 flex-1 transition-all duration-300 rounded-t font-secondary hover:bg-gray-100 disabled:bg-gray-200"
+            className="flex flex-col items-center justify-center h-16 w-8 p-4 flex-1 transition-all duration-300 rounded-t font-secondary font-medium hover:bg-gray-100 disabled:bg-gray-200"
             disabled={activeTab === 3}
             onClick={() => setActiveTab(3)}
           >

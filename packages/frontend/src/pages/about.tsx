@@ -160,7 +160,7 @@ const About: NextPage = () => {
             companies can grow on their terms.
           </p>
           <Link href="/careers">
-            <a className="bg-buttons-green py-5 px-16 rounded-full font-secondary">
+            <a className="bg-buttons-green py-5 px-16 rounded-full font-secondary font-medium">
               View Job openings
             </a>
           </Link>
@@ -201,7 +201,7 @@ interface TeamMemberProps {
 
 const TeamMember: NextPage<TeamMemberProps> = ({ picture, name, role }) => {
   return (
-    <div className="mb-16 md:mb-0 font-secondary">
+    <div className="mb-16 md:mb-0 font-secondary font-medium">
       <Image
         width="232px"
         height="214px"

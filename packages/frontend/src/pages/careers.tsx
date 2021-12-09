@@ -87,7 +87,7 @@ const Careers: NextPage = () => {
         </p>
 
         <Link href="/careers#jobs" shallow scroll>
-          <a className="bg-buttons-green py-5 px-16 rounded-full font-secondary mb-10">
+          <a className="bg-buttons-green py-5 px-16 rounded-full font-secondary font-medium mb-10">
             View Job Opening
           </a>
         </Link>

@@ -127,7 +127,7 @@ const Calculate: NextPage = () => {
         <h4 className="font-medium font-secondary tracking-[0.3em] uppercase text-[#828282] mb-4">
           You get paid
         </h4>
-        <p className="text-4xl text-[#BDBDBD] tracking-[-0.04em] font-secondary">
+        <p className="text-4xl text-[#BDBDBD] tracking-[-0.04em] font-secondary font-medium">
           <span className="text-5xl font-bold text-darker-primary">
             {`$${Number(total).toFixed(2)}`}
           </span>

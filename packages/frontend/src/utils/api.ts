@@ -129,6 +129,85 @@ class API {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
+
+  getApplicantData() {
+    return this.axios.post(`${this.baseURL}/api/v2/applicantData`, {
+      userToken: this.getToken(),
+    });
+  }
+
+  getSumsubAccessToken() {
+    return this.axios.post(`${this.baseURL}/api/v2/sumsubAccesToken`, {
+      userToken: this.getToken(),
+    });
+  }
+
+  getPlaidToken() {
+    return this.axios.get(`${this.baseURL}/api/v2/plaid`, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  linkPlaidAccount(publicToken: string, metadata: any) {
+    return this.axios.post(
+      `${this.baseURL}/api/v2/plaid`,
+      { public_token: publicToken, metadata },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
+  }
+
+  getBankAccounts() {
+    return this.axios.get(`${this.baseURL}/api/v2/plaid/accounts`, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  getUserDeposits() {
+    const query = `
+      query {
+        userDeposits {
+          type
+          amount
+          index
+          currency
+          timestamp
+          processedByRedxam
+          status
+          hash
+          address
+          bankIcon
+          bankName
+          bankType
+        }
+      }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  deposit(accountId: string, amount: number) {
+    return this.axios.post(
+      `${this.baseURL}/api/v2/plaid/deposit`,
+      {
+        account_id: accountId,
+        amount,
+      },
+      { headers: { ...this.getAuthorizationHeader() } }
+    );
+  }
+
+  deleteBankAccounts(IDs: [string]) {
+    return this.axios.post(
+      `${this.baseURL}/api/v2/plaid/accounts/unlink`,
+      {
+        IDs,
+      },
+      { headers: { ...this.getAuthorizationHeader() } }
+    );
+  }
 }
 
 export default new API();

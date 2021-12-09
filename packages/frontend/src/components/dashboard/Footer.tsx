@@ -21,7 +21,7 @@ const Footer: NextPage = () => {
           height={"17.5px"}
           alt="redxam Animated Logo"
         />
-        <span className="text-palette-gray group-hover:text-buttons-green font-secondary text-xs mt-1.5">
+        <span className="text-palette-gray group-hover:text-buttons-green font-secondary font-medium text-xs mt-1.5">
           redxam
         </span>
       </div>

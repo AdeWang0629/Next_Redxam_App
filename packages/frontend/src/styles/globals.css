@@ -37,3 +37,16 @@ p {
 .blog-image > span > img {
   @apply w-full h-full !important;
 }
+
+#deposit-banks-list::-webkit-scrollbar {
+  @apply w-1 cursor-pointer;
+}
+
+#deposit-banks-list::-webkit-scrollbar-track {
+  background-color: rgba(229, 231, 235, var(--bg-opacity));
+  cursor: pointer;
+}
+
+#deposit-banks-list::-webkit-scrollbar-thumb {
+  @apply bg-card-button cursor-pointer rounded-3xl;
+}

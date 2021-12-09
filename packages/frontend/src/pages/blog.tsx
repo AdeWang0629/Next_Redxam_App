@@ -100,7 +100,7 @@ const BlogPost: NextPage<BlogPostProps> = ({
         href={url}
         target="_blank"
         rel="noreferrer"
-        className="border border-buttons-green font-secondary px-16 text-sm rounded-full py-5 text-buttons-green"
+        className="border border-buttons-green font-secondary font-medium px-16 text-sm rounded-full py-5 text-buttons-green"
       >
         Read more
       </a>

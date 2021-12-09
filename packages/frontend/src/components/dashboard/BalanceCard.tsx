@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Card from "./Card";
 
 // Imgs
@@ -29,9 +30,11 @@ const BalanceCard = () => {
         <span className="text-lighter-black font-medium ml-1.5">$2200.00</span>
       </p>
       <div className="w-full">
-        <button className="w-1/2 font-medium font-secondary text-base underline py-4 border-r border-r-[#EAEAEB]">
-          Deposit
-        </button>
+        <Link href="/deposit">
+          <a className="w-1/2 inline-block text-center font-medium font-secondary text-base underline py-4 border-r border-r-[#EAEAEB]">
+            Deposit
+          </a>
+        </Link>
         <button className="w-1/2 font-medium font-secondary text-base underline py-4">
           Withdraw
         </button>

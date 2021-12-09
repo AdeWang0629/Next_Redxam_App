@@ -85,7 +85,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               </label>
               <input
                 type="text"
-                className="w-full font-secondary rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
+                className="w-full font-secondary font-medium rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder="First name"
               />
@@ -96,7 +96,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               </label>
               <input
                 type="text"
-                className="w-full font-secondary rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
+                className="w-full font-secondary font-medium rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="Last name"
               />
@@ -108,7 +108,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
             </label>
             <input
               type="email"
-              className="w-full font-secondary rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
+              className="w-full font-secondary font-medium rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter email address"
             />

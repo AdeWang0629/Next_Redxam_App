@@ -9,10 +9,12 @@ interface InternalLayoutProps {
 
 const InternalLayout: NextPage<InternalLayoutProps> = ({ children }) => {
   return (
-    <div className="container my-0 mx-auto">
-      <Header />
-      <div>{children}</div>
-      <Footer />
+    <div className="bg-[#fafafa]">
+      <div className="container my-0 mx-auto">
+        <Header />
+        <div className="pb-12">{children}</div>
+        <Footer />
+      </div>
     </div>
   );
 };

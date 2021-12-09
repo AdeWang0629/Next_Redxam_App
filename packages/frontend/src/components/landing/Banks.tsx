@@ -42,10 +42,10 @@ const Bank: NextPage<BankProps> = ({ image, name, rate }) => {
         placeholder={name === "Redxam" ? "empty" : "blur"}
       />
       <div className="flex flex-col items-center">
-        <span className="font-semibold text-2xl leading-7 text-black text-opacity-80 my-4 font-secondary">
+        <span className="font-semibold text-2xl leading-7 text-black text-opacity-80 my-4 font-secondary font-medium">
           {name}
         </span>
-        <span className="font-medium text-4xl leading-10 text-lighter-black tracking-[-0.04em] text-opacity-60 font-secondary">
+        <span className="font-medium text-4xl leading-10 text-lighter-black tracking-[-0.04em] text-opacity-60 font-secondary font-medium">
           {rate}%
         </span>
       </div>

@@ -9,7 +9,7 @@ import {
 import api from "@utils/api";
 
 export type Context = {
-  user: null | { token: string; id: string };
+  user: null | { token: string; id: string; email: string; phone: string };
   setUser: Dispatch<SetStateAction<null>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;

@@ -2453,6 +2453,16 @@
     resolve-from "^5.0.0"
     store2 "^2.12.0"
 
+"@sumsub/websdk-react@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@sumsub/websdk-react/-/websdk-react-1.3.0.tgz#0594d492ba24b623b88ff9bd9d8df10a8eb96885"
+  integrity sha512-zQVCRH05dhsi2SfRXHjbM8UR/LlDaII3HFTnDcCk5zOyy49WmSo0aUkiC613E5R7P/Q3+tLF0HT2BipzNSV9Mw==
+
+"@sumsub/websdk@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@sumsub/websdk/-/websdk-1.3.0.tgz#817df38fe3b8557ba6bff37440a87e9deb58004b"
+  integrity sha512-K+pvwc2Ko7R0pLUQoZQoyuXNXnFdmYT3pCSxec5OlomPJySbHjxh21SQ4954ltBZF46JE0EcVcyxfkUqDYEGaA==
+
 "@types/braces@*":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@types/braces/-/braces-3.0.1.tgz#5a284d193cfc61abb2e5a50d36ebbc50d942a32b"
@@ -9464,6 +9474,14 @@ react-particles-js@^3.6.0:
   dependencies:
     lodash "^4.17.11"
 
+react-plaid-link@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/react-plaid-link/-/react-plaid-link-3.2.1.tgz#b3378aa41858accd59a6702e28bd51e9369cb52c"
+  integrity sha512-GJoqnt28L+JD6Tc62e56Pyfy/RP4CF8b05blvZTFmBxqaPXMsP8a7S/J0wnGVSyN+gAeinSBUa5GPr/dgNHMyw==
+  dependencies:
+    prop-types "^15.7.2"
+    react-script-hook "1.3.0"
+
 react-popper-tooltip@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-popper-tooltip/-/react-popper-tooltip-3.1.1.tgz#329569eb7b287008f04fcbddb6370452ad3f9eac"
@@ -9485,6 +9503,11 @@ react-refresh@0.8.3, react-refresh@^0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
+
+react-script-hook@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-script-hook/-/react-script-hook-1.3.0.tgz#edf2746ea46114fa4c38fdcf796a0ba82e6d53f8"
+  integrity sha512-VlAyqXywHJHpbJgWoWFWSavXumGAyfW2RD4Jd8DyV/G1n5ufngiaUlCHVvmglvJnysfAYzovcjjkEhSVzcVpuQ==
 
 react-sizeme@^3.0.1:
   version "3.0.2"
