@@ -1,6 +1,6 @@
 # Add 'frontend' to any changes within 'packages/frontend/' folder or any subfolders
 "project: frontend": packages/frontend/*
 
-backend: packages/backend/*
+"project: backend": packages/backend/*
 
-github: .github/*
+"project: github": .github/*
