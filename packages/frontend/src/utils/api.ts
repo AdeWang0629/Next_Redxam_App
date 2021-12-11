@@ -92,6 +92,7 @@ class API {
           contribution
           level
           deposited
+          balance
           accountStatus
           withdrawn
           wallet {

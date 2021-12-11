@@ -12,6 +12,7 @@ import RecentActivity from "@components/dashboard/RecentActivity";
 
 const Home: NextPage = () => {
   const { user, loading, noUser } = useContext(UserContext);
+  console.log(user);
   const router = useRouter();
 
   // @ts-ignore
@@ -36,7 +37,7 @@ const Home: NextPage = () => {
     <InternalLayout>
       <div className="max-w-[900px] my-0 mx-auto">
         <div className="flex justify-between items-center  mb-10">
-          <p>Hello, John Doe</p>
+          <p>Hello</p>
           <IconButton buttonText={"Settings"} buttonIcon={settings} />
         </div>
         <div className="grid grid-cols-2 gap-5">
