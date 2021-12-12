@@ -7,7 +7,7 @@ import leafsBg from "@public/images/dashboard/leafs-bg.svg";
 
 const BalanceCard = () => {
   return (
-    <Card width="w-[440px]" height="h-[197px]">
+    <Card width="lg:w-[440px]" height="h-[197px]">
       <div className="absolute right-2.5 top-[-55px]">
         <Image
           src={leafsBg}

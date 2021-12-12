@@ -6,6 +6,9 @@ interface CardProps {
   height?: string;
   py?: string;
   px?: string;
+  m?: string;
+  my?: string;
+  mx?: string;
   p?: string;
   otherClasses?: string;
   children?: ReactNode;
@@ -17,12 +20,15 @@ const Card: NextPage<CardProps> = ({
   py = "",
   px = "",
   p = "",
-  otherClasses = "",
+  my = "",
+  mx = "",
+  m = "",
   children,
+  otherClasses = "",
 }) => {
   return (
     <div
-      className={`shadow-card rounded-[25px] relative overflow-hidden ${width} ${height} ${p} ${py} ${px} ${otherClasses}`}
+      className={`shadow-card rounded-[25px] relative overflow-hidden ${width} ${height} ${p} ${py} ${px} ${my} ${mx} ${m} ${otherClasses}`}
     >
       {children}
     </div>

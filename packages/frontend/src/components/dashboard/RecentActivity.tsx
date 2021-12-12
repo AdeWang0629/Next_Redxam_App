@@ -5,7 +5,7 @@ import bankImg from "@public/images/dashboard/bank.svg";
 
 const RecentActivity = () => {
   return (
-    <Card width="w-[440px]">
+    <Card width="lg:w-[440px]">
       <div className="flex justify-between items-center py-4 px-7">
         <p className="font-secondary text-lg font-medium text-lighter-black">
           Recent Activity
