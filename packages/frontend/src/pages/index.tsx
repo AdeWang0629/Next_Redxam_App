@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Script from "next/script";
 import Particles from "react-particles-js";
 import Navbar from "@components/global/Navbar";
 import Hero from "@components/landing/Hero";
@@ -59,6 +60,17 @@ const Home: NextPage = () => {
       <FAQ />
       <Newsletter />
       <Footer />
+      <Script id="tawk">
+        {`var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+          (function(){
+          var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+          s1.async=true;
+          s1.src='https://embed.tawk.to/61b7abd780b2296cfdd182fe/1fmqnegga';
+          s1.charset='UTF-8';
+          s1.setAttribute('crossorigin','*');
+          s0.parentNode.insertBefore(s1,s0);
+          })();`}
+      </Script>
     </>
   );
 };
