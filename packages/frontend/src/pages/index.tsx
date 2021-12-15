@@ -16,12 +16,12 @@ import Footer from "@components/global/Footer";
 const Home: NextPage = () => {
   return (
     <>
-      <Navbar />
-      {/* <Particles
+      <Navbar title="Your Personal Crypto Investment Assistant" />
+      <Particles
         params={{
           particles: {
             number: {
-              value: 12,
+              value: 8,
             },
             color: {
               value: ["#219653", "#CA7795", "#A0DDFF", "#ACE96B"],
@@ -42,14 +42,14 @@ const Home: NextPage = () => {
           },
         }}
         style={{
-          zIndex: 0,
-          position: "absolute",
+          zIndex: -100,
+          position: "fixed",
           top: 0,
           left: 0,
           height: "100%",
           width: "100%",
         }}
-      /> */}
+      />
       <Hero />
       <WhyUs />
       <Starting />

@@ -21,12 +21,10 @@ import InvestorsImage8 from "@public/images/about/investors8.svg";
 import InvestorsImage9 from "@public/images/about/investors9.svg";
 import InvestorsImage10 from "@public/images/about/investors10.svg";
 
-import MaxProfileImage from "@public/images/about/max.png";
-import OurTeamImage2 from "@public/images/about/ourteam2.png";
-import OurTeamImage3 from "@public/images/about/ourteam3.png";
-import OurTeamImage4 from "@public/images/about/ourteam4.png";
-import OurTeamImage5 from "@public/images/about/ourteam5.png";
-import OurTeamImage6 from "@public/images/about/ourteam6.png";
+import MaxProfileImage from "@public/images/about/max.jpg";
+import PruselaProfileImage from "@public/images/about/prusela.jpg";
+import AlexProfileImage from "@public/images/about/alex.jpg";
+import JhosephProfileImage from "@public/images/about/jhoseph.jpg";
 
 import WorkWithUsImage1 from "@public/images/about/workwithus1.png";
 import WorkWithUsImage2 from "@public/images/about/workwithus2.png";
@@ -35,15 +33,21 @@ import Switcher from "@components/global/Switcher";
 const About: NextPage = () => {
   const teamMembers = [
     { name: "Max Awad", picture: MaxProfileImage, role: "CEO, Co-Founder" },
-    { name: "Florencia Perez", picture: OurTeamImage2, role: "Marketing" },
     {
-      name: "Gabriela Gonzalez",
-      picture: OurTeamImage3,
-      role: "Head of People",
+      name: "Prusela Bhowmick",
+      picture: PruselaProfileImage,
+      role: "Marketing",
     },
-    { name: "Alex", picture: OurTeamImage4, role: "Lead Developer" },
-    { name: "Youssef Morsi", picture: OurTeamImage5, role: "Product Owner" },
-    { name: "Marvis", picture: OurTeamImage6, role: "UX Designer" },
+    {
+      name: "Alex Gonzalez",
+      picture: AlexProfileImage,
+      role: "Engineering",
+    },
+    {
+      name: "Jhoseph Guerrero",
+      picture: JhosephProfileImage,
+      role: "Engineering",
+    },
   ];
 
   return (
@@ -52,7 +56,7 @@ const About: NextPage = () => {
         className="bg-no-repeat bg-cover min-h-screen"
         style={{ backgroundImage: "url(/images/about/hero-bg.png)" }}
       >
-        <Navbar transparentBackground />
+        <Navbar transparentBackground title="About Us" />
         <Switcher activePage="about" />
         <div className="flex flex-col items-center justify-center max-w-7xl mx-auto h-full px-4 md:px-0 mt-8">
           <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-white mt-20 text-center md:w-3/5">
@@ -208,6 +212,8 @@ const TeamMember: NextPage<TeamMemberProps> = ({ picture, name, role }) => {
         className="rounded-2xl"
         src={picture}
         alt={name}
+        objectPosition="center"
+        objectFit="cover"
         placeholder="blur"
       />
       <h5 className="my-1 text-2xl text-black">{name}</h5>

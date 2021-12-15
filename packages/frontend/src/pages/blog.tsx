@@ -21,7 +21,7 @@ const Blog: NextPage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar title="Blog" />
       <Switcher activePage="blog" />
       <section className="flex flex-col items-center justify-center max-w-7xl mx-auto h-full px-4 md:px-0 mb-8">
         <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-lighter-black mt-16 leading-[1.2] text-center w-full md:max-w-[62.5rem]">
