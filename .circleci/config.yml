@@ -1,16 +1,10 @@
 version: 2.1
-orbs:
-  node: circleci/node@5.0.0
-# Define the jobs we want to run for this project
 jobs:
   pull-and-build:
     docker:
-      - image: "cimg/base:stable"
+      - image: cimg/node:17.3.0
     steps:
       - checkout
-      - node/install:
-          install-yarn: true
-          node-version: "16.13"
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy.sh"
 
 # Orchestrate our job run sequence
