@@ -17,4 +17,5 @@ workflows:
             branches:
               only:
                 - main
-                - circleci
+                - staging
+                - develop
