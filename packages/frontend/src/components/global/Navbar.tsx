@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import WaitlistModel from "@components/models/WaitlistModel";
@@ -24,6 +24,10 @@ const Navbar: NextPage<NavbarProps> = ({
   const [scrollTop, setScrollTop] = useState(0);
   const [waitlistModelOpened, setWaitlistModelOpened] = useState(false);
   const [loginModelOpened, setLoginModelOpened] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState(
+    (typeof window !== "undefined" && localStorage.getItem("theme")) || "light"
+  );
+  const [icon, setIcon] = useState(currentTheme === "dark" ? faSun : faMoon);
 
   useEffect(() => {
     // @ts-ignore
@@ -36,6 +40,22 @@ const Navbar: NextPage<NavbarProps> = ({
 
     return () => window.removeEventListener("scroll", onScroll);
   }, [scrollTop]);
+
+  const toggleTheme = () => {
+    if (!currentTheme || currentTheme === "light") {
+      localStorage.setItem("theme", "dark");
+      setCurrentTheme("dark");
+      document.body.classList.add("dark");
+    } else {
+      localStorage.setItem("theme", "light");
+      setCurrentTheme("light");
+      document.body.classList.remove("dark");
+    }
+  };
+
+  useEffect(() => {
+    setIcon(currentTheme === "dark" ? faSun : faMoon);
+  }, [currentTheme]);
 
   return (
     <>
@@ -138,9 +158,12 @@ const Navbar: NextPage<NavbarProps> = ({
             >
               Join Waitlist!
             </button>
-            <button className="flex items-center justify-center md:ml-[50px] order-first md:order-none mt-[25px] md:mt-0">
+            <button
+              className="flex items-center justify-center md:ml-[50px] order-first md:order-none mt-[25px] md:mt-0"
+              onClick={toggleTheme}
+            >
               <FontAwesomeIcon
-                icon={faMoon}
+                icon={icon}
                 className={`${
                   transparentBackground && scrollTop <= 0 && !navMobile
                     ? "text-white"

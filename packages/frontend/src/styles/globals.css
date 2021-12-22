@@ -16,6 +16,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body.dark {
+  @apply bg-gray-800;
+}
+
 h1,
 h2,
 h3,

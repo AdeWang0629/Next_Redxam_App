@@ -71,17 +71,17 @@ export const Admin = () => {
       <div style={{ flex: 7 }} className="px-6 py-8">
         <div className="flex items-center">
           <div className="flex-1 ml-4">
-            <h1 className="text-2xl">
+            <h1 className="text-2xl dark:text-white">
               {activeSection[0].toUpperCase() +
                 activeSection.replace(/\_/gm, " ").slice(1)}
             </h1>
           </div>
           <div className="flex-1 flex items-center justify-end">
-            <div className="flex-1 flex justify-end pr-4 border-r border-black border-opacity-30 ">
+            <div className="flex-1 flex justify-end pr-4 border-r border-black border-opacity-30 dark:text-white dark:border-white">
               <FontAwesomeIcon icon={faSearch} />
               <FontAwesomeIcon icon={faBell} className="ml-2" />
             </div>
-            <div className="flex items-center px-4">
+            <div className="flex items-center px-4 dark:text-white">
               <span>{user.email}</span>
             </div>
           </div>
