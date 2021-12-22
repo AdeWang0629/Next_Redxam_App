@@ -51,28 +51,28 @@ const Careers: NextPage = () => {
     {
       title: "Product Designers",
       content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi necessitatibus excepturi, optio laudantium ab tempora ipsa. Harum dolores molestiae nam doloremque atque fuga reiciendis, neque suscipit, officiis perferendis cumque ducimus?",
+        "We are looking for a passionate designer that can take on complex problems and into simple and engaging experiences. Does this sounds like someone you know?",
     },
     {
       title: "Front end developer",
       content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi necessitatibus excepturi, optio laudantium ab tempora ipsa. Harum dolores molestiae nam doloremque atque fuga reiciendis, neque suscipit, officiis perferendis cumque ducimus?",
+        "We’re looking for an experienced front end web developer with strong js expertise who strives to do high-quality work and thrives on collaboration and working as part of a team. Does this sounds like someone you know?",
     },
     {
       title: "Back end developer",
       content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi necessitatibus excepturi, optio laudantium ab tempora ipsa. Harum dolores molestiae nam doloremque atque fuga reiciendis, neque suscipit, officiis perferendis cumque ducimus?",
+        "Have several years of practical experience building production-grade backend applications in Node.js. Does this sounds like someone you know?",
     },
     {
-      title: "Graphics guy",
+      title: "Community Manager",
       content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi necessitatibus excepturi, optio laudantium ab tempora ipsa. Harum dolores molestiae nam doloremque atque fuga reiciendis, neque suscipit, officiis perferendis cumque ducimus?",
+        "Savvy with social trends, an exceptional writer with a creative mind and bring a knack for building relationships online—and offline. Does this sounds like someone you know?",
     },
   ];
 
   return (
     <>
-      <Navbar />
+      <Navbar title="Careers" />
       <Switcher activePage="careers" />
       <section className="flex flex-col items-center justify-center max-w-7xl mx-auto h-full px-4 md:px-0 mb-8">
         <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-lighter-black mt-16 leading-[1.2] text-center w-full md:max-w-[62.5rem]">
@@ -87,7 +87,7 @@ const Careers: NextPage = () => {
         </p>
 
         <Link href="/careers#jobs" shallow scroll>
-          <a className="bg-buttons-green py-5 px-16 rounded-full font-secondary mb-10">
+          <a className="bg-buttons-green py-5 px-16 rounded-full font-secondary font-medium mb-10">
             View Job Opening
           </a>
         </Link>
@@ -106,6 +106,7 @@ const Careers: NextPage = () => {
             src={HeroImage1}
             alt=""
             className="object-cover w-full h-full"
+            placeholder="blur"
           />
         </div>
         <div className="col-span-3 md:col-span-2 h-full w-full flex careers-image">
@@ -113,10 +114,21 @@ const Careers: NextPage = () => {
             src={HeroImage2}
             alt=""
             className="object-cover w-full h-full"
+            placeholder="blur"
           />
         </div>
-        <Image src={HeroImage3} alt="" className="object-cover w-full h-full" />
-        <Image src={HeroImage4} alt="" className="object-cover w-full h-full" />
+        <Image
+          src={HeroImage3}
+          alt=""
+          className="object-cover w-full h-full"
+          placeholder="blur"
+        />
+        <Image
+          src={HeroImage4}
+          alt=""
+          className="object-cover w-full h-full"
+          placeholder="blur"
+        />
       </section>
       <section
         className="pt-48 pb-72 flex flex-col md:flex-row justify-center items-start max-w-7xl mx-auto px-4 md:px-0"
@@ -230,7 +242,7 @@ const Careers: NextPage = () => {
                 />
               </div>
               <p
-                className={`leading-[1.8] font-primary text-black text-opacity-80 pt-7 ${
+                className={`leading-[1.8] font-primary text-black text-opacity-40 pt-2 ${
                   activeJob === idx ? "animate-fade-in-down" : "hidden"
                 }`}
               >

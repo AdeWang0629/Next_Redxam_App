@@ -34,6 +34,7 @@ const Starting: NextPage = () => {
             layout="fixed"
             width="323px"
             height="628px"
+            placeholder="blur"
           />
         </div>
         <div className="flex flex-col flex-1">
@@ -53,7 +54,9 @@ const Starting: NextPage = () => {
                   : "hover:bg-darker-primary text-darker-primary hover:text-white"
               } flex items-center justify-center ml-11 mr-12 text-opacity-80`}
             >
-              <span className="text-4xl text-center font-secondary">1</span>
+              <span className="text-4xl text-center font-secondary font-medium">
+                1
+              </span>
             </div>
             <div>
               <h3 className="mb-1.5 text-2xl md:text-3xl text-black text-opacity-80">
@@ -80,7 +83,9 @@ const Starting: NextPage = () => {
                   : "hover:bg-darker-primary text-darker-primary hover:text-white"
               } flex items-center justify-center ml-11 mr-12 text-opacity-80`}
             >
-              <span className="text-4xl text-center font-secondary">2</span>
+              <span className="text-4xl text-center font-secondary font-medium">
+                2
+              </span>
             </div>
             <div>
               <h3 className="mb-1.5 text-2xl md:text-3xl text-black text-opacity-80">
@@ -108,7 +113,9 @@ const Starting: NextPage = () => {
                   : "hover:bg-darker-primary text-darker-primary hover:text-white"
               } flex items-center justify-center ml-11 mr-12 text-opacity-80`}
             >
-              <span className="text-4xl text-center font-secondary">3</span>
+              <span className="text-4xl text-center font-secondary font-medium">
+                3
+              </span>
             </div>
             <div>
               <h3 className="mb-1.5 text-2xl md:text-3xl text-black text-opacity-80">

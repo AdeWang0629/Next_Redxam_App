@@ -21,19 +21,19 @@ const Plan: NextPage = () => {
               Passive
             </span>
             <ul className="list-none">
-              <li className="mb-6 font-secondary tracking-[-0.531474px] text-[#696871]">
+              <li className="mb-6 font-secondary font-medium tracking-[-0.531474px] text-[#696871]">
                 USDC -{" "}
                 <span className="font-bold leading-[-0.02em] text-lighter-black">
                   33%
                 </span>
               </li>
-              <li className="mb-6 font-secondary tracking-[-0.531474px] text-[#696871]">
+              <li className="mb-6 font-secondary font-medium tracking-[-0.531474px] text-[#696871]">
                 USDT -{" "}
                 <span className="font-bold leading-[-0.02em] text-lighter-black">
                   33%
                 </span>
               </li>
-              <li className="mb-6 font-secondary tracking-[-0.531474px] text-[#696871]">
+              <li className="mb-6 font-secondary font-medium tracking-[-0.531474px] text-[#696871]">
                 DAI -{" "}
                 <span className="font-bold leading-[-0.02em] text-lighter-black">
                   33%

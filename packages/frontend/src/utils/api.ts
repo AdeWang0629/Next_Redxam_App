@@ -1,19 +1,33 @@
 import axios, { AxiosInstance } from "axios";
+import { getCookie } from "cookies-next";
 
 class API {
-  private baseURL: string;
-  private token: string | null;
-  private axios: AxiosInstance;
+  axios: AxiosInstance;
 
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_PROD_BASE_URL as string;
-    this.token =
-      typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
+    this.axios = axios.create();
+  }
 
-    this.axios = axios.create({
-      baseURL: this.baseURL,
-      headers: this.token ? { Authorization: `Bearer ${this.token}` } : {},
-    });
+  get baseURL() {
+    return (typeof window !== "undefined" &&
+    getCookie("environment") &&
+    getCookie("environment") === "development"
+      ? process.env.NEXT_PUBLIC_DEV_BASE_URL
+      : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string;
+  }
+
+  getToken() {
+    return typeof window !== "undefined" ? getCookie("token") : null;
+  }
+
+  getAuthorizationHeader() {
+    return (this.getToken()
+      ? { Authorization: `Bearer ${this.getToken()}` }
+      : {}) as
+      | {
+          Authorization: string;
+        }
+      | {};
   }
 
   createWaitlist(email: string, firstName?: string, lastName?: string) {
@@ -28,7 +42,7 @@ class API {
         }
     }`;
 
-    return this.axios.post(`/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
   }
 
   login(email: string) {
@@ -41,7 +55,171 @@ class API {
           }
         }`;
 
-    return this.axios.post(`/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+  }
+
+  verify(token: string) {
+    let mutation = `mutation {
+        verifyToken(arg: {token: "${token}"}) {
+            message
+            success
+            token
+        }
+      }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+  }
+
+  invite(code: string) {
+    let mutation = `mutation {
+      changeAccountStatus(arg: "${code}") {
+        success,
+        message
+      }
+    }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  getUserData() {
+    const query = `query {
+        user {
+          firstName
+          email
+          phone
+          contribution
+          level
+          deposited
+          accountStatus
+          withdrawn
+          wallet {
+            address
+          }
+        }
+      }
+    `;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  getAdminDetails(token: string) {
+    const query = `query { admin { email } }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  adminLogin(email: string, password: string) {
+    const query = `query { adminLogin { token } }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, {
+      email,
+      password,
+    });
+  }
+
+  getAllUsers(token: string) {
+    const query = `
+      query FetchUsers {
+        users {
+          ... {
+            _id
+            email
+            firstName
+            lastName
+            accountStatus
+          }
+        }
+      }
+    `;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  getApplicantData() {
+    return this.axios.post(`${this.baseURL}/api/v2/applicantData`, {
+      userToken: this.getToken(),
+    });
+  }
+
+  getSumsubAccessToken() {
+    return this.axios.post(`${this.baseURL}/api/v2/sumsubAccesToken`, {
+      userToken: this.getToken(),
+    });
+  }
+
+  getPlaidToken() {
+    return this.axios.get(`${this.baseURL}/api/v2/plaid`, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  linkPlaidAccount(publicToken: string, metadata: any) {
+    return this.axios.post(
+      `${this.baseURL}/api/v2/plaid`,
+      { public_token: publicToken, metadata },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
+  }
+
+  getBankAccounts() {
+    return this.axios.get(`${this.baseURL}/api/v2/plaid/accounts`, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  getUserDeposits() {
+    const query = `
+      query {
+        userDeposits {
+          type
+          amount
+          index
+          currency
+          timestamp
+          processedByRedxam
+          status
+          hash
+          address
+          bankIcon
+          bankName
+          bankType
+        }
+      }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  deposit(accountId: string, amount: number) {
+    return this.axios.post(
+      `${this.baseURL}/api/v2/plaid/deposit`,
+      {
+        account_id: accountId,
+        amount,
+      },
+      { headers: { ...this.getAuthorizationHeader() } }
+    );
+  }
+
+  deleteBankAccounts(IDs: [string]) {
+    return this.axios.post(
+      `${this.baseURL}/api/v2/plaid/accounts/unlink`,
+      {
+        IDs,
+      },
+      { headers: { ...this.getAuthorizationHeader() } }
+    );
   }
 }
 

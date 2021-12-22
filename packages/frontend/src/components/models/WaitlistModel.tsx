@@ -78,43 +78,40 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
         </p>
 
         <form className="flex flex-col" onSubmit={handleSubmit}>
-          <div className="flex flex-col md:flex-row mt-5 md:mt-2">
-            <div className="flex flex-col items-center md:mr-2">
-              <label className="font-primary text-xs leading-4 tracking-[-0.02em] text-darker-primary mb-1">
-                First name
-              </label>
+          <div className="flex flex-col md:flex-row mt-5">
+            <div className="md:mr-2 input-wrapper">
+              <label className="font-primary">First name</label>
               <input
                 type="text"
-                className="w-full font-secondary rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
+                className="font-secondary"
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder="First name"
+                value={firstName}
               />
             </div>
-            <div className="flex flex-col items-center md:ml-2 mt-5 md:mt-0">
-              <label className="font-primary text-xs leading-4 tracking-[-0.02em] text-darker-primary mb-1">
-                Last name
-              </label>
+            <div className="md:ml-2 mt-5 md:mt-0 input-wrapper">
+              <label className="font-primary">Last name</label>
               <input
                 type="text"
-                className="w-full font-secondary rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
+                className="font-secondary"
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="Last name"
+                value={lastName}
               />
             </div>
           </div>
-          <div className="flex flex-col items-center mt-5">
-            <label className="font-primary text-xs leading-4 tracking-[-0.02em] text-darker-primary mb-1">
-              Email address
-            </label>
+          <div className="mt-5 input-wrapper w-full">
+            <label className="font-primary">Email address</label>
             <input
               type="email"
-              className="w-full font-secondary rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
+              className="font-secondary w-full"
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter email address"
+              value={email}
             />
           </div>
           <button
-            className="text-white font-primary font-medium text-lg leading-[20px] tracking-[-0.02em] bg-[#27AE60] rounded-[30px] mt-8 py-4 px-8 outline-none cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="text-lighter-black font-primary font-medium text-lg leading-[20px] tracking-[-0.02em] bg-buttons-green rounded-[30px] mt-8 py-4 px-8 outline-none cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
             disabled={loading}
           >
             Join the Waitlist

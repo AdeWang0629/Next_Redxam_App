@@ -21,7 +21,7 @@ const Blog: NextPage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar title="Blog" />
       <Switcher activePage="blog" />
       <section className="flex flex-col items-center justify-center max-w-7xl mx-auto h-full px-4 md:px-0 mb-8">
         <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-lighter-black mt-16 leading-[1.2] text-center w-full md:max-w-[62.5rem]">
@@ -80,7 +80,12 @@ const BlogPost: NextPage<BlogPostProps> = ({
   return (
     <div className="text-center md:text-left mb-28 md:mb-0">
       <div className="my-0 mx-auto md:mx-0 w-full blog-image">
-        <Image src={image} alt="" className="w-full object-cover" />
+        <Image
+          src={image}
+          alt=""
+          className="w-full object-cover"
+          placeholder="blur"
+        />
       </div>
       <h4 className="mt-8 mb-2.5 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
         {date}
@@ -95,7 +100,7 @@ const BlogPost: NextPage<BlogPostProps> = ({
         href={url}
         target="_blank"
         rel="noreferrer"
-        className="border border-buttons-green font-secondary px-16 text-sm rounded-full py-5 text-buttons-green"
+        className="border border-buttons-green font-secondary font-medium px-16 text-sm rounded-full py-5 text-buttons-green"
       >
         Read more
       </a>

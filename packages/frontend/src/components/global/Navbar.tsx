@@ -5,15 +5,20 @@ import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import WaitlistModel from "@components/models/WaitlistModel";
+import Head from "next/head";
 
 import Logo from "@public/logo.svg";
 import LoginModel from "@components/models/LoginModel";
 
 interface NavbarProps {
   transparentBackground?: boolean;
+  title?: string;
 }
 
-const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
+const Navbar: NextPage<NavbarProps> = ({
+  transparentBackground = false,
+  title,
+}) => {
   let [navMobile, setNavMobile] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
@@ -34,6 +39,9 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
 
   return (
     <>
+      <Head>
+        <title>redxam{title ? " | " + title : ""}</title>
+      </Head>
       <nav
         className={`py-6 z-10 ${
           transparentBackground && scrollTop <= 0 && !navMobile
@@ -48,8 +56,13 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
           <div className="flex items-center justify-between flex-1 w-full px-8 md:px-0">
             <div className="flex items-center md:flex-1">
               <Link href="/">
-                <>
-                  <Image src={Logo} alt="redxam logo" />
+                <a className="flex items-center cursor-pointer">
+                  <Image
+                    src={Logo}
+                    alt="redxam logo"
+                    width="36px"
+                    height="32px"
+                  />
                   <h2
                     className={`ml-4 font-medium text-2xl  ${
                       transparentBackground && scrollTop <= 0 && !navMobile
@@ -59,7 +72,7 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
                   >
                     redxam
                   </h2>
-                </>
+                </a>
               </Link>
             </div>
             <div className="md:hidden md:flex-1 flex relative justify-center items-center w-5 h-5 cursor-pointer transition-all duration-500 ease-in-out">
