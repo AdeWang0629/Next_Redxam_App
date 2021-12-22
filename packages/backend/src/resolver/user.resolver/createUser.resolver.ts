@@ -1,7 +1,7 @@
 import { messages } from '@/config/messages';
 import { User } from '@/database';
 import { SimpleWallet } from '@/database/types';
-import { transporter } from '@/service/emailService';
+import sendGrid from 'apis/sendgrid/index';
 import { generateWallet } from '@/service/wallets';
 import { Request } from 'express';
 import { readFileSync } from 'fs';
@@ -18,32 +18,37 @@ const templateData = readFileSync(templatePath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  path: resolve(__dirname, '../../emails/facebook.png'),
-  cid: 'facebook@waitlist',
+  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString('base64'),
+  content_id: 'facebook@waitlist',
+  disposition: 'inline',
 });
 
 const twitterIcon: Readonly<Attachment> = Object.freeze({
   filename: 'twitter.png',
-  path: resolve(__dirname, '../../emails/twitter.png'),
-  cid: 'twitter@waitlist',
+  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString('base64'),
+  content_id: 'twitter@waitlist',
+  disposition: 'inline',
 });
 
 const linkedInIcon: Readonly<Attachment> = Object.freeze({
   filename: 'linkedin.png',
-  path: resolve(__dirname, '../../emails/linkedin.png'),
-  cid: 'linkedin@waitlist',
+  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString('base64'),
+  content_id: 'linkedin@waitlist',
+  disposition: 'inline',
 });
 
 const telegramIcon: Readonly<Attachment> = Object.freeze({
   filename: 'telegram.png',
-  path: resolve(__dirname, '../../emails/telegram.png'),
-  cid: 'telegram@waitlist',
+  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString('base64'),
+  content_id: 'telegram@waitlist',
+  disposition: 'inline',
 });
 
 const discordIcon: Readonly<Attachment> = Object.freeze({
   filename: 'discord.png',
-  path: resolve(__dirname, '../../emails/discord.png'),
-  cid: 'discord@waitlist',
+  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString('base64'),
+  content_id: 'discord@waitlist',
+  disposition: 'inline',
 });
 
 const checkUserExists = async (user: NewUser) => {
@@ -71,7 +76,7 @@ const sendMail = async (email: string, lastOrder: number) => {
     randomText: `Ref #: ${Date.now()}`,
   });
 
-  await transporter.sendMail({
+  await sendGrid.sendMail({
     from: `redxam.com <${SERVICE_EMAIL}>`,
     to: email,
     subject: 'You Join The Waitlist | redxam',

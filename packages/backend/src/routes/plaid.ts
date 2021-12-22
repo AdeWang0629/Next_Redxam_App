@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 import { render } from 'mustache';
 import { Attachment } from 'nodemailer/lib/mailer';
 import { resolve } from 'path';
-import { transporter } from '@/service/emailService';
+import sendGrid from '@/apis/sendgrid';
 import { plaidClient } from '@/apis/plaid';
 import { stripeInstance } from '@/apis/stripe';
 import { AccountSubtype, CountryCode, LinkTokenCreateRequest, Products } from 'plaid';
@@ -241,7 +241,7 @@ router.post('/deposit', async (req, res) => {
       bankIcon: usedAccount.logo,
     });
 
-    await transporter.sendMail({
+    await sendGrid.sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
       to: user.email,
       subject: ' Your deposit on it’s way 💸 | redxam',
@@ -249,7 +249,7 @@ router.post('/deposit', async (req, res) => {
       attachments: [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon],
     });
 
-    await transporter.sendMail({
+    await sendGrid.sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
       to: user.email,
       subject: ' Your deposit on it’s way 💸 | redxam',
