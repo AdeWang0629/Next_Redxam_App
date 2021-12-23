@@ -69,7 +69,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
       ref={outsideContainerRef}
       onClick={handleOutsideClick}
     >
-      <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 md:w-1/4 px-6 py-12">
+      <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 md:w-1/4 px-6 py-12" id="waitlist-model">
         <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
           Join the Waitlist
         </h3>
@@ -86,6 +86,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
                 className="font-secondary"
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder="First name"
+                id="firstName"
                 value={firstName}
               />
             </div>
@@ -96,6 +97,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
                 className="font-secondary"
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="Last name"
+                id="lastName"
                 value={lastName}
               />
             </div>
@@ -107,12 +109,14 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               className="font-secondary w-full"
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter email address"
+              id="email"
               value={email}
             />
           </div>
           <button
             className="text-lighter-black font-primary font-medium text-lg leading-[20px] tracking-[-0.02em] bg-buttons-green rounded-[30px] mt-8 py-4 px-8 outline-none cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
             disabled={loading}
+            id="join-waiting-button"
           >
             Join the Waitlist
           </button>

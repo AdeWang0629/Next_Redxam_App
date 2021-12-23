@@ -29,6 +29,7 @@ const Hero: NextComponentType = () => {
         <button
           className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green"
           onClick={() => setWaitlistModelOpened(true)}
+          id="join-waiting"
         >
           Join the Waitlist
         </button>
