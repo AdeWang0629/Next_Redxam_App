@@ -69,7 +69,7 @@ p {
   position: absolute;
   z-index: 2;
   left: 20px;
-  top: 14px;
+  top: 12px;
   padding: 0 2px;
   pointer-events: none;
   background: white;
@@ -98,5 +98,5 @@ p {
 
 .input-wrapper input:focus + label {
   color: #27ae60;
-  transform: translateY(-20px);
+  transform: translateY(-18px);
 }
