@@ -1,7 +1,8 @@
 import { messages } from '@/config/messages';
 import { User } from '@/database';
 import { SimpleWallet } from '@/database/types';
-import sendGrid from 'apis/sendgrid/index';
+import sendGrid from '@/apis/sendgrid/index';
+
 import { generateWallet } from '@/service/wallets';
 import { Request } from 'express';
 import { readFileSync } from 'fs';

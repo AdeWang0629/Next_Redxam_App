@@ -2,7 +2,8 @@ import { JWT } from '@/config/jwt';
 import { messages } from '@/config/messages';
 import { verify } from '@/config/twlio';
 import { ManualUser, ManualUserProps } from '@/database';
-import sendGrid from 'apis/sendgrid/index';
+import sendGrid from '@/apis/sendgrid/index';
+
 import { Request } from 'express';
 import { Argument } from '../types';
 

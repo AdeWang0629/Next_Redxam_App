@@ -3,7 +3,8 @@ import '@/database';
 
 import { connection } from 'mongoose';
 import { Attachment } from 'nodemailer/lib/mailer';
-import sendGrid from 'apis/sendgrid/index';
+import sendGrid from '@/apis/sendgrid/index';
+
 import { resolve } from 'path';
 import { render } from 'mustache';
 import { readFileSync } from 'fs';

@@ -4,7 +4,8 @@ import { generateWallet } from '@/service/wallets';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { render } from 'mustache';
-import sendGrid from 'apis/sendgrid/index';
+import sendGrid from '@/apis/sendgrid/index';
+
 import { Attachment } from 'nodemailer/lib/mailer';
 import { SimpleWallet } from '@/database/types';
 import { messages } from '@/config/messages';
