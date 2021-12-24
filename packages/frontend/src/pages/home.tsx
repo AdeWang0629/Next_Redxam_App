@@ -20,12 +20,7 @@ const Home: NextPage = () => {
   }, [noUser]);
 
   useEffect(() => {
-    if (
-      !noUser &&
-      !loading &&
-      user?.accountStatus &&
-      user?.accountStatus === "invited"
-    ) {
+    if (!noUser && !loading && user?.accountStatus && user?.accountStatus === "invited") {
       router.push("/invite");
     }
   }, [user?.accountStatus]);
@@ -36,7 +31,7 @@ const Home: NextPage = () => {
     <InternalLayout>
       <div className="px-3 lg:px-0 max-w-[900px] my-0 mx-auto">
         <div className="flex justify-between items-center mb-10">
-          <p>Hello, John Doe</p>
+          <p>Hello</p>
           <IconButton buttonText={"Settings"} buttonIcon={settings} />
         </div>
         <div className="lg:grid lg:grid-cols-2 lg:gap-5">
