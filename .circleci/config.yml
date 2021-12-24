@@ -1,12 +1,22 @@
 version: 2.1
 jobs:
-  pull-and-build:
+  pull-and-build-main:
     docker:
       - image: cimg/node:17.3.0
     steps:
       - checkout
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy.sh"
+  pull-and-build-staging:
+    docker:
+      - image: cimg/node:17.3.0
+    steps:
+      - checkout
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP_STAGING "./deploy.sh"
+  pull-and-build-develop:
+    docker:
+      - image: cimg/node:17.3.0
+    steps:
+      - checkout
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP_DEVELOP "./deploy.sh"
 
 # Orchestrate our job run sequence
@@ -14,10 +24,18 @@ workflows:
   version: 2
   build-project:
     jobs:
-      - pull-and-build:
+      - pull-and-build-main:
           filters:
             branches:
               only:
                 - main
+      - pull-and-build-staging:
+          filters:
+            branches:
+              only:
                 - staging
+      - pull-and-build-develop:
+          filters:
+            branches:
+              only:
                 - develop
