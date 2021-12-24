@@ -51,7 +51,7 @@ const StaffLogin: NextPage = () => {
       <div className="flex items-center justify-center h-44">
         <Image src={logo} />
       </div>
-      <div className="border border-gray-300 rounded-2xl max-w-2xl mx-auto flex flex-col py-8 px-8">
+      <div className="border border-gray-300 rounded-2xl max-w-2xl mx-auto flex flex-col py-8 px-8 dark:text-white">
         <h1 className="text-3xl text-center mt-2">Admin Login</h1>
         {error && (
           <span
@@ -59,7 +59,7 @@ const StaffLogin: NextPage = () => {
               backgroundColor: "rgba(255,0,0,0.2)",
               borderLeft: "2px solid red",
             }}
-            className="mt-12 flex items-center justify-between text-lg text-black py-4 px-6 rounded-lg"
+            className="mt-12 flex items-center justify-between text-lg text-black dark:text-white py-4 px-6 rounded-lg"
           >
             <span>{error}</span>
             <button
@@ -75,7 +75,7 @@ const StaffLogin: NextPage = () => {
             type="email"
             name="email"
             placeholder="Email or username"
-            className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight"
+            className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight dark:text-black"
             required
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -83,7 +83,7 @@ const StaffLogin: NextPage = () => {
             type="password"
             name="password"
             placeholder="Password"
-            className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mt-4"
+            className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight dark:text-black mt-4"
             required
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -110,7 +110,7 @@ const StaffLogin: NextPage = () => {
           />
         </form>
       </div>
-      <ul className="flex flex-row justify-around max-w-lg mx-auto mt-32 opacity-50 font-extralight">
+      <ul className="flex flex-row justify-around max-w-lg mx-auto mt-32 opacity-50 font-extralight dark:text-white">
         <li>
           <Link href="/">
             <a>Privacy</a>

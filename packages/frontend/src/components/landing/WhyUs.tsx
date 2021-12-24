@@ -12,7 +12,7 @@ const WhyUs: NextPage = () => {
       className="max-w-7xl mx-auto flex flex-col pt-24 pb-48"
       id="benefits"
     >
-      <h2 className="w-full md:w-[600px] self-start text-left text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-24">
+      <h2 className="w-full md:w-[600px] self-start text-left text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-24">
         Why you should Invest with redxam
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-1 md:grid-rows-2 gap-x-40 gap-y-16">
@@ -62,10 +62,10 @@ const Card: NextPage<CardProps> = ({ color, icon, title, description }) => {
         <Image src={icon} alt="" />
       </div>
       <div className="flex flex-col">
-        <h3 className="text-black text-opacity-80 mb-2.5 text-4xl text-center">
+        <h3 className="text-black dark:text-white text-opacity-80 mb-2.5 text-4xl text-center">
           {title}
         </h3>
-        <p className="font-primary text-lg text-black text-opacity-80 leading-[1.8] text-center">
+        <p className="font-primary text-lg text-black dark:text-white text-opacity-80 leading-[1.8] text-center">
           {description}
         </p>
       </div>

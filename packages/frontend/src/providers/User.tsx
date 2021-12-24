@@ -16,6 +16,8 @@ export type Context = {
     email: string;
     phone: string;
     accountStatus: string;
+    balance: number;
+    pending_balance: number;
   };
   setUser: Dispatch<SetStateAction<null>>;
   loading: boolean;

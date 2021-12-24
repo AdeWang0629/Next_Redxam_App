@@ -12,23 +12,28 @@ const FAQ: NextPage = () => {
   let questions = [
     {
       title: "How does redxam earn money?",
-      body: "redxam makes a quarter of the interest earned. Instead of having a fix pricing, we strive to provide the best returns for our customers.",
+      body:
+        "redxam makes a quarter of the interest earned. Instead of having a fix pricing, we strive to provide the best returns for our customers.",
     },
     {
       title: "How do the portfolios generate interest lending assets?",
-      body: "Our portfolios, including our conservative plan, lend the money through a secure collateral-based system to borrowers that pay an interest for the assets borrowed.",
+      body:
+        "Our portfolios, including our conservative plan, lend the money through a secure collateral-based system to borrowers that pay an interest for the assets borrowed.",
     },
     {
       title: "How secure is redxam?",
-      body: "We use bank-level security combined with impenetrable Bitcoin and Ethereum blockchain technologies. this combination provides one of the most secured financial networks in the world.",
+      body:
+        "We use bank-level security combined with impenetrable Bitcoin and Ethereum blockchain technologies. this combination provides one of the most secured financial networks in the world.",
     },
     {
       title: "Does redxam require verified identification?",
-      body: "We don’t require verification as long as you use crypto currencies for your savings account. Stable-coins are the recommended way of depositing assets.",
+      body:
+        "We don’t require verification as long as you use crypto currencies for your savings account. Stable-coins are the recommended way of depositing assets.",
     },
     {
       title: "How much do you need to invest with redxam?",
-      body: "We recommend depositing at least the value of 0.1BTC as this will function as a cushion for any market volatility and transfer fees. We estimate about $20 to $30 on fees so we bundle transactions with other redxam users to reduce the costs to virtually $0.",
+      body:
+        "We recommend depositing at least the value of 0.1BTC as this will function as a cushion for any market volatility and transfer fees. We estimate about $20 to $30 on fees so we bundle transactions with other redxam users to reduce the costs to virtually $0.",
     },
   ];
 
@@ -38,7 +43,7 @@ const FAQ: NextPage = () => {
         <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
           frequently asked questions
         </h4>
-        <h2 className="w-full md:w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-36">
+        <h2 className="w-full md:w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-36">
           Quick answer to
           <br /> your questions.
         </h2>

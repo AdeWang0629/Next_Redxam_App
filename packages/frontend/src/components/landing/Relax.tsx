@@ -13,7 +13,7 @@ const Relax: NextPage = () => {
     >
       <div className="flex flex-col md:flex-row items-center">
         <div className="flex flex-col flex-1">
-          <h2 className="w-full md:w-[600px] self-start text-left tracking-[-0.03em] text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-[3.125rem]">
+          <h2 className="w-full md:w-[600px] self-start text-left tracking-[-0.03em] text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-[3.125rem]">
             Relax while your
             <br /> Money grows with <br />
             Top security
@@ -23,10 +23,10 @@ const Relax: NextPage = () => {
               <Image src={ListBullet} alt="" />
             </div>
             <div className="flex-1 ml-10">
-              <h3 className="mb-2.5 text-4xl text-black text-opacity-80">
+              <h3 className="mb-2.5 text-4xl text-black dark:text-white text-opacity-80">
                 Bank grade security
               </h3>
-              <p className="w-full md:w-[390px] text-black text-opacity-80">
+              <p className="w-full md:w-[390px] text-black dark:text-white text-opacity-80">
                 Our payment processors are compliant to ensure optimum security
                 of your data
               </p>
@@ -37,10 +37,10 @@ const Relax: NextPage = () => {
               <Image src={ListBullet} alt="" />
             </div>
             <div className="flex-1 ml-10">
-              <h3 className="mb-2.5 text-4xl text-black text-opacity-80">
+              <h3 className="mb-2.5 text-4xl text-black dark:text-white text-opacity-80">
                 Best in class investment
               </h3>
-              <p className="w-full md:w-[390px] text-black text-opacity-80">
+              <p className="w-full md:w-[390px] text-black dark:text-white text-opacity-80">
                 We invest in low risk fixed income securities which include
                 treasury bills government bonds, and professionally managed
               </p>
@@ -51,10 +51,10 @@ const Relax: NextPage = () => {
               <Image src={ListBullet} alt="" />
             </div>
             <div className="flex-1 ml-10">
-              <h3 className="mb-2.5 text-4xl text-black text-opacity-80">
+              <h3 className="mb-2.5 text-4xl text-black dark:text-white text-opacity-80">
                 Industry best practices
               </h3>
-              <p className="w-full md:w-[390px] text-black text-opacity-80">
+              <p className="w-full md:w-[390px] text-black dark:text-white text-opacity-80">
                 We supports a variety of the most popular digital currencies
               </p>
             </div>

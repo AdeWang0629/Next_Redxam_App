@@ -1,3 +1,5 @@
+import { useContext, useEffect } from "react";
+import { UserContext } from "@providers/User";
 import Image from "next/image";
 import Link from "next/link";
 import Card from "./Card";
@@ -6,6 +8,7 @@ import Card from "./Card";
 import leafsBg from "@public/images/dashboard/leafs-bg.svg";
 
 const BalanceCard = () => {
+  const { user } = useContext(UserContext);
   return (
     <Card width="lg:w-[440px]" height="h-[197px]">
       <div className="absolute right-2.5 top-[-55px]">
@@ -22,12 +25,14 @@ const BalanceCard = () => {
           Total redxam balance
         </p>
         <p className="font-secondary font-bold text-3xl text-black">
-          $30,700.00
+          ${user?.balance}
         </p>
       </div>
       <p className="text-center bg-light-gray py-1 font-secondary text-sm text-[#95989B]">
         Your pending balance is
-        <span className="text-lighter-black font-medium ml-1.5">$2200.00</span>
+        <span className="text-lighter-black font-medium ml-1.5">
+          ${user?.pending_balance}
+        </span>
       </p>
       <div className="w-full">
         <Link href="/deposit">

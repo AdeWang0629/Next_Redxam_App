@@ -1,7 +1,8 @@
 import { messages } from '@/config/messages';
 import { User } from '@/database';
 import { SimpleWallet } from '@/database/types';
-import { transporter } from '@/service/emailService';
+import sendGrid from '@/apis/sendgrid/index';
+
 import { generateWallet } from '@/service/wallets';
 import { Request } from 'express';
 import { readFileSync } from 'fs';
@@ -14,64 +15,73 @@ const { SERVICE_EMAIL } = process.env;
 const templatePath = resolve(__dirname, '../../emails/newsletter.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');
 
-const topAttachment = Object.freeze<Attachment>({
+const topAttachment: Readonly<Attachment> = Object.freeze({
   filename: 'top.png',
-  path: resolve(__dirname, '../../emails/top.png'),
-  cid: 'top@background',
+  content: readFileSync(`${__dirname}/../../emails/top.png`).toString('base64'),
+  content_id: 'top@background',
+  disposition: 'inline',
 });
 
-const logoAttachment = Object.freeze<Attachment>({
+const logoAttachment: Readonly<Attachment> = Object.freeze({
   filename: 'logo.png',
-  path: resolve(__dirname, '../../assets/images/logo.png'),
-  cid: 'logo@top',
+  content: readFileSync(`${__dirname}/../../emails/logo.png`).toString('base64'),
+  content_id: 'logo@top',
+  disposition: 'inline',
 });
 
-const elipseAttachment = Object.freeze<Attachment>({
+const elipseAttachment: Readonly<Attachment> = Object.freeze({
   filename: 'elipse.png',
-  path: resolve(__dirname, '../../emails/elipse.png'),
-  cid: 'elipse@top',
+  content: readFileSync(`${__dirname}/../../emails/elipse.png`).toString('base64'),
+  content_id: 'elipse@top',
+  disposition: 'inline',
 });
 
-const greenAttachment = Object.freeze<Attachment>({
+const greenAttachment: Readonly<Attachment> = Object.freeze({
   filename: 'green.png',
-  path: resolve(__dirname, '../../emails/green.png'),
-  cid: 'green@top',
+  content: readFileSync(`${__dirname}/../../emails/green.png`).toString('base64'),
+  content_id: 'green@top',
+  disposition: 'inline',
 });
 
-const redAttachment = Object.freeze<Attachment>({
+const redAttachment: Readonly<Attachment> = Object.freeze({
   filename: 'red.png',
-  path: resolve(__dirname, '../../emails/red.png'),
-  cid: 'red@top',
+  content: readFileSync(`${__dirname}/../../emails/red.png`).toString('base64'),
+  content_id: 'red@top',
+  disposition: 'inline',
 });
 
-const elipseListAttachment = Object.freeze<Attachment>({
+const elipseListAttachment: Readonly<Attachment> = Object.freeze({
   filename: 'elipse-list.png',
-  path: resolve(__dirname, '../../emails/elipse-list.png'),
-  cid: 'elipse-list@top',
+  content: readFileSync(`${__dirname}/../../emails/elipse-list.png`).toString('base64'),
+  content_id: 'elipse-list@top',
+  disposition: 'inline',
 });
 
-const facebookAttachment = Object.freeze<Attachment>({
+const facebookAttachment: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  path: resolve(__dirname, '../../emails/Facebook.png'),
-  cid: 'facebook@top',
+  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString('base64'),
+  content_id: 'facebook@top',
+  disposition: 'inline',
 });
 
-const twitterAttachment = Object.freeze<Attachment>({
-  filename: 'Twitter.png',
-  path: resolve(__dirname, '../../emails/Twitter.png'),
-  cid: 'Twitter@top',
+const twitterAttachment: Readonly<Attachment> = Object.freeze({
+  filename: 'twitter.png',
+  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString('base64'),
+  content_id: 'Twitter@top',
+  disposition: 'inline',
 });
 
-const InstagramAttachment = Object.freeze<Attachment>({
-  filename: 'Instagram.png',
-  path: resolve(__dirname, '../../emails/Instagram.png'),
-  cid: 'Instagram@top',
+const InstagramAttachment: Readonly<Attachment> = Object.freeze({
+  filename: 'instagram.png',
+  content: readFileSync(`${__dirname}/../../emails/instagram.png`).toString('base64'),
+  content_id: 'Instagram@top',
+  disposition: 'inline',
 });
 
 const sendMail = async (email: string, origin: string) => {
   const renderedTemplate = render(templateData, { frontEndURL: origin });
 
-  await transporter.sendMail({
+  await sendGrid.sendMail({
     from: `redxam.com <${SERVICE_EMAIL}>`,
     to: email,
     subject: 'Welcome to redxam.com!',

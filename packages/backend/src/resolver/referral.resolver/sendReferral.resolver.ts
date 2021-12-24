@@ -1,7 +1,8 @@
 import { authorize } from '@/config/authorization';
 import { messages } from '@/config/messages';
 import { Referrer, ReferrerProps } from '@/database';
-import { transporter } from '@/service/emailService';
+import sendGrid from '@/apis/sendgrid/index';
+
 import { Request } from 'express';
 import { SendMailOptions } from 'nodemailer';
 import { Argument, SendReferInput } from '../types';
@@ -48,7 +49,7 @@ export const sendReferral = authorize<Argument<SendReferInput>>(
     const mailOptions = getMailOptions(arg.email, referralUrl);
 
     try {
-      await transporter.sendMail(mailOptions);
+      await sendGrid.sendMail(mailOptions);
 
       const referrer = await Referrer.findOne({ origin_id: payload.userId }).exec();
 

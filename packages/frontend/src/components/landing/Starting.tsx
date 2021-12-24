@@ -14,10 +14,10 @@ const Starting: NextPage = () => {
       <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
         how to start
       </h4>
-      <h2 className="w-full md:w-[600px] self-start text-left text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-3.5">
+      <h2 className="w-full md:w-[600px] self-start text-left text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-3.5">
         Starting is very Simple
       </h2>
-      <p className="font-primary text-lg text-black text-opacity-80 leading-[1.8] ">
+      <p className="font-primary text-lg text-black dark:text-white text-opacity-80 leading-[1.8] ">
         Start investing with redxam in three simple steps
       </p>
       <div className="flex flex-col-reverse md:flex-row items-center mt-40">
@@ -59,10 +59,18 @@ const Starting: NextPage = () => {
               </span>
             </div>
             <div>
-              <h3 className="mb-1.5 text-2xl md:text-3xl text-black text-opacity-80">
+              <h3
+                className={`mb-1.5 text-2xl md:text-3xl text-black ${
+                  step === 0 ? "dark:text-black" : "dark:text-white"
+                } text-opacity-80`}
+              >
                 Create an Account
               </h3>
-              <p className="w-full md:w-[20.9375rem] text-black text-opacity-80">
+              <p
+                className={`w-full md:w-[20.9375rem] text-black ${
+                  step === 0 ? "dark:text-black" : "dark:text-white"
+                } text-opacity-80`}
+              >
                 Signup for an account with just name and email.
               </p>
             </div>
@@ -88,10 +96,18 @@ const Starting: NextPage = () => {
               </span>
             </div>
             <div>
-              <h3 className="mb-1.5 text-2xl md:text-3xl text-black text-opacity-80">
+              <h3
+                className={`mb-1.5 text-2xl md:text-3xl text-black ${
+                  step === 1 ? "dark:text-black" : "dark:text-white"
+                } text-opacity-80`}
+              >
                 Deposit Funds
               </h3>
-              <p className="w-full md:w-[20.9375rem] text-black text-opacity-80">
+              <p
+                className={`w-full md:w-[20.9375rem] text-black ${
+                  step === 1 ? "dark:text-black" : "dark:text-white"
+                } text-opacity-80`}
+              >
                 Choose preferred deposit option like bank transfer, credit/debit
                 card or directly send digital assets.
               </p>
@@ -118,10 +134,18 @@ const Starting: NextPage = () => {
               </span>
             </div>
             <div>
-              <h3 className="mb-1.5 text-2xl md:text-3xl text-black text-opacity-80">
+              <h3
+                className={`mb-1.5 text-2xl md:text-3xl text-black ${
+                  step === 2 ? "dark:text-black" : "dark:text-white"
+                } text-opacity-80`}
+              >
                 Watch your money Grow
               </h3>
-              <p className="w-full md:w-[20.9375rem] text-black text-opacity-80">
+              <p
+                className={`w-full md:w-[20.9375rem] text-black ${
+                  step === 2 ? "dark:text-black" : "dark:text-white"
+                } text-opacity-80`}
+              >
                 Sit back and relax! Let your let your money work for you all
                 day.
               </p>
