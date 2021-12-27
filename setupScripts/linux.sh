@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Initial set up
 
 # UFW Port Firewall Setup
 # Enables ports 80 & 3006
