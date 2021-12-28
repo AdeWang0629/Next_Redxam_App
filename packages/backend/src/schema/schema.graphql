@@ -23,7 +23,7 @@ type User {
   firstName: String
   lastName: String
   email: String!
-  phone: String!
+  phone: String
   wallet: SimpleWallet
   contribution: Float
   level: Int
