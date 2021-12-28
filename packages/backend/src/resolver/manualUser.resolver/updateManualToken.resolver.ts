@@ -2,7 +2,7 @@ import { JWT } from '@/config/jwt';
 import { messages } from '@/config/messages';
 import { verify } from '@/config/twlio';
 import { ManualUser, ManualUserProps } from '@/database';
-import { transporter } from '@/service/emailService';
+import sendGrid from '@/apis/sendgrid/index';
 import { Request } from 'express';
 import { Argument } from '../types';
 
@@ -41,7 +41,7 @@ const loginByEmail = async (email: string, origin: string) => {
   }
 
   const token = new JWT({ userId: user._id, type: 'login' }).signSync();
-  await transporter.sendMail({
+  await sendGrid.sendMail({
     from: GMAIL_USER_EMAIL,
     to: user.email,
     subject: 'Login Email',
