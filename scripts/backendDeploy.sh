@@ -16,7 +16,7 @@ npm i -g yarn
 npm i -g pm2 
 
 # Clone repo
-git clone https://user:token@github.com/redxam/redxamapp.git
+# git clone https://user:token@github.com/redxam/redxamapp.git
 cd redxamapp
 if [ "$ENVIRONMENT" = "development" ]; then
     git checkout develop
@@ -27,7 +27,7 @@ else
     git checkout main
 fi
 git pull
-git remote set-url origin https://user:token@github.com/redxam/redxamapp.git
+# git remote set-url origin https://user:token@github.com/redxam/redxamapp.git
 
 # installing packages
 cd packages/backend
