@@ -2,7 +2,7 @@ import { JWT } from '@/config/jwt';
 import { messages, Message } from '@/config/messages';
 import { verify } from '@/config/twlio';
 import { User, UserProps } from '@/database';
-import { transporter } from '@/service/emailService';
+import sendGrid from '@/apis/sendgrid/index';
 import { Request } from 'express';
 import { readFileSync } from 'fs';
 import { render } from 'mustache';
@@ -30,32 +30,37 @@ const renderTemplate = (loginURL: string) =>
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  path: resolve(__dirname, '../../emails/facebook.png'),
-  cid: 'facebook@login',
+  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString('base64'),
+  content_id: 'facebook@login',
+  disposition: 'inline',
 });
 
 const twitterIcon: Readonly<Attachment> = Object.freeze({
   filename: 'twitter.png',
-  path: resolve(__dirname, '../../emails/twitter.png'),
-  cid: 'twitter@login',
+  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString('base64'),
+  content_id: 'twitter@login',
+  disposition: 'inline',
 });
 
 const linkedInIcon: Readonly<Attachment> = Object.freeze({
   filename: 'linkedin.png',
-  path: resolve(__dirname, '../../emails/linkedin.png'),
-  cid: 'linkedin@login',
+  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString('base64'),
+  content_id: 'linkedin@login',
+  disposition: 'inline',
 });
 
 const telegramIcon: Readonly<Attachment> = Object.freeze({
   filename: 'telegram.png',
-  path: resolve(__dirname, '../../emails/telegram.png'),
-  cid: 'telegram@login',
+  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString('base64'),
+  content_id: 'telegram@login',
+  disposition: 'inline',
 });
 
 const discordIcon: Readonly<Attachment> = Object.freeze({
   filename: 'discord.png',
-  path: resolve(__dirname, '../../emails/discord.png'),
-  cid: 'discord@login',
+  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString('base64'),
+  content_id: 'discord@login',
+  disposition: 'inline',
 });
 
 const updateUserToken = async (
@@ -80,7 +85,7 @@ const loginAdmin = async (userId: string) => {
 
 const sendMail = async (targetEmail: string, loginUrl: string) => {
   try {
-    await transporter.sendMail({
+    await sendGrid.sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
       to: targetEmail,
       subject: 'Login Email',

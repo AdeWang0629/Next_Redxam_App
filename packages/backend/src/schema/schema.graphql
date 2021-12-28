@@ -16,6 +16,7 @@ type Deposits {
   address: String
   bankIcon: String
   bankName: String
+  bankType: String
 }
 
 type User {
@@ -88,6 +89,15 @@ input SendReferInput {
   token: String
   email: String
 }
+
+input newAdmin {
+  email: String!
+  password: String!
+  avatar: String!
+  firstName: String!
+  lastName: String!
+}
+
 type Response {
   success: Boolean!
   message: String!
@@ -132,6 +142,10 @@ type home {
   dolarChange: Float
 }
 
+input check {
+  code: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -142,6 +156,8 @@ type Query {
   adminLogin: adminToken
   admin: admin
   home: home
+  startTwilioVerify: Response
+  checkTwilioVerify(arg: check): Response
 }
 
 type Mutation {
@@ -152,6 +168,7 @@ type Mutation {
   goUpQueue: Response
   createWaitlist(arg: NewUser): Response
   createManualUser(arg: NewManualUser): Response
+  createAdmin(arg: newAdmin): Response
   changeRequest(arg: String): Response
   changeAccountStatus(arg: String): Response
 }

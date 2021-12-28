@@ -15,6 +15,7 @@ export interface Deposits {
   status: string;
   bankName: string;
   bankIcon: string;
+  bankType: string;
 }
 export interface DepositsProps extends Document, Deposits {
   created_at?: Date;
