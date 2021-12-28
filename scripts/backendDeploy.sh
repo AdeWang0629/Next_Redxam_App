@@ -28,19 +28,17 @@ else
 fi
 git pull
 git remote set-url origin https://user:token@github.com/redxam/redxamapp.git
-cd packages/backend
 
-// installing packages
+# installing packages
+cd packages/backend
 yarn install
 
-npm run build
-cp .env dist/.env
 pm2 delete all
-NODE_ENV="$ENVIRONMENT" SERVICE="server" PORT=3000 pm2 start dist/index.js --name server
-NODE_ENV="$ENVIRONMENT" SERVICE="vaults" PORT=3001 pm2 start dist/index.js --name vaults
-NODE_ENV="$ENVIRONMENT" SERVICE="wallets" PORT=3002 pm2 start dist/index.js --name wallets
-NODE_ENV="$ENVIRONMENT" SERVICE="balance" PORT=3003 pm2 start dist/index.js --name balance
-NODE_ENV="$ENVIRONMENT" SERVICE="portfolio" PORT=3004 pm2 start dist/index.js --name portfolio
-NODE_ENV="$ENVIRONMENT" SERVICE="binance" PORT=3005 pm2 start dist/index.js --name binance
-NODE_ENV="$ENVIRONMENT" SERVICE="webhooks" PORT=3006 pm2 start dist/index.js --name webhooks
+pm2 start .pm2/balance.sh
+pm2 start .pm2/binance.sh
+pm2 start .pm2/portfolio.sh
+pm2 start .pm2/server.sh
+pm2 start .pm2/vaults.sh
+pm2 start .pm2/wallets.sh
+pm2 start .pm2/webhooks.sh
 pm2 save
