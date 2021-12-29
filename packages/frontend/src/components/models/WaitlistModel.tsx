@@ -69,7 +69,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
       ref={outsideContainerRef}
       onClick={handleOutsideClick}
     >
-      <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 md:w-1/4 px-6 py-12">
+      <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/4 px-6 py-12">
         <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
           Join the Waitlist
         </h3>
@@ -80,39 +80,49 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <div className="flex flex-col md:flex-row mt-5">
             <div className="md:mr-2 input-wrapper">
-              <label className="font-primary">First name</label>
               <input
                 type="text"
                 className="font-secondary"
                 onChange={(e) => setFirstName(e.target.value)}
-                placeholder="First name"
                 value={firstName}
+                id="firstName"
+                required
               />
+              <label className="font-primary" htmlFor="firstName">
+                First name
+              </label>
             </div>
             <div className="md:ml-2 mt-5 md:mt-0 input-wrapper">
-              <label className="font-primary">Last name</label>
               <input
                 type="text"
                 className="font-secondary"
                 onChange={(e) => setLastName(e.target.value)}
-                placeholder="Last name"
+                id="lastName"
                 value={lastName}
+                required
               />
+              <label className="font-primary" htmlFor="lastName">
+                Last name
+              </label>
             </div>
           </div>
           <div className="mt-5 input-wrapper w-full">
-            <label className="font-primary">Email address</label>
             <input
               type="email"
               className="font-secondary w-full"
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter email address"
               value={email}
+              required
+              id="email"
             />
+            <label className="font-primary" htmlFor="email">
+              Email address
+            </label>
           </div>
           <button
             className="text-lighter-black font-primary font-medium text-lg leading-[20px] tracking-[-0.02em] bg-buttons-green rounded-[30px] mt-8 py-4 px-8 outline-none cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
             disabled={loading}
+            id="join-waiting-button"
           >
             Join the Waitlist
           </button>

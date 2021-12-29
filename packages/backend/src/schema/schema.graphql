@@ -142,6 +142,10 @@ type home {
   dolarChange: Float
 }
 
+type FeatureCheck {
+  status: Boolean
+}
+
 input check {
   code: String
 }
@@ -156,6 +160,7 @@ type Query {
   adminLogin: adminToken
   admin: admin
   home: home
+  featureCheck: FeatureCheck
   startTwilioVerify: Response
   checkTwilioVerify(arg: check): Response
 }

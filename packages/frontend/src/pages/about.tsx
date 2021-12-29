@@ -39,7 +39,7 @@ const About: NextPage = () => {
       role: "Marketing",
     },
     {
-      name: "Alex Gonzalez",
+      name: "Alejandro Gonzalez",
       picture: AlexProfileImage,
       role: "Engineering",
     },
@@ -76,16 +76,16 @@ const About: NextPage = () => {
       </section>
       <section className="max-w-7xl mx-auto pt-32 px-4 md:px-0">
         <div>
-          <h2 className="text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black mb-[6.25rem]">
+          <h2 className="text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 mb-[6.25rem]">
             We are changing the Way of Investing
           </h2>
           <div className="md:flex items-center justify-center mb-12 text-center md:text-left">
             <Image src={InvestImage1} alt="" />
             <div className="md:ml-14 md:w-1/3 mt-4 md:mt-0">
-              <h3 className="mb-3 text-2xl md:text-4xl md:leading-10 font-secondary font-medium tracking-[-0.04em] text-black text-opacity-80">
+              <h3 className="mb-3 text-2xl md:text-4xl md:leading-10 font-secondary font-medium tracking-[-0.04em] text-black dark:text-white text-opacity-80">
                 Changing the way people invest
               </h3>
-              <p className="leading-[1.8] font-primary text-black text-opacity-80 text-[1.0625rem]">
+              <p className="leading-[1.8] font-primary text-black dark:text-white text-opacity-80 text-[1.0625rem]">
                 We’re redefining what it means to learn about finance—and that
                 means education resources that are built for today
               </p>
@@ -93,10 +93,10 @@ const About: NextPage = () => {
           </div>
           <div className="flex flex-col-reverse md:flex-row items-center justify-center mb-12 text-center md:text-left">
             <div className="md:mr-14 md:w-1/3 mt-4 md:mt-0">
-              <h3 className="mb-3 text-2xl md:text-4xl md:leading-10 font-secondary font-medium tracking-[-0.04em] text-black text-opacity-80">
+              <h3 className="mb-3 text-2xl md:text-4xl md:leading-10 font-secondary font-medium tracking-[-0.04em] text-black dark:text-white text-opacity-80">
                 We are building teams around the world bit by bit.
               </h3>
-              <p className="leading-[1.8] font-primary text-black text-opacity-80 text-[1.0625rem]">
+              <p className="leading-[1.8] font-primary text-black dark:text-white text-opacity-80 text-[1.0625rem]">
                 Start investing at your own pace, on your own terms.Start
                 investing at your own pace, on your own terms. Start investing
                 at your own pace, on your own terms.
@@ -107,10 +107,10 @@ const About: NextPage = () => {
           <div className="md:flex items-center justify-center text-center md:text-left">
             <Image src={InvestImage3} alt="" />
             <div className="md:ml-14 md:w-1/3 mt-4 md:mt-0">
-              <h3 className="mb-3 text-2xl md:text-4xl md:leading-10 font-secondary font-medium tracking-[-0.04em] text-black text-opacity-80">
+              <h3 className="mb-3 text-2xl md:text-4xl md:leading-10 font-secondary font-medium tracking-[-0.04em] text-black dark:text-white text-opacity-80">
                 Let’s do the work while you rest.
               </h3>
-              <p className="leading-[1.8] font-primary text-black text-opacity-80 text-[1.0625rem]">
+              <p className="leading-[1.8] font-primary text-black dark:text-white text-opacity-80 text-[1.0625rem]">
                 Start investing at your own pace, on your own terms.Start
                 investing at your own pace, on your own terms. Start investing
                 at your own pace, on your own terms.
@@ -120,7 +120,7 @@ const About: NextPage = () => {
         </div>
       </section>
       <section className="py-12 max-w-7xl mx-auto px-4 md:px-0">
-        <h2 className="text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black mb-[6.25rem]">
+        <h2 className="text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 mb-[6.25rem]">
           Trusted by the worlds best investors
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-y-20 ">
@@ -138,7 +138,7 @@ const About: NextPage = () => {
       </section>
 
       <section className="flex flex-col max-w-7xl mx-auto items-center mt-16">
-        <h2 className="text-left text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black mb-[6.25rem]">
+        <h2 className="text-left text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 mb-[6.25rem]">
           Our Team
         </h2>
         <div className="md:grid grid-cols-4 gap-y-14 gap-x-14">
@@ -155,10 +155,10 @@ const About: NextPage = () => {
 
       <section className="md:flex justify-between max-w-7xl mx-auto my-56 md:pr-16 px-4 md:px-0">
         <div className="md:w-2/5 md:mr-14 text-center md:text-left mb-16 md:mb-0">
-          <h2 className="mb-9 text-center md:text-left text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black self-start font-secondary">
+          <h2 className="mb-9 text-center md:text-left text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 self-start font-secondary">
             Interested in working with US?
           </h2>
-          <p className="mb-10 md:w-4/5 text-black font-primary text-[1.0625rem] max-w-[43.0625rem] text-center md:text-left md:leading-[1.8] text-opacity-80">
+          <p className="mb-10 md:w-4/5 text-black dark:text-white font-primary text-[1.0625rem] max-w-[43.0625rem] text-center md:text-left md:leading-[1.8] text-opacity-80">
             As a team of passionate entrepreneurs, we built Pipe around our core
             mission to create a new way to scale without debt or dilution, so
             companies can grow on their terms.
@@ -216,8 +216,8 @@ const TeamMember: NextPage<TeamMemberProps> = ({ picture, name, role }) => {
         objectFit="cover"
         placeholder="blur"
       />
-      <h5 className="my-1 text-2xl text-black">{name}</h5>
-      <p>{role}</p>
+      <h5 className="my-1 text-2xl text-black dark:text-white">{name}</h5>
+      <p className="dark:text-white">{role}</p>
     </div>
   );
 };

@@ -26,4 +26,5 @@ export * from './model/vault.model';
 export * from './model/deposits.model';
 export * from './model/admin.model';
 export * from './model/changeRequest.model';
+export * from './model/featureBlock.model';
 export * from './enums';

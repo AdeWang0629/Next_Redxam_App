@@ -12,7 +12,7 @@ const Banks: NextPage = () => {
 
   return (
     <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48">
-      <h2 className="text-4xl w-full md:w-[39rem] mx-auto mb-24 text-center text-black font-bold leading-[-0.03em]">
+      <h2 className="text-4xl w-full md:w-[39rem] mx-auto mb-24 text-center text-black dark:text-gray-200 font-bold leading-[-0.03em]">
         This is what other banks around the world will give you.
       </h2>
       <div className="flex flex-col md:flex-row justify-around space-y-12 md:space-y-0">
@@ -42,10 +42,10 @@ const Bank: NextPage<BankProps> = ({ image, name, rate }) => {
         placeholder={name === "Redxam" ? "empty" : "blur"}
       />
       <div className="flex flex-col items-center">
-        <span className="font-semibold text-2xl leading-7 text-black text-opacity-80 my-4 font-secondary font-medium">
+        <span className="font-semibold text-2xl leading-7 text-black text-opacity-80 my-4 font-secondary dark:text-white">
           {name}
         </span>
-        <span className="font-medium text-4xl leading-10 text-lighter-black tracking-[-0.04em] text-opacity-60 font-secondary font-medium">
+        <span className="text-4xl leading-10 text-lighter-black dark:text-gray-200 tracking-[-0.04em] text-opacity-60 font-secondary font-medium">
           {rate}%
         </span>
       </div>

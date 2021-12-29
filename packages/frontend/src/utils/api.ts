@@ -97,6 +97,8 @@ class API {
           wallet {
             address
           }
+          balance,
+          pending_balance
         }
       }
     `;

@@ -63,7 +63,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
         ref={outsideContainerRef}
         onClick={handleOutsideClick}
       >
-        <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 md:w-1/4 px-6 py-12">
+        <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/4 px-6 py-12">
           {!submitted ? (
             <>
               <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
@@ -73,16 +73,18 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
                 Login for alpha and continue enjoying the best investments plan
               </p>
               <form className="flex flex-col" onSubmit={handleSubmit}>
-                <div className="flex flex-col items-center mt-5">
-                  <label className="font-primary text-xs leading-4 tracking-[-0.02em] text-darker-primary mb-1">
-                    Email address
-                  </label>
+                <div className="mt-5 input-wrapper w-full">
                   <input
                     type="email"
-                    className="w-full font-secondary font-medium rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
+                    className="font-secondary w-full"
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter email address"
+                    value={email}
+                    required
+                    id="email"
                   />
+                  <label className="font-primary" htmlFor="email">
+                    Email address
+                  </label>
                 </div>
                 <button
                   className="text-white font-primary font-medium text-lg leading-[20px] tracking-[-0.02em] bg-[#27AE60] rounded-[30px] mt-8 py-4 px-8 outline-none cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
