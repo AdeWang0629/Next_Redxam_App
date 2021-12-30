@@ -20,35 +20,35 @@ const templateData = readFileSync(templatePath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/facebook.png`).toString('base64'),
   content_id: 'facebook@login',
   disposition: 'inline',
 });
 
 const twitterIcon: Readonly<Attachment> = Object.freeze({
   filename: 'twitter.png',
-  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/twitter.png`).toString('base64'),
   content_id: 'twitter@login',
   disposition: 'inline',
 });
 
 const linkedInIcon: Readonly<Attachment> = Object.freeze({
   filename: 'linkedin.png',
-  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/linkedin.png`).toString('base64'),
   content_id: 'linkedin@login',
   disposition: 'inline',
 });
 
 const telegramIcon: Readonly<Attachment> = Object.freeze({
   filename: 'telegram.png',
-  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/telegram.png`).toString('base64'),
   content_id: 'telegram@login',
   disposition: 'inline',
 });
 
 const discordIcon: Readonly<Attachment> = Object.freeze({
   filename: 'discord.png',
-  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/discord.png`).toString('base64'),
   content_id: 'discord@login',
   disposition: 'inline',
 });
