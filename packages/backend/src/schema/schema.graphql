@@ -146,6 +146,13 @@ type FeatureCheck {
   status: Boolean
 }
 
+type overview {
+  totalUsers: Float
+  invitedUsers: Float
+  acceptedUsers: Float
+  usersWithBalance: Float
+}
+
 input check {
   code: String
 }
@@ -163,6 +170,7 @@ type Query {
   featureCheck: FeatureCheck
   startTwilioVerify: Response
   checkTwilioVerify(arg: check): Response
+  overview: overview
 }
 
 type Mutation {

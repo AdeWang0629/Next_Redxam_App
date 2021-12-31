@@ -1,17 +1,41 @@
 import type { NextPage } from "next";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { getCookie } from "cookies-next";
+import api from "@utils/api";
 // import { Line } from "@reactchartjs/react-chart.js";
 
 const Overview: NextPage = () => {
+  let [data, setData] = useState({
+    totalUsers: 0,
+    invitedUsers: 0,
+    acceptedUsers: 0,
+    usersWithBalance: 0,
+  });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await api.getOverview(
+          getCookie("admin_token") as string
+        );
+        console.log(data);
+        setData(data.data.overview);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col mt-4">
         <div className="flex flex-wrap justify-around items-center">
           {[
-            { title: "Unresolved", value: 60 },
-            { title: "Pending Transactions", value: 16 },
-            { title: "New Users", value: 43 },
-            { title: "On hold", value: 64 },
+            { title: "Total Users", value: data?.totalUsers || 0 },
+            { title: "Invited Users", value: data?.invitedUsers || 0 },
+            { title: "Accepted Users", value: data?.acceptedUsers || 0 },
+            { title: "Users with balance", value: data?.usersWithBalance || 0 },
           ].map((item) => {
             let id = item.title.split(" ").join("_").toLowerCase();
 
