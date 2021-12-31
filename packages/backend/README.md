@@ -1,11 +1,19 @@
-# graphql-backend
+# Backend
 
-New fields in the backend need to be added to the resolver and to the schema of the Query
+### Graphql Schema
 
-Go to [AWS](https://lightsail.aws.amazon.com/ls/remote/eu-west-3/instances/Node-js-1/terminal?protocol=ssh#) and restart backend service
+> New fields in the backend need to be added to the resolver and to the schema of the Query
+
+## Style Guide
+
+> Here are redxam we follow the Airbnb standard.
+
+[Airbnb React Style Guide](https://github.com/airbnb/javascript/tree/master/react)
 
 ## Running docker
+
 ### Installation & Usage:
+
 1. Download and install Docker from its official website, [guide](https://docs.docker.com/get-started/#download-and-install-docker).
 2. Download and install Docker Compose, [guide](https://docs.docker.com/compose/install/).
 3. Go to this project's directory.
@@ -15,6 +23,7 @@ Go to [AWS](https://lightsail.aws.amazon.com/ls/remote/eu-west-3/instances/Node-
    - If you want to run it as a foreground process, use `docker-compose up`.
 
 ### More info:
+
 - The environment file is automatically loaded into the image by docker-compose.
 - The exposed port is `5005`.
 - The version of docker engine used was `20.10.8`.
