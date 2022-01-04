@@ -13,10 +13,10 @@ export const WalletResolver = {
   },
   checkWalletsWithNode: async (currentUserWallet, BALANCE_THRESHOLD, TX_FEE) => {
     const txsList = await blockchain.getTxByAddress(currentUserWallet.address);
-    console.log(txsList);
+
     if (txsList.status !== 200) return null;
+
     await updateUserDeposits(txsList.txs, currentUserWallet, true);
     await deposit(txsList.txs, currentUserWallet, BALANCE_THRESHOLD, TX_FEE, true);
-    console.log('all ok');
   },
 };
