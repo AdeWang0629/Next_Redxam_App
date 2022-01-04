@@ -1,5 +1,12 @@
+#
+# Copyright (c) 2022 redxam LLC
+# oncall: dev+max
+# @format
+# 
+#  Linux setup of ports
+#
+
 #!/usr/bin/env bash
-# Initial set up
 
 # UFW Port Firewall Setup
 # Enables ports 80 & 3006
