@@ -39,7 +39,7 @@ const About: NextPage = () => {
       role: "Marketing",
     },
     {
-      name: "Alex Gonzalez",
+      name: "Alejandro Gonzalez",
       picture: AlexProfileImage,
       role: "Engineering",
     },

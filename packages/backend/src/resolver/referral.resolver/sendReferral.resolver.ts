@@ -2,7 +2,6 @@ import { authorize } from '@/config/authorization';
 import { messages } from '@/config/messages';
 import { Referrer, ReferrerProps } from '@/database';
 import sendGrid from '@/apis/sendgrid/index';
-
 import { Request } from 'express';
 import { SendMailOptions } from 'nodemailer';
 import { Argument, SendReferInput } from '../types';

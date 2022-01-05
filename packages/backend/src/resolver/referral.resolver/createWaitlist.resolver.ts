@@ -5,7 +5,6 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { render } from 'mustache';
 import sendGrid from '@/apis/sendgrid/index';
-
 import { Attachment } from 'nodemailer/lib/mailer';
 import { SimpleWallet } from '@/database/types';
 import { messages } from '@/config/messages';
@@ -103,7 +102,7 @@ const createNewUser = async (user: NewUser, wallet: SimpleWallet, level: number)
     balance: 0,
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email,
+    email: user.email.toLowerCase(),
     phone: '',
     token: '',
     wallet,

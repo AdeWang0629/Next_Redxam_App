@@ -8,6 +8,8 @@ import { vaultsResolver } from './vault.resolver';
 import { AdminResolver } from './admin.resolver';
 import { changeRequestResolver } from './changeRequest.resolver';
 import { HomeResolver } from './home.resolver';
+import { featureCheckResolver } from './featureCheck.resolver';
+import { twilioResolver } from './twilio.resolver';
 
 export const resolver = {
   ...CardResolver,
@@ -20,4 +22,6 @@ export const resolver = {
   ...AdminResolver,
   ...changeRequestResolver,
   ...HomeResolver,
+  ...featureCheckResolver,
+  ...twilioResolver,
 };

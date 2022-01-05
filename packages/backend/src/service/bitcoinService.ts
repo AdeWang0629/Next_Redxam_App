@@ -82,10 +82,11 @@ class WalletWatcher {
     let walletsRaw = await WalletWatcher.getUserWallets();
     if (await blockchain.isNodeOn) {
       // node case here!
+
       try {
         for (const wallet of walletsRaw) {
           const walletBalance = await blockchain.getAddressBalance(wallet.address);
-          this.updatePending(wallet.userId, walletBalance);
+          await this.updatePending(wallet.userId, walletBalance);
 
           const { checkWalletsWithNode } = WalletResolver;
           await checkWalletsWithNode(wallet, BALANCE_THRESHOLD, TX_FEE);
@@ -127,7 +128,7 @@ class WalletWatcher {
 
     console.info('Starting wallet watcher...');
     await this.checkWallets();
-    this.watcher = setInterval(this.checkWallets.bind(this), 600000);
+    this.watcher = setInterval(this.checkWallets.bind(this), WalletWatcher.interval);
     console.info('Wallet watcher started!');
   }
   public stop() {

@@ -50,10 +50,9 @@ export const user = async (_: void, req: Request) => {
 
   try {
     const data = await getData(payload.userId);
-    console.log(payload.userId);
+
     const [userData, userContributions, totalPrice, totalContributions] = data;
-    console.log(Deposits);
-    console.log('userDATTATA', userData);
+
     return [
       {
         ...userData,

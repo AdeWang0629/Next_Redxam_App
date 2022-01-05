@@ -3,7 +3,6 @@ import { messages, Message } from '@/config/messages';
 import { verify } from '@/config/twlio';
 import { User, UserProps } from '@/database';
 import sendGrid from '@/apis/sendgrid/index';
-
 import { Request } from 'express';
 import { readFileSync } from 'fs';
 import { render } from 'mustache';

@@ -1,12 +1,18 @@
 import axiosModule from 'axios';
 
-const { BLOCKCHAIN_URL, BLOCKCHAIN_KEY } = process.env;
+const {
+  BLOCKCHAIN_URL,
+  BLOCKCHAIN_KEY,
+  BLOCKCHAIN_TESTNET_URL,
+  BLOCKCHAIN_TESTNET_KEY,
+  NODE_ENV,
+} = process.env;
 
 const axios = axiosModule.create({
-  baseURL: BLOCKCHAIN_URL,
+  baseURL: NODE_ENV === 'production' ? BLOCKCHAIN_URL : BLOCKCHAIN_TESTNET_URL,
   auth: {
     username: 'x',
-    password: BLOCKCHAIN_KEY,
+    password: NODE_ENV === 'production' ? BLOCKCHAIN_KEY : BLOCKCHAIN_TESTNET_KEY,
   },
 });
 

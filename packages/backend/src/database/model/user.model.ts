@@ -7,7 +7,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
   wallet: SimpleWallet;
   contribution?: number;
   level: number;

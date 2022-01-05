@@ -11,6 +11,7 @@ import { AccountSubtype, CountryCode, LinkTokenCreateRequest, Products } from 'p
 import { messages } from '@/config/messages';
 import { Deposits, DepositsCurrencyType, DepositsType, User } from '@/database';
 import Stripe from 'stripe';
+import { bankAccount } from '@/database/schema/user.schema';
 
 const { SERVICE_EMAIL } = process.env;
 
@@ -19,32 +20,37 @@ const templateData = readFileSync(templatePath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  path: resolve(__dirname, '../emails/facebook.png'),
-  cid: 'facebook@login',
+  content: readFileSync(`${__dirname}/../emails/facebook.png`).toString('base64'),
+  content_id: 'facebook@login',
+  disposition: 'inline',
 });
 
 const twitterIcon: Readonly<Attachment> = Object.freeze({
   filename: 'twitter.png',
-  path: resolve(__dirname, '../emails/twitter.png'),
-  cid: 'twitter@login',
+  content: readFileSync(`${__dirname}/../emails/twitter.png`).toString('base64'),
+  content_id: 'twitter@login',
+  disposition: 'inline',
 });
 
 const linkedInIcon: Readonly<Attachment> = Object.freeze({
   filename: 'linkedin.png',
-  path: resolve(__dirname, '../emails/linkedin.png'),
-  cid: 'linkedin@login',
+  content: readFileSync(`${__dirname}/../emails/linkedin.png`).toString('base64'),
+  content_id: 'linkedin@login',
+  disposition: 'inline',
 });
 
 const telegramIcon: Readonly<Attachment> = Object.freeze({
   filename: 'telegram.png',
-  path: resolve(__dirname, '../emails/telegram.png'),
-  cid: 'telegram@login',
+  content: readFileSync(`${__dirname}/../emails/telegram.png`).toString('base64'),
+  content_id: 'telegram@login',
+  disposition: 'inline',
 });
 
 const discordIcon: Readonly<Attachment> = Object.freeze({
   filename: 'discord.png',
-  path: resolve(__dirname, '../emails/discord.png'),
-  cid: 'discord@login',
+  content: readFileSync(`${__dirname}/../emails/discord.png`).toString('base64'),
+  content_id: 'discord@login',
+  disposition: 'inline',
 });
 
 const router = express.Router();
@@ -189,6 +195,55 @@ router.get('/accounts', async (req, res) => {
 });
 
 /**
+ * Unlinks bank accounts
+ */
+router.post('/accounts/unlink', async (req, res) => {
+  try {
+    if (!req.headers.authorization) return res.json(messages.failed.invalidToken);
+
+    const payload = await new JWT().authorize(req.headers.authorization);
+
+    if (!payload || payload.type !== 'verified') {
+      return null;
+    }
+
+    const user = await User.findOne({ _id: payload.userId });
+
+    const { IDs } = req.body;
+
+    if (!IDs || !IDs.length) return res.json(messages.failed.general);
+
+    user.bankAccounts.forEach(bankAcc => {
+      bankAcc.accounts
+        .filter(acc => IDs.includes(acc.id))
+        .forEach(async acc => {
+          // @ts-ignore
+          await bankAcc.accounts.pull({ _id: acc._id });
+        });
+    });
+
+    user.bankAccounts.forEach(async bankAcc => {
+      if (!bankAcc.accounts.length) {
+        // @ts-ignore
+        await user.bankAccounts.pull({ _id: bankAcc._id });
+      }
+    });
+
+    await user.save();
+
+    res.json({ success: 1 });
+  } catch (error) {
+    res.status(500).json({
+      error: {
+        status: error.status || 500,
+        message: error.message || 'Internal Server Error',
+        stack: error.stack,
+      },
+    });
+  }
+});
+
+/**
  *  Stripe Deposit
  *  references plaidClient
  */
@@ -214,50 +269,65 @@ router.post('/deposit', async (req, res) => {
       }),
     );
 
-    const stripeInfo = await plaidClient.processorStripeBankAccountTokenCreate({
-      access_token: accountInfo.accessToken as string,
-      account_id,
-    });
+    try {
+      const stripeInfo = await plaidClient.processorStripeBankAccountTokenCreate({
+        access_token: accountInfo.accessToken as string,
+        account_id,
+      });
 
-    const charge = await stripeInstance.charges.create({
-      amount: amount * 100,
-      currency: 'usd',
-      source: stripeInfo.data.stripe_bank_account_token,
-      description: 'Redxam deposit',
-      metadata: {
-        user_id: payload.userId,
-      },
-    });
+      const charge = await stripeInstance.charges.create({
+        amount: amount * 100,
+        currency: 'usd',
+        source: stripeInfo.data.stripe_bank_account_token,
+        description: 'Redxam deposit',
+        metadata: {
+          user_id: payload.userId,
+        },
+      });
 
-    await Deposits.create({
-      userId: payload.userId,
-      type: DepositsType.FIAT,
-      currency: DepositsCurrencyType.USD,
-      amount,
-      timestamp: new Date().getTime(),
-      status: 'pending',
-      stripeChargeId: charge.id,
-      bankName: usedAccount.name,
-      bankIcon: usedAccount.logo,
-    });
+      await Deposits.create({
+        userId: payload.userId,
+        type: DepositsType.FIAT,
+        currency: DepositsCurrencyType.USD,
+        amount,
+        timestamp: new Date().getTime(),
+        status: 'pending',
+        stripeChargeId: charge.id,
+        bankName: usedAccount.name,
+        bankIcon: usedAccount.logo,
+        bankType: usedAccount.type,
+      });
 
-    await sendGrid.sendMail({
-      from: `redxam.com <${SERVICE_EMAIL}>`,
-      to: user.email,
-      subject: ' Your deposit on it’s way 💸 | redxam',
-      html: render(templateData, { amount }),
-      attachments: [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon],
-    });
+      await sendGrid.sendMail({
+        from: `redxam.com <${SERVICE_EMAIL}>`,
+        to: user.email,
+        subject: ' Your deposit on it’s way 💸 | redxam',
+        html: render(templateData, { amount }),
+        attachments: [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon],
+      });
 
-    await sendGrid.sendMail({
-      from: `redxam.com <${SERVICE_EMAIL}>`,
-      to: user.email,
-      subject: ' Your deposit on it’s way 💸 | redxam',
-      html: render(templateData, { amount }),
-      attachments: [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon],
-    });
+      res.json({ success: 1 });
+    } catch (error) {
+      if (error?.response?.data?.error_code === 'ITEM_LOGIN_REQUIRED') {
+        const linkTokenResponse = await plaidClient.linkTokenCreate({
+          user: { client_user_id: payload.userId },
+          client_name: 'Redxam',
+          country_codes: [
+            CountryCode.Us,
+            CountryCode.Ca,
+            CountryCode.Gb,
+            CountryCode.Ie,
+            CountryCode.Fr,
+            CountryCode.Es,
+            CountryCode.Nl,
+          ],
+          language: 'en',
+          access_token: accountInfo.accessToken as string,
+        });
 
-    res.json({ success: 1 });
+        res.json({ token: linkTokenResponse.data.link_token, type: 'UPDATE_REQUIRED' });
+      } else throw error;
+    }
   } catch (error) {
     console.log(error);
     if (error?.response?.data?.display_message) {
