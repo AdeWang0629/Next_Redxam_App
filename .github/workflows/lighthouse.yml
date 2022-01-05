@@ -45,6 +45,8 @@ jobs:
 
       - name: Build site
         working-directory: ./packages/frontend
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: yarn build
 
       - name: Run Lighthouse CI
