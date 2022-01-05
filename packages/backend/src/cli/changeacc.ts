@@ -4,7 +4,6 @@ import '@/database';
 import { connection } from 'mongoose';
 import { Attachment } from 'nodemailer/lib/mailer';
 import sendGrid from '@/apis/sendgrid/index';
-
 import { resolve } from 'path';
 import { render } from 'mustache';
 import { readFileSync } from 'fs';
@@ -31,35 +30,35 @@ function renderTemplate(code: string) {
 function getAttachments() {
   const facebookIcon: Readonly<Attachment> = Object.freeze({
     filename: 'facebook.png',
-    content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/facebook.png`).toString('base64'),
     content_id: 'facebook@invited',
     disposition: 'inline',
   });
 
   const twitterIcon: Readonly<Attachment> = Object.freeze({
     filename: 'twitter.png',
-    content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/twitter.png`).toString('base64'),
     content_id: 'twitter@invited',
     disposition: 'inline',
   });
 
   const linkedInIcon: Readonly<Attachment> = Object.freeze({
     filename: 'linkedin.png',
-    content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/linkedin.png`).toString('base64'),
     content_id: 'linkedin@invited',
     disposition: 'inline',
   });
 
   const telegramIcon: Readonly<Attachment> = Object.freeze({
     filename: 'telegram.png',
-    content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/telegram.png`).toString('base64'),
     content_id: 'telegram@invited',
     disposition: 'inline',
   });
 
   const discordIcon: Readonly<Attachment> = Object.freeze({
     filename: 'discord.png',
-    content: readFileSync(`${__dirname}/../../emails/discord.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/discord.png`).toString('base64'),
     content_id: 'discord@invited',
     disposition: 'inline',
   });

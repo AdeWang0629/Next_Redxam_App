@@ -1,16 +1,15 @@
 import { Deposits, DepositsType, DepositsCurrencyType, User } from '@/database';
 
 export const updateUserDeposits = async (txList, currentUserWallet, isNode = false) => {
-  console.log(currentUserWallet);
   if (txList.length > currentUserWallet.txsCount || currentUserWallet.hasPendingTxs) {
     let hasPendingTxs = false;
-    console.log('holaaaa');
+
     const userTxs = getUserTxList(txList, currentUserWallet.address, isNode);
-    userTxs.forEach(tx => {
+    for (const tx of userTxs) {
       const status = tx.block_id > 0 ? 'completed' : 'pending';
       if (tx.block_id === -1) hasPendingTxs = true;
 
-      Deposits.updateOne(
+      await Deposits.updateOne(
         { userId: currentUserWallet.userId, hash: tx.txHash },
         {
           $set: {
@@ -31,21 +30,17 @@ export const updateUserDeposits = async (txList, currentUserWallet, isNode = fal
         {
           upsert: true,
         },
-      )
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
-    });
+      );
+    }
 
-    User.updateOne(
+    await User.updateOne(
       {
         _id: currentUserWallet.userId,
       },
       {
         $set: { hasPendingTxs, 'wallet.txsCount': txList.lenght },
       },
-    )
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    );
   }
 };
 

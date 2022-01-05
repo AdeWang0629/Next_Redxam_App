@@ -58,6 +58,10 @@ export const DepositsSchema = new Schema(
       type: String,
       required: false,
     },
+    bankType: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: {

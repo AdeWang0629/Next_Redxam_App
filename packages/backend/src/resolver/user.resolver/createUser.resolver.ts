@@ -2,7 +2,6 @@ import { messages } from '@/config/messages';
 import { User } from '@/database';
 import { SimpleWallet } from '@/database/types';
 import sendGrid from '@/apis/sendgrid/index';
-
 import { generateWallet } from '@/service/wallets';
 import { Request } from 'express';
 import { readFileSync } from 'fs';
@@ -113,7 +112,7 @@ const createNewUser = async (user: NewUser, wallet: SimpleWallet, level: number)
     pending_balance: 0,
     accountBalance: 0,
     balance: 0,
-    email,
+    email: email.toLowerCase(),
     phone,
     wallet,
     level,

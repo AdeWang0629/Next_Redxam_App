@@ -1,10 +1,16 @@
+/**
+ * Copyright (c) 2021 redxam LLC
+ * oncall: dev+max
+ * @format
+ *
+ * Updates user balances based on vault
+ * balance and user contribution
+ * Used for account statistics
+ */
+
 import { User } from '@/database';
 import { vaults } from '../resolver/vault.resolver/vaults.resolver';
 
-/**
- * Watches contracts Balances.
- * Use for account statistics
- */
 class BalanceWatcher {
   private static watcher: NodeJS.Timeout;
   private static readonly interval = 7200000;
@@ -17,7 +23,6 @@ class BalanceWatcher {
   private async updateBalance() {
     try {
       const vaultData = await vaults();
-      console.log(vaultData);
       const { totalContribution } = vaultData;
       let totalPrice = 0;
       Object.keys(vaultData.vaults).forEach(vault => {
@@ -50,7 +55,7 @@ class BalanceWatcher {
               },
             },
           },
-        ).then(() => console.log());
+        );
       });
     } catch (error) {
       console.log(error);

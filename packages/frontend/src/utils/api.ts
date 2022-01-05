@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, setCookies } from "cookies-next";
 
 class API {
   axios: AxiosInstance;
@@ -136,6 +136,23 @@ class API {
             lastName
             accountStatus
           }
+        }
+      }
+    `;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  getOverview(token: string) {
+    const query = `
+      query {
+        overview {
+          totalUsers
+          invitedUsers
+          acceptedUsers
+          usersWithBalance
         }
       }
     `;
