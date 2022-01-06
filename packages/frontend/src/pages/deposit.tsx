@@ -56,6 +56,37 @@ const Deposit: NextPage = () => {
 
   if (loading) return <span>loading</span>;
 
+  let depositContent = null;
+
+  switch (activeSection) {
+    case "bitcoin":
+      depositContent = (
+        <div>
+          {isValidApplicant && <Bitcoin />}
+          {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
+        </div>
+      );
+      break;
+
+    case "card":
+      depositContent = (
+        <div>
+          {isValidApplicant && ""}
+          {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
+        </div>
+      );
+      break;
+
+    default:
+      depositContent = (
+        <div>
+          {isValidApplicant && <Banks />}
+          {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
+        </div>
+      );
+      break;
+  }
+
   return (
     <InternalLayout>
       <div className="max-w-[900px] my-0 mx-auto px-3 lg:px-0">
@@ -71,22 +102,7 @@ const Deposit: NextPage = () => {
           />
         </div>
 
-        {activeSection === "bank" ? (
-          <div>
-            {isValidApplicant && <Banks />}
-            {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
-          </div>
-        ) : activeSection === "card" ? (
-          <div>
-            {isValidApplicant && ""}
-            {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
-          </div>
-        ) : activeSection === "bitcoin" ? (
-          <div>
-            {isValidApplicant && <Bitcoin />}
-            {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
-          </div>
-        ) : null}
+        {depositContent}
       </div>
     </InternalLayout>
   );
