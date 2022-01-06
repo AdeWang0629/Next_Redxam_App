@@ -18,6 +18,9 @@ export type Context = {
     accountStatus: string;
     balance: number;
     pending_balance: number;
+    wallet: null | {
+      address: string;
+    };
   };
   setUser: Dispatch<SetStateAction<null>>;
   loading: boolean;
