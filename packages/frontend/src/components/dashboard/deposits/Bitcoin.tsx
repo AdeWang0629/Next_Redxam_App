@@ -100,19 +100,20 @@ const BitcoinView: NextPage = () => {
           .filter((deposit) => {
             return (
               deposit.type === "CRYPTO" &&
+
               new Date(deposit.timestamp).getMonth() + 1 === month
             );
           });
 
         filtered.forEach((deposit) => {
           deposit.amount = deposit.amount * 0.00000001;
-          console.log(new Date(deposit.timestamp).getFullYear());
         });
 
         return { month, deposits: filtered };
       })
     );
   }, [deposits]);
+
 
   const handleToken = (token: string, tokenIcon: string) => {
     setToken(token);
@@ -124,7 +125,6 @@ const BitcoinView: NextPage = () => {
     setNetwork(network);
     setNetworkModal(false);
   };
-
   return (
     <>
       <div className="flex flex-col lg:flex-row">
@@ -148,6 +148,7 @@ const BitcoinView: NextPage = () => {
               >
                 Token
               </label>
+
               <button
                 className="border-2 border-solid	border-[#D4D5D3] rounded-[25px] px-5 h-14 flex justify-between items-center"
                 onClick={() => setTokenModal(true)}
@@ -218,7 +219,6 @@ const BitcoinView: NextPage = () => {
                 </Card>
               </div>
             )}
-
             <div className="flex flex-col px-8">
               <label
                 htmlFor="network"
@@ -226,6 +226,7 @@ const BitcoinView: NextPage = () => {
               >
                 Network
               </label>
+
               <button
                 className="border-2 border-solid	border-[#D4D5D3] rounded-[25px] px-5 h-14 flex justify-between items-center"
                 onClick={() => setNetworkModal(true)}
@@ -286,7 +287,6 @@ const BitcoinView: NextPage = () => {
                 </Card>
               </div>
             )}
-
             <div className="px-8 lg:px-20 mt-8 ">
               <p className="font-medium text-xs text-[#2A3037] mb-2 font-secondary">
                 Copy Address
@@ -487,6 +487,7 @@ const BitcoinView: NextPage = () => {
                           <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
                             {deposit.currency === "USD"
                               ? "$"
+
                               : deposit.currency}{" "}
                             {deposit.amount}
                           </p>

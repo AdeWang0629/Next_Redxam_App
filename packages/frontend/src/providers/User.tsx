@@ -16,7 +16,6 @@ export type Context = {
     email: string;
     phone: string;
     accountStatus: string;
-    balance: number;
     pending_balance: number;
     wallet: null | {
       address: string;

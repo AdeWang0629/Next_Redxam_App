@@ -102,6 +102,7 @@ const Deposit: NextPage = () => {
           />
         </div>
 
+
         {depositContent}
       </div>
     </InternalLayout>

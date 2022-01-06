@@ -2,6 +2,7 @@ import "@styles/globals.css";
 import type { AppProps } from "next/app";
 import EnvironmentsSwitcher from "@components/global/EnvironmentsSwitcher";
 import AdminProvider from "@providers/Admin";
+import HomeProvider from "@providers/Home";
 import UserProvider from "@providers/User";
 import Head from "next/head";
 import { useEffect } from "react";
@@ -56,9 +57,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       {process.env.NODE_ENV !== "production" ? <EnvironmentsSwitcher /> : ""}
       <AdminProvider>
-        <UserProvider>
-          <Component {...pageProps} />
-        </UserProvider>
+        <HomeProvider>
+          <UserProvider>
+            <Component {...pageProps} />
+          </UserProvider>
+        </HomeProvider>
       </AdminProvider>
     </>
   );

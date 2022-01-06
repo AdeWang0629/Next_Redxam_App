@@ -9880,6 +9880,11 @@ react-particles-js@^3.6.0:
   dependencies:
     lodash "^4.17.11"
 
+react-placeholder@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/react-placeholder/-/react-placeholder-4.1.0.tgz#943128820b3b0a6f94371655aadec18d306e05e3"
+  integrity sha512-z1HGD86NWJTYTQumHsmGH9jkozv4QHa9dju/vHVUd4f1svu23pf5v7QoBLBfs3kA1S9GLJaCeRMHLbO2SCdz5A==
+
 react-plaid-link@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/react-plaid-link/-/react-plaid-link-3.2.1.tgz#b3378aa41858accd59a6702e28bd51e9369cb52c"
