@@ -158,7 +158,7 @@ const Navbar: NextPage<NavbarProps> = ({
             >
               Join Waitlist!
             </button>
-            <button
+            {/* <button
               className="flex items-center justify-center md:ml-[50px] order-first md:order-none mt-[25px] md:mt-0"
               onClick={toggleTheme}
             >
@@ -170,7 +170,7 @@ const Navbar: NextPage<NavbarProps> = ({
                     : "text-black"
                 }`}
               />
-            </button>
+            </button> */}
           </div>
         </div>
       </nav>

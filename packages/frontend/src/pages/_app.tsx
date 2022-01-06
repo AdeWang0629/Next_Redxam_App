@@ -7,12 +7,12 @@ import Head from "next/head";
 import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
+  /* useEffect(() => {
     if (typeof window !== "undefined") {
       let theme = localStorage.getItem("theme");
       if (theme === "dark") document.body.classList.add("dark");
     }
-  }, []);
+  }, []); */
 
   return (
     <>
