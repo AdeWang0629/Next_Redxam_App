@@ -1,1 +1,1 @@
-doppler run -- npm run start:portfolio
+doppler run -- npm run start:prod:portfolio

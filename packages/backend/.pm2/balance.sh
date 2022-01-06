@@ -1,1 +1,1 @@
-doppler run -- npm run start:balance
+doppler run -- npm run start:prod:balance

@@ -1,1 +1,1 @@
-doppler run -- npm run start:binance
+doppler run -- npm run start:prod:binance
