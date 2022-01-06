@@ -4,6 +4,9 @@
 # ENVIRONMENT can be development, staging or production
 ENVIRONMENT=$1
 
+npm i -g pm2
+npm i -g yarn
+
 cd redxamapp
 if [ "$ENVIRONMENT" = "development" ]; then
     git checkout develop
