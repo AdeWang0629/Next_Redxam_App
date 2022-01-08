@@ -97,11 +97,25 @@ class API {
           wallet {
             address
           }
-          balance,
           pending_balance
         }
       }
     `;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  getHomeData() {
+    const query = `query {
+      home {
+        balance
+        dolarChange
+        percentChange
+      }
+    }
+  `;
 
     return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
       headers: { ...this.getAuthorizationHeader() },

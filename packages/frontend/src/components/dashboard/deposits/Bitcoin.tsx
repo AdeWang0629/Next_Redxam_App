@@ -1,21 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "@providers/User";
 import { NextPage } from "next";
-import { usePlaidLink } from "react-plaid-link";
 import Image from "next/image";
 import api from "@utils/api";
 import Card from "../Card";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getMonthName } from "@utils/helpers";
-import UnlinkModel from "@components/models/UnlinkModel";
-import DepositModel from "@components/models/DepositModel";
+import QRCode from "qrcode";
 
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import BankImage from "@public/images/dashboard/deposits/bank.svg";
+import btcLogo from "@public/icons/bitcoin.svg";
 import BankIcon from "@public/icons/bank.svg";
+import arrowDrop from "@public/images/dashboard/deposits/arrow-drop.svg";
+import closeIcon from "@public/images/dashboard/deposits/close.svg";
 import EmptyImage from "@public/images/dashboard/deposits/empty.svg";
+import copyIcon from "@public/images/dashboard/deposits/copy.svg";
 
-const BanksView: NextPage = () => {
-  const [plaidToken, setPlaidToken] = useState("");
+const BitcoinView: NextPage = () => {
+  const { user } = useContext(UserContext);
+
+  const [tokenModal, setTokenModal] = useState(false);
+  const [token, setToken] = useState("");
+  const [tokenIcon, setTokenIcon] = useState("");
+  const [networkModal, setNetworkModal] = useState(false);
+  const [network, setNetwork] = useState("");
+  const [qrCode, setQrCode] = useState("");
+  const [qrCodeModal, setQrCodeModal] = useState(false);
   const [deposits, setDeposits] = useState<
     | []
     | [
@@ -59,23 +67,23 @@ const BanksView: NextPage = () => {
         }
       ]
   >([]);
-  const [accounts, setAccounts] = useState<
-    | []
-    | [{ _id: string; id: string; name: string; logo?: string; type: string }]
-  >([]);
-  const [selectedToUnlink, setSelectedToUnlink] = useState<[] | [string]>([]);
-  const [unlinkMode, setUnlinkMode] = useState(false);
-  const [showUnlinkModel, setShowUnlinkModel] = useState(false);
-  const [showDepositModel, setShowDepositModel] = useState(false);
+
+  useEffect(() => {
+    async function generateQrCode() {
+      try {
+        const addressQrCode = await QRCode.toDataURL(
+          user?.wallet?.address || ""
+        );
+        setQrCode(addressQrCode);
+      } catch (error) {
+        return null;
+      }
+    }
+    generateQrCode();
+  }, [user?.wallet?.address, qrCode]);
 
   useEffect(() => {
     (async () => {
-      let { data: plaidTokenData } = await api.getPlaidToken();
-      setPlaidToken(plaidTokenData.token);
-
-      let { data: accountsData } = await api.getBankAccounts();
-      setAccounts(accountsData.accounts);
-
       let { data: userDepositsData } = await api.getUserDeposits();
       setDeposits(userDepositsData.data.userDeposits);
     })();
@@ -91,29 +99,32 @@ const BanksView: NextPage = () => {
           .filter((deposit) => deposit.status !== "pending")
           .filter((deposit) => {
             return (
-              deposit.type === "FIAT" &&
-              new Date(deposit.timestamp).getMonth() + 1 === month &&
-              new Date(deposit.timestamp).getFullYear() ===
-                new Date().getFullYear()
+              deposit.type === "CRYPTO" &&
+
+              new Date(deposit.timestamp).getMonth() + 1 === month
             );
           });
+
+        filtered.forEach((deposit) => {
+          deposit.amount = deposit.amount * 0.00000001;
+        });
 
         return { month, deposits: filtered };
       })
     );
   }, [deposits]);
 
-  const { open, exit, ready } = usePlaidLink({
-    onSuccess: (public_token, metadata) =>
-      api.linkPlaidAccount(public_token, metadata).then(async () => {
-        let { data: accountsData } = await api.getBankAccounts();
-        setAccounts(accountsData.accounts);
-      }),
-    token: plaidToken,
-    countryCodes: ["US", "CA", "GB", "IE", "FR", "ES", "NL"],
-    env: process.env.NODE_ENV === "development" ? "sandbox" : "development",
-  });
 
+  const handleToken = (token: string, tokenIcon: string) => {
+    setToken(token);
+    setTokenIcon(tokenIcon);
+    setTokenModal(false);
+  };
+
+  const handleNetwork = (network: string) => {
+    setNetwork(network);
+    setNetworkModal(false);
+  };
   return (
     <>
       <div className="flex flex-col lg:flex-row">
@@ -121,138 +132,228 @@ const BanksView: NextPage = () => {
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
             <div className="flex items-center justify-between px-8">
               <h1 className="font-secondary font-medium text-lg py-6">
-                Added banks
+                Deposit to Wallet
               </h1>
-              {accounts.length ? (
-                unlinkMode ? (
-                  selectedToUnlink.length ? (
-                    <button
-                      className="bg-lighter-black text-white py-2 px-8 rounded-[25px] border font-secondary text-sm font-medium"
-                      style={{
-                        boxShadow:
-                          "0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)",
-                      }}
-                      onClick={() => setShowUnlinkModel(true)}
-                    >
-                      Unlink
-                    </button>
-                  ) : (
-                    <button
-                      className="py-2 px-8 rounded-[25px] border font-secondary text-sm font-medium"
-                      onClick={() => setUnlinkMode(false)}
-                    >
-                      Cancel
-                    </button>
-                  )
-                ) : (
-                  <button
-                    className="rounded-full border border-palette-gray w-10 h-10 flex items-center justify-center"
-                    onClick={() => setUnlinkMode(true)}
-                  >
-                    <FontAwesomeIcon
-                      icon={faTrashAlt}
-                      className="text-lighter-black"
-                    />
-                  </button>
-                )
-              ) : null}
             </div>
             <hr />
-            {accounts.length > 0 ? (
-              <div className="flex flex-col">
-                {accounts.map((account) => (
-                  <div
-                    className="flex items-center px-8 py-5 border-b"
-                    key={account._id}
-                  >
-                    <div className="flex-1 flex items-center">
+
+            <p className="text-center text-sm font-secondary text-[#636369] my-3">
+              Please select token & network
+            </p>
+
+            <div className="flex flex-col px-8 mb-5">
+              <label
+                htmlFor="token"
+                className="mb-5 font-secondary font-medium text-xl"
+              >
+                Token
+              </label>
+
+              <button
+                className="border-2 border-solid	border-[#D4D5D3] rounded-[25px] px-5 h-14 flex justify-between items-center"
+                onClick={() => setTokenModal(true)}
+              >
+                <div className="flex items-center">
+                  {token ? (
+                    <>
                       <Image
-                        src={`data:image/png;base64,${account.logo}`}
-                        width="40"
-                        height="40"
+                        src={tokenIcon || ""}
+                        alt="BTC Logo"
+                        width="28px"
+                        height="28px"
                       />
-                      <div className="flex flex-col justify-center ml-5">
-                        <h2 className="font-secondary text-sm font-medium">
-                          {account.name}
-                        </h2>
-                        <h3 className="font-secondary font-medium text-xs mt-1.5 text-palette-gray first-letter:uppercase">
-                          {account.type}
-                        </h3>
-                      </div>
-                    </div>
-                    {unlinkMode ? (
-                      <div className="flex items-center justify-center">
-                        <input
-                          type="checkbox"
-                          className="h-5 w-5"
-                          // @ts-ignore
-                          checked={selectedToUnlink.includes(account._id)}
-                          onClick={() => {
-                            // @ts-ignore
-                            selectedToUnlink.includes(account._id)
-                              ? // @ts-ignore
-                                setSelectedToUnlink((prev) =>
-                                  prev.filter((id) => id !== account._id)
-                                )
-                              : // @ts-ignore
-                                setSelectedToUnlink((prev) => [
-                                  ...prev,
-                                  account._id,
-                                ]);
-                          }}
-                        />
-                      </div>
-                    ) : null}
-                  </div>
-                ))}
-                <div className="flex items-center justify-center py-4 border-b">
-                  <button
-                    className="font-secondary font-medium underline cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
-                    onClick={() => open()}
-                    disabled={!plaidToken.length}
-                  >
-                    Add Bank Account
-                  </button>
+                      <p className="ml-4 font-secondary text-sm">{token}</p>
+                    </>
+                  ) : (
+                    <p className="font-secondary text-sm opacity-50">
+                      Select token
+                    </p>
+                  )}
                 </div>
-              </div>
-            ) : (
-              <div className="mt-16 flex flex-col items-center px-8 pb-10">
-                <Image src={BankImage} />
-                <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
-                  Your KYC is complete, now you can add multiple bank accounts
-                  to your redxam.
-                </p>
-                <button
-                  className="bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
-                  style={{
-                    boxShadow:
-                      "0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)",
-                  }}
-                  onClick={() => open()}
-                  disabled={!plaidToken.length}
+                <Image
+                  src={arrowDrop || ""}
+                  alt="Arrow Dropdown"
+                  width="24px"
+                  height="24px"
+                />
+              </button>
+            </div>
+
+            {/* Token Modal */}
+            {tokenModal && (
+              <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
+                <Card
+                  width="w-[622px]"
+                  height="h-[170px]"
+                  py="py-7"
+                  otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
                 >
-                  Add Bank Account
-                </button>
+                  <div className="w-full flex justify-between items-center px-7 pb-7 border-b border-[#E7EAEB]">
+                    <p className="text-lg font-secondary">Select Token</p>
+                    <button
+                      className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px]"
+                      onClick={() => setTokenModal(false)}
+                    >
+                      <Image
+                        src={closeIcon || ""}
+                        alt="Close Icon"
+                        width="14px"
+                        height="14px"
+                      />
+                    </button>
+                  </div>
+                  <div className="px-7 mt-5">
+                    <button
+                      className="flex"
+                      onClick={() => handleToken("BTC", btcLogo)}
+                    >
+                      <Image
+                        src={btcLogo || ""}
+                        alt="BTC Logo"
+                        width="28px"
+                        height="28px"
+                      />
+                      <p className="font-secondary text-lg ml-6">BTC</p>
+                    </button>
+                  </div>
+                </Card>
               </div>
             )}
+            <div className="flex flex-col px-8">
+              <label
+                htmlFor="network"
+                className="mb-5 font-secondary font-medium text-xl"
+              >
+                Network
+              </label>
+
+              <button
+                className="border-2 border-solid	border-[#D4D5D3] rounded-[25px] px-5 h-14 flex justify-between items-center"
+                onClick={() => setNetworkModal(true)}
+              >
+                {network ? (
+                  <p className="font-secondary text-sm">{network}</p>
+                ) : (
+                  <p className="font-secondary text-sm opacity-50">
+                    Select Network
+                  </p>
+                )}
+
+                <Image
+                  src={arrowDrop || ""}
+                  alt="Arrow Dropdown"
+                  width="24px"
+                  height="24px"
+                />
+              </button>
+            </div>
+
+            {/* Network Modal */}
+            {networkModal && (
+              <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
+                <Card
+                  width="w-[622px]"
+                  height="h-[200px]"
+                  py="py-7"
+                  otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
+                >
+                  <div className="w-full flex justify-between items-center px-7 pb-7 border-b border-[#E7EAEB]">
+                    <p className="text-lg font-secondary">Select Network</p>
+                    <button
+                      className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px]"
+                      onClick={() => setNetworkModal(false)}
+                    >
+                      <Image
+                        src={closeIcon || ""}
+                        alt="Close Icon"
+                        width="14px"
+                        height="14px"
+                      />
+                    </button>
+                  </div>
+                  <div className="px-7 mt-5">
+                    <button
+                      className="flex flex-col"
+                      onClick={() => handleNetwork("BTC")}
+                    >
+                      <p className="font-secondary text-base font-medium">
+                        BTC
+                      </p>
+                      <p className="font-secondary text-base text-[#95989B] mt-1.5">
+                        Bitcoin
+                      </p>
+                    </button>
+                  </div>
+                </Card>
+              </div>
+            )}
+            <div className="px-8 lg:px-20 mt-8 ">
+              <p className="font-medium text-xs text-[#2A3037] mb-2 font-secondary">
+                Copy Address
+              </p>
+              <div className="flex justify-between items-center">
+                <p className="font-secondary text-xs text-[#95989B]">
+                  {user?.wallet?.address}
+                </p>
+                <button
+                  onClick={() =>
+                    navigator.clipboard.writeText(user?.wallet?.address || "")
+                  }
+                >
+                  <Image
+                    src={copyIcon || ""}
+                    alt="Copy Button"
+                    width="22px"
+                    height="22px"
+                  />
+                </button>
+              </div>
+              <div className="flex justify-center items-center my-6 relative">
+                <button
+                  className="bg-light-gray bg-black w-[96px] h-[96px] p-6 rounded-full"
+                  onMouseEnter={() => setQrCodeModal(true)}
+                  onMouseLeave={() => setQrCodeModal(false)}
+                >
+                  {qrCode && (
+                    <Image
+                      src={qrCode || ""}
+                      alt="QR Code"
+                      width="40px"
+                      height="40px"
+                    />
+                  )}
+                </button>
+                {qrCodeModal && (
+                  <div className="w-[150px] h-[150px] absolute left-[195px] top-[12px] shadow-card rounded-[10px] before:absolute before:content-[''] before:w-[0] before:h-[0] before:left-[-11px] before:top-[18px] before:border-b-[15px] before:border-b-transparent before:border-t-[15px] before:border-t-transparent before:border-r-[12px] before:border-r-white">
+                    {qrCode && (
+                      <Image
+                        src={qrCode || ""}
+                        alt="QR Code"
+                        width="200px"
+                        height="200px"
+                        className="rounded-[10px]"
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="pb-6 px-8">
+              <ul>
+                <li className="before:content-['\2022'] before:text-[#67CE0C] before:font-bold before:inline-block before:w-[4px] before:pr-3.5 text-xs font-secondary text-[#95989B] mb-2">
+                  Send only BTC to this deposit address
+                </li>
+                <li className="before:content-['\2022'] before:text-[#67CE0C] before:font-bold before:inline-block before:w-[4px] before:pr-3.5 text-xs font-secondary text-[#95989B]">
+                  Make sure the network is bitcoin
+                </li>
+              </ul>
+            </div>
           </Card>
-          {accounts.length ? (
-            <button
-              className="w-2/3 mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{
-                boxShadow:
-                  "0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)",
-              }}
-              onClick={() => setShowDepositModel(true)}
-            >
-              Deposit to Wallet
-            </button>
-          ) : null}
         </div>
 
         <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0 lg:ml-3">
           <h1 className="px-8 py-6 font-secondary font-medium text-lg">
-            Recent deposits from Bank
+            Recent Deposits to Wallet
           </h1>
           <hr />
           {deposits.filter((deposit) => deposit.status === "pending").length ? (
@@ -296,11 +397,7 @@ const BanksView: NextPage = () => {
                       key={"deposit" + deposit.timestamp}
                     >
                       <Image
-                        src={
-                          deposit.bankIcon
-                            ? `data:image/png;base64,${deposit.bankIcon}`
-                            : BankIcon
-                        }
+                        src={btcLogo}
                         width={"40px"}
                         height={"40px"}
                         className={deposit.bankIcon ? "rounded-full" : ""}
@@ -308,10 +405,10 @@ const BanksView: NextPage = () => {
                       />
                       <div className="flex flex-col justify-center ml-4">
                         <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                          {deposit.bankName || "Unknown bank"}
+                          Bitcoin
                         </p>
                         <p className="font-secondary text-xs text-[#95989B]">
-                          PLACEHOLDER: ACC TYPE
+                          Processing
                         </p>
                       </div>
                       <div className="flex flex-col justify-center items-end ml-auto">
@@ -372,11 +469,7 @@ const BanksView: NextPage = () => {
                         }
                       >
                         <Image
-                          src={
-                            deposit.bankIcon
-                              ? `data:image/png;base64,${deposit.bankIcon}`
-                              : BankIcon
-                          }
+                          src={btcLogo}
                           width={"40px"}
                           height={"40px"}
                           className={deposit.bankIcon ? "rounded-full" : ""}
@@ -384,17 +477,18 @@ const BanksView: NextPage = () => {
                         />
                         <div className="flex flex-col justify-center ml-4">
                           <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                            {deposit.bankName || "Unknown bank"}
+                            Bitcoin
                           </p>
                           <p className="font-secondary text-xs text-[#95989B]">
-                            {deposit.bankType || "Unknown account type"}
+                            Processed
                           </p>
                         </div>
                         <div className="flex flex-col justify-center items-end ml-auto">
                           <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
                             {deposit.currency === "USD"
                               ? "$"
-                              : deposit.currency}
+
+                              : deposit.currency}{" "}
                             {deposit.amount}
                           </p>
                           <div className="flex justify-center items-center">
@@ -424,7 +518,7 @@ const BanksView: NextPage = () => {
               ))
           ) : (
             <div className="mt-16 flex flex-col items-center px-8 pb-10">
-              <Image src={EmptyImage} />
+              <Image src={EmptyImage} alt="No Transactions Ilustration" />
               <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
                 No transactions has been made from any of the added bank
                 accounts.
@@ -433,31 +527,8 @@ const BanksView: NextPage = () => {
           )}
         </Card>
       </div>
-
-      {showUnlinkModel ? (
-        <UnlinkModel
-          isOpened={showUnlinkModel}
-          setOpened={setShowUnlinkModel}
-          accounts={accounts}
-          IDs={selectedToUnlink}
-          fetchAccounts={async () => {
-            let { data: accountsData } = await api.getBankAccounts();
-            setAccounts(accountsData.accounts);
-            setUnlinkMode(false);
-            setSelectedToUnlink([]);
-          }}
-        />
-      ) : null}
-
-      {showDepositModel ? (
-        <DepositModel
-          isOpened={showDepositModel}
-          setOpened={setShowDepositModel}
-          accounts={accounts as any}
-        />
-      ) : null}
     </>
   );
 };
 
-export default BanksView;
+export default BitcoinView;

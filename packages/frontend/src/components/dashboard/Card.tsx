@@ -28,7 +28,7 @@ const Card: NextPage<CardProps> = ({
 }) => {
   return (
     <div
-      className={`shadow-card rounded-[25px] relative overflow-hidden ${width} ${height} ${p} ${py} ${px} ${my} ${mx} ${m} ${otherClasses}`}
+      className={`shadow-card rounded-[25px] overflow-hidden ${width} ${height} ${p} ${py} ${px} ${my} ${mx} ${m} ${otherClasses}`}
     >
       {children}
     </div>

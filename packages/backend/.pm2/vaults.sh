@@ -1,1 +1,1 @@
-doppler run -- npm run start:vaults
+doppler run -- npm run start:prod:vaults

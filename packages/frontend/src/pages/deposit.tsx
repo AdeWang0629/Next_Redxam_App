@@ -9,6 +9,7 @@ import IconButton from "@components/dashboard/IconButton";
 import Switcher from "@components/dashboard/deposits/Switcher";
 import KYC from "@components/dashboard/deposits/KYC";
 import Banks from "@components/dashboard/deposits/Banks";
+import Bitcoin from "@components/dashboard/deposits/Bitcoin";
 
 import BackIcon from "@public/icons/back.svg";
 
@@ -55,10 +56,41 @@ const Deposit: NextPage = () => {
 
   if (loading) return <span>loading</span>;
 
+  let depositContent = null;
+
+  switch (activeSection) {
+    case "bitcoin":
+      depositContent = (
+        <div>
+          {isValidApplicant && <Bitcoin />}
+          {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
+        </div>
+      );
+      break;
+
+    case "card":
+      depositContent = (
+        <div>
+          {isValidApplicant && ""}
+          {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
+        </div>
+      );
+      break;
+
+    default:
+      depositContent = (
+        <div>
+          {isValidApplicant && <Banks />}
+          {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
+        </div>
+      );
+      break;
+  }
+
   return (
     <InternalLayout>
-      <div className="max-w-[900px] my-0 mx-auto">
-        <div className="flex justify-between items-center mb-10">
+      <div className="max-w-[900px] my-0 mx-auto px-3 lg:px-0">
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-10">
           <IconButton
             buttonText={"Deposits"}
             buttonIcon={BackIcon}
@@ -70,12 +102,8 @@ const Deposit: NextPage = () => {
           />
         </div>
 
-        {activeSection === "bank" ? (
-          <div>
-            {isValidApplicant && <Banks />}
-            {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
-          </div>
-        ) : null}
+
+        {depositContent}
       </div>
     </InternalLayout>
   );
