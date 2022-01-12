@@ -48,6 +48,22 @@ letter-spacing: -0.05em; color: #2A3037;'
               {{lastOrder}}
               people ahead in the queue
             </p>
+            <p
+              style='font-family: "DM Sans", sans-serif; font-weight: bold; font-size: 19px; line-height: 180%; text-align: center; color: #000000; opacity: 0.8; margin-top: 0.25rem;'
+            >
+              Use this link to see your position in waitlist
+              <a href='{{origin}}/waitlist/{{waitlistToken}}'>See waitlist</a>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p
+              style='font-family: "DM Sans", sans-serif; font-weight: bold; font-size: 19px; line-height: 180%; text-align: center; color: #000000; opacity: 0.8; margin-top: 0.25rem;'
+            >
+              Share your referral code:
+              {{referralCode}}
+            </p>
           </td>
         </tr>
         <tr>

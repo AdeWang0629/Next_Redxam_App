@@ -6,6 +6,7 @@ import { users } from './users.resolver';
 import { verifyToken } from './verifyToken.resolver';
 import { balanceRecords } from './balanceRecords.resolver';
 import { changeAccountStatus } from './changeAccountStatus.resolver';
+import { waitlistLevel } from './waitlist.resolver';
 
 export const UserResolver = {
   checkRole,
@@ -16,4 +17,5 @@ export const UserResolver = {
   verifyToken,
   balanceRecords,
   changeAccountStatus,
+  waitlistLevel,
 };

@@ -34,6 +34,7 @@ export const config = (app: Express) => {
   app.use(httpLogger);
   // Setup Sentry Tracker
   Sentry.init({
+    environment: NODE_ENV,
     dsn: SENTRY_DSN,
     integrations: [
       // enable HTTP calls tracing
@@ -70,6 +71,7 @@ export const config = (app: Express) => {
   serviceHandler(app);
 
   app.use(Sentry.Handlers.errorHandler());
+
   // Serve static asstes
   app.use(staticAssets('assets'));
 };
@@ -78,6 +80,9 @@ const serviceHandler = app => {
   switch (SERVICE) {
     case 'server':
       setupGraphql(app);
+      app.use('/', (req, res) => {
+        res.send('V 1.1.0');
+      });
       app.use('/api/v2', sumsub);
       app.use('/api/v2/plaid', plaid);
       break;
