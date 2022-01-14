@@ -1,5 +1,5 @@
 export interface Tx {
-  txHash: string;
-  txIndex?: number;
+  hash: string;
+  index?: number;
   value?: number;
 }

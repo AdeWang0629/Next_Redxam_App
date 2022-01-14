@@ -18,6 +18,21 @@ type Deposits {
   bankName: String
   bankType: String
 }
+type InternalDeposits {
+  userId: String
+  type: String
+  amount: Float
+  currency: String
+  timestamp: Float
+  hash: String
+  address: String
+}
+
+type InternalDepositsResponse {
+  internalDeposits: [InternalDeposits]
+  success: Boolean
+  message: String
+}
 
 type User {
   _id: ID!
@@ -181,6 +196,7 @@ type Query {
   checkTwilioVerify(arg: check): Response
   overview: overview
   waitlistLevel(waitlistToken: String): WaitlistLevel
+  internalDeposits: InternalDepositsResponse
 }
 
 type Mutation {

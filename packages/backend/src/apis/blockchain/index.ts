@@ -48,10 +48,8 @@ const getTxByAddress = async (address: String) => {
   }
 };
 
-const getAddressUtxo = async (address: String) => {
-  const utxo = (await axios.get(`/coinbyaddr/${address}`)).data;
-  return utxo;
-};
+const getAddressUtxo = async (address: String) =>
+  (await axios.get(`/coinbyaddr/${address}`)).data;
 
 const getAddressBalance = async (address: String) => {
   const utxo = (await axios.get(`/coinbyaddr/${address}`)).data;
@@ -61,12 +59,13 @@ const getAddressBalance = async (address: String) => {
   return balance;
 };
 
-const isNodeOn = async () => {
-  const ping = (await axios.post('/', JSON.stringify({ method: 'ping' }))).status;
-  return ping === 200;
-};
+const broadcastTx = async txHash =>
+  axios.post('/', { method: 'sendrawtransaction', params: [txHash] });
+
+const isNodeOn = async () => (await axios.post('/', { method: 'ping' })).status === 200;
 
 export default {
+  broadcastTx,
   getTx,
   getTxByAddress,
   isNodeOn,
