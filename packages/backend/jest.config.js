@@ -9,5 +9,8 @@ module.exports = {
   },
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
-  }
+    // tsconfig paths
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^blockchair-api': '<rootDir>/src/apis/blockchair',
+  },
 };
