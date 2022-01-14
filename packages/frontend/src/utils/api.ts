@@ -30,12 +30,18 @@ class API {
       | {};
   }
 
-  createWaitlist(email: string, firstName?: string, lastName?: string) {
+  createWaitlist(
+    email: string,
+    firstName?: string,
+    lastName?: string,
+    referralCode?: string
+  ) {
     let mutation = `mutation {
         createWaitlist(arg: {
-          email: "${email}"${
-      firstName?.length ? `, firstName: "${firstName}"` : ""
-    }${lastName?.length ? `, lastName: "${lastName}"` : ""}
+          email: "${email}"
+          ${firstName?.length ? `, firstName: "${firstName}"` : ""}
+          ${lastName?.length ? `, lastName: "${lastName}"` : ""}
+          ${referralCode?.length ? `referralCode: "${referralCode}"` : ""}
         }) {
             success
             message

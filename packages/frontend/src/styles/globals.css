@@ -74,7 +74,7 @@ p {
   pointer-events: none;
   background: white;
   transition: transform 100ms ease;
-  transform: translateY(-20px);
+  transform: translateY(-18px);
 }
 
 .input-wrapper input {
@@ -87,7 +87,7 @@ p {
   position: relative;
 }
 
-.input-wrapper input:invalid + label {
+.input-wrapper input[value=""] + label {
   transform: translateY(0);
 }
 
@@ -99,4 +99,24 @@ p {
 .input-wrapper input:focus + label {
   color: #27ae60;
   transform: translateY(-18px);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-wrapper.invalid input,
+.input-wrapper.invalid input:focus {
+  border-color: #ae2727;
+}
+
+.input-wrapper.invalid input:focus + label,
+.input-wrapper.invalid input + label {
+  color: #ae2727;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
