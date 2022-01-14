@@ -3,12 +3,11 @@ import express from 'express';
 import { connection } from 'mongoose';
 import { config as appConfig } from './appConfig';
 import { binanceBalanceWatcher } from './service/getTotalBalance';
-import { updateAllContributions } from './service/updateAllContributions';
+// import { updateAllContributions } from './service/updateAllContributions';
 import { walletWatcher } from './service/bitcoinService';
 import { vaultWatcher } from './service/vaultService';
 import { balanceWatcher } from './service/balanceService';
 import { requestWatcher } from './service/changeRequestService';
-import blockchain from './apis/blockchain';
 
 const { PORT = '3000', SERVICE } = process.env;
 

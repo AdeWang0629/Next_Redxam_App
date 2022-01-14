@@ -62,6 +62,7 @@ export class BlockchairSetup {
   private _blockchain = config.blockchain;
   private _apiurl = config.apiurl;
   private _testnet = config.testnet;
+
   /**
    * Blockchair API key. Defaults to `BLOCKCHAIR_API_KEY` env variable.
    */
@@ -70,18 +71,23 @@ export class BlockchairSetup {
       throw new Error('Testnet only allows bitcoin or ethereum coins!');
     }
   }
+
   protected get blockchain() {
     return this._blockchain;
   }
+
   protected get apiurl() {
     return `${this._apiurl}/${this.blockchain}` + (this.testnet ? '/testnet' : '');
   }
+
   protected get testnet() {
     return this._testnet;
   }
+
   protected get apikey() {
     return this.testnet ? undefined : this._apikey;
   }
+
   public setBlockchain(blockchain: Blockchain) {
     if (this.testnet && !VALID_TESTNET_BLOCKCHAINS.includes(blockchain)) {
       throw new Error(
@@ -92,15 +98,18 @@ export class BlockchairSetup {
     this._blockchain = blockchain;
     return this;
   }
+
   public setApiurl(url: string) {
     this._apiurl = url.endsWith('/') ? url.slice(0, -1) : url;
     return this;
   }
+
   public useTestnet(value = true, blockchain: 'bitcoin' | 'ethereum' = 'bitcoin') {
     this._testnet = value;
     this._blockchain = blockchain;
     return this;
   }
+
   private fetch: BCApiRequest = async function (endpoint, method, params = {}) {
     const res = await axios({
       url: `${this.apiurl}/${endpoint}`,
@@ -126,14 +135,17 @@ export class BlockchairSetup {
 
     return res.data;
   };
+
   private createApiRequest(method: Method): NewApiRequest {
     return (endpoint, params?) => {
       return this.fetch(endpoint, method, params);
     };
   }
+
   protected get get() {
     return this.createApiRequest('GET');
   }
+  
   protected get post() {
     return this.createApiRequest('POST');
   }
