@@ -80,11 +80,11 @@ const serviceHandler = app => {
   switch (SERVICE) {
     case 'server':
       setupGraphql(app);
+      app.use('/api/v2', sumsub);
+      app.use('/api/v2/plaid', plaid);
       app.use('/', (req, res) => {
         res.send('V 1.1.0');
       });
-      app.use('/api/v2', sumsub);
-      app.use('/api/v2/plaid', plaid);
       break;
     case 'webhooks':
       app.use('/api/webhooks/', webhooks);

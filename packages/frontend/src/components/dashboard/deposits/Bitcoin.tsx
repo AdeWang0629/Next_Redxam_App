@@ -472,7 +472,6 @@ const BitcoinView: NextPage = () => {
 
               {cryptoDeposits.length > 0 &&
                 cryptoDeposits.map((deposit) => {
-                  console.log(cryptoDeposits);
                   if (
                     new Date(deposit.timestamp).getFullYear() <= year &&
                     new Date(deposit.timestamp).getMonth() + 1 !== month
