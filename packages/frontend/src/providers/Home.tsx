@@ -37,19 +37,24 @@ export default function HomeProvider({ children }: { children: ReactNode }) {
   const [noHome, setNoHome] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (getCookie("token")) {
-        setLoading(true);
-        api
-          .getHomeData()
-          .then(({ data }) => {
-            setNoHome(false);
-            setHome(data.data.home);
-          })
-          .catch(() => setNoHome(true))
-          .finally(() => setLoading(false));
-      } else setNoHome(true);
-    }
+    setLoading(true);
+    setTimeout(() => {
+      if (typeof window !== "undefined") {
+        if (getCookie("token")) {
+          api
+            .getHomeData()
+            .then(({ data }) => {
+              setNoHome(false);
+              setHome(data.data.home);
+            })
+            .catch(() => setNoHome(true))
+            .finally(() => setLoading(false));
+        } else {
+          setNoHome(true);
+          setLoading(false);
+        }
+      }
+    }, 1000);
   }, []);
 
   return (

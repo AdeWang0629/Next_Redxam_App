@@ -2170,7 +2170,7 @@ const handleAave = async () => {
   );
   // Avve liquidity rates are expressed in RAY units that is 10^27, for percentage multiply by 100
   const interestRate =
-    interestRateRes.data.data.reserves[0].liquidityRate / Math.pow(10, 27) * 100;
+    (interestRateRes.data.data.reserves[0].liquidityRate / Math.pow(10, 27)) * 100;
 
   return {
     prevBalance: balance,
@@ -2230,7 +2230,7 @@ const handleDaiUsd = async () => {
 
   const interestRate = await axios
     .get('https://api.beefy.finance/apy')
-    .then(res => res.data['sushi-celo-cusd-dai']);
+    .then(res => res.data['sushi-celo-cusd-daiv2']);
 
   const parsedDerivative = derivative / Math.pow(10, decimals);
   const parsedTokenPrice = tokenPrice / Math.pow(10, decimals);

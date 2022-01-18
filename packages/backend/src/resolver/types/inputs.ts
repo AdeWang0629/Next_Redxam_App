@@ -17,6 +17,7 @@ export interface NewUser {
   issuanceDate?: string;
   issuanceStatus?: string;
   expiringDate?: string;
+  referralCode?: string;
 }
 
 export interface NewManualUser {

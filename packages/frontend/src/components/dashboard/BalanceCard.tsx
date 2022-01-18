@@ -13,13 +13,7 @@ import leafsBg from "@public/images/dashboard/leafs-bg.svg";
 const BalanceCard = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useContext(UserContext);
-  const { home } = useContext(HomeContext);
-
-  useEffect(() => {
-    if (home?.balance) {
-      setLoading(true);
-    }
-  }, [home?.balance]);
+  const { home, loading } = useContext(HomeContext);
 
   return (
     <Card width="lg:w-[440px]" height="h-[197px]">
@@ -39,7 +33,7 @@ const BalanceCard = () => {
         <ReactPlaceholder
           showLoadingAnimation={true}
           type="textRow"
-          ready={loading}
+          ready={!loading}
           style={{ height: 36, marginTop: 0, width: "80%" }}
         >
           <p className="font-secondary font-bold text-3xl text-black w-[80%]">

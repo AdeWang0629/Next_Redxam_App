@@ -37,6 +37,9 @@ export interface User {
   issuanceStatus?: string;
   expiringDate?: string;
   portfolio?: string;
+  waitlistToken: string;
+  referralCode: string;
+  referralId?: string;
 }
 
 export interface UserProps extends Document, User {

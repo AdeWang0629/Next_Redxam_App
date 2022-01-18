@@ -1,5 +1,5 @@
 import { JWT } from '@/config/jwt';
-import { Contribution, TotalPrice, User, Deposits } from '@/database';
+import { Contribution, TotalPrice, User } from '@/database';
 import { Request } from 'express';
 
 const getUserById = (userId: string) => {

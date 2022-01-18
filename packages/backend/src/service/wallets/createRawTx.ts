@@ -11,15 +11,23 @@ interface TxData {
 /**
  * Creates Raw Tx with all funds in wallets
  */
-export const createRawTx = (txData: TxData, prevTxs: Tx[]): Tx => {
+export const createRawTx = (txData: TxData, prevTxs, isNode): Tx => {
   const { senderWIF, receiverAddress } = txData;
 
   var txb = new TransactionBuilder(NETWORK);
 
   let inputBalance = 0;
-  prevTxs.forEach(({ txHash, txIndex, value }) => {
-    txb.addInput(txHash, txIndex);
-    inputBalance += value;
+
+  prevTxs.forEach(tx => {
+    if (isNode) {
+      const { hash, index, value } = tx;
+      txb.addInput(hash, index);
+      inputBalance += value;
+    } else {
+      const { txHash, txIndex, value } = tx;
+      txb.addInput(txHash, txIndex);
+      inputBalance += value;
+    }
   });
 
   // output is our Binance wallet
@@ -36,7 +44,7 @@ export const createRawTx = (txData: TxData, prevTxs: Tx[]): Tx => {
   //   print tx hex
   let txHex = txb.build().toHex();
 
-  return { txHash: txHex };
+  return { hash: txHex };
 
   // const tx = new TransactionBuilder(NETWORK);
   // const sender = ECPair.fromWIF(senderWIF, NETWORK);
