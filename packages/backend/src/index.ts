@@ -8,6 +8,15 @@ import { walletWatcher } from './service/bitcoinService';
 import { vaultWatcher } from './service/vaultService';
 import { balanceWatcher } from './service/balanceService';
 import { requestWatcher } from './service/changeRequestService';
+import mx from '@/apis/mx';
+
+// mx.createUser()
+//   .then(console.log)
+//   .catch(error => console.log(error));
+
+mx.getWidgetUrl('USR-be36462a-c85e-4611-bf57-fb6cbac3d0e2')
+  .then(console.log)
+  .catch(error => console.log(error));
 
 const { PORT = '3000', SERVICE } = process.env;
 
