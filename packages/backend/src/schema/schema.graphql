@@ -181,6 +181,10 @@ type WaitlistLevel {
   level: String
 }
 
+type WidgetUrl {
+  widgetUrl: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -197,6 +201,7 @@ type Query {
   overview: overview
   waitlistLevel(waitlistToken: String): WaitlistLevel
   internalDeposits: InternalDepositsResponse
+  mxWidgetConnect: WidgetUrl
 }
 
 type Mutation {

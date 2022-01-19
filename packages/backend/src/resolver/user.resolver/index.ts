@@ -7,6 +7,7 @@ import { verifyToken } from './verifyToken.resolver';
 import { balanceRecords } from './balanceRecords.resolver';
 import { changeAccountStatus } from './changeAccountStatus.resolver';
 import { waitlistLevel } from './waitlist.resolver';
+import { mxWidgetConnect } from './mxWidgetConnect.resolver';
 
 export const UserResolver = {
   checkRole,
@@ -18,4 +19,5 @@ export const UserResolver = {
   balanceRecords,
   changeAccountStatus,
   waitlistLevel,
+  mxWidgetConnect,
 };

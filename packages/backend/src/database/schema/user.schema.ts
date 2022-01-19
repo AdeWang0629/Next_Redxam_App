@@ -192,6 +192,10 @@ export const UserSchema = new Schema(
       type: String,
       required: false,
     },
+    mxId: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: {
