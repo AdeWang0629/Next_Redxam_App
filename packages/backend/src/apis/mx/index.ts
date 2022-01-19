@@ -15,18 +15,20 @@ const axios = axiosModule.create({
   },
 });
 
-const createUser = async () => {
-  const user = {
-    email: 'email@provider.com',
-    id: 'test redxam',
+export const createUser = async user => {
+  const userData = {
+    email: user.email,
+    id: user._id,
     is_disabled: false,
   };
-  const newUser = await axios.post('/users', { user });
-  console.log(newUser);
-  return newUser;
+  const res = await axios.post('/users', { user: userData });
+  if (res.status === 200) {
+    return res.data.user;
+  }
+  throw new Error(res.data.error);
 };
 
-const getWidgetUrl = async (user_guid: string) => {
+export const getWidgetUrl = async (user_guid: string) => {
   const widgetObj = {
     widget_url: {
       widget_type: 'connect_widget',
@@ -44,9 +46,11 @@ const getWidgetUrl = async (user_guid: string) => {
       wait_for_full_aggregation: false,
     },
   };
-  const widgetData = await axios.post(`/users/${user_guid}/widget_urls`, widgetObj);
-  console.log(widgetData);
-  return widgetData;
+  const widgetRes = await axios.post(`/users/${user_guid}/connect_widget_url`, widgetObj);
+  if (widgetRes.status === 200) {
+    return widgetRes.data.user.connect_widget_url;
+  }
+  throw new Error(widgetRes.data.error);
 };
 
 export default { createUser, getWidgetUrl };

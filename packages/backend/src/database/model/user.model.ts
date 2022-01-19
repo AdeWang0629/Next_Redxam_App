@@ -40,6 +40,7 @@ export interface User {
   waitlistToken: string;
   referralCode: string;
   referralId?: string;
+  mxId?: string;
 }
 
 export interface UserProps extends Document, User {
