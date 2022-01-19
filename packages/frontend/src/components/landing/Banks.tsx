@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 
 import redxamLogo from "@public/images/redxam-logo.svg";
 import bankChase from "@public/images/bank-chase.png";
@@ -8,18 +9,18 @@ import bankTD from "@public/images/bank-td.png";
 import { useState } from "react";
 
 const Banks: NextPage = () => {
-  const [averageRate, setAverageRate] = useState(5);
+  const { t } = useTranslation("banks");
 
   return (
     <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48">
       <h2 className="text-4xl w-full md:w-[39rem] mx-auto mb-24 text-center text-black dark:text-gray-200 font-bold leading-[-0.03em]">
-        This is what other banks around the world will give you.
+        {t("banks-title")}
       </h2>
       <div className="flex flex-col md:flex-row justify-around space-y-12 md:space-y-0">
-        <Bank image={redxamLogo} name="Redxam" rate={averageRate} />
-        <Bank image={bankChase} name="Chase" rate={0.01} />
-        <Bank image={bankBofa} name="Bofa" rate={0.01} />
-        <Bank image={bankTD} name="TD Bank" rate={0.01} />
+        <Bank image={redxamLogo} name={t("redxam")} rate={t("redxam-rate")} />
+        <Bank image={bankChase} name={t("chase")} rate={t("chase-rate")} />
+        <Bank image={bankBofa} name={t("bofa")} rate={t("bofa-rate")} />
+        <Bank image={bankTD} name={t("tdbank")} rate={t("tdbank-rate")} />
       </div>
     </section>
   );
@@ -28,7 +29,7 @@ const Banks: NextPage = () => {
 interface BankProps {
   image: StaticImageData;
   name: string;
-  rate: number;
+  rate: string;
 }
 
 const Bank: NextPage<BankProps> = ({ image, name, rate }) => {

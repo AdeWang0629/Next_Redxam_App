@@ -30,6 +30,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         "starting",
         "relax",
         "calculate",
+        "banks",
+        "plan",
+        "faq",
       ])),
     },
   };
