@@ -194,6 +194,19 @@ class API {
     });
   }
 
+  getMXWidgetUrl() {
+    const query = `
+      query {
+        mxWidgetConnect {
+          widgetUrl
+        }
+      }
+    `;
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
   getPlaidToken() {
     return this.axios.get(`${this.baseURL}/api/v2/plaid`, {
       headers: { ...this.getAuthorizationHeader() },
