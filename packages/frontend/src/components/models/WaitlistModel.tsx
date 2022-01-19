@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
 import api from "src/utils/api";
 import { validateEmail } from "src/utils/helpers";
+import { useTranslation } from "next-i18next";
 
 interface WaitlistModelProps {
   isOpened: boolean;
@@ -12,6 +13,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
   isOpened,
   setOpened,
 }) => {
+  const { t } = useTranslation("waitlist");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -86,25 +88,25 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
           }`}
         >
           <p className="text-black text-center font-medium font-secondary">
-            You’ve been added to the waitlist!
+            {t("success")}
           </p>
         </div>
         <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
-          Join the Waitlist
+          {t("join")}
         </h3>
         <p className="w-full mb-5 text-black text-opacity-80 leading-[1.8] text-lg font-primary text-center">
-          Sign up for the beta and be the first to be notified when we launch
+          {t("signup")}
         </p>
 
         {emailInvalid && (
-          <p className="w-full text-[#ae2727] text-opacity-80 leading-[1.8] text-md font-primary text-center">
-            Enter a valid email address
+          <p className="w-full text-[#ae2727] text-opacity-80 leading-[1.8] text-md font-primary text-center font-bold">
+            {t("invalid-email")}
           </p>
         )}
 
         {referralCodeInvalid && (
-          <p className="w-full text-[#ae2727] text-opacity-80 leading-[1.8] text-md font-primary text-center">
-            Referrall is a 8 digits code
+          <p className="w-full text-[#ae2727] text-opacity-80 leading-[1.8] text-md font-primary text-center font-bold">
+            {t("referrall-digit")}
           </p>
         )}
 
@@ -119,7 +121,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
                 id="firstName"
               />
               <label className="font-primary" htmlFor="firstName">
-                First name
+                {t("first-name")}
               </label>
             </div>
             <div className="md:ml-2 mt-5 md:mt-0 input-wrapper">
@@ -131,7 +133,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
                 value={lastName}
               />
               <label className="font-primary" htmlFor="lastName">
-                Last name
+                {t("second-name")}
               </label>
             </div>
           </div>
@@ -147,7 +149,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               id="email"
             />
             <label className="font-primary" htmlFor="email">
-              Email address
+              {t("email")}
             </label>
           </div>
           <div
@@ -165,7 +167,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               autoComplete="off"
             />
             <label className="font-primary" htmlFor="referralCode">
-              Referral Code (Optional)
+              {t("referral")}
             </label>
           </div>
           <button
@@ -175,7 +177,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
             }
             id="join-waiting-button"
           >
-            Join the Waitlist
+            {t("join")}
           </button>
         </form>
       </div>
