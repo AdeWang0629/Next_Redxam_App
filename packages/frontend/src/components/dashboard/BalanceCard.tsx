@@ -11,7 +11,6 @@ import Card from "./Card";
 import leafsBg from "@public/images/dashboard/leafs-bg.svg";
 
 const BalanceCard = () => {
-  const [loading, setLoading] = useState(false);
   const { user } = useContext(UserContext);
   const { home, loading } = useContext(HomeContext);
 
