@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import WaitlistModel from "@components/models/WaitlistModel";
 import Head from "next/head";
+import { useTranslation } from "next-i18next";
 
 import Logo from "@public/logo.svg";
 import LoginModel from "@components/models/LoginModel";
@@ -19,6 +20,7 @@ const Navbar: NextPage<NavbarProps> = ({
   transparentBackground = false,
   title,
 }) => {
+  const { t } = useTranslation("navbar");
   let [navMobile, setNavMobile] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
@@ -126,17 +128,17 @@ const Navbar: NextPage<NavbarProps> = ({
             >
               <li className="mt-[25px] md:mt-0 md:mr-[50px]">
                 <Link href="/about">
-                  <a>About</a>
+                  <a>{t("about")}</a>
                 </Link>
               </li>
               <li className="mt-[25px] md:mt-0 md:mr-[50px]">
                 <Link href="/#benefits" shallow scroll>
-                  <a>Benefits</a>
+                  <a>{t("benefits")}</a>
                 </Link>
               </li>
               <li className="mt-[25px] md:mt-0 md:mr-[50px]">
                 <Link href="/#security" shallow scroll>
-                  <a>Security</a>
+                  <a>{t("security")}</a>
                 </Link>
               </li>
               <li className="mt-[25px] md:mt-0 md:mr-[50px]">
@@ -148,7 +150,7 @@ const Navbar: NextPage<NavbarProps> = ({
                   }`}
                   onClick={() => setLoginModelOpened(true)}
                 >
-                  Login
+                  {t("login")}
                 </button>
               </li>
             </ul>
@@ -156,7 +158,7 @@ const Navbar: NextPage<NavbarProps> = ({
               className="font-primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green order-first md:order-none mt-[25px] md:mt-0"
               onClick={() => setWaitlistModelOpened(true)}
             >
-              Join Waitlist!
+              {t("waitlist")}
             </button>
             {/* <button
               className="flex items-center justify-center md:ml-[50px] order-first md:order-none mt-[25px] md:mt-0"
