@@ -5,6 +5,7 @@ import AdminProvider from "@providers/Admin";
 import HomeProvider from "@providers/Home";
 import UserProvider from "@providers/User";
 import Head from "next/head";
+import { appWithTranslation } from "next-i18next";
 import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -67,4 +68,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

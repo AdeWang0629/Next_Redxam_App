@@ -20,7 +20,12 @@ const Home: NextPage = () => {
   }, [noUser]);
 
   useEffect(() => {
-    if (!noUser && !loading && user?.accountStatus && user?.accountStatus === "invited") {
+    if (
+      !noUser &&
+      !loading &&
+      user?.accountStatus &&
+      user?.accountStatus === "invited"
+    ) {
       router.push("/invite");
     }
   }, [user?.accountStatus]);
