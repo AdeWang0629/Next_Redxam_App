@@ -12,14 +12,28 @@ import Plan from "@components/landing/Plan";
 import FAQ from "@components/landing/FAQ";
 import Newsletter from "@components/landing/Newsletter";
 import Footer from "@components/global/Footer";
+import { GetStaticProps } from "next";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-export const getStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ["common", "hero"])),
-  },
-});
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  if (!locale) {
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "hero",
+        "whyus",
+        "starting",
+        "relax",
+        "calculate",
+      ])),
+    },
+  };
+};
 
 const Home: NextPage = () => {
   return (
