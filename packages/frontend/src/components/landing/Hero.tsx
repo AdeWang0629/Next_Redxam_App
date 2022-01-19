@@ -23,17 +23,14 @@ const Hero: NextComponentType = () => {
           {t("title-third")}
         </h1>
         <p className="font-primary text-[1.0625rem] max-w-[43.0625rem] mb-[1.875rem] text-center text-black dark:text-white text-opacity-80">
-          redxam is changing the way the world moves and embraces
-          cryptocurrencies, a gateway to more and better business creating a
-          financial solutions platform to make cryptocurrency purchases simple
-          and user-friendly.
+          {t("description")}
         </p>
         <button
           className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green"
           onClick={() => setWaitlistModelOpened(true)}
           id="join-waiting"
         >
-          Join the Waitlist
+          {t("join-button")}
         </button>
         <Link href="/#benefits" shallow scroll>
           <Image src={MouseIcon} alt="scroll" />
