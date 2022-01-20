@@ -3,37 +3,35 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 
 import QuestionsImage from "@public/images/questions-img.png";
 
 const FAQ: NextPage = () => {
   const [activeQuestion, setActiveQuestion] = useState(-1);
 
+  const { t } = useTranslation("faq");
+
   let questions = [
     {
-      title: "How does redxam earn money?",
-      body:
-        "redxam makes a quarter of the interest earned. Instead of having a fix pricing, we strive to provide the best returns for our customers.",
+      title: t("first-question-title"),
+      body: t("first-question-body"),
     },
     {
-      title: "How do the portfolios generate interest lending assets?",
-      body:
-        "Our portfolios, including our conservative plan, lend the money through a secure collateral-based system to borrowers that pay an interest for the assets borrowed.",
+      title: t("second-question-title"),
+      body: t("second-question-body"),
     },
     {
-      title: "How secure is redxam?",
-      body:
-        "We use bank-level security combined with impenetrable Bitcoin and Ethereum blockchain technologies. this combination provides one of the most secured financial networks in the world.",
+      title: t("third-question-title"),
+      body: t("third-question-body"),
     },
     {
-      title: "Does redxam require verified identification?",
-      body:
-        "We don’t require verification as long as you use crypto currencies for your savings account. Stable-coins are the recommended way of depositing assets.",
+      title: t("fourth-question-title"),
+      body: t("fourth-question-body"),
     },
     {
-      title: "How much do you need to invest with redxam?",
-      body:
-        "We recommend depositing at least the value of 0.1BTC as this will function as a cushion for any market volatility and transfer fees. We estimate about $20 to $30 on fees so we bundle transactions with other redxam users to reduce the costs to virtually $0.",
+      title: t("fifth-question-title"),
+      body: t("fifth-question-body"),
     },
   ];
 
@@ -41,11 +39,11 @@ const FAQ: NextPage = () => {
     <section className="flex flex-col-reverse md:flex-row mt-24 mb-48">
       <div className="max-w-4xl mx-auto flex flex-col p-4 md:p-0">
         <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
-          frequently asked questions
+          {t("subtitle")}
         </h4>
         <h2 className="w-full md:w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-36">
-          Quick answer to
-          <br /> your questions.
+          {t("first-title")}
+          <br /> {t("second-title")}
         </h2>
         <div className="flex flex-col">
           {questions.map((question, idx) => (

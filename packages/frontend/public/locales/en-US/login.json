@@ -1,0 +1,15 @@
+{
+  "login-title": "Login to Redxam",
+  "login-desc": "Login for alpha and continue enjoying the best investments plan",
+  "email-placeholder": "Email address",
+  "login-button": "Login",
+  "sent": "Link sent",
+  "sent-desc": "Please check your email inbox and click on login to continue.",
+  "innactive": "No active account",
+  "innactive-desc": "Sorry your account doesn’t exist yet. Please join the waitlist or email us at hello@redxam.com if something is wrong.",
+  "join-waitlist": "Join Waitlist!",
+  "email-us": "Email Us",
+  "enter-email-error": "Please enter your email",
+  "valid-email-error": "Please enter a valid email",
+  "error-ocurred": "An error occurred!"
+}
