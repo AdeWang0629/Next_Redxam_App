@@ -30,6 +30,8 @@ git pull
 cd packages/backend
 yarn install
 
+npm run build
+
 pm2 delete all
 pm2 start .pm2/balance.sh
 pm2 start .pm2/binance.sh
