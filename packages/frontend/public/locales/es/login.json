@@ -1,0 +1,15 @@
+{
+  "login-title": "Iniciar sesión",
+  "login-desc": "Ingresa en la alpha y sigue disfrutando del mejor plan de inversion",
+  "email-placeholder": "Correo electrónico",
+  "login-button": "Iniciar sesión",
+  "sent": "enlace enviado",
+  "sent-desc": "Por favor revisa tu correo y da click en el botón de login para ingresar",
+  "innactive": "Cuenta no activa",
+  "innactive-desc": "Lo siento, tu cuenta no existe aún. Por favor únete a la lista de espera o envianos un correo a hello@redxam.com si algo sale mal.",
+  "join-waitlist": "Únete a la lista de espera!",
+  "email-us": "Envíanos un correo",
+  "enter-email-error": "Por favor ingresa un correo",
+  "valid-email-error": "Por favor ingresa un correo electrónico valido",
+  "error-ocurred": "Lo siento, ha ocurrido un error!"
+}

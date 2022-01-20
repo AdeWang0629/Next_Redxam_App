@@ -64,8 +64,6 @@ class WalletWatcher {
       function (err, result) {
         if (err) {
           console.debug('Error: ', err);
-        } else {
-          console.debug('Updated pending balance');
         }
       },
     );
@@ -92,7 +90,7 @@ class WalletWatcher {
           await checkWalletsWithNode(wallet, BALANCE_THRESHOLD, TX_FEE);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     } else {
       const wallets = walletsRaw.map(w =>
@@ -116,7 +114,7 @@ class WalletWatcher {
           }
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
         console.error('Failed to broadcast this Tx!');
       }
     }

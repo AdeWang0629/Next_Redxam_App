@@ -10,6 +10,7 @@ import { Attachment } from 'nodemailer/lib/mailer';
 import { resolve } from 'path';
 import { admin } from '../admin.resolver/admin.resolver';
 import { Argument, NewUser } from '../types';
+import crypto from 'crypto';
 
 const { SERVICE_EMAIL } = process.env;
 
@@ -70,9 +71,18 @@ const getLastOrder = async () => {
   return user?.level ?? 0;
 };
 
-const sendMail = async (email: string, lastOrder: number) => {
+const sendMail = async (
+  email: string,
+  lastOrder: number,
+  origin,
+  waitlistToken: string,
+  referralCode: string,
+) => {
   const renderedTemplate = render(templateData, {
     lastOrder,
+    origin,
+    waitlistToken,
+    referralCode,
     randomText: `Ref #: ${Date.now()}`,
   });
 
@@ -85,7 +95,13 @@ const sendMail = async (email: string, lastOrder: number) => {
   });
 };
 
-const createNewUser = async (user: NewUser, wallet: SimpleWallet, level: number) => {
+const createNewUser = async (
+  user: NewUser,
+  wallet: SimpleWallet,
+  level: number,
+  waitlistToken: string,
+  referralCode: string,
+) => {
   const {
     firstName,
     lastName,
@@ -134,6 +150,8 @@ const createNewUser = async (user: NewUser, wallet: SimpleWallet, level: number)
     issuanceDate,
     issuanceStatus,
     expiringDate,
+    waitlistToken,
+    referralCode,
   });
 };
 
@@ -148,12 +166,30 @@ export const createUser = async ({ arg }: Argument<NewUser>, req: Request) => {
     return messages.failed.existed;
   }
 
+  if (arg.referralCode) {
+    console.log('handlethis');
+  }
+
   try {
     const wallet = generateWallet();
+    const waitlistToken = crypto.randomBytes(8).toString('hex');
+    const referralCode = crypto.randomBytes(4).toString('hex');
     const lastOrder = await getLastOrder();
 
-    const jobSend = sendMail(arg.email, lastOrder);
-    const jobCreate = createNewUser(arg, wallet, lastOrder + 1);
+    const jobSend = sendMail(
+      arg.email,
+      lastOrder,
+      req.headers.origin,
+      waitlistToken,
+      referralCode,
+    );
+    const jobCreate = createNewUser(
+      arg,
+      wallet,
+      lastOrder + 1,
+      waitlistToken,
+      referralCode,
+    );
 
     await Promise.all([jobSend, jobCreate]);
     return messages.success.register;

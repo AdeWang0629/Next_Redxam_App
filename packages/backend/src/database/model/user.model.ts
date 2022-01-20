@@ -37,6 +37,10 @@ export interface User {
   issuanceStatus?: string;
   expiringDate?: string;
   portfolio?: string;
+  waitlistToken: string;
+  referralCode: string;
+  referralId?: string;
+  mxId?: string;
 }
 
 export interface UserProps extends Document, User {

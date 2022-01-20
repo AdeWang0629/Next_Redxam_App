@@ -1,5 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
+import ReactPlaceholder from "react-placeholder";
+import "react-placeholder/lib/reactPlaceholder.css";
 import { UserContext } from "@providers/User";
+import { HomeContext } from "@providers/Home";
 import Image from "next/image";
 import Link from "next/link";
 import Card from "./Card";
@@ -9,6 +12,8 @@ import leafsBg from "@public/images/dashboard/leafs-bg.svg";
 
 const BalanceCard = () => {
   const { user } = useContext(UserContext);
+  const { home, loading } = useContext(HomeContext);
+
   return (
     <Card width="lg:w-[440px]" height="h-[197px]">
       <div className="absolute right-2.5 top-[-55px]">
@@ -24,9 +29,16 @@ const BalanceCard = () => {
         <p className="font-secondary text-base text-lighter-black opacity-50 mb-1">
           Total redxam balance
         </p>
-        <p className="font-secondary font-bold text-3xl text-black">
-          ${user?.balance}
-        </p>
+        <ReactPlaceholder
+          showLoadingAnimation={true}
+          type="textRow"
+          ready={!loading}
+          style={{ height: 36, marginTop: 0, width: "80%" }}
+        >
+          <p className="font-secondary font-bold text-3xl text-black w-[80%]">
+            ${home?.balance.toFixed(2)}
+          </p>
+        </ReactPlaceholder>
       </div>
       <p className="text-center bg-light-gray py-1 font-secondary text-sm text-[#95989B]">
         Your pending balance is

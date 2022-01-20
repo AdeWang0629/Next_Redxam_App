@@ -1,1 +1,1 @@
-doppler run -- npm run start:wallets
+doppler run -- npm run start:prod:wallets

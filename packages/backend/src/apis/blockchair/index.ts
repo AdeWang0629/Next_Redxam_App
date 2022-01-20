@@ -15,6 +15,7 @@ export class Blockchair extends BlockchairSetup {
   public stats() {
     return this.get<BCStats>('stats');
   }
+
   public async getWalletInfo(wallet: { address: Hashstring; wif: string }, userId: string) {
     const walletInfo = await this.get<BCWalletInfoResponse>(
       `dashboards/address/${wallet.address}?limit=0`,
@@ -23,10 +24,12 @@ export class Blockchair extends BlockchairSetup {
     });
     return walletInfo && { wallet, ...walletInfo, userId };
   }
+
   private paginationToString(pagination: BCApiPagination) {
     const { tx, utxo } = pagination;
     return `${tx},${utxo}`;
   }
+
   private normalizePagination(
     limit: BCApiPagination | number,
     offset: BCApiPagination | number = 0,
@@ -36,6 +39,7 @@ export class Blockchair extends BlockchairSetup {
     const normalize = (key: 'tx' | 'utxo') => valueOf(limit, key) + valueOf(offset, key);
     return { tx: normalize('tx'), utxo: normalize('utxo') };
   }
+
   public async getWalletTxs(
     address: Hashstring,
     limit: number | BCApiPagination = 100,
@@ -59,6 +63,7 @@ export class Blockchair extends BlockchairSetup {
       nextParams,
     };
   }
+
   public async getTxDetails(txList: string[]) {
     const txsInfo = [];
     for (let i = 0; i < txList.length; i += 10) {
@@ -71,6 +76,7 @@ export class Blockchair extends BlockchairSetup {
     }
     return txsInfo;
   }
+  
   public async broadcastTx(txHash: Hashstring) {
     return this.post('push/transaction', {
       data: txHash,

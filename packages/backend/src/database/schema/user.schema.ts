@@ -180,6 +180,22 @@ export const UserSchema = new Schema(
       enum: UsersPortfolios,
       default: UsersPortfolios.PASSIVE,
     },
+    waitlistToken: {
+      type: String,
+      required: true,
+    },
+    referralCode: {
+      type: String,
+      required: true,
+    },
+    referralId: {
+      type: String,
+      required: false,
+    },
+    mxId: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: {

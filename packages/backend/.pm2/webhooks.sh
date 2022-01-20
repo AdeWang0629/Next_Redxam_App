@@ -1,1 +1,1 @@
-doppler run -- npm run start:webhooks
+doppler run -- npm run start:prod:webhooks

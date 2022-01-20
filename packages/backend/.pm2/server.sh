@@ -1,1 +1,1 @@
-doppler run -- npm run start
+doppler run -- npm run start:prod
