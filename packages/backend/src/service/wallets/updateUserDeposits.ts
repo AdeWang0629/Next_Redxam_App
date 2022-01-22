@@ -1,13 +1,18 @@
 import { Deposits, DepositsType, DepositsCurrencyType, User } from '@/database';
+import { sendMail } from '@/apis/sendgrid';
+
+const { SERVICE_EMAIL } = process.env;
 
 export const updateUserDeposits = async (txList, currentUserWallet, isNode = false) => {
   if (txList.length > currentUserWallet.txsCount || currentUserWallet.hasPendingTxs) {
+    const userTxs = getUserTxList(txList, currentUserWallet.address, isNode);
     let hasPendingTxs = false;
 
-    const userTxs = getUserTxList(txList, currentUserWallet.address, isNode);
     for (const tx of userTxs) {
       const status = tx.block_id > 0 ? 'completed' : 'pending';
       if (tx.block_id === -1) hasPendingTxs = true;
+
+      await handleMailUser(tx, currentUserWallet.userId);
 
       await Deposits.updateOne(
         { userId: currentUserWallet.userId, hash: tx.txHash },
@@ -38,7 +43,7 @@ export const updateUserDeposits = async (txList, currentUserWallet, isNode = fal
         _id: currentUserWallet.userId,
       },
       {
-        $set: { hasPendingTxs, 'wallet.txsCount': txList.lenght },
+        $set: { hasPendingTxs, 'wallet.txsCount': userTxs.length },
       },
     );
   }
@@ -80,4 +85,47 @@ const getUserTxListNode = (transactionsList, address) => {
   });
 
   return userTxs;
+};
+
+const handleMailUser = async (tx, userId) => {
+  const status = tx.block_id > 0 ? 'completed' : 'pending';
+  const txDeposit = await Deposits.findOne({ hash: tx.txHash });
+  return mailUser(status, txDeposit, tx.value, userId);
+};
+
+export const mailUser = async (status, txDeposit, value, userId) => {
+  if (status === 'pending' && !txDeposit) {
+    const user = await User.findOne({ _id: userId }, { email: 1, firstName: 1 });
+    const email = await sendMail({
+      from: `redxam.com <${SERVICE_EMAIL}>`,
+      to: user.email,
+      subject: 'Your redxam deposits is being processing in the blockchain',
+      html: `Ey ${user.firstName} your deposit to redxam for a value of ${
+        value * 0.00000001
+      } is being proccesed in the blockchain, we'll send you another email when payment is confirmed`,
+    });
+    return { status: email[0].statusCode, message: 'pending tx email sent' };
+  } else if (status === 'completed' && txDeposit && txDeposit.status === 'pending') {
+    const user = await User.findOne({ _id: userId }, { email: 1, firstName: 1 });
+    const email = await sendMail({
+      from: `redxam.com <${SERVICE_EMAIL}>`,
+      to: user.email,
+      subject: 'Your redxam deposits is confirmed',
+      html: `${user.firstName} your deposit to redxam for a value of ${
+        value * 0.00000001
+      } has being confirmed`,
+    });
+    return { status: email[0].statusCode, message: 'confirmed tx email sent' };
+  } else if (status === 'completed' && !txDeposit) {
+    const user = await User.findOne({ _id: userId }, { email: 1, firstName: 1 });
+    const email = await sendMail({
+      from: `redxam.com <${SERVICE_EMAIL}>`,
+      to: user.email,
+      subject: 'Your redxam deposits is confirmed',
+      html: `${user.firstName} your deposit to redxam for a value of ${
+        value * 0.00000001
+      } has being confirmed`,
+    });
+    return { status: email[0].statusCode, message: 'confirmed email sent at once' };
+  }
 };
