@@ -10,15 +10,22 @@ import BetaBlogPostImage from '@public/images/blog/beta.png';
 import BlogPostImage from '@public/images/blog/blogPost.png';
 import PassiveBlogPostImage from '@public/images/blog/passive.png';
 import Newsletter from '@components/landing/Newsletter';
-import axios from 'axios';
-axios.defaults.baseURL = 'http://redxam.com';
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  if (!locale) {
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['newsletter'])),
+    },
+  };
+};
 
 const Blog: NextPage = () => {
-  // const mediumPosts = axios.get('https://redxam.medium.com/feed/');
-  // console.log(mediumPosts);
-
   let blogPosts = [
     {
       image: BetaBlogPostImage,
