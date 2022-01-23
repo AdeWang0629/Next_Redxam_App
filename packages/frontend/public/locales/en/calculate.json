@@ -4,5 +4,7 @@
   "amount": "Select Amount",
   "capital": "This is your capital that’ll be invested with us.",
   "paid": "You get paid",
-  "year": "year"
+  "year": "year",
+  "passive-plan": "Passive plan",
+  "regular-banks": "Regular banks"
 }

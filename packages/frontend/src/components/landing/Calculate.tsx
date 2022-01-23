@@ -18,14 +18,14 @@ const Calculate: NextPage = () => {
     () => [
       {
         id: 1,
-        name: "Passive plan",
+        name: t("passive-plan"),
         interest: averageRedxam,
         icon: ConservativePlan,
       },
 
       {
         id: 2,
-        name: "Regular banks",
+        name: t("regular-banks"),
         interest: 0.0001,
         icon: RegularBanks,
       },
