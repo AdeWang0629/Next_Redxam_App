@@ -1,11 +1,3 @@
 {
-  "banks-title": "This is what other banks around the world will give you.",
-  "redxam": "Redxam",
-  "redxam-rate": "5",
-  "chase": "Chase",
-  "chase-rate": "0.01",
-  "bofa": "Bofa",
-  "bofa-rate": "0.01",
-  "tdbank": "TD Bank",
-  "tdbank-rate": "0.01"
+  "banks-title": "This is what other banks around the world will give you."
 }
