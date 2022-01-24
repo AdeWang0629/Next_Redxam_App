@@ -14,7 +14,7 @@ import appstore from "@public/images/card/appstore.svg";
 import check from "../../public/images/card/check.svg";
 import video from "../../public/images/card/video.png";
 
-const Card: NextPage = () => {
+const Cards: NextPage = () => {
   const [activeQuestion, setActiveQuestion] = useState(-1);
 
   return (
@@ -44,9 +44,9 @@ const Card: NextPage = () => {
             <Image src={cards} alt="redxam Cards" />
           </div>
         </section>
-        <section className="flex justify-between items-center">
+        <section className="flex flex-col md:flex-row justify-between items-center">
           <Image src={phone} alt="Phone With redxam Card" />
-          <div className="w-[26rem]">
+          <div className="md:w-[26rem]">
             <h2 className="text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-10">
               One Card. <br /> More Crypto.
             </h2>
@@ -193,4 +193,4 @@ const Card: NextPage = () => {
   );
 };
 
-export default Card;
+export default Cards;
