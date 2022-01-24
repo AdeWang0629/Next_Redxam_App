@@ -1,5 +1,6 @@
-import type { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
+import type { NextPage } from "next";
+import { useTranslation } from "next-i18next";
 import api from "src/utils/api";
 import { validateEmail } from "src/utils/helpers";
 import WaitlistModel from "./WaitlistModel";
@@ -10,6 +11,7 @@ interface LoginModelProps {
 }
 
 const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
+  const { t } = useTranslation("login");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -36,9 +38,9 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
   function handleSubmit(event: any) {
     event.preventDefault();
 
-    if (!email) return alert("Please enter your email");
+    if (!email) return alert(t("enter-email-error"));
 
-    if (!validateEmail(email)) return alert("Please enter a valid email");
+    if (!validateEmail(email)) return alert(t("valid-email-error"));
 
     setLoading(true);
 
@@ -48,7 +50,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
         setResponse(res.data.data.updateToken.success);
       })
       .catch(() => {
-        alert("An error occurred!");
+        alert(t("error-ocurred"));
       })
       .finally(() => {
         setSubmitted(true);
@@ -63,63 +65,64 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
         ref={outsideContainerRef}
         onClick={handleOutsideClick}
       >
-        <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 md:w-1/4 px-6 py-12">
+        <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/4 px-6 py-12">
           {!submitted ? (
             <>
               <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
-                Login to Redxam
+                {t("login-title")}
               </h3>
               <p className="w-full mb-5text-black text-opacity-80 leading-[1.8] text-lg font-primary text-center">
-                Login for alpha and continue enjoying the best investments plan
+                {t("login-desc")}
               </p>
               <form className="flex flex-col" onSubmit={handleSubmit}>
-                <div className="flex flex-col items-center mt-5">
-                  <label className="font-primary text-xs leading-4 tracking-[-0.02em] text-darker-primary mb-1">
-                    Email address
-                  </label>
+                <div className="mt-5 input-wrapper w-full">
                   <input
                     type="email"
-                    className="w-full font-secondary font-medium rounded-[30px] text-left pl-7 py-1 pr-2 border border-[#222426] border-opacity-20 focus:border-darker-primary focus:border-opacity-100 focus:shadow-md outline-none"
+                    className="font-secondary w-full"
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter email address"
+                    value={email}
+                    required
+                    id="email"
                   />
+                  <label className="font-primary" htmlFor="email">
+                    {t("email-placeholder")}
+                  </label>
                 </div>
                 <button
                   className="text-white font-primary font-medium text-lg leading-[20px] tracking-[-0.02em] bg-[#27AE60] rounded-[30px] mt-8 py-4 px-8 outline-none cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                   disabled={loading}
                 >
-                  Login
+                  {t("login-button")}
                 </button>
               </form>
             </>
           ) : response ? (
             <div className="flex flex-col">
               <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
-                Link sent
+                {t("sent")}
               </h3>
               <p className="w-full mb-5text-black text-opacity-80 leading-[1.8] text-lg font-primary text-center">
-                Please check your email inbox and click on login to continue.
+                {t("sent-desc")}
               </p>
             </div>
           ) : (
             <div className="flex flex-col">
               <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
-                No active account
+                {t("innactive")}
               </h3>
               <p className="w-full mb-5text-black text-opacity-80 leading-[1.8] text-lg font-primary text-center">
-                Sorry your account doesn’t exist yet. Please join the waitlist
-                or email us at hello@redxam.com if something is wrong.
+                {t("innactive-desc")}
               </p>
               <div className="flex flex-col justify-center items-center">
                 <button
                   className="font-primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green order-first md:order-none mt-[25px] md:mt-0"
                   onClick={() => setWaitlistModelOpened(true)}
                 >
-                  Join Waitlist!
+                  {t("join-waitlist")}
                 </button>
                 <a href="mailto:hello@redxam.com">
                   <button className="font-primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green order-first md:order-none mt-2">
-                    Email Us
+                    {t("email-us")}
                   </button>
                 </a>
               </div>

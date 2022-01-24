@@ -16,6 +16,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body.dark {
+  @apply bg-gray-800;
+}
+
 h1,
 h2,
 h3,
@@ -49,4 +53,74 @@ p {
 
 #deposit-banks-list::-webkit-scrollbar-thumb {
   @apply bg-card-button cursor-pointer rounded-3xl;
+}
+
+.input-wrapper {
+  position: relative;
+  line-height: 14px;
+  display: inline-block;
+}
+
+.input-wrapper label {
+  @apply font-secondary font-semibold;
+  color: #bbb;
+  font-size: 11px;
+  text-transform: uppercase;
+  position: absolute;
+  z-index: 2;
+  left: 20px;
+  top: 12px;
+  padding: 0 2px;
+  pointer-events: none;
+  background: white;
+  transition: transform 100ms ease;
+  transform: translateY(-18px);
+}
+
+.input-wrapper input {
+  font-size: 13px;
+  color: #555;
+  outline: none;
+  border: 1px solid #bbb;
+  padding: 10px 20px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.input-wrapper input[value=""] + label {
+  transform: translateY(0);
+}
+
+.input-wrapper input:focus {
+  border-color: #27ae60;
+  border-radius: 20px;
+}
+
+.input-wrapper input:focus + label {
+  color: #27ae60;
+  transform: translateY(-18px);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-wrapper.invalid input,
+.input-wrapper.invalid input:focus {
+  border-color: #ae2727;
+}
+
+.input-wrapper.invalid input:focus + label,
+.input-wrapper.invalid input + label {
+  color: #ae2727;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#widget iframe {
+  border-radius: 25px;
 }

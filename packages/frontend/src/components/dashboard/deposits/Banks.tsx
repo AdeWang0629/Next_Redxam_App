@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { NextPage } from "next";
+import * as Sentry from "@sentry/nextjs";
+import Script from "next/script";
 import { usePlaidLink } from "react-plaid-link";
 import Image from "next/image";
 import api from "@utils/api";
@@ -13,8 +15,10 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import BankImage from "@public/images/dashboard/deposits/bank.svg";
 import BankIcon from "@public/icons/bank.svg";
 import EmptyImage from "@public/images/dashboard/deposits/empty.svg";
+import closeIcon from "@public/images/dashboard/deposits/close.svg";
 
 const BanksView: NextPage = () => {
+  const [mxConnect, setMxConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState("");
   const [deposits, setDeposits] = useState<
     | []
@@ -67,6 +71,8 @@ const BanksView: NextPage = () => {
   const [unlinkMode, setUnlinkMode] = useState(false);
   const [showUnlinkModel, setShowUnlinkModel] = useState(false);
   const [showDepositModel, setShowDepositModel] = useState(false);
+  const [openMx, setOpenMx] = useState(false);
+  const [mxWidgetError, setMxWidgetError] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -91,6 +97,7 @@ const BanksView: NextPage = () => {
           .filter((deposit) => deposit.status !== "pending")
           .filter((deposit) => {
             return (
+              deposit.type === "FIAT" &&
               new Date(deposit.timestamp).getMonth() + 1 === month &&
               new Date(deposit.timestamp).getFullYear() ===
                 new Date().getFullYear()
@@ -115,7 +122,21 @@ const BanksView: NextPage = () => {
 
   return (
     <>
-      <div className="flex">
+      <Script
+        id="widget"
+        src="https://atrium.mx.com/connect.js"
+        onLoad={() => {
+          setMxConnect(
+            // @ts-ignore
+            new window.MXConnect({
+              id: "widget",
+              iframeTitle: "Connect",
+              targetOrigin: "*",
+            })
+          );
+        }}
+      />
+      <div className="flex flex-col lg:flex-row">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
             <div className="flex items-center justify-between px-8">
@@ -169,6 +190,7 @@ const BanksView: NextPage = () => {
                         src={`data:image/png;base64,${account.logo}`}
                         width="40"
                         height="40"
+                        alt="account logo"
                       />
                       <div className="flex flex-col justify-center ml-5">
                         <h2 className="font-secondary text-sm font-medium">
@@ -207,7 +229,6 @@ const BanksView: NextPage = () => {
                 <div className="flex items-center justify-center py-4 border-b">
                   <button
                     className="font-secondary font-medium underline cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
-                    onClick={() => open()}
                     disabled={!plaidToken.length}
                   >
                     Add Bank Account
@@ -227,7 +248,18 @@ const BanksView: NextPage = () => {
                     boxShadow:
                       "0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)",
                   }}
-                  onClick={() => open()}
+                  onClick={async () => {
+                    let { data: widgetUrl } = await api.getMXWidgetUrl();
+                    if (widgetUrl.errors) {
+                      Sentry.captureEvent(widgetUrl.errors);
+                      return setMxWidgetError(true);
+                    }
+                    setOpenMx(true);
+                    setTimeout(() => {
+                      // @ts-ignore
+                      mxConnect?.load(widgetUrl.data.mxWidgetConnect.widgetUrl);
+                    }, 50);
+                  }}
                   disabled={!plaidToken.length}
                 >
                   Add Bank Account
@@ -249,7 +281,7 @@ const BanksView: NextPage = () => {
           ) : null}
         </div>
 
-        <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card ml-3">
+        <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0 lg:ml-3">
           <h1 className="px-8 py-6 font-secondary font-medium text-lg">
             Recent deposits from Bank
           </h1>
@@ -396,6 +428,7 @@ const BanksView: NextPage = () => {
                               : deposit.currency}
                             {deposit.amount}
                           </p>
+
                           <div className="flex justify-center items-center">
                             <p className="font-secondary text-xs text-[#95989B] mr-1">
                               {new Date(deposit.timestamp).toLocaleDateString(
@@ -431,7 +464,59 @@ const BanksView: NextPage = () => {
             </div>
           )}
         </Card>
+
+        {openMx && (
+          <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
+            <Card
+              width="w-[350px] sm:w-[450px]"
+              height="h-[720px]"
+              p="p-3 sm:p-7"
+              otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center"
+            >
+              <div className="flex justify-end mb-6">
+                <button
+                  className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px]"
+                  onClick={() => setOpenMx(false)}
+                >
+                  <Image
+                    src={closeIcon || ""}
+                    alt="Close Icon"
+                    width="14px"
+                    height="14px"
+                  />
+                </button>
+              </div>
+              <div id="widget" className="z-10"></div>
+            </Card>
+          </div>
+        )}
       </div>
+
+      {mxWidgetError && (
+        <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
+          <Card
+            width="w-[210px]"
+            height="h-[210px]"
+            p="p-3 sm:p-7"
+            otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center"
+          >
+            <button
+              className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px] mb-4"
+              onClick={() => setMxWidgetError(false)}
+            >
+              <Image
+                src={closeIcon || ""}
+                alt="Close Icon"
+                width="14px"
+                height="14px"
+              />
+            </button>
+            <p className="font-bold text-xl font-secondary text-red-600">
+              Something wrong happened
+            </p>
+          </Card>
+        </div>
+      )}
 
       {showUnlinkModel ? (
         <UnlinkModel

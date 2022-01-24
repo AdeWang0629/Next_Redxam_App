@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import { BaseSyntheticEvent, useMemo, useState } from "react";
+import { useTranslation } from "next-i18next";
 
 import ConservativePlan from "@public/images/conservative-plan.svg";
 import RegularBanks from "@public/images/regular-banks.svg";
@@ -10,20 +11,21 @@ function numberWithCommas(x: number) {
 }
 
 const Calculate: NextPage = () => {
+  const { t } = useTranslation("calculate");
   const [averageRedxam, setAverageRedxam] = useState(0.05);
 
   const rates = useMemo(
     () => [
       {
         id: 1,
-        name: "Passive plan",
+        name: t("passive-plan"),
         interest: averageRedxam,
         icon: ConservativePlan,
       },
 
       {
         id: 2,
-        name: "Regular banks",
+        name: t("regular-banks"),
         interest: 0.0001,
         icon: RegularBanks,
       },
@@ -64,8 +66,8 @@ const Calculate: NextPage = () => {
 
   return (
     <section className="max-w-7xl mx-auto flex flex-col items-center justify-center mt-24 mb-48 p-4 md:p-0">
-      <h2 className="mb-[6.25rem] text-3xl md:text-[2.8125rem] leading-[1.5] font-bold font-secondary text-lighter-black">
-        Let&apos;s calculate how much you&apos;d earn
+      <h2 className="mb-[6.25rem] text-3xl md:text-[2.8125rem] leading-[1.5] font-bold font-secondary text-lighter-black dark:text-gray-200">
+        {t("title")}
       </h2>
       <div
         className="flex flex-col md:flex-row w-full md:w-[46.0625rem] h-full md:h-[24.5625rem] py-8 md:py-[1.875rem] px-8 md:px-[4.375rem] bg-calculator-bg backdrop-filter backdrop-blur-[30px] border-2 border-white rounded-[30px] mb-5"
@@ -74,8 +76,8 @@ const Calculate: NextPage = () => {
         }}
       >
         <div className="py-5 flex-[2]">
-          <h4 className="mb-8 font-medium tracking-[0.3em] uppercase text-[#828282]">
-            Choose Plan
+          <h4 className="mb-8 text-[15px] font-medium tracking-[0.3em] uppercase text-[#828282] dark:text-black">
+            {t("plan")}
           </h4>
           <div className="flex space-8">
             {rates.map((rate) => (
@@ -90,11 +92,11 @@ const Calculate: NextPage = () => {
           </div>
         </div>
         <div className="flex flex-col border-t md:border-t-0 md:border-l border-white md:pl-7 flex-1 pt-5">
-          <h4 className="mb-12 font-medium tracking-[0.3em] uppercase text-[#828282]">
-            Select Amount
+          <h4 className="mb-12 text-[15px] font-medium tracking-[0.3em] uppercase text-[#828282] dark:text-black">
+            {t("amount")}
           </h4>
           <input
-            className="font-primary text-[2.8125rem] font-bold text-[#4f4f4f] mb-6 rounded-[20px] tracking-[-0.05em] border border-white backdrop-filter backdrop-blur-[10px] px-3.5 w-full md:w-[16.25rem]"
+            className="font-primary text-[2.8125rem] font-bold text-[#4f4f4f] dark:text-black mb-6 rounded-[20px] tracking-[-0.05em] border border-white backdrop-filter backdrop-blur-[10px] px-3.5 w-full md:w-[16.25rem]"
             style={{
               backgroundColor: "rgba(234, 234, 234, 0.7)",
             }}
@@ -113,8 +115,8 @@ const Calculate: NextPage = () => {
             className="w-full md:w-[16.25rem]"
             onChange={handleValueChange}
           />
-          <p className="leading-[1.5] text-[#828282] mt-5 text-opacity-80">
-            This is your capital that’ll be invested with us.
+          <p className="leading-[1.5] text-[#828282] dark:text-black mt-5 text-opacity-80">
+            {t("capital")}
           </p>
         </div>
       </div>
@@ -124,14 +126,14 @@ const Calculate: NextPage = () => {
           boxShadow: "0 4px 30px 0 rgb(0 0 0 / 5%)",
         }}
       >
-        <h4 className="font-medium font-secondary tracking-[0.3em] uppercase text-[#828282] mb-4">
-          You get paid
+        <h4 className="font-medium font-secondary tracking-[0.3em] uppercase text-[#828282] dark:text-black mb-4">
+          {t("paid")}
         </h4>
-        <p className="text-4xl text-[#BDBDBD] tracking-[-0.04em] font-secondary font-medium">
+        <p className="text-4xl text-[#BDBDBD] dark:text-black tracking-[-0.04em] font-secondary font-medium">
           <span className="text-5xl font-bold text-darker-primary">
             {`$${Number(total).toFixed(2)}`}
           </span>
-          /year
+          /{t("year")}
         </p>
       </div>
     </section>

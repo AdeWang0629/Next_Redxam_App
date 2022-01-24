@@ -1,0 +1,11 @@
+{
+  "success": "You’ve been added to the waitlist!",
+  "join": "Join the Waitlist",
+  "signup": "Sign up for the beta and be the first to be notified when we launch",
+  "invalid-email": "Enter a valid email address",
+  "referrall-digit": "Referral is a 8 digits code",
+  "first-name": "First Name",
+  "second-name": "Second Name",
+  "email": "Email address",
+  "referral": "Referral Code (Optional)"
+}

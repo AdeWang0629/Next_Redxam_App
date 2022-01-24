@@ -35,12 +35,12 @@ const Home: NextPage = () => {
 
   return (
     <InternalLayout>
-      <div className="max-w-[900px] my-0 mx-auto">
-        <div className="flex justify-between items-center  mb-10">
+      <div className="px-3 lg:px-0 max-w-[900px] my-0 mx-auto">
+        <div className="flex justify-between items-center mb-10">
           <p>Hello</p>
           <IconButton buttonText={"Settings"} buttonIcon={settings} />
         </div>
-        <div className="grid grid-cols-2 gap-5">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-5">
           <BalanceCard />
           <ReferCard />
           <RecentActivity />

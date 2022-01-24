@@ -51,35 +51,35 @@ const Careers: NextPage = () => {
     {
       title: "Product Designers",
       content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi necessitatibus excepturi, optio laudantium ab tempora ipsa. Harum dolores molestiae nam doloremque atque fuga reiciendis, neque suscipit, officiis perferendis cumque ducimus?",
+        "We are looking for a passionate designer that can take on complex problems and into simple and engaging experiences. Does this sounds like someone you know?",
     },
     {
       title: "Front end developer",
       content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi necessitatibus excepturi, optio laudantium ab tempora ipsa. Harum dolores molestiae nam doloremque atque fuga reiciendis, neque suscipit, officiis perferendis cumque ducimus?",
+        "We’re looking for an experienced front end web developer with strong js expertise who strives to do high-quality work and thrives on collaboration and working as part of a team. Does this sounds like someone you know?",
     },
     {
       title: "Back end developer",
       content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi necessitatibus excepturi, optio laudantium ab tempora ipsa. Harum dolores molestiae nam doloremque atque fuga reiciendis, neque suscipit, officiis perferendis cumque ducimus?",
+        "Have several years of practical experience building production-grade backend applications in Node.js. Does this sounds like someone you know?",
     },
     {
-      title: "Graphics guy",
+      title: "Community Manager",
       content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi necessitatibus excepturi, optio laudantium ab tempora ipsa. Harum dolores molestiae nam doloremque atque fuga reiciendis, neque suscipit, officiis perferendis cumque ducimus?",
+        "Savvy with social trends, an exceptional writer with a creative mind and bring a knack for building relationships online—and offline. Does this sounds like someone you know?",
     },
   ];
 
   return (
     <>
-      <Navbar />
+      <Navbar title="Careers" />
       <Switcher activePage="careers" />
       <section className="flex flex-col items-center justify-center max-w-7xl mx-auto h-full px-4 md:px-0 mb-8">
-        <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-lighter-black mt-16 leading-[1.2] text-center w-full md:max-w-[62.5rem]">
+        <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-lighter-black dark:text-gray-200 mt-16 leading-[1.2] text-center w-full md:max-w-[62.5rem]">
           We&apos;re on a mission to make Investing comfortable for everyone.
         </h1>
 
-        <p className="text-black font-primary text-[1.0625rem] max-w-[43.0625rem] mb-[1.875rem] text-center text-opacity-80">
+        <p className="text-black dark:text-white font-primary text-[1.0625rem] max-w-[43.0625rem] mb-[1.875rem] text-center text-opacity-80">
           Redxam is changing the way the world moves and embraces
           cryptocurrencies, a gateway to more and better business creating a
           financial solutions platform to make cryptocurrencies purchase simple
@@ -138,26 +138,26 @@ const Careers: NextPage = () => {
           <Image src={MissionImage} alt="" />
         </div>
         <div className="max-w-[26.875rem] mt-12 md:mt-0">
-          <h2 className="mb-4 text-center md:text-left text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black self-start font-secondary">
+          <h2 className="mb-4 text-center md:text-left text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 self-start font-secondary">
             Our Mission
           </h2>
-          <p className="text-black font-primary text-[0.9375rem] max-w-[43.0625rem] mb-5 text-left text-opacity-80">
+          <p className="text-black dark:text-white font-primary text-[0.9375rem] max-w-[43.0625rem] mb-5 text-left text-opacity-80">
             Redxam is changing the way the world moves and embraces
             cryptocurrencies, a gateway to more and better business creating a
             financial solutions platform to make cryptocurrencies purchase
             simple and user-friendly.
           </p>
-          <p className="text-black font-primary text-[0.9375rem] max-w-[43.0625rem] mb-5 text-left text-opacity-80">
+          <p className="text-black dark:text-white font-primary text-[0.9375rem] max-w-[43.0625rem] mb-5 text-left text-opacity-80">
             With redxam you have the certainty of being in good hands. Our
             technological platform presents a clear, transparent set of rules
             because your peace of mind is our peace of mind.
           </p>
-          <p className="text-black font-primary text-[0.9375rem] max-w-[43.0625rem] mb-5 text-left text-opacity-80">
+          <p className="text-black dark:text-white font-primary text-[0.9375rem] max-w-[43.0625rem] mb-5 text-left text-opacity-80">
             You can count on an experienced support team that assists you
             instantly because we want you to feel that we are there for you, and
             to advise you well is our greatest desire.
           </p>
-          <p className="text-black font-primary text-[0.9375rem] max-w-[43.0625rem] mb-5 text-left text-opacity-80">
+          <p className="text-black dark:text-white font-primary text-[0.9375rem] max-w-[43.0625rem] mb-5 text-left text-opacity-80">
             Move your money around the world in a simple and fast way, without
             complications, always looking for a customized solution. Your
             journey to financial freedom awaits with redxam.
@@ -168,15 +168,15 @@ const Careers: NextPage = () => {
         <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
           MISSION AND VISION
         </h4>
-        <h2 className="w-full md:w-[22.875rem] self-start text-left text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-3.5">
+        <h2 className="w-full md:w-[22.875rem] self-start text-left text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-3.5">
           We call it the Green Box Values
         </h2>
-        <p className="font-primary text-lg w-full md:w-[64.0625rem] text-black text-opacity-80 leading-[1.8] mb-5">
+        <p className="font-primary text-lg w-full md:w-[64.0625rem] text-black dark:text-white text-opacity-80 leading-[1.8] mb-5">
           Our mission is to provide financial freedom so that people can save,
           send and receive money without hassle, even in countries where
           disposing of your hard-earned money is difficult.
         </p>
-        <p className="font-primary text-lg w-full md:w-[64.0625rem] text-black text-opacity-80 leading-[1.8]">
+        <p className="font-primary text-lg w-full md:w-[64.0625rem] text-black dark:text-white text-opacity-80 leading-[1.8]">
           We also add value with active portfolio management while maximizing
           our client’s ROI. because we understand that ROI is King. Bottom
           line!... We use the best minds to create smart algorithms that
@@ -215,7 +215,7 @@ const Careers: NextPage = () => {
         className="flex flex-col items-center px-4 md:px-0 max-w-7xl mx-auto pt-24 pb-48"
         id="jobs"
       >
-        <h2 className="mb-[6.25rem] text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black font-secondary">
+        <h2 className="mb-[6.25rem] text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 font-secondary">
           Job openings at redxam
         </h2>
 
@@ -242,7 +242,7 @@ const Careers: NextPage = () => {
                 />
               </div>
               <p
-                className={`leading-[1.8] font-primary text-black text-opacity-80 pt-7 ${
+                className={`leading-[1.8] font-primary text-black text-opacity-40 pt-2 ${
                   activeJob === idx ? "animate-fade-in-down" : "hidden"
                 }`}
               >

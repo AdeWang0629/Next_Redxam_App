@@ -29,6 +29,10 @@ module.exports = {
     },
   },
   webpackFinal: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "next-i18next": "react-i18next",
+    };
     config.resolve.plugins = [
       ...(config.resolve.plugins || []),
       new TsconfigPathsPlugin({

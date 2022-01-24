@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, setCookies } from "cookies-next";
 
 class API {
   axios: AxiosInstance;
@@ -30,12 +30,18 @@ class API {
       | {};
   }
 
-  createWaitlist(email: string, firstName?: string, lastName?: string) {
+  createWaitlist(
+    email: string,
+    firstName?: string,
+    lastName?: string,
+    referralCode?: string
+  ) {
     let mutation = `mutation {
         createWaitlist(arg: {
-          email: "${email}"${
-      firstName?.length ? `, firstName: "${firstName}"` : ""
-    }${lastName?.length ? `, lastName: "${lastName}"` : ""}
+          email: "${email}"
+          ${firstName?.length ? `, firstName: "${firstName}"` : ""}
+          ${lastName?.length ? `, lastName: "${lastName}"` : ""}
+          ${referralCode?.length ? `referralCode: "${referralCode}"` : ""}
         }) {
             success
             message
@@ -98,9 +104,25 @@ class API {
           wallet {
             address
           }
+          pending_balance
         }
       }
     `;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
+
+  getHomeData() {
+    const query = `query {
+      home {
+        balance
+        dolarChange
+        percentChange
+      }
+    }
+  `;
 
     return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
       headers: { ...this.getAuthorizationHeader() },
@@ -144,6 +166,23 @@ class API {
     });
   }
 
+  getOverview(token: string) {
+    const query = `
+      query {
+        overview {
+          totalUsers
+          invitedUsers
+          acceptedUsers
+          usersWithBalance
+        }
+      }
+    `;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
   getApplicantData() {
     return this.axios.post(`${this.baseURL}/api/v2/applicantData`, {
       userToken: this.getToken(),
@@ -153,6 +192,19 @@ class API {
   getSumsubAccessToken() {
     return this.axios.post(`${this.baseURL}/api/v2/sumsubAccesToken`, {
       userToken: this.getToken(),
+    });
+  }
+
+  getMXWidgetUrl() {
+    const query = `
+      query {
+        mxWidgetConnect {
+          widgetUrl
+        }
+      }
+    `;
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { ...this.getAuthorizationHeader() },
     });
   }
 

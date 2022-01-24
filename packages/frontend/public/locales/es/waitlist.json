@@ -1,0 +1,11 @@
+{
+  "success": "¡Te hemos añadido a la lista de espera!",
+  "join": "Únete a la lista de espera",
+  "signup": "Regístrese para la versión beta y se el primero en recibir una notificación en nuestro lanzamiento",
+  "invalid-email": "Introduzca un correo electrónico válida",
+  "referral-digit": "El código de referencia es de 8 dígitos",
+  "first-name": "Primer Nombre",
+  "second-name": "Segundo Nombre",
+  "email": "Correo Electrónico",
+  "referral": "Codigo de referencia (Opcional)"
+}

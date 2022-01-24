@@ -1,24 +1,37 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import WaitlistModel from "@components/models/WaitlistModel";
+import Head from "next/head";
+import { useTranslation } from "next-i18next";
 
 import Logo from "@public/logo.svg";
 import LoginModel from "@components/models/LoginModel";
 
 interface NavbarProps {
   transparentBackground?: boolean;
+  title?: string;
 }
 
-const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
+const Navbar: NextPage<NavbarProps> = ({
+  transparentBackground = false,
+  title,
+}) => {
+  const { locale } = useRouter();
+  const { t } = useTranslation("navbar");
   let [navMobile, setNavMobile] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
   const [waitlistModelOpened, setWaitlistModelOpened] = useState(false);
   const [loginModelOpened, setLoginModelOpened] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState(
+    (typeof window !== "undefined" && localStorage.getItem("theme")) || "light"
+  );
+  const [icon, setIcon] = useState(currentTheme === "dark" ? faSun : faMoon);
 
   useEffect(() => {
     // @ts-ignore
@@ -32,8 +45,27 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [scrollTop]);
 
+  const toggleTheme = () => {
+    if (!currentTheme || currentTheme === "light") {
+      localStorage.setItem("theme", "dark");
+      setCurrentTheme("dark");
+      document.body.classList.add("dark");
+    } else {
+      localStorage.setItem("theme", "light");
+      setCurrentTheme("light");
+      document.body.classList.remove("dark");
+    }
+  };
+
+  useEffect(() => {
+    setIcon(currentTheme === "dark" ? faSun : faMoon);
+  }, [currentTheme]);
+
   return (
     <>
+      <Head>
+        <title>redxam{title ? " | " + title : ""}</title>
+      </Head>
       <nav
         className={`py-6 z-10 ${
           transparentBackground && scrollTop <= 0 && !navMobile
@@ -46,9 +78,14 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
       >
         <div className="flex flex-col md:flex-row max-w-7xl mx-auto items-center">
           <div className="flex items-center justify-between flex-1 w-full px-8 md:px-0">
-            <div className="flex items-center md:flex-1">
+            <div
+              className={`flex items-center md:flex-1 ${
+                locale === "ar" && "flex-row-reverse"
+              }`}
+              dir={locale === "ar" ? "ltr" : ""}
+            >
               <Link href="/">
-                <>
+                <a className="flex items-center cursor-pointer">
                   <Image
                     src={Logo}
                     alt="redxam logo"
@@ -64,7 +101,7 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
                   >
                     redxam
                   </h2>
-                </>
+                </a>
               </Link>
             </div>
             <div className="md:hidden md:flex-1 flex relative justify-center items-center w-5 h-5 cursor-pointer transition-all duration-500 ease-in-out">
@@ -96,22 +133,26 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
                   : "text-black"
               } text-[15px]"`}
             >
-              <li className="mt-[25px] md:mt-0 md:mr-[50px]">
+              <li className={`mt-[25px] md:mt-0 md:mr-[50px]`}>
                 <Link href="/about">
-                  <a>About</a>
+                  <a>{t("about")}</a>
                 </Link>
               </li>
               <li className="mt-[25px] md:mt-0 md:mr-[50px]">
                 <Link href="/#benefits" shallow scroll>
-                  <a>Benefits</a>
+                  <a>{t("benefits")}</a>
                 </Link>
               </li>
               <li className="mt-[25px] md:mt-0 md:mr-[50px]">
                 <Link href="/#security" shallow scroll>
-                  <a>Security</a>
+                  <a>{t("security")}</a>
                 </Link>
               </li>
-              <li className="mt-[25px] md:mt-0 md:mr-[50px]">
+              <li
+                className={`mt-[25px] md:mt-0 md:mr-[50px] ${
+                  locale === "ar" && "md:ml-[50px]"
+                }`}
+              >
                 <button
                   className={`${
                     transparentBackground && scrollTop <= 0 && !navMobile
@@ -120,7 +161,7 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
                   }`}
                   onClick={() => setLoginModelOpened(true)}
                 >
-                  Login
+                  {t("login")}
                 </button>
               </li>
             </ul>
@@ -128,18 +169,21 @@ const Navbar: NextPage<NavbarProps> = ({ transparentBackground = false }) => {
               className="font-primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green order-first md:order-none mt-[25px] md:mt-0"
               onClick={() => setWaitlistModelOpened(true)}
             >
-              Join Waitlist!
+              {t("waitlist")}
             </button>
-            <button className="flex items-center justify-center md:ml-[50px] order-first md:order-none mt-[25px] md:mt-0">
+            {/* <button
+              className="flex items-center justify-center md:ml-[50px] order-first md:order-none mt-[25px] md:mt-0"
+              onClick={toggleTheme}
+            >
               <FontAwesomeIcon
-                icon={faMoon}
+                icon={icon}
                 className={`${
                   transparentBackground && scrollTop <= 0 && !navMobile
                     ? "text-white"
                     : "text-black"
                 }`}
               />
-            </button>
+            </button> */}
           </div>
         </div>
       </nav>

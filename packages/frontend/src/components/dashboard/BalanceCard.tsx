@@ -1,41 +1,82 @@
-import Image from "next/image";
-import Link from "next/link";
-import Card from "./Card";
+import { useContext, useState, useEffect } from 'react';
+import ReactPlaceholder from 'react-placeholder';
+import 'react-placeholder/lib/reactPlaceholder.css';
+import { UserContext } from '@providers/User';
+import { HomeContext } from '@providers/Home';
+import Image from 'next/image';
+import Link from 'next/link';
+import Card from './Card';
 
 // Imgs
-import leafsBg from "@public/images/dashboard/leafs-bg.svg";
+import leafsBg from '@public/images/dashboard/leafs-bg.svg';
 
 const BalanceCard = () => {
+  const { user } = useContext(UserContext);
+  const { home, loading } = useContext(HomeContext);
+
+  const country = 'UAE';
+  let bal = 1;
+  if (home) {
+    bal = home?.balance;
+  }
+
+  const balanceNumber =
+    country !== 'UAE' ? bal.toFixed(2) : (bal * 3.672).toFixed(2);
+
+  const balanceInfo =
+    country !== 'UAE' ? (
+      <ReactPlaceholder
+        showLoadingAnimation={true}
+        type='textRow'
+        ready={!loading}
+        style={{ height: 36, marginTop: 0, width: '80%' }}
+      >
+        <p className='font-secondary font-bold text-3xl text-black w-[80%]'>
+          ${balanceNumber}
+        </p>
+      </ReactPlaceholder>
+    ) : (
+      <ReactPlaceholder
+        showLoadingAnimation={true}
+        type='textRow'
+        ready={!loading}
+        style={{ height: 36, marginTop: 0, width: '80%' }}
+      >
+        <p className='font-secondary font-bold text-3xl text-black w-[80%]'>
+          AED {balanceNumber}
+        </p>
+      </ReactPlaceholder>
+    );
   return (
-    <Card width="w-[440px]" height="h-[197px]">
-      <div className="absolute right-2.5 top-[-55px]">
+    <Card width='lg:w-[440px]' height='h-[197px]'>
+      <div className='absolute right-2.5 top-[-55px]'>
         <Image
           src={leafsBg}
-          alt="Leafs Background"
-          width="114px"
-          height="154px"
+          alt='Leafs Background'
+          width='114px'
+          height='154px'
         />
       </div>
 
-      <div className="py-6 px-6">
-        <p className="font-secondary text-base text-lighter-black opacity-50 mb-1">
+      <div className='py-6 px-6'>
+        <p className='font-secondary text-base text-lighter-black opacity-50 mb-1'>
           Total redxam balance
         </p>
-        <p className="font-secondary font-bold text-3xl text-black">
-          $30,700.00
-        </p>
+        {balanceInfo}
       </div>
-      <p className="text-center bg-light-gray py-1 font-secondary text-sm text-[#95989B]">
+      <p className='text-center bg-light-gray py-1 font-secondary text-sm text-[#95989B]'>
         Your pending balance is
-        <span className="text-lighter-black font-medium ml-1.5">$2200.00</span>
+        <span className='text-lighter-black font-medium ml-1.5'>
+          ${user?.pending_balance}
+        </span>
       </p>
-      <div className="w-full">
-        <Link href="/deposit">
-          <a className="w-1/2 inline-block text-center font-medium font-secondary text-base underline py-4 border-r border-r-[#EAEAEB]">
+      <div className='w-full'>
+        <Link href='/deposit'>
+          <a className='w-1/2 inline-block text-center font-medium font-secondary text-base underline py-4 border-r border-r-[#EAEAEB]'>
             Deposit
           </a>
         </Link>
-        <button className="w-1/2 font-medium font-secondary text-base underline py-4">
+        <button className='w-1/2 font-medium font-secondary text-base underline py-4'>
           Withdraw
         </button>
       </div>
