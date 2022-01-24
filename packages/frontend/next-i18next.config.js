@@ -4,7 +4,7 @@ module.exports = {
     locales: ["en", "es", "ar"],
     domains: [
       {
-        domain: 'redxam.ae',
+        domain: 'www.redxam.ae',
         defaultLocale: 'ar'
       }
     ]
