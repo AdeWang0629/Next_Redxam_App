@@ -12,7 +12,6 @@ import RecentActivity from "@components/dashboard/RecentActivity";
 
 const Home: NextPage = () => {
   const { user, loading, noUser } = useContext(UserContext);
-  console.log(user);
   const router = useRouter();
 
   // @ts-ignore
