@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next';
 interface WaitlistModelProps {
   isOpened: boolean;
   setOpened: (isOpened: boolean) => void;
-  referralCode: string;
+  referralCode?: string;
 }
 
 const WaitlistModel: NextPage<WaitlistModelProps> = ({
