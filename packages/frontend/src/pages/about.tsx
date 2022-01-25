@@ -29,6 +29,21 @@ import JhosephProfileImage from '@public/images/about/jhoseph.jpg';
 import WorkWithUsImage1 from '@public/images/about/workwithus1.png';
 import WorkWithUsImage2 from '@public/images/about/workwithus2.png';
 import Switcher from '@components/global/Switcher';
+import { GetStaticProps } from 'next';
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  if (!locale) {
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['newsletter'])),
+    },
+  };
+};
 
 const About: NextPage = () => {
   const teamMembers = [

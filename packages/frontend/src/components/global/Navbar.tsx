@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
@@ -20,6 +21,7 @@ const Navbar: NextPage<NavbarProps> = ({
   transparentBackground = false,
   title,
 }) => {
+  const { locale } = useRouter();
   const { t } = useTranslation("navbar");
   let [navMobile, setNavMobile] = useState(false);
   const [scrolling, setScrolling] = useState(false);
@@ -76,7 +78,12 @@ const Navbar: NextPage<NavbarProps> = ({
       >
         <div className="flex flex-col md:flex-row max-w-7xl mx-auto items-center">
           <div className="flex items-center justify-between flex-1 w-full px-8 md:px-0">
-            <div className="flex items-center md:flex-1">
+            <div
+              className={`flex items-center md:flex-1 ${
+                locale === "ar" && "flex-row-reverse"
+              }`}
+              dir={locale === "ar" ? "ltr" : ""}
+            >
               <Link href="/">
                 <a className="flex items-center cursor-pointer">
                   <Image
@@ -126,7 +133,7 @@ const Navbar: NextPage<NavbarProps> = ({
                   : "text-black"
               } text-[15px]"`}
             >
-              <li className="mt-[25px] md:mt-0 md:mr-[50px]">
+              <li className={`mt-[25px] md:mt-0 md:mr-[50px]`}>
                 <Link href="/about">
                   <a>{t("about")}</a>
                 </Link>
@@ -141,7 +148,11 @@ const Navbar: NextPage<NavbarProps> = ({
                   <a>{t("security")}</a>
                 </Link>
               </li>
-              <li className="mt-[25px] md:mt-0 md:mr-[50px]">
+              <li
+                className={`mt-[25px] md:mt-0 md:mr-[50px] ${
+                  locale === "ar" && "md:ml-[50px]"
+                }`}
+              >
                 <button
                   className={`${
                     transparentBackground && scrollTop <= 0 && !navMobile

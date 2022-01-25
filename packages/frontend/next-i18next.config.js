@@ -1,6 +1,12 @@
 module.exports = {
   i18n: {
-    defaultLocale: "en-US",
-    locales: ["en-US", "es"],
-  },
+    defaultLocale: "en",
+    locales: ["en", "es", "ar"],
+    domains: [
+      {
+        domain: 'www.redxam.ae',
+        defaultLocale: 'ar'
+      }
+    ]
+  }
 };
