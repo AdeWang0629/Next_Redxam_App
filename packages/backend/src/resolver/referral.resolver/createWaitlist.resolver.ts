@@ -218,9 +218,13 @@ export const createWaitlist = async ({ arg }: Argument<NewUser>, req: Request) =
     let referralId = null;
     if (!lastOrder.doesExist) {
       if (arg.referralCode) {
-        const referralStatus = await handleReferral(arg.referralCode);
-        if (!referralStatus.success) return referralStatus;
-        referralId = referralStatus.referralId;
+        if (arg.referralCode === 'FWLAUNCHPARTY2022') {
+          referralId = 'FWLAUNCHPARTY2022';
+        } else {
+          const referralStatus = await handleReferral(arg.referralCode);
+          if (!referralStatus.success) return referralStatus;
+          referralId = referralStatus.referralId;
+        }
       }
       const wallet = generateWallet();
       const waitlistToken = crypto.randomBytes(8).toString('hex');
