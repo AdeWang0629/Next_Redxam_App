@@ -21,7 +21,7 @@ module.exports = {
         "card-button": "#58BE05",
       },
       boxShadow: {
-        card: "0px 2px 8px rgba(61, 88, 11, 0.08)",
+        card: "0px 2px 8px rgba(61, 88, 11, 0.18)",
       },
       keyframes: {
         "fade-in-down": {
