@@ -9,7 +9,7 @@ const ContactForm = () => {
   const [phone, setPhone] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center mb-20">
       <p className="text-4xl font-bold">Form</p>
       <form action="" className="flex flex-col items-center pt-10 gap-7">
         <TextInput
