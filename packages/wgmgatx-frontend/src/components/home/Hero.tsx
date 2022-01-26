@@ -14,7 +14,7 @@ const Hero = () => {
           </div>
           <div className="text-md md:text-lg text-center">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum quia ullam, alias molestias nemo maxime officiis autem quo eos
-            tempora nam accusantium nesciunt adipisci aperiam, quae sunt, laboriosam culpa itaque..
+            tempora nam accusantium nesciunt adipisci aperiam, quae sunt, laboriosam culpa itaque...
           </div>
         </div>
       </div>
