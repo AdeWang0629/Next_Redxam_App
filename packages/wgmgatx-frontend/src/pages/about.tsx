@@ -4,7 +4,7 @@ import { NextPage } from "next";
 import Image from "next/image";
 import wgmgAboutImg from "@public/images/about/about-wgmg.jpeg";
 import wgmgHotelsImg from "@public/images/about/hotels-wgmg.jpeg";
-import wgmgArtisImg from "@public/images/about/artist-wgmg.jpeg";
+import wgmgEventImg from "@public/images/about/event-wgmg.jpeg";
 
 const About: NextPage = () => {
   return (
@@ -33,7 +33,7 @@ const About: NextPage = () => {
           />
         </div>
         <Image
-          src={wgmgArtisImg || ""}
+          src={wgmgEventImg || ""}
           alt="WGMG About IMG"
           width="1080px"
           height="1080px"
