@@ -1,37 +1,37 @@
-import type { NextPage } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import Navbar from "@components/global/Navbar";
-import Footer from "@components/global/Footer";
-import Newsletter from "@components/landing/Newsletter";
+import type { NextPage } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
+import Navbar from '@components/global/Navbar';
+import Footer from '@components/global/Footer';
+import Newsletter from '@components/landing/Newsletter';
 
-import MouseIcon from "@public/icons/white-mouse.svg";
-import InvestImage1 from "@public/images/about/invest-img1.svg";
-import InvestImage2 from "@public/images/about/invest-img2.svg";
-import InvestImage3 from "@public/images/about/invest-img3.svg";
+import MouseIcon from '@public/icons/white-mouse.svg';
+import InvestImage1 from '@public/images/about/invest-img1.svg';
+import InvestImage2 from '@public/images/about/invest-img2.svg';
+import InvestImage3 from '@public/images/about/invest-img3.svg';
 
-import InvestorsImage1 from "@public/images/about/investors1.svg";
-import InvestorsImage2 from "@public/images/about/investors2.svg";
-import InvestorsImage3 from "@public/images/about/investors3.svg";
-import InvestorsImage4 from "@public/images/about/investors4.svg";
-import InvestorsImage5 from "@public/images/about/investors5.svg";
-import InvestorsImage6 from "@public/images/about/investors6.svg";
-import InvestorsImage7 from "@public/images/about/investors7.svg";
-import InvestorsImage8 from "@public/images/about/investors8.svg";
-import InvestorsImage9 from "@public/images/about/investors9.svg";
-import InvestorsImage10 from "@public/images/about/investors10.svg";
+import InvestorsImage1 from '@public/images/about/investors1.svg';
+import InvestorsImage2 from '@public/images/about/investors2.svg';
+import InvestorsImage3 from '@public/images/about/investors3.svg';
+import InvestorsImage4 from '@public/images/about/investors4.svg';
+import InvestorsImage5 from '@public/images/about/investors5.svg';
+import InvestorsImage6 from '@public/images/about/investors6.svg';
+import InvestorsImage7 from '@public/images/about/investors7.svg';
+import InvestorsImage8 from '@public/images/about/investors8.svg';
+import InvestorsImage9 from '@public/images/about/investors9.svg';
+import InvestorsImage10 from '@public/images/about/investors10.svg';
 
-import MaxProfileImage from "@public/images/about/max.jpg";
-import PruselaProfileImage from "@public/images/about/prusela.jpg";
-import AlexProfileImage from "@public/images/about/alex.jpg";
-import JhosephProfileImage from "@public/images/about/jhoseph.jpg";
+import MaxProfileImage from '@public/images/about/max.jpg';
+import PruselaProfileImage from '@public/images/about/prusela.jpg';
+import AlexProfileImage from '@public/images/about/alex.jpg';
+import JhosephProfileImage from '@public/images/about/jhoseph.jpg';
 
-import WorkWithUsImage1 from "@public/images/about/workwithus1.png";
-import WorkWithUsImage2 from "@public/images/about/workwithus2.png";
-import Switcher from "@components/global/Switcher";
-import { GetStaticProps } from "next";
+import WorkWithUsImage1 from '@public/images/about/workwithus1.png';
+import WorkWithUsImage2 from '@public/images/about/workwithus2.png';
+import Switcher from '@components/global/Switcher';
+import { GetStaticProps } from 'next';
 
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -41,11 +41,11 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, [
-        "newsletter",
-        "navbar",
-        "footer",
-        "waitlist",
-        "login",
+        'newsletter',
+        'navbar',
+        'footer',
+        'waitlist',
+        'login',
       ])),
     },
   };
@@ -53,21 +53,21 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const About: NextPage = () => {
   const teamMembers = [
-    { name: "Max Awad", picture: MaxProfileImage, role: "CEO, Co-Founder" },
+    { name: 'Max Awad', picture: MaxProfileImage, role: 'CEO, Co-Founder' },
     {
-      name: "Prusela Bhowmick",
+      name: 'Prusela Bhowmick',
       picture: PruselaProfileImage,
-      role: "Marketing",
+      role: 'Marketing',
     },
     {
-      name: "Alejandro Gonzalez",
+      name: 'Alejandro Gonzalez',
       picture: AlexProfileImage,
-      role: "Engineering",
+      role: 'Engineering',
     },
     {
-      name: "Jhoseph Guerrero",
+      name: 'Jhoseph Guerrero',
       picture: JhosephProfileImage,
-      role: "Engineering",
+      role: 'Engineering',
     },
   ];
 
@@ -75,7 +75,7 @@ const About: NextPage = () => {
     <>
       <section
         className="bg-no-repeat bg-cover min-h-screen"
-        style={{ backgroundImage: "url(/images/about/hero-bg.png)" }}
+        style={{ backgroundImage: 'url(/images/about/hero-bg.png)' }}
       >
         <Navbar transparentBackground title="About Us" />
         <Switcher activePage="about" />
@@ -167,7 +167,7 @@ const About: NextPage = () => {
         <div className="md:grid grid-cols-4 gap-y-14 gap-x-14">
           {teamMembers.map((member) => (
             <TeamMember
-              key={member.name.toLowerCase().split(" ").join("_")}
+              key={member.name.toLowerCase().split(' ').join('_')}
               picture={member.picture}
               name={member.name}
               role={member.role}
