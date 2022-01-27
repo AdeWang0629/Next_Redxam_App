@@ -17,7 +17,6 @@ describe('User recieves an email when a txs is pending and confirmed', () => {
     const txDeposit = { status: 'pending' };
     const value = 3000;
     const res = await mailUser(status, txDeposit, value, userId);
-    console.log(res);
     expect(res.status).toEqual(202);
     expect(res.message).toMatch('confirmed tx email sent');
   });
@@ -27,8 +26,7 @@ describe('User recieves an email when a txs is pending and confirmed', () => {
     const txDeposit = null;
     const value = 3000;
     const res = await mailUser(status, txDeposit, value, userId);
-    console.log(res);
     expect(res.status).toEqual(202);
-    expect(res.message).toMatch('confirmed email sent');
+    expect(res.message).toMatch('confirmed tx email sent');
   });
 });
