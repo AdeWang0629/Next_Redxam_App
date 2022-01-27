@@ -1,7 +1,5 @@
 import { Deposits, DepositsType, DepositsCurrencyType, User } from '@/database';
-import { sendMail } from '@/apis/sendgrid';
-
-const { SERVICE_EMAIL } = process.env;
+import { sendPendingTxEmail, sendConfirmedTxEmail } from '@/apis/sendgrid';
 
 export const updateUserDeposits = async (txList, currentUserWallet, isNode = false) => {
   if (txList.length > currentUserWallet.txsCount || currentUserWallet.hasPendingTxs) {
@@ -87,6 +85,7 @@ const getUserTxListNode = (transactionsList, address) => {
   return userTxs;
 };
 
+/* TODO: create email handlers in strategy interface an move this code inside */
 const handleMailUser = async (tx, userId) => {
   const status = tx.block_id > 0 ? 'completed' : 'pending';
   const txDeposit = await Deposits.findOne({ hash: tx.txHash });
@@ -94,38 +93,21 @@ const handleMailUser = async (tx, userId) => {
 };
 
 export const mailUser = async (status, txDeposit, value, userId) => {
-  if (status === 'pending' && !txDeposit) {
-    const user = await User.findOne({ _id: userId }, { email: 1, firstName: 1 });
-    const email = await sendMail({
-      from: `redxam.com <${SERVICE_EMAIL}>`,
-      to: user.email,
-      subject: 'Your redxam deposits is being processing in the blockchain',
-      html: `Ey ${user.firstName} your deposit to redxam for a value of ${
-        value * 0.00000001
-      } is being proccesed in the blockchain, we'll send you another email when payment is confirmed`,
-    });
-    return { status: email[0].statusCode, message: 'pending tx email sent' };
-  } else if (status === 'completed' && txDeposit && txDeposit.status === 'pending') {
-    const user = await User.findOne({ _id: userId }, { email: 1, firstName: 1 });
-    const email = await sendMail({
-      from: `redxam.com <${SERVICE_EMAIL}>`,
-      to: user.email,
-      subject: 'Your redxam deposits is confirmed',
-      html: `${user.firstName} your deposit to redxam for a value of ${
-        value * 0.00000001
-      } has being confirmed`,
-    });
-    return { status: email[0].statusCode, message: 'confirmed tx email sent' };
-  } else if (status === 'completed' && !txDeposit) {
-    const user = await User.findOne({ _id: userId }, { email: 1, firstName: 1 });
-    const email = await sendMail({
-      from: `redxam.com <${SERVICE_EMAIL}>`,
-      to: user.email,
-      subject: 'Your redxam deposits is confirmed',
-      html: `${user.firstName} your deposit to redxam for a value of ${
-        value * 0.00000001
-      } has being confirmed`,
-    });
-    return { status: email[0].statusCode, message: 'confirmed email sent at once' };
+  if (isPending(status, txDeposit)) {
+    const user = await getUser(userId);
+    return sendPendingTxEmail(user, 'BTC', value);
+  } else if (isConfirmed(status, txDeposit)) {
+    const user = await getUser(userId);
+    return sendConfirmedTxEmail(user, 'BTC', value);
+  } else if (isConfirmedWithoutPending(status, txDeposit)) {
+    const user = await getUser(userId);
+    return sendConfirmedTxEmail(user, 'BTC', value);
   }
 };
+
+const getUser = userId => User.findOne({ _id: userId }, { email: 1, firstName: 1 });
+const isPending = (status, txDeposit) => status === 'pending' && !txDeposit;
+const isConfirmed = (status, txDeposit) =>
+  status === 'completed' && txDeposit && txDeposit.status === 'pending';
+const isConfirmedWithoutPending = (status, txDeposit) =>
+  status === 'completed' && !txDeposit;
