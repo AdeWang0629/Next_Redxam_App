@@ -3,16 +3,35 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Navbar from "@components/global/Navbar";
 import Footer from "@components/global/Footer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 // Imgs
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import cards from "@public/images/card/cards.png";
 import phone from "@public/images/card/phone.png";
 import playstore from "@public/images/card/playstore.svg";
 import appstore from "@public/images/card/appstore.svg";
 import check from "../../public/images/card/check.svg";
 import video from "../../public/images/card/video.png";
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  if (!locale) {
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        "navbar",
+        "footer",
+        "waitlist",
+        "login",
+      ])),
+    },
+  };
+};
 
 const Cards: NextPage = () => {
   const [activeQuestion, setActiveQuestion] = useState(-1);
