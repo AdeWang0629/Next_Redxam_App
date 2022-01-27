@@ -202,6 +202,7 @@ type Query {
   waitlistLevel(waitlistToken: String): WaitlistLevel
   internalDeposits: InternalDepositsResponse
   mxWidgetConnect: WidgetUrl
+  updateReferral: Response
 }
 
 type Mutation {
