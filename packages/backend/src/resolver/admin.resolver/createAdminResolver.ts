@@ -1,6 +1,7 @@
 import { sign, verify } from 'jsonwebtoken';
 import { Admin } from '@/database';
 import { Request } from 'express';
+import getAuthorizationToken from './getAuthorizationToken';
 
 const key = process.env.TOKEN_SECURITY_KEY;
 
@@ -11,11 +12,10 @@ interface adminToken {
 export const createAdmin = async ({ arg }, req: Request) => {
   const { email } = arg;
   console.debug('[Resolve] createAdmin called');
-  const token = getAuthorizationToken(req.headers.authorization);
+  const auth = getAuthorizationToken(req.headers.authorization);
+  if (!auth.success) return auth;
 
-  if (!token) throw new Error('invalid token');
-
-  const payload = verify(token, key) as adminToken;
+  const payload = verify(auth.token, key) as adminToken;
 
   try {
     const admin = await Admin.findOne({ _id: payload.adminId });
@@ -36,25 +36,4 @@ export const createAdmin = async ({ arg }, req: Request) => {
   } catch (error) {
     return { success: false, message: error.message };
   }
-};
-
-const getAuthorizationToken = (authorizationHeader: string) => {
-  const authorization = authorizationHeader?.split(' ');
-  if (!authorization) {
-    console.debug('No authorization header!');
-    return null;
-  }
-
-  const [tokenType, token] = authorization;
-  if (tokenType !== 'Bearer') {
-    console.debug('Invalid token type!');
-    return null;
-  }
-
-  if (!token) {
-    console.debug('No token passed!');
-    return null;
-  }
-
-  return token;
 };
