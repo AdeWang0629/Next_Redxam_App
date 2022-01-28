@@ -7,6 +7,7 @@ import { Request } from 'express';
 import { Attachment } from 'nodemailer/lib/mailer';
 import { Admin, User } from '@/database';
 import { sendMail } from '@/apis/sendgrid';
+import getAuthorizationToken from './getAuthorizationToken';
 
 const { SERVICE_EMAIL, TOKEN_SECURITY_KEY } = process.env;
 
@@ -17,8 +18,8 @@ interface adminToken {
 export const updateReferral = async (_: void, req: Request) => {
   console.debug('[Resolve] admin called');
   const auth = getAuthorizationToken(req.headers.authorization);
-
   if (!auth.success) return auth;
+
   console.log('pase');
 
   try {
@@ -35,27 +36,6 @@ export const updateReferral = async (_: void, req: Request) => {
   } catch (err) {
     return { message: err.message, success: false };
   }
-};
-
-const getAuthorizationToken = (authorizationHeader: string) => {
-  const authorization = authorizationHeader?.split(' ');
-  if (!authorization) {
-    console.debug('No authorization header!');
-    return { message: 'no authorization header', success: false };
-  }
-
-  const [tokenType, token] = authorization;
-  if (tokenType !== 'Bearer') {
-    console.debug('Invalid token type!');
-    return { message: 'invalid token type', success: false };
-  }
-
-  if (!token) {
-    console.debug('No token passed!');
-    return { message: 'no token passed', success: false };
-  }
-
-  return { token, success: true };
 };
 
 const updateReferralScript = async origin => {
