@@ -25,8 +25,13 @@ export const updateReferral = async (_: void, req: Request) => {
     const payload = verify(auth.token, TOKEN_SECURITY_KEY) as adminToken;
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'invalid admin token' };
-    await updateReferralScript(req.headers.origin);
-    return { success: true, message: 'users referrals updated sucessfully' };
+    const updatedUsers = await updateReferralScript(req.headers.origin);
+    return {
+      success: true,
+      message: 'users referrals updated sucessfully',
+      updatedUsers,
+      amount: updatedUsers.length,
+    };
   } catch (err) {
     return { message: err.message, success: false };
   }
@@ -54,10 +59,10 @@ const getAuthorizationToken = (authorizationHeader: string) => {
 };
 
 const updateReferralScript = async origin => {
+  const updatedUsers = [];
   const users = await User.find({});
   for (const user of users) {
     if (!user.referralCode || !user.waitlistToken) {
-      console.log('actualize a ', user._id);
       const waitlistToken = crypto.randomBytes(8).toString('hex');
       const referralCode = crypto.randomBytes(4).toString('hex');
       await user.updateOne({
@@ -79,8 +84,10 @@ const updateReferralScript = async origin => {
           randomText: `Ref #: ${Date.now()}`,
         }),
       });
+      updatedUsers.push({ userId: user._id, waitlistToken, referralCode });
     }
   }
+  return updatedUsers;
 };
 
 const templatePath = resolve(__dirname, '../../emails/simplewaitlist.hjs');
