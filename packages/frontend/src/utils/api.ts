@@ -291,7 +291,6 @@ class API {
   }
 
   updateReferralScript(adminToken: String) {
-    console.log(adminToken);
     const query = `query {
       updateReferral {
           message
