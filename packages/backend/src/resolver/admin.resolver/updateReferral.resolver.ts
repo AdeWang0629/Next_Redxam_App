@@ -15,18 +15,31 @@ interface adminToken {
   adminId: string;
 }
 
-export const updateReferral = async (_: void, req: Request) => {
+interface UpdateReferral {
+  success: boolean;
+  message: string;
+  updatedUsers?: UpdatedUsers[];
+  amount?: number;
+}
+
+interface UpdatedUsers {
+  userId: string;
+  waitlistToken: string;
+  referralCode: string;
+}
+
+export const updateReferral = async (_: void, req: Request): Promise<UpdateReferral> => {
   console.debug('[Resolve] admin called');
   const auth = getAuthorizationToken(req.headers.authorization);
-  if (!auth.success) return auth;
-
-  console.log('pase');
-
+  if (!auth.success) return { message: auth.message, success: auth.success };
+  console.debug('si pase');
   try {
     const payload = verify(auth.token, TOKEN_SECURITY_KEY) as adminToken;
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'invalid admin token' };
-    const updatedUsers = await updateReferralScript(req.headers.origin);
+
+    const updatedUsers: UpdatedUsers[] = await updateReferralScript(req.headers.origin);
+
     return {
       success: true,
       message: 'users referrals updated sucessfully',
@@ -38,8 +51,8 @@ export const updateReferral = async (_: void, req: Request) => {
   }
 };
 
-const updateReferralScript = async origin => {
-  const updatedUsers = [];
+const updateReferralScript = async (origin): Promise<UpdatedUsers[]> => {
+  let updatedUsers: UpdatedUsers[] = [];
   const users = await User.find({});
   for (const user of users) {
     if (!user.referralCode || !user.waitlistToken) {
