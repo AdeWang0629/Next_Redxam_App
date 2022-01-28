@@ -212,7 +212,6 @@ const handleReferral = async referralCode => {
 
 export const createWaitlist = async ({ arg }: Argument<NewUser>, req: Request) => {
   const lastOrder = await fetchLastOrder(arg.email);
-  console.log(req.headers.origin);
 
   try {
     const jobs: Promise<any>[] = [];

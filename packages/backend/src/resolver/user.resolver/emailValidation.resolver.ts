@@ -19,7 +19,7 @@ export const emailValidation = async ({ arg }: Argument<NewUser>, req: Request) 
     if (await isUser(arg.email)) {
       return await createWaitlist({ arg }, req);
     }
-    const verificationToken = sign({ ...arg }, TOKEN_SECURITY_KEY, { expiresIn: '120s' });
+    const verificationToken = sign({ ...arg }, TOKEN_SECURITY_KEY, { expiresIn: '1h' });
     await sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
       to: arg.email,
