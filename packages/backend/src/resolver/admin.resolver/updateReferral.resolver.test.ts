@@ -11,10 +11,9 @@ describe('test referralScript resolver', () => {
 
     const { token } = await Admin.findOne();
     const req: any = new Request();
-    console.log(`Bearer ${token}`);
     req.headers.authorization = `Bearer ${token}`;
     const res = await updateReferral(null, req);
-    console.log(res);
+
     const updatedUser = res.updatedUsers.find(
       updated => updated.userId.toString() === userId,
     );

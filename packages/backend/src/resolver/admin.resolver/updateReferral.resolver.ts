@@ -32,7 +32,7 @@ export const updateReferral = async (_: void, req: Request): Promise<UpdateRefer
   console.debug('[Resolve] admin called');
   const auth = getAuthorizationToken(req.headers.authorization);
   if (!auth.success) return { message: auth.message, success: auth.success };
-  console.debug('si pase');
+
   try {
     const payload = verify(auth.token, TOKEN_SECURITY_KEY) as adminToken;
     const adminData = await Admin.findOne({ _id: payload.adminId });
