@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from "axios";
-import { getCookie, setCookies } from "cookies-next";
+import axios, { AxiosInstance } from 'axios';
+import { getCookie, setCookies } from 'cookies-next';
 
 class API {
   axios: AxiosInstance;
@@ -9,15 +9,15 @@ class API {
   }
 
   get baseURL() {
-    return (typeof window !== "undefined" &&
-    getCookie("environment") &&
-    getCookie("environment") === "development"
+    return (typeof window !== 'undefined' &&
+    getCookie('environment') &&
+    getCookie('environment') === 'development'
       ? process.env.NEXT_PUBLIC_DEV_BASE_URL
       : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string;
   }
 
   getToken() {
-    return typeof window !== "undefined" ? getCookie("token") : null;
+    return typeof window !== 'undefined' ? getCookie('token') : null;
   }
 
   getAuthorizationHeader() {
@@ -39,9 +39,9 @@ class API {
     let mutation = `mutation {
         createWaitlist(arg: {
           email: "${email}"
-          ${firstName?.length ? `, firstName: "${firstName}"` : ""}
-          ${lastName?.length ? `, lastName: "${lastName}"` : ""}
-          ${referralCode?.length ? `referralCode: "${referralCode}"` : ""}
+          ${firstName?.length ? `, firstName: "${firstName}"` : ''}
+          ${lastName?.length ? `, lastName: "${lastName}"` : ''}
+          ${referralCode?.length ? `referralCode: "${referralCode}"` : ''}
         }) {
             success
             message
@@ -288,6 +288,25 @@ class API {
       },
       { headers: { ...this.getAuthorizationHeader() } }
     );
+  }
+
+  updateReferralScript(adminToken: String) {
+    console.log(adminToken);
+    const query = `query {
+      updateReferral {
+          message
+          success
+          updatedUsers {
+              userId
+              referralCode
+              waitlistToken
+          }
+          amount
+      }
+  }`;
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
+      headers: { Authorization: `Bearer ${adminToken}` },
+    });
   }
 }
 

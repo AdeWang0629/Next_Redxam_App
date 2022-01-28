@@ -1,11 +1,12 @@
-import { useState, useContext } from "react";
-import StaffLogin from "@components/admin/StaffLogin";
-import Overview from "@components/admin/Overview";
-import Users from "@components/admin/Users";
-import Emails from "@components/admin/Emails";
-import CreateUser from "@components/admin/CreateUser";
-import { AdminContext } from "@providers/Admin";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState, useContext } from 'react';
+import StaffLogin from '@components/admin/StaffLogin';
+import Overview from '@components/admin/Overview';
+import Users from '@components/admin/Users';
+import Emails from '@components/admin/Emails';
+import Scripts from '@components/admin/Scripts';
+import CreateUser from '@components/admin/CreateUser';
+import { AdminContext } from '@providers/Admin';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSearch,
   faBell,
@@ -13,11 +14,12 @@ import {
   faUsers,
   faEnvelope,
   faCogs,
-} from "@fortawesome/free-solid-svg-icons";
+  faPlayCircle,
+} from '@fortawesome/free-solid-svg-icons';
 
 export const Admin = () => {
   const { user, loading, noUser } = useContext(AdminContext);
-  const [activeSection, setActiveSection] = useState("overview");
+  const [activeSection, setActiveSection] = useState('overview');
 
   if (loading) return <span>loading</span>;
 
@@ -29,21 +31,22 @@ export const Admin = () => {
         style={{
           flex: 1,
           background:
-            "linear-gradient(356.99deg, #8EE616 -77.71%, #3EB402 66.18%)",
+            'linear-gradient(356.99deg, #8EE616 -77.71%, #3EB402 66.18%)',
         }}
         className="py-4 min-h-screen text-white"
       >
         <div className="px-6 mt-4 mb-8 text-2xl">Redxam</div>
         <ul className="flex flex-col">
           {[
-            { name: "Overview", icon: faColumns },
-            { name: "Users", icon: faUsers },
-            { name: "Emails", icon: faEnvelope },
+            { name: 'Overview', icon: faColumns },
+            { name: 'Users', icon: faUsers },
+            { name: 'Emails', icon: faEnvelope },
+            { name: 'Scripts', icon: faPlayCircle },
             { divider: true },
-            { name: "Settings", icon: faCogs },
+            { name: 'Settings', icon: faCogs },
           ].map((section) => {
             let id = section.name
-              ? section.name.split(" ").join("_").toLowerCase()
+              ? section.name.split(' ').join('_').toLowerCase()
               : `divider_${Math.floor(Math.random() * 1000)}`;
 
             return section?.divider ? (
@@ -56,8 +59,8 @@ export const Admin = () => {
                 key={id}
                 className={`py-4 px-6 cursor-pointer flex items-center ${
                   activeSection === id
-                    ? "bg-white bg-opacity-10 border-l-2 border-white"
-                    : "opacity-70"
+                    ? 'bg-white bg-opacity-10 border-l-2 border-white'
+                    : 'opacity-70'
                 }`}
                 onClick={() => setActiveSection(id)}
               >
@@ -73,7 +76,7 @@ export const Admin = () => {
           <div className="flex-1 ml-4">
             <h1 className="text-2xl dark:text-white">
               {activeSection[0].toUpperCase() +
-                activeSection.replace(/\_/gm, " ").slice(1)}
+                activeSection.replace(/\_/gm, ' ').slice(1)}
             </h1>
           </div>
           <div className="flex-1 flex items-center justify-end">
@@ -88,10 +91,10 @@ export const Admin = () => {
         </div>
         <div className="flex justify-end py-4 mx-4">
           <button
-            onClick={() => setActiveSection("create_user")}
+            onClick={() => setActiveSection('create_user')}
             style={{
-              border: "1px solid rgb(62,180,2)",
-              color: "rgba(62,180,2,1)",
+              border: '1px solid rgb(62,180,2)',
+              color: 'rgba(62,180,2,1)',
             }}
             className="py-3 px-6 rounded-xl transition-opacity duration-300 hover:opacity-70"
           >
@@ -99,22 +102,24 @@ export const Admin = () => {
           </button>
           <button
             style={{
-              border: "1px solid rgb(62,180,2)",
-              backgroundColor: "rgba(62,180,2,1)",
+              border: '1px solid rgb(62,180,2)',
+              backgroundColor: 'rgba(62,180,2,1)',
             }}
             className="py-3 px-6 rounded-xl transition-opacity duration-300 hover:opacity-70 text-white ml-4"
           >
             New deposit
           </button>
         </div>
-        {activeSection === "overview" ? (
+        {activeSection === 'overview' ? (
           <Overview />
-        ) : activeSection === "users" ? (
+        ) : activeSection === 'users' ? (
           <Users />
-        ) : activeSection === "create_user" ? (
+        ) : activeSection === 'create_user' ? (
           <CreateUser setActiveSection={setActiveSection} />
-        ) : activeSection === "emails" ? (
+        ) : activeSection === 'emails' ? (
           <Emails />
+        ) : activeSection === 'scripts' ? (
+          <Scripts />
         ) : null}
       </div>
     </div>
