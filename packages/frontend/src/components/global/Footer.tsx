@@ -11,7 +11,7 @@ import {
 
 import RedxamLogo from '@public/images/redxam-logo.svg';
 
-const Footer: NextComponentType = () => {
+const Footer = ({ card = false }) => {
   const { t } = useTranslation('footer');
   return (
     <footer className="pt-16 bg-footer-bg px-4 md:px-0">
@@ -138,13 +138,44 @@ const Footer: NextComponentType = () => {
         </span>
       </div>
       <div className="flex flex-col items-center justify-center lg:px-64">
+        {card == true ? (
+          <>
+            <span className="text-center font-primary text-black text-opacity-50 py-4">
+              *Mastercard® Prepaid Cards are issued by MetaBank®, N.A., Member
+              FDIC, pursuant to license by Mastercard International
+              Incorporated. Mastercard is a registered trademark, and the
+              circles design is a trademark of Mastercard International
+              Incorporated. Mastercard Cards may be used everywhere Debit
+              Mastercard is accepted.
+            </span>
+            <span className="text-center font-primary text-black text-opacity-50 py-4">
+              *Cash back and other merchant rewards are not offered or endorsed
+              by Metabank®, N.A.
+            </span>
+            <span className="text-center font-primary text-black text-opacity-50 py-4">
+              *Cryptocurrency transaction and custody services are powered by
+              Zero Hash LLC and Zero Hash Liquidity Services LLC. When you open
+              a Select Prepaid Mastercard, you must also agree to the Zero Hash
+              LLC and Zero Hash Liquidity LLC terms and conditions and enable
+              your Zero Hash account. Cryptocurrency balances are not covered by
+              FDIC or SIPC insurance.
+            </span>
+            <span className="text-center font-primary text-black text-opacity-50 py-4">
+              *The cryptocurrency assets in your Zero Hash account are not held
+              at MetaBank®, N.A. and MetaBank®, N.A. is not responsible for the
+              cryptocurrency assets held in any Zero Hash account. MetaBank®,
+              N.A. is not involved in the purchase, sale, or exchange of fiat
+              funds for cryptocurrency, or custody of the cryptocurrencies.
+              Cryptocurrency services may not be available in all states.
+            </span>
+          </>
+        ) : null}
         <span className="text-center font-primary text-black text-opacity-50">
           {t('redxam-dubai')}
         </span>
         <span className="text-center font-primary text-black text-opacity-50">
           {t('redxam-us')}
         </span>
-        <span className="text-center font-primary text-black text-opacity-50 py-4"></span>
       </div>
     </footer>
   );

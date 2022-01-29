@@ -207,7 +207,7 @@ const Cards: NextPage = () => {
           </div>
         </section>
       </div>
-      <Footer />
+      <Footer card={true} />
     </>
   );
 };
