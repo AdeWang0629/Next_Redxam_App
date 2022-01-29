@@ -185,6 +185,19 @@ type WidgetUrl {
   widgetUrl: String
 }
 
+type referralUpdatedUsers {
+  userId: String
+  referralCode: String
+  waitlistToken: String
+}
+
+type UpdateReferral {
+  message: String
+  success: Boolean
+  updatedUsers: [referralUpdatedUsers]
+  amount: Int
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -202,6 +215,8 @@ type Query {
   waitlistLevel(waitlistToken: String): WaitlistLevel
   internalDeposits: InternalDepositsResponse
   mxWidgetConnect: WidgetUrl
+  updateReferral: UpdateReferral
+  emailValidation(arg: NewUser): Response
 }
 
 type Mutation {
@@ -211,6 +226,7 @@ type Mutation {
   sendReferral(arg: SendReferInput): Response
   goUpQueue: Response
   createWaitlist(arg: NewUser): Response
+  emailValidateToken: Response
   createManualUser(arg: NewManualUser): Response
   createAdmin(arg: newAdmin): Response
   changeRequest(arg: String): Response
