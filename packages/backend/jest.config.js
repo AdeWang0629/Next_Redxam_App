@@ -13,4 +13,5 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^blockchair-api': '<rootDir>/src/apis/blockchair',
   },
+  testTimeout: 20000,
 };
