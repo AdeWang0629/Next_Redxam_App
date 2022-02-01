@@ -232,4 +232,5 @@ type Mutation {
   createAdmin(arg: newAdmin): Response
   changeRequest(arg: String): Response
   changeAccountStatus(arg: String): Response
+  updateUserStatus(arg: String): Response
 }
