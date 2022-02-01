@@ -11,6 +11,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Navbar title="Homepage" />
+      <Hero />
       <ItemList 
         arts={artData.arts} 
         bgColor="bg-black" 
@@ -26,7 +27,7 @@ const Home: NextPage = () => {
         from={8} 
         to={11} 
         title='Artists' 
-        goTo='/artists'
+        // goTo='/artists'
       />
 
       {/* <Hero />

@@ -21,6 +21,9 @@ module.exports = {
           400: 'rgb(255 255 255 / 0.8)',
           500: '#fff',
         },
+        backgroundImage: {
+          'hero-background': 'url("/public/unsplash.png")'
+        }
       },
     },
     fontFamily: {

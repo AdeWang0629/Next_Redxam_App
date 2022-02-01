@@ -11,7 +11,8 @@ interface Props {
   bgColor?: string;
   from: number;
   to: number;
-  goTo: string;
+  goTo?: string;
+  complete?: boolean;
   // active?: boolean;
 }
 
@@ -39,7 +40,7 @@ const ItemList = (props: Props) => {
 
   return (
     <div className={props.bgColor}>
-      <h1 className="text-5xl font-bold pt-16 mb-16 text-center">{props.title}</h1>
+      <h1 className="text-5xl font-bold pt-16 mb-16 text-center z-1">{props.title}</h1>
       <div>
         <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-2 col-span-3 mx-[10%] pb-6">
           {props.arts.slice(props.from, props.to).map((art, index) => {
@@ -72,12 +73,12 @@ const ItemList = (props: Props) => {
             onMouseOver={() => btnZoomIn()}
             onMouseOut={() => btnZoomOut()}
           >
-            <Link href={props.goTo}>
+            {props.goTo ? <Link href={props.goTo}>
               <div className="flex items-center">
                 See more &nbsp; &nbsp;
                 <CgArrowLongRight fontSize="40px" />
               </div>
-            </Link>
+            </Link> : null}
           </div>
         </div>
       </div>
