@@ -15,7 +15,15 @@ interface adminToken {
   adminId: string;
 }
 
-export const updateUserStatus = async ({ arg }: { arg: string }, req: Request) => {
+interface Response {
+  success: boolean;
+  message: string;
+}
+
+export const updateUserStatus = async (
+  { arg }: { arg: string },
+  req: Request,
+): Promise<Response> => {
   console.debug('[Resolve] admin called');
   const auth = getAuthorizationToken(req.headers.authorization);
   if (!auth.success) return { message: auth.message, success: auth.success };
@@ -28,7 +36,7 @@ export const updateUserStatus = async ({ arg }: { arg: string }, req: Request) =
 
     const user = await User.findOne({ email: arg });
     if (!user) return { success: false, message: 'email is not in the waitlist' };
-    if (user.accountStatus === 'invited')
+    if (user.accountStatus === 'invited' || user.accountStatus === 'accepted')
       return { success: false, message: 'user is already invited' };
 
     await handleChangeAccountStatus(user);
