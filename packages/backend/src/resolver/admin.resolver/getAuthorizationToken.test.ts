@@ -1,4 +1,4 @@
-import getAuthorizationToken from './getAuthorizationToken';
+import getAuthorizationToken from '../getAuthorizationToken';
 
 describe('test getAuthorizationHeader function helper', () => {
   test('no authorization header', () => {
