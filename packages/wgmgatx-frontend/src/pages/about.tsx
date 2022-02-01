@@ -11,7 +11,7 @@ const About: NextPage = () => {
     <>
       <Navbar title="About" />
       <div className="flex flex-col items-center pt-14">
-        <h1 className="text-6xl">Learn About Founder</h1>
+        <h1 className="text-6xl font-bold">Learn About Founder</h1>
         <div className="flex items-center">
           <Image
             src={wgmgAboutImg}
