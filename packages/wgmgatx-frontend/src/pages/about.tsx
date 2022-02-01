@@ -11,8 +11,10 @@ const About: NextPage = () => {
     <>
       <Navbar title="About" />
       <div className="flex flex-col items-center pt-14">
-        <h1 className="text-6xl font-bold">Learn About Founder</h1>
-        <div className="flex items-center">
+        <h1 className="text-6xl font-bold text-center md:text-left">
+          Learn About Founder
+        </h1>
+        <div className="md:flex items-center">
           <Image
             src={wgmgAboutImg}
             width="400"
@@ -31,7 +33,7 @@ const About: NextPage = () => {
             cherishing those that see in color. Art is my aesthetic.
           </p>
         </div>
-        <div className="flex">
+        <div className="md:flex mt-6 md:mt-0">
           <Image
             src={wgmgHotelsImg}
             width="400"
