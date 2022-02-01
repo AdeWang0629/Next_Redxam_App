@@ -13,6 +13,7 @@ interface Props {
   to: number;
   goTo?: string;
   complete?: boolean;
+  info?: boolean;
   // active?: boolean;
 }
 
@@ -39,7 +40,7 @@ const ItemList = (props: Props) => {
 
   return (
     <div className={props.bgColor}>
-      <h1 className="text-6xl font-bold pt-16 mb-16 text-center">
+      <h1 className="md:text-6xl text-4xl font-bold pt-14 mb-16 text-center">
         {props.title}
       </h1>
       <div>
@@ -49,30 +50,35 @@ const ItemList = (props: Props) => {
               <div className="m-4" key={index}>
                 <Image
                   src={art.image}
-                  className="mb-0 transition duration-200 ease-in-out saturate-[80%] hover:saturate-[100%] rounded-[15px] z-40"
-                  onMouseOver={() => showingArtInfo(art.id)}
-                  onMouseOut={() => showingArtInfo(art.id)}
+                  className="mb-0 transition duration-200 ease-in-out saturate-[80%] hover:saturate-[100%] rounded-[15px] z-40 cursor-pointer"
+                  onMouseOver={() => props.info ? showingArtInfo(art.id) : null}
+                  onMouseOut={() => props.info ? showingArtInfo(art.id) : null}
                   alt={art.title}
+                  onClick={() => console.log(art.id)}
                 />
-                <div
+                { props.info ?
+                  <div
                   id={art.id}
                   className="bg-[#41414959] text-left p-8 w-4/5 rounded-[15px] mx-auto transition duration-150 ease-in-out z-30 translate-y-[-150px]"
-                >
-                  <span className="font-bold text-lg">{art.title}</span>
-                  <br />
-                  <span className="text-base">{art.description}</span>
-                  <br />
-                  <span className="text-base">{'$ ' + art.price}</span>
-                </div>
+                  >
+                    <span className="font-bold text-lg">{art.title}</span>
+                    <br />
+                    <span className="text-base">{art.description}</span>
+                    <br />
+                    <span className="text-base">{'$ ' + art.price}</span>
+                  </div>
+                  : null
+                }
               </div>
             );
           })}
 
           <div
             id={props.title}
-            className="absolute bottom-0 pb-10 right-12 transition duration-150 ease-in-out"
+            className="absolute bottom-0 pb-10 right-12 transition duration-150 ease-in-out cursor-pointer"
             onMouseOver={() => btnZoomIn()}
             onMouseOut={() => btnZoomOut()}
+            
           >
             {props.goTo ? <Link href={props.goTo}>
               <div className="flex items-center">

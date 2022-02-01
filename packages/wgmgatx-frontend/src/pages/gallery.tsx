@@ -9,15 +9,13 @@ const Gallery: NextPage = () => {
   return (
     <>
       <Navbar title="Gallery" />
-      <div className="flex justify-center min-h-screen pt-40">
         <ItemList
           arts={artData.arts}
-          bgColor="bg-zinc-900"
+          bgColor="black"
           from={0}
           to={artDataLenght}
-          title="Artists"
+          title="Gallery"
         />
-      </div>
     </>
   );
 };

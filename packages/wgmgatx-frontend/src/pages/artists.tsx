@@ -4,21 +4,23 @@ import Navbar from '@components/general/Navbar';
 import ArtistList from '@components/artists/ArtistList';
 import wgmgArtistsImg from '@public/images/artists/artists-wgmg.jpeg';
 import ItemList from '@components/home/ItemList';
-import artData from '@art-data';
+import artistData from '@artist-data';
 
 const Artists: NextPage = () => {
-  const artDataLenght = artData.arts.length;
+  const artDataLenght = artistData.artists.length;
   return (
     <>
       <Navbar title="Artists" />
-      <div className="flex justify-center py-20">
-        <ItemList
-          arts={artData.arts}
-          bgColor="bg-zinc-900"
+      <ItemList
+          arts={artistData.artists}
+          bgColor="black"
           from={0}
           to={artDataLenght}
-          title="Gallery"
+          title="Artists"
+          info={false}
         />
+      <div className="flex justify-center py-14">
+        
       </div>
       {/* <ArtistList /> */}
     </>

@@ -3,14 +3,9 @@ import unsplash from "../../../public/unsplash.png";
 
 const Hero = () => {
   return (
-    <section>
-      <div className="h-screen w-full bg-[url('https://mundofreestyle.com/wp-content/uploads/2020/06/papo-scaled.jpeg')]">
-      </div>  
-      {/* <div className="relative w-[100%] z-0">
-        <div className="h-[50%]">
-          <Image src={unsplash} alt="frame" className="opacity-50" />
-        </div>
-        <div className="absolute top-1/2 left-1/2 w-10/12 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center flex-col">
+    <section className="p-0">
+      <div className="h-[60vh] w-full bg-no-repeat bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1608501821300-4f99e58bba77?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')]">
+        <div className="h-full grid content-center text-center mx-[10%]">
           <div className="font-futura_black text-5xl font-bold uppercase" id="meta-word">
             Mission
           </div>
@@ -19,7 +14,7 @@ const Hero = () => {
             tempora nam accusantium nesciunt adipisci aperiam, quae sunt, laboriosam culpa.
           </div>
         </div>
-      </div> */}
+      </div>  
     </section>
   );
 };

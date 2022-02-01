@@ -6,12 +6,15 @@ import mockData from '@mock-data';
 import artData from '@art-data';
 import UpcomingEvents from '@components/home/UpcomingEvents';
 import ItemList from '@components/home/ItemList';
+import ContactForm from '@components/contact/ContactForm';
+
+
 
 const Home: NextPage = () => {
   return (
     <>
       <Navbar title="Homepage" />
-      {/* <Hero /> */}
+      <Hero />
       <ItemList 
         arts={artData.arts} 
         bgColor="bg-black" 
@@ -27,12 +30,14 @@ const Home: NextPage = () => {
         from={8} 
         to={11} 
         title='Artists' 
-        // goTo='/artists'
+        goTo='/artists'
       />
+      <div className='py-16'>
+        <ContactForm />
+      </div>
 
-      {/* <Hero />
-      <ArtworkCarousel artworks={mockData.artworks} />
-      <UpcomingEvents /> */}
+      {/* <ArtworkCarousel artworks={mockData.artworks} /> */}
+      {/* <UpcomingEvents /> */}
     </>
   );
 };
