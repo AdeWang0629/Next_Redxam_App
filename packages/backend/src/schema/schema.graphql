@@ -55,6 +55,7 @@ type User {
   created_at: String
   portfolio: String
   referralCode: String
+  referralId: String
 }
 
 type BalanceRecords {
