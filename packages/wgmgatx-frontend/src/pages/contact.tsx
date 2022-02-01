@@ -13,8 +13,8 @@ const Contact: NextPage = () => {
         <Image
           src={wgmgWhiteLogo || ''}
           alt="WGMG White Logo IMG"
-          width="1080px"
-          height="1080px"
+          width="600px"
+          height="600px"
         />
       </div>
     </>
