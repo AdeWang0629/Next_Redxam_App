@@ -16,8 +16,8 @@ body {
   background: black;
   padding: 0;
   margin: 0;
-  font-family: "Futura Md BT";
-  color: theme("colors.grayscale.500");
+  font-family: 'Futura Md BT';
+  color: #fff;
 }
 
 @tailwind utilities;
@@ -42,4 +42,3 @@ a {
 .swiper-slide {
   width: 80%;
 }
-
