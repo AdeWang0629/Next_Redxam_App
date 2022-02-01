@@ -5,15 +5,29 @@ import Navbar from '@components/general/Navbar';
 import mockData from '@mock-data';
 import artData from '@art-data';
 import UpcomingEvents from '@components/home/UpcomingEvents';
-import ArtGallery from '@components/home/ArtGallery';
+import ItemList from '@components/home/ItemList';
 
 const Home: NextPage = () => {
   return (
     <>
       <Navbar title="Homepage" />
+      <ItemList 
+        arts={artData.arts} 
+        bgColor="bg-black" 
+        from={2} 
+        to={5} 
+        title='Gallery' 
+        goTo='/gallery'
 
-      <ArtGallery arts={artData.arts} bgColor="bg-black" />
-      <ArtGallery arts={artData.arts} bgColor="bg-white" />
+      />
+      <ItemList 
+        arts={artData.arts} 
+        bgColor="bg-zinc-900" 
+        from={8} 
+        to={11} 
+        title='Artists' 
+        goTo='/artists'
+      />
 
       {/* <Hero />
       <ArtworkCarousel artworks={mockData.artworks} />

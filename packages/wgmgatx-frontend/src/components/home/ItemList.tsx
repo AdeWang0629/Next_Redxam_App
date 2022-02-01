@@ -6,14 +6,17 @@ import { CgArrowLongRight } from 'react-icons/cg';
 import Link from 'next/link';
 
 interface Props {
+  title: string;
   arts: Artwork[];
   bgColor?: string;
   from: number;
   to: number;
+  goTo: string;
   // active?: boolean;
 }
 
-const ArtGallery = (props: Props) => {
+const ItemList = (props: Props) => {
+
   const showingArtInfo = (id: string) => {
     const infoDiv = document.getElementById(id);
     if (infoDiv?.style.transform == 'translateY(0px)') {
@@ -24,19 +27,19 @@ const ArtGallery = (props: Props) => {
     }
   };
   const btnZoomIn = () => {
-    const btn = document.getElementById('btn');
+    const btn = document.getElementById(props.title);
     // @ts-ignore
     btn.style.transform = 'scale(1.2)';
   };
   const btnZoomOut = () => {
-    const btn = document.getElementById('btn');
+    const btn = document.getElementById(props.title);
     // @ts-ignore
     btn.style.transform = 'scale(1)';
   };
 
   return (
     <div className={props.bgColor}>
-      <h1 className="text-2xl font-bold pt-16 mb-10 ml-[10%]">Gallery</h1>
+      <h1 className="text-5xl font-bold pt-16 mb-16 text-center">{props.title}</h1>
       <div>
         <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-2 col-span-3 mx-[10%] pb-6">
           {props.arts.slice(props.from, props.to).map((art, index) => {
@@ -64,12 +67,12 @@ const ArtGallery = (props: Props) => {
           })}
 
           <div
-            id="btn"
+            id={props.title}
             className="absolute bottom-0 pb-10 right-12 transition duration-150 ease-in-out"
             onMouseOver={() => btnZoomIn()}
             onMouseOut={() => btnZoomOut()}
           >
-            <Link href="/gallery">
+            <Link href={props.goTo}>
               <div className="flex items-center">
                 See more &nbsp; &nbsp;
                 <CgArrowLongRight fontSize="40px" />
@@ -82,4 +85,4 @@ const ArtGallery = (props: Props) => {
   );
 };
 
-export default ArtGallery;
+export default ItemList;
