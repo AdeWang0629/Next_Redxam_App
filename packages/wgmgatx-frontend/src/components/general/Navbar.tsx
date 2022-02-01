@@ -7,13 +7,14 @@ import Head from "next/head";
 const Navbar = ({ title }: { title?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const routes = [
+    { name: "Home", path: "/" },
+    { name: "Gallery", path: "/gallery" },
     { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
     { name: "Artists", path: "/artists" },
-    { name: "Shop", path: "/shop" },
-    { name: "Press", path: "/press" },
-    { name: "Upcoming Events", path: "/upcoming-events" },
-    { name: "Submissions", path: "/submissions" },
+    { name: "Contact", path: "/contact" },
+    // { name: "Press", path: "/press" },
+    // { name: "Upcoming Events", path: "/upcoming-events" },
+    // { name: "Submissions", path: "/submissions" },
   ];
 
   return (

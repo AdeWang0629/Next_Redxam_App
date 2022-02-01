@@ -1,13 +1,13 @@
 import Navbar from "@components/general/Navbar";
 import { NextPage } from "next";
 
-const Shop: NextPage = () => {
+const Gallery: NextPage = () => {
   return (
     <>
-      <Navbar title="Shop" />
+      <Navbar title="Gallery" />
       <div className="flex justify-center min-h-screen pt-40"></div>
     </>
   );
 };
 
-export default Shop;
+export default Gallery;
