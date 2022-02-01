@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Navbar title="Homepage" />
-      <Hero />
+      {/* <Hero /> */}
       <ItemList 
         arts={artData.arts} 
         bgColor="bg-black" 
