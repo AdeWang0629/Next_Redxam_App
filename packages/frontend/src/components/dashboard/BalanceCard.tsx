@@ -6,6 +6,7 @@ import { HomeContext } from '@providers/Home';
 import Image from 'next/image';
 import Link from 'next/link';
 import Card from './Card';
+import { useLocale } from '@utils/hooks';
 
 // Imgs
 import leafsBg from '@public/images/dashboard/leafs-bg.svg';
@@ -13,8 +14,9 @@ import leafsBg from '@public/images/dashboard/leafs-bg.svg';
 const BalanceCard = () => {
   const { user } = useContext(UserContext);
   const { home, loading } = useContext(HomeContext);
+  const locale = useLocale();
 
-  const country = 'UAE';
+  const country: string = locale == 'en' ? 'US' : locale == 'es' ? 'ES' : 'UAE';
   let bal = 1;
   if (home) {
     bal = home?.balance;
