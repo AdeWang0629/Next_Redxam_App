@@ -16,7 +16,6 @@ interface Props {
 }
 
 const ItemList = (props: Props) => {
-
   const showingArtInfo = (id: string) => {
     const infoDiv = document.getElementById(id);
     if (infoDiv?.style.transform == 'translateY(0px)') {
@@ -39,7 +38,9 @@ const ItemList = (props: Props) => {
 
   return (
     <div className={props.bgColor}>
-      <h1 className="text-5xl font-bold pt-16 mb-16 text-center">{props.title}</h1>
+      <h1 className="text-6xl font-bold pt-16 mb-16 text-center">
+        {props.title}
+      </h1>
       <div>
         <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-2 col-span-3 mx-[10%] pb-6">
           {props.arts.slice(props.from, props.to).map((art, index) => {

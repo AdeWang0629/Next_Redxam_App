@@ -8,7 +8,7 @@ const Contact: NextPage = () => {
   return (
     <>
       <Navbar title="Contact" />
-      <div className="flex flex-col items-center min-h-screen pt-16">
+      <div className="flex flex-col items-center min-h-screen pt-16 font-bold">
         <ContactForm />
         <Image
           src={wgmgWhiteLogo || ''}
