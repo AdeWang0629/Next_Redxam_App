@@ -196,6 +196,10 @@ export const UserSchema = new Schema(
       type: String,
       required: false,
     },
+    discordId: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: {
