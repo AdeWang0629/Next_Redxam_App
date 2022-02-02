@@ -22,6 +22,7 @@ const Home: NextPage = () => {
         to={5} 
         title='Gallery' 
         goTo='/gallery'
+        info
 
       />
       <ItemList 
