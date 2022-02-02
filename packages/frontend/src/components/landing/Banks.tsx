@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
+import { useLocale } from '@utils/hooks';
 
 import redxamLogo from '@public/images/redxam-logo.svg';
 import bankChase from '@public/images/bank-chase.png';
@@ -17,6 +18,8 @@ import { useState } from 'react';
 
 const Banks: NextPage = () => {
   const { t } = useTranslation('banks');
+  const locale = useLocale();
+  const country: string = locale == 'en' ? 'US' : locale == 'es' ? 'ES' : 'UAE';
 
   const americanBanks = (
     <>
@@ -41,7 +44,7 @@ const Banks: NextPage = () => {
       </h2>
       <div className='flex flex-col md:flex-row justify-around space-y-12 md:space-y-0'>
         <Bank image={redxamLogo} name={'redxam'} rate={'5'} />
-        {uaeBanks}
+        {country == 'US' ? americanBanks : uaeBanks}
       </div>
     </section>
   );
