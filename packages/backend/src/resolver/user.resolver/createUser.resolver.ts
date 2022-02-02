@@ -89,7 +89,7 @@ const sendMail = async (
   await sendGrid.sendMail({
     from: `redxam.com <${SERVICE_EMAIL}>`,
     to: email,
-    subject: 'You Join The Waitlist | redxam',
+    subject: 'You Joined The Waitlist | redxam',
     html: renderedTemplate,
     attachments: [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon],
   });
