@@ -233,4 +233,5 @@ type Mutation {
   createAdmin(arg: newAdmin): Response
   changeRequest(arg: String): Response
   changeAccountStatus(arg: String): Response
+  addDiscord(arg: String): Response
 }

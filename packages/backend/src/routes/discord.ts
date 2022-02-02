@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { User, UserProps } from '@/database';
+import { User } from '@/database';
 import { dataHandler } from '@/resolver/home.resolver/homeResolver';
 
 const router = express.Router();
