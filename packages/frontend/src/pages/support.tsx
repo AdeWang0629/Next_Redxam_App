@@ -9,6 +9,8 @@ import FAQ from "@components/landing/FAQ";
 import Navbar from "@components/global/Navbar";
 import Footer from "@components/global/Footer";
 
+import ContactFormModel from "@components/models/ContactFormModel";
+
 interface InterfaceTQuestions {
   title: string;
   body: string;
@@ -35,6 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         "faq",
         "newsletter",
         "footer",
+        "contact",
       ])),
     },
   };
@@ -72,6 +75,8 @@ const Support: NextPage = () => {
   const [inputSearch, updateInputSearch] = useState("");
 
   const isInputSearchEmpty = !inputSearch || inputSearch?.length === 0;
+
+  const [contactFormOpened, setContactFormOpened] = useState(false);
 
   /**
    * Method to filter faq list as per text entered.
@@ -127,7 +132,10 @@ const Support: NextPage = () => {
               Still have questions? Click here to contact us.
             </h3>
 
-            <button className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-20 bg-buttons-green">
+            <button
+              className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-20 bg-buttons-green"
+              onClick={() => setContactFormOpened(true)}
+            >
               Contact Us
             </button>
           </div>
@@ -135,6 +143,13 @@ const Support: NextPage = () => {
       </div>
 
       <Footer />
+
+      {contactFormOpened && (
+        <ContactFormModel
+          isOpened={contactFormOpened}
+          setOpened={setContactFormOpened}
+        />
+      )}
     </>
   );
 };
