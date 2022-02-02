@@ -8,6 +8,7 @@ const { TEST_USER_ID, TOKEN_SECURITY_KEY } = process.env;
 
 describe('Email validation when user try to sign up', () => {
   const userId = TEST_USER_ID || '613690d4081c88521d9bf8eb';
+
   test('existing user does not get validation email', async () => {
     const req: any = new Request();
     req.headers.origin = 'http://localhost:3000';
@@ -17,6 +18,7 @@ describe('Email validation when user try to sign up', () => {
     expect(res.message).toMatch('Successfully registered!');
     expect(res.success).toBeTruthy();
   });
+
   test('sent verification email to non existing user', async () => {
     const req: any = new Request();
     req.headers.origin = 'http://localhost:3000';

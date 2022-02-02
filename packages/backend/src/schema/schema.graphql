@@ -234,4 +234,5 @@ type Mutation {
   changeRequest(arg: String): Response
   changeAccountStatus(arg: String): Response
   addDiscord(arg: String): Response
+  updateUserStatus(arg: String): Response
 }
