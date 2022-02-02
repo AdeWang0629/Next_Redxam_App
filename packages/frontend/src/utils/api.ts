@@ -51,6 +51,21 @@ class API {
     return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
   }
 
+  getWaitlistLevel(waitlistToken: String) {
+    const query = `
+    query{
+      waitlistLevel (waitlistToken: "${waitlistToken}")
+        {
+          message
+          success
+          level
+          referralCode
+        }
+      }
+    `;
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`);
+  }
+
   login(email: string) {
     let mutation = `mutation {
         updateToken(arg: {
