@@ -241,7 +241,7 @@ export const createWaitlist = async ({ arg }: Argument<NewUser>, req: Request) =
 
       const jobMail = sendMail(
         arg.email,
-        lastOrder.level,
+        lastOrder.level + 1,
         req.headers.origin,
         waitlistToken,
         referralCode,
