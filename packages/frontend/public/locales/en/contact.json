@@ -1,0 +1,14 @@
+{
+  "contact-title": "Contact Us",
+  "contact-sub-title": "We would love to hear from you",
+  "first-name": "First Name",
+  "last-name": "Last Name",
+  "email": "Email address",
+  "question": "What would you like to ask us?",
+  "button-text": "Contact Us",
+  "empty-first-name": "Please enter your First Name",
+  "empty-last-name": "Please enter your Last Name",
+  "empty-email": "Please enter your Email Address",
+  "empty-question": "Please enter your Question",
+  "invalid-email": "Please enter a valid Email Address"
+}

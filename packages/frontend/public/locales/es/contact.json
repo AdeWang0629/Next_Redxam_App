@@ -1,0 +1,14 @@
+{
+  "contact-title": "Contáctenos",
+  "contact-sub-title": "Nos encantaría saber de usted",
+  "first-name": "Primer nombre",
+  "last-name": "Apellido",
+  "email": "Correo Electrónico",
+  "question": "¿Qué te gustaría preguntarnos?",
+  "button-text": "Contáctenos",
+  "empty-first-name": "Por favor, introduzca su nombre de pila",
+  "empty-last-name": "Por favor ingrese su apellido",
+  "empty-email": "Por favor, introduzca su dirección de correo electrónico",
+  "empty-question": "Por favor ingrese su pregunta",
+  "invalid-email": "Introduzca un correo electrónico válida"
+}
