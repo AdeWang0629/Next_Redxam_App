@@ -124,3 +124,26 @@ input[type="number"] {
 #widget iframe {
   border-radius: 25px;
 }
+
+.faq-input {
+  line-height: 32px;
+}
+
+.faq-input input {
+  font-size: 22px;
+  color: #555;
+  outline: none;
+  border: 1px solid #bbb;
+  padding: 10px 20px;
+  border-radius: 32px;
+  position: relative;
+}
+
+.faq-input input:focus {
+  border-color: #27ae60;
+  border-radius: 32px;
+}
+
+.faq-wrapper {
+  min-height: 300px;
+}
