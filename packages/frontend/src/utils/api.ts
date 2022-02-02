@@ -30,6 +30,36 @@ class API {
       | {};
   }
 
+  validateEmail(
+    email: string,
+    firstName?: string,
+    lastName?: string,
+    referralCode?: string
+  ) {
+    const query = `query {
+      emailValidation(arg:{firstName:"${firstName}" lastName: "${lastName}" email: "${email}" referralCode: "${referralCode}"}) {
+          message
+          success
+      }
+  }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`);
+  }
+
+  validateEmailToken(token: string) {
+    console.log(token);
+    let mutation = `mutation {
+      emailValidateToken {
+          message
+          success
+      }
+  }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
   createWaitlist(
     email: string,
     firstName?: string,
@@ -171,6 +201,7 @@ class API {
             firstName
             lastName
             accountStatus
+            referralId
           }
         }
       }

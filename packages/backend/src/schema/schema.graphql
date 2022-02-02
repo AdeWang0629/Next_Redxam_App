@@ -55,6 +55,7 @@ type User {
   created_at: String
   portfolio: String
   referralCode: String
+  referralId: String
 }
 
 type BalanceRecords {
@@ -216,6 +217,7 @@ type Query {
   internalDeposits: InternalDepositsResponse
   mxWidgetConnect: WidgetUrl
   updateReferral: UpdateReferral
+  emailValidation(arg: NewUser): Response
 }
 
 type Mutation {
@@ -225,6 +227,7 @@ type Mutation {
   sendReferral(arg: SendReferInput): Response
   goUpQueue: Response
   createWaitlist(arg: NewUser): Response
+  emailValidateToken: Response
   createManualUser(arg: NewManualUser): Response
   createAdmin(arg: newAdmin): Response
   changeRequest(arg: String): Response

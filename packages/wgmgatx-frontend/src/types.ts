@@ -7,6 +7,7 @@ export interface Artwork {
   artist: Artist;
   image: string | StaticImageData; // "StaticImageData" should be removed in production.
   title: string;
+  description: string;
   price: number;
   id: string;
 }
