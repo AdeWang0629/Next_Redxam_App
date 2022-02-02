@@ -1,34 +1,47 @@
-import { useState } from "react";
-import TextInput from "./TextInput";
+import { useState } from 'react';
+import InputWrapper from './InputWrapper';
+import TextInput from './TextInput';
 
 const ContactForm = () => {
-  const [contactReason, setContactReason] = useState<string>("");
-  const [fname, setFname] = useState<string>("");
-  const [lname, setLname] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
+  const [contactReason, setContactReason] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   return (
-    <div className="flex flex-col items-center mb-20">
-      <p className="text-4xl font-bold">Form</p>
+    <div className="flex flex-col items-center mb-10">
+      <h1 className="text-5xl font-bold">Contact Us</h1>
       <form action="" className="flex flex-col items-center pt-10 gap-7">
-        <TextInput
-          value={contactReason}
-          onChange={setContactReason}
-          placeholder="Why Contacting?"
+        <InputWrapper
+          value={firstName}
+          setValue={setFirstName}
+          id="firstName"
+          label="First Name"
         />
-        <TextInput value={fname} onChange={setFname} placeholder="First Name" />
-        <TextInput value={lname} onChange={setLname} placeholder="Last Name" />
-        <TextInput value={email} onChange={setEmail} placeholder="Email" />
-        <TextInput
+        <InputWrapper
+          value={lastName}
+          setValue={setLastName}
+          id="lastName"
+          label="Last Name"
+        />
+        <InputWrapper
+          value={email}
+          setValue={setEmail}
+          id="email"
+          label="Email"
+        />
+        <InputWrapper
           value={phone}
-          onChange={setPhone}
-          placeholder="Phone Number"
+          setValue={setPhone}
+          id="phone"
+          label="Phone"
         />
-        <TextInput
+        <InputWrapper
           value={message}
-          onChange={setMessage}
-          placeholder="Message"
+          setValue={setMessage}
+          id="message"
+          label="Message"
         />
       </form>
     </div>

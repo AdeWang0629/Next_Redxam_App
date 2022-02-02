@@ -1,25 +1,26 @@
-import { MenuIcon, XIcon } from "@heroicons/react/solid";
-import { useState } from "react";
-import Link from "next/link";
-import Logo from "./Logo";
-import Head from "next/head";
+import { MenuIcon, XIcon } from '@heroicons/react/solid';
+import { useState } from 'react';
+import Link from 'next/link';
+import Logo from './Logo';
+import Head from 'next/head';
 
 const Navbar = ({ title }: { title?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const routes = [
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
-    { name: "Artists", path: "/artists" },
-    { name: "Shop", path: "/shop" },
-    { name: "Press", path: "/press" },
-    { name: "Upcoming Events", path: "/upcoming-events" },
-    { name: "Submissions", path: "/submissions" },
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Gallery', path: '/gallery' },
+    { name: 'Artists', path: '/artists' },
+    { name: 'Contact', path: '/contact' },
+    // { name: "Press", path: "/press" },
+    // { name: "Upcoming Events", path: "/upcoming-events" },
+    // { name: "Submissions", path: "/submissions" },
   ];
 
   return (
     <>
       <Head>
-        <title>WGMGATX{title ? ` | ${title}` : ""}</title>
+        <title>WGMGATX{title ? ` | ${title}` : ''}</title>
       </Head>
       <div className="relative flex items-center justify-center">
         <Logo />
@@ -35,7 +36,7 @@ const Navbar = ({ title }: { title?: string }) => {
         </button>
         <nav
           className={`absolute z-[9990] bg-[#000] md:flex top-1/2 md:top-3/4 p-5 justify-center ${
-            isOpen ? "flex" : "hidden"
+            isOpen ? 'flex' : 'hidden'
           } items-center border-y-2 border-y-[#24221D] w-full`}
         >
           <ul className="flex flex-col items-center justify-center gap-14 md:gap-16 md:flex-row">
@@ -44,8 +45,8 @@ const Navbar = ({ title }: { title?: string }) => {
                 key={index}
                 className={
                   name.toLowerCase() === title?.toLowerCase()
-                    ? "text-grayscale-500"
-                    : "text-grayscale-400"
+                    ? 'text-grayscale-500'
+                    : 'text-grayscale-400'
                 }
               >
                 <Link href={path}>

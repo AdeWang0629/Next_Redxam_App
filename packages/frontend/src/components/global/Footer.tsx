@@ -41,9 +41,9 @@ const Footer = ({ card = false }) => {
                 </Link>
               </li>
               <li className="mb-4">
-                <Link href="/#faq">
+                <Link href="/support">
                   <a className="font-medium font-primary text-lg leading-[-0.03em] text-black underline">
-                    {t('faq')}
+                    {t('FAQ & Support')}
                   </a>
                 </Link>
               </li>
