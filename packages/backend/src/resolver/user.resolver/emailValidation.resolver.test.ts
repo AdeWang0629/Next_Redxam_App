@@ -20,7 +20,7 @@ describe('Email validation when user try to sign up', () => {
   test('sent verification email to non existing user', async () => {
     const req: any = new Request();
     req.headers.origin = 'http://localhost:3000';
-    const arg: NewUser = { email: 'test@redxam.com' };
+    const arg: NewUser = { email: 'nonexisted@redxam.com' };
     const res = await emailValidation({ arg }, req);
     expect(res.message).toMatch('verification email sent succesfully');
     expect(res.success).toBeTruthy();
@@ -40,7 +40,7 @@ describe('email validate token from email', () => {
   });
 
   test('token validation', async () => {
-    const verificationToken = sign({ email: 'test@redxam.com' }, TOKEN_SECURITY_KEY, {
+    const verificationToken = sign({ email: 'nonexisted@redxam.com' }, TOKEN_SECURITY_KEY, {
       expiresIn: '1h',
     });
     const req: any = new Request();
@@ -49,6 +49,6 @@ describe('email validate token from email', () => {
     const res = await emailValidateToken(null, req);
     expect(res.message).toMatch('Successfully registered!');
     expect(res.success).toBeTruthy();
-    User.deleteOne({ email: 'test@redxam.com' });
+    User.deleteOne({ email: 'nonexisted@redxam.com' });
   });
 });

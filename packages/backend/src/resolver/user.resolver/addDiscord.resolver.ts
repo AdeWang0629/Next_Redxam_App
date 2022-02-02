@@ -3,7 +3,6 @@ import { User } from '@/database';
 import { Request } from 'express';
 
 export const addDiscord = async ({ arg }, req: Request) => {
-  console.log('sdfsdfsdf');
   console.debug('[Resolve] discord called');
   const payload = await new JWT().authorize(req.headers.authorization);
 
