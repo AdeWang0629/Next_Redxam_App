@@ -38,9 +38,10 @@ const Artists: NextPage = ({ artists }) => {
       <Navbar title="Artists" />
       {artists.map((artist) => (
         <>
-          <h1>Name: {artist[0]}</h1>
-          <h1>Description: {artist[1]}</h1>
-          <h1>Social: {artist[2]}</h1>
+          <h1>id: {artist[0]}</h1>
+          <h1>Name: {artist[1]}</h1>
+          <h1>Description: {artist[2]}</h1>
+          <h1>Social: {artist[3]}</h1>
         </>
       ))}
       <ItemList
