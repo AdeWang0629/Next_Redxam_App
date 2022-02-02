@@ -41,6 +41,7 @@ export interface User {
   referralCode: string;
   referralId?: string;
   mxId?: string;
+  discordId?: string;
 }
 
 export interface UserProps extends Document, User {

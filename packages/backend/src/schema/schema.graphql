@@ -56,6 +56,7 @@ type User {
   portfolio: String
   referralCode: String
   referralId: String
+  discordId: String
 }
 
 type BalanceRecords {
@@ -232,5 +233,6 @@ type Mutation {
   createAdmin(arg: newAdmin): Response
   changeRequest(arg: String): Response
   changeAccountStatus(arg: String): Response
+  addDiscord(arg: String): Response
   updateUserStatus(arg: String): Response
 }
