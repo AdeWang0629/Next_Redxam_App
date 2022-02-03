@@ -10,5 +10,7 @@
   "empty-last-name": "Por favor ingrese su apellido",
   "empty-email": "Por favor, introduzca su dirección de correo electrónico",
   "empty-question": "Por favor ingrese su pregunta",
-  "invalid-email": "Introduzca un correo electrónico válida"
+  "invalid-email": "Introduzca un correo electrónico válida",
+  "error-message": "Hubo un problema al enviar el formulario",
+  "success-message": "Gracias por contactarnos. Le contestaremos lo antes posible"
 }

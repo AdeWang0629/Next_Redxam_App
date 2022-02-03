@@ -18,6 +18,20 @@ describe('support contact form handle', () => {
     expect(res.userEmail).toBeUndefined();
   });
 
+  test('rejects invalid email', async () => {
+    const mock: FormData = {
+      email: 'sdf222..com',
+      question: 'test question',
+      firstName: 'test',
+      lastName: 'redxam',
+    };
+    const res = await contactForm({ arg: mock });
+    expect(res.message).toMatch('email is not valid');
+    expect(res.success).toBeFalsy();
+    expect(res.redxamEmail).toBeUndefined();
+    expect(res.userEmail).toBeUndefined();
+  });
+
   test('contact is handled succesfully', async () => {
     const mock: FormData = {
       email: mockEmail,

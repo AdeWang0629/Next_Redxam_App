@@ -10,5 +10,7 @@
   "empty-last-name": "Please enter your Last Name",
   "empty-email": "Please enter your Email Address",
   "empty-question": "Please enter your Question",
-  "invalid-email": "Please enter a valid Email Address"
+  "invalid-email": "Please enter a valid Email Address",
+  "error-message": "There was a problem while submitting the form",
+  "success-message": "Thanks for contacting us. We will reply as soon as possible"
 }

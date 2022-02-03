@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import { render } from 'mustache';
 import { Attachment } from 'nodemailer/lib/mailer';
 import { Request } from 'express';
+import { isValidEmail } from '@/utils/helpers';
 import { sendMail } from '@/apis/sendgrid/index';
 import { Argument } from '../types';
 
@@ -40,6 +41,12 @@ const validateForm = (
     return {
       isValid: false,
       res: { success: false, message: 'please fill the required fields' },
+    };
+  }
+  if (!isValidEmail(form.email)) {
+    return {
+      isValid: false,
+      res: { success: false, message: 'email is not valid' },
     };
   }
   return { isValid: true };
