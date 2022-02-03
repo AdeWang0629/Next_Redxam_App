@@ -8,14 +8,16 @@ import { Argument } from '../types';
 
 const { SERVICE_EMAIL } = process.env;
 
-interface FormData {
+export interface FormData {
   firstName: string;
   lastName: string;
   email: string;
   question: string;
 }
 
-export const contactForm = async ({ arg }: Argument<FormData>, req: Request) => {
+export const contactForm = async ({ arg }: Argument<FormData>) => {
+  const validation = validateForm(arg);
+  if (!validation.isValid) return validation.res;
   try {
     const userEmail = await sendUserEmail(arg.email);
     const redxamEmail = await sendRedxamEmail(arg);
@@ -23,6 +25,24 @@ export const contactForm = async ({ arg }: Argument<FormData>, req: Request) => 
   } catch (error) {
     return { message: error.message, success: false };
   }
+};
+
+const validateForm = (
+  form: FormData,
+): { isValid: boolean; res?: { success: boolean; message: string } } => {
+  if (!form.email || !form.question) {
+    return {
+      isValid: false,
+      res: { success: false, message: 'please fill the required fields' },
+    };
+  }
+  if (form.email.length < 1 || form.question.length < 1) {
+    return {
+      isValid: false,
+      res: { success: false, message: 'please fill the required fields' },
+    };
+  }
+  return { isValid: true };
 };
 
 const sendUserEmail = async (email: string) =>
