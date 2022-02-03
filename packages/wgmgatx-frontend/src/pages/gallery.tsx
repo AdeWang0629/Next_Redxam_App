@@ -94,13 +94,6 @@ const Gallery = (props: Props) => {
   return (
     <>
       <Navbar title="Gallery" />
-      {/* <div
-        className="pt-10 cursor-pointer"
-        onClick={() => createCheckOutSession()}
-      >
-        <p>gallery 1</p>
-      </div> */}
-
       <div>
         <h1 className="md:text-6xl text-4xl font-bold pt-14 mb-16 text-center">
           Gallery
