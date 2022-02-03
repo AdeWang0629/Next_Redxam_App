@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { google } from 'googleapis';
 import Navbar from '@components/general/Navbar';
 import wgmgArtistsImg from '@public/images/artists/artists-wgmg.jpeg';
-import ItemList from '@components/home/ItemList';
 
 export async function getServerSideProps() {
   const auth = await google.auth.getClient({
