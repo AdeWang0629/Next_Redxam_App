@@ -97,34 +97,26 @@ const Gallery = (props: Props) => {
     <>
       <Navbar title="Gallery" />
       <div>
-        <h1 className="md:text-6xl text-4xl font-bold pt-14 text-center">
+        <h1 className="md:text-6xl text-4xl font-bold pt-14 mb-16 text-center">
           Gallery
         </h1>
-        <h2 className="text-center mb-16 mt-8 text-lg">
-          Click on the picture to buy it!
-        </h2>
         <div>
-          <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-6 col-span-3 mx-[10%] pb-6">
+          <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-2 col-span-3 mx-[10%] pb-6">
             {props.gallery.map((item, index) => {
               return (
                 <div
-                  className="m-4 flex justify-center"
+                  className="m-4"
                   key={index}
                   onClick={() => createCheckOutSession(item)}
                 >
-                  <div className="flex flex-col cursor-pointer">
-                    <Image
-                      src={item.image as string}
-                      width="200px"
-                      height="200px"
-                      className="mb-0 transition duration-200 ease-in-out saturate-[80%] hover:saturate-[100%] rounded-[15px] z-40 cursor-pointer"
-                      alt={item.name as string}
-                    />
-                    <p className="mt-3">{item.name}</p>
-                    <p className="my-3">{item.description}</p>
-                    <p className="mb-3">{item.price}</p>
-                    <p>{item.size}</p>
-                  </div>
+                  <Image
+                    src={item.image as string}
+                    width="100%"
+                    height="100%"
+                    className="mb-0 transition duration-200 ease-in-out saturate-[80%] hover:saturate-[100%] rounded-[15px] z-40 cursor-pointer"
+                    alt={item.name as string}
+                    onClick={() => console.log(item.price)}
+                  />
                 </div>
               );
             })}
