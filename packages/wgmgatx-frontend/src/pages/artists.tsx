@@ -58,14 +58,31 @@ const Artists = (props: Props) => {
   return (
     <>
       <Navbar title="Artists" />
-      <ItemList
-        artists={props.artists}
-        bgColor="black"
-        from={0}
-        to={props.artists.length}
-        title="Artists"
-        info={false}
-      />
+      <h1 className="md:text-6xl text-4xl font-bold pt-14 text-center mb-16">
+        Artists
+      </h1>
+      <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-6 col-span-3 mx-[10%] pb-6">
+        {props.artists.map((item, index) => {
+          return (
+            <div className="m-4 flex justify-center" key={index}>
+              <div className="">
+                <Image
+                  src={item.image as string}
+                  width="400px"
+                  height="280px"
+                  className="mb-0 transition duration-200 ease-in-out saturate-[80%] hover:saturate-[100%] rounded-[15px] z-40 cursor-pointer"
+                  alt={item.name as string}
+                />
+                <p className="mt-3">{item.name}</p>
+                {/* <p className="mt-3">{item.description}</p> */}
+                <p className="mt-3">
+                  {item.social === '@' ? null : item.social}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };
