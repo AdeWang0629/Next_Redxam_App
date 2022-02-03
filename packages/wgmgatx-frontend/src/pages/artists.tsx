@@ -2,10 +2,8 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import { google } from 'googleapis';
 import Navbar from '@components/general/Navbar';
-import ArtistList from '@components/artists/ArtistList';
 import wgmgArtistsImg from '@public/images/artists/artists-wgmg.jpeg';
 import ItemList from '@components/home/ItemList';
-import artistData from '@artist-data';
 
 export async function getServerSideProps() {
   const auth = await google.auth.getClient({
@@ -13,15 +11,31 @@ export async function getServerSideProps() {
   });
   const sheets = google.sheets({ version: 'v4', auth });
 
-  const range = `Sheet1!A:C`;
+  const range = `Sheet1!A:E`;
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
     range,
   });
 
-  console.log(response.data.values);
+  let artists: {
+    id: String;
+    name: String;
+    description: String;
+    social: String;
+    image: String;
+  }[] = [];
 
-  const artists = response.data.values;
+  response?.data?.values?.map((artist) => {
+    if (artist[0] !== null) {
+      artists[artist[0]] = {
+        id: artist[0],
+        name: artist[1],
+        description: artist[2],
+        social: artist[3],
+        image: artist[4],
+      };
+    }
+  });
 
   return {
     props: {
@@ -32,27 +46,31 @@ export async function getServerSideProps() {
 
 const Artists: NextPage = ({ artists }) => {
   console.log(artists);
-  const artDataLenght = artistData.artists.length;
   return (
     <>
       <Navbar title="Artists" />
-      {artists.map((artist) => (
-        <>
-          <h1>id: {artist[0]}</h1>
-          <h1>Name: {artist[1]}</h1>
-          <h1>Description: {artist[2]}</h1>
-          <h1>Social: {artist[3]}</h1>
-        </>
-      ))}
+      {/* <form action="/api/stripe" method="POST">
+        <p>Please enter an amount </p>
+        <input
+          type="number"
+          placeholder="Enter amount"
+          name="amount"
+          className="text-black"
+        />
+
+        <button style={{ textAlign: 'center' }}>
+          <h2>Pay</h2>
+        </button>
+      </form> */}
+
       <ItemList
-        arts={artistData.artists}
+        artists={artists}
         bgColor="black"
         from={0}
-        to={artDataLenght}
+        to={artists.length}
         title="Artists"
         info={false}
       />
-      <div className="flex justify-center py-14"></div>
     </>
   );
 };
