@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from 'axios';
-import { getCookie, setCookies } from 'cookies-next';
+import axios, { AxiosInstance } from "axios";
+import { getCookie, setCookies } from "cookies-next";
 
 class API {
   axios: AxiosInstance;
@@ -9,15 +9,15 @@ class API {
   }
 
   get baseURL() {
-    return (typeof window !== 'undefined' &&
-    getCookie('environment') &&
-    getCookie('environment') === 'development'
+    return (typeof window !== "undefined" &&
+    getCookie("environment") &&
+    getCookie("environment") === "development"
       ? process.env.NEXT_PUBLIC_DEV_BASE_URL
       : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string;
   }
 
   getToken() {
-    return typeof window !== 'undefined' ? getCookie('token') : null;
+    return typeof window !== "undefined" ? getCookie("token") : null;
   }
 
   getAuthorizationHeader() {
@@ -60,6 +60,27 @@ class API {
     });
   }
 
+  contactform(form: {
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    question: string;
+  }) {
+    let query = `query {
+      contactForm (arg: {
+        email: "${form.emailAddress}",
+        firstName: "${form.firstName}",
+        lastName: "${form.lastName}",
+        question: "${form.question}"
+      }) {
+          message
+          success
+      }
+  }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {});
+  }
+
   createWaitlist(
     email: string,
     firstName?: string,
@@ -69,9 +90,9 @@ class API {
     let mutation = `mutation {
         createWaitlist(arg: {
           email: "${email}"
-          ${firstName?.length ? `, firstName: "${firstName}"` : ''}
-          ${lastName?.length ? `, lastName: "${lastName}"` : ''}
-          ${referralCode?.length ? `referralCode: "${referralCode}"` : ''}
+          ${firstName?.length ? `, firstName: "${firstName}"` : ""}
+          ${lastName?.length ? `, lastName: "${lastName}"` : ""}
+          ${referralCode?.length ? `referralCode: "${referralCode}"` : ""}
         }) {
             success
             message
