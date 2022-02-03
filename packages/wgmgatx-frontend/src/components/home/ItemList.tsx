@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import unsplash from '@public/unsplash.png';
 import { Artwork } from '@types';
-import artData from '@art-data';
 import { CgArrowLongRight } from 'react-icons/cg';
 import Link from 'next/link';
 
