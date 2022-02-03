@@ -16,7 +16,7 @@ async function CreateStripeSession(
     price_data: {
       currency: 'usd',
       product_data: {
-        // images: [item.image],
+        images: [item.image],
         name: item.name,
       },
       unit_amount: item.price * 100,
@@ -32,7 +32,7 @@ async function CreateStripeSession(
     success_url: redirectURL + '?status=success',
     cancel_url: redirectURL + '?status=cancel',
     metadata: {
-      // images: item.image,
+      images: item.image,
     },
   });
 
