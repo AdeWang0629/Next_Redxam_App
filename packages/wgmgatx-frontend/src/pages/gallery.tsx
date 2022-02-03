@@ -49,23 +49,40 @@ export async function getServerSideProps() {
   };
 }
 
-const Gallery: NextPage = ({ gallery }) => {
+interface Props {
+  gallery: {
+    id: String;
+    name: String;
+    artist: String;
+    description: String;
+    price: String;
+    size: String;
+    image: String;
+  }[];
+}
+
+const Gallery = (props: Props) => {
   const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   const stripePromise = loadStripe(publishableKey as string);
 
-  const createCheckOutSession = async (item) => {
-    console.log(item);
+  const createCheckOutSession = async (item: {
+    id: String;
+    name: String;
+    artist: String;
+    description: String;
+    price: String;
+    size: String;
+    image: String;
+  }) => {
     const stripe = await stripePromise;
-    console.log(stripe);
     const checkoutSession = await axios.post('/api/stripe', {
       item: {
         name: item.name,
-        price: parseFloat(item.price),
+        price: parseFloat(item.price as string),
         description: item.description,
         image: item.image,
       },
     });
-    console.log(checkoutSession);
     const result = await stripe?.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });
@@ -90,7 +107,7 @@ const Gallery: NextPage = ({ gallery }) => {
         </h1>
         <div>
           <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-2 col-span-3 mx-[10%] pb-6">
-            {gallery.map((item, index) => {
+            {props.gallery.map((item, index) => {
               return (
                 <div
                   className="m-4"
@@ -98,11 +115,11 @@ const Gallery: NextPage = ({ gallery }) => {
                   onClick={() => createCheckOutSession(item)}
                 >
                   <Image
-                    src={item.image}
+                    src={item.image as string}
                     width="100%"
                     height="100%"
                     className="mb-0 transition duration-200 ease-in-out saturate-[80%] hover:saturate-[100%] rounded-[15px] z-40 cursor-pointer"
-                    alt={item.title}
+                    alt={item.name as string}
                     onClick={() => console.log(item.price)}
                   />
                 </div>
