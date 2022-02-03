@@ -26,8 +26,6 @@ export async function getServerSideProps() {
     size: String;
     image: String;
   }[] = [];
-
-  console.log(response.data.values);
   response?.data?.values?.map((picture) => {
     if (picture[0] !== null && picture !== null) {
       gallery[picture[0]] = {
