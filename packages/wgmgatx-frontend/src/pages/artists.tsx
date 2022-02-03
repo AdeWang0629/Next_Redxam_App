@@ -44,29 +44,25 @@ export async function getServerSideProps() {
   };
 }
 
-const Artists: NextPage = ({ artists }) => {
+interface Props {
+  artists: {
+    id: String;
+    name: String;
+    description: String;
+    social: String;
+    image: String;
+  }[];
+}
+
+const Artists = (props: Props) => {
   return (
     <>
       <Navbar title="Artists" />
-      {/* <form action="/api/stripe" method="POST">
-        <p>Please enter an amount </p>
-        <input
-          type="number"
-          placeholder="Enter amount"
-          name="amount"
-          className="text-black"
-        />
-
-        <button style={{ textAlign: 'center' }}>
-          <h2>Pay</h2>
-        </button>
-      </form> */}
-
       <ItemList
-        artists={artists}
+        artists={props.artists}
         bgColor="black"
         from={0}
-        to={artists.length}
+        to={props.artists.length}
         title="Artists"
         info={false}
       />
