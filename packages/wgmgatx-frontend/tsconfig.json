@@ -21,9 +21,7 @@
       "@components/*": ["src/components/*"],
       "@styles/*": ["src/styles/*"],
       "@types": ["src/types"],
-      "@mock-data": ["src/mock-data"],
-      "@art-data":["src/art-data"],
-      "@artist-data":["src/artist-data"]
+      "@mock-data": ["src/mock-data"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

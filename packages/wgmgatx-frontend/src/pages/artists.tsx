@@ -13,7 +13,7 @@ export async function getServerSideProps() {
 
   const range = `Sheet1!A:E`;
   const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.SHEET_ID,
+    spreadsheetId: process.env.ARTIST_SHEET_ID,
     range,
   });
 
@@ -45,7 +45,6 @@ export async function getServerSideProps() {
 }
 
 const Artists: NextPage = ({ artists }) => {
-  console.log(artists);
   return (
     <>
       <Navbar title="Artists" />
