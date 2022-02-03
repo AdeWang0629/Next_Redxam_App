@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import { validateEmail } from "src/utils/helpers";
 
 import { useTranslation } from "next-i18next";
+import api from "@utils/api";
 
 interface ContactFormProps {
   isOpened: boolean;
@@ -140,6 +141,14 @@ const ContactFormModel: NextPage<ContactFormProps> = ({
     validateAllFields();
 
     if (isFormValid) {
+      api
+        .contactform(contactInformation)
+        .then((res) => {
+          // handle success
+        })
+        .catch((err) => {
+          // handle err
+        });
     }
   };
 
