@@ -1,4 +1,5 @@
 import Navbar from '@components/general/Navbar';
+import Image from 'next/image';
 import { NextPage } from 'next';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
@@ -28,8 +29,7 @@ export async function getServerSideProps() {
   }[] = [];
 
   response?.data?.values?.map((picture) => {
-    console.log(picture);
-    if (picture[0] !== null) {
+    if (picture[0] !== null && picture !== null) {
       gallery[picture[0]] = {
         id: picture[0],
         name: picture[1],
@@ -53,16 +53,19 @@ const Gallery: NextPage = ({ gallery }) => {
   const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   const stripePromise = loadStripe(publishableKey as string);
 
-  const createCheckOutSession = async () => {
+  const createCheckOutSession = async (item) => {
+    console.log(item);
     const stripe = await stripePromise;
     console.log(stripe);
     const checkoutSession = await axios.post('/api/stripe', {
       item: {
-        name: 'Gallery',
-        price: 120,
-        description: 'desc',
+        name: item.name,
+        price: parseFloat(item.price),
+        description: item.description,
+        image: item.image,
       },
     });
+    console.log(checkoutSession);
     const result = await stripe?.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });
@@ -74,19 +77,40 @@ const Gallery: NextPage = ({ gallery }) => {
   return (
     <>
       <Navbar title="Gallery" />
-      <div
+      {/* <div
         className="pt-10 cursor-pointer"
         onClick={() => createCheckOutSession()}
       >
         <p>gallery 1</p>
+      </div> */}
+
+      <div>
+        <h1 className="md:text-6xl text-4xl font-bold pt-14 mb-16 text-center">
+          Gallery
+        </h1>
+        <div>
+          <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-2 col-span-3 mx-[10%] pb-6">
+            {gallery.map((item, index) => {
+              return (
+                <div
+                  className="m-4"
+                  key={index}
+                  onClick={() => createCheckOutSession(item)}
+                >
+                  <Image
+                    src={item.image}
+                    width="100%"
+                    height="100%"
+                    className="mb-0 transition duration-200 ease-in-out saturate-[80%] hover:saturate-[100%] rounded-[15px] z-40 cursor-pointer"
+                    alt={item.title}
+                    onClick={() => console.log(item.price)}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
-      {/* <ItemList
-        arts={artData.arts}
-        bgColor="black"
-        from={0}
-        to={artDataLenght}
-        title="Gallery"
-      /> */}
     </>
   );
 };
