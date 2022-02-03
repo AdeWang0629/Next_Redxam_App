@@ -116,6 +116,13 @@ input newAdmin {
   lastName: String!
 }
 
+input ContactForm {
+  firstName: String!
+  lastName: String
+  email: String!
+  question: String!
+}
+
 type Response {
   success: Boolean!
   message: String!
@@ -218,6 +225,7 @@ type Query {
   mxWidgetConnect: WidgetUrl
   updateReferral: UpdateReferral
   emailValidation(arg: NewUser): Response
+  contactForm(arg: ContactForm): Response
 }
 
 type Mutation {

@@ -9,6 +9,7 @@ import { changeAccountStatus } from './changeAccountStatus.resolver';
 import { waitlistLevel } from './waitlist.resolver';
 import { mxWidgetConnect } from './mxWidgetConnect.resolver';
 import { emailValidation, emailValidateToken } from './emailValidation.resolver';
+import { contactForm } from './contactForm.resolver';
 
 export const UserResolver = {
   checkRole,
@@ -23,4 +24,5 @@ export const UserResolver = {
   mxWidgetConnect,
   emailValidation,
   emailValidateToken,
+  contactForm,
 };
