@@ -1,4 +1,4 @@
-import stripeFunc from 'stripe';
+import stripeFunc from './stripe';
 
 // @ts-ignore
 const stripe = stripeFunc(
