@@ -10,7 +10,7 @@ const Hero = () => {
             className="font-futura_black text-5xl font-bold uppercase"
             id="meta-word"
           >
-            Mission
+            About me
           </div>
           <div className="text-md md:text-lg text-center">
             My name is Samantha Anne & I am CoFounder of WGMG. I’ve lived in
