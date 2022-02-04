@@ -55,7 +55,7 @@ interface Props {
 
 const Artists = (props: Props) => {
   return (
-    <>
+    <div>
       <Navbar title="Artists" />
       <h1 className="md:text-6xl text-4xl font-bold pt-14 text-center mb-16">
         Artists
@@ -82,7 +82,7 @@ const Artists = (props: Props) => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
