@@ -1,7 +1,7 @@
-import stripeFunc from './stripe';
+import loadStripe from 'stripe';
 
-// @ts-ignore
-const stripe = stripeFunc(
+//@ts-ignore
+const stripe = loadStripe(
   'sk_test_51IVEgYEPejRluWxLQtuVRwiUkGJHmztuubzqjf6bPc0SJ8Q7JShj3KxHB4DQjaiuAfO9eCnn4ZK6rHkqRftgAWM400lv9hFz0x'
 );
 
