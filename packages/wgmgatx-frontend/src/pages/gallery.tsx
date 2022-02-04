@@ -69,6 +69,7 @@ const Gallery = (props: Props) => {
   const createCheckOutSession = async (item: {
     id: String;
     name: String;
+    artistId: String;
     artist: String;
     description: String;
     price: String;
