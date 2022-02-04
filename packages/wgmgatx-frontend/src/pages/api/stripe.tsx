@@ -1,5 +1,5 @@
 // @ts-ignore
-import loadStripe from 'stripe';
+import loadStripe from './stripe';
 
 //@ts-ignore
 const stripe = loadStripe(
