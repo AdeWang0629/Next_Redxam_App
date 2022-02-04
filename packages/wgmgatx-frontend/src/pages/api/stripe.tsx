@@ -11,7 +11,6 @@ async function CreateStripeSession(
   res: { json: (arg0: { id: any }) => void }
 ) {
   const { item } = req.body;
-  console.log(item);
 
   const redirectURL =
     process.env.NODE_ENV === 'development'
@@ -47,28 +46,3 @@ async function CreateStripeSession(
 }
 
 export default CreateStripeSession;
-
-// export default async function handler(
-//   req: { body: { amount: number } },
-//   res: { redirect: (arg0: number, arg1: any) => void }
-// ) {
-//   const session = await stripe.checkout.sessions.create({
-//     line_items: [
-//       {
-//         price_data: {
-//           currency: 'usd',
-//           product_data: {
-//             name: 'Payment',
-//           },
-//           unit_amount: req.body.amount * 100,
-//         },
-//         quantity: 1,
-//       },
-//     ],
-//     mode: 'payment',
-//     success_url: 'https://america.foundation/success',
-//     cancel_url: 'https://america.foundation/cancel',
-//   });
-
-//   res.redirect(303, session.url);
-// }
