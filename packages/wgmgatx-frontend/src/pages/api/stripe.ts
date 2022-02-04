@@ -1,4 +1,6 @@
-const stripe = require('./stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('./stripe')(
+  'sk_test_51IVEgYEPejRluWxLQtuVRwiUkGJHmztuubzqjf6bPc0SJ8Q7JShj3KxHB4DQjaiuAfO9eCnn4ZK6rHkqRftgAWM400lv9hFz0x'
+);
 
 async function CreateStripeSession(
   req: { body: { item: any } },

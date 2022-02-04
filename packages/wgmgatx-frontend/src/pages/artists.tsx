@@ -12,7 +12,7 @@ export async function getStaticProps() {
 
   const range = `Sheet1!A:E`;
   const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.ARTIST_SHEET_ID,
+    spreadsheetId: '1IAkfsKQ0CpMJoV0vNJONAykNLDPvQNXN8pN_BQyLvi0',
     range,
   });
 

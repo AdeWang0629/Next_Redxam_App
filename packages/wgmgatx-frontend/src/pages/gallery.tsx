@@ -12,7 +12,7 @@ export async function getStaticProps() {
 
   const range = `Sheet1!A:H`;
   const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.GALLERY_SHEET_ID,
+    spreadsheetId: '186f-DiIytE8vh2HPsVIBCY9ABJCoIkbDs2f5CDN2WGo',
     range,
   });
 
@@ -62,7 +62,8 @@ interface Props {
 }
 
 const Gallery = (props: Props) => {
-  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  const publishableKey =
+    'pk_test_51IVEgYEPejRluWxLZTE44JGekNDtvmcS236uxdaqri1KEL8lBvzFhALv0WZP6hqmhjEdoWU42FkTL4AtrmhW2XTz00NtjDSgfi';
   const stripePromise = loadStripe(publishableKey as string);
 
   const createCheckOutSession = async (item: {
