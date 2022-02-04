@@ -1,3 +1,4 @@
+// @ts-ignore
 import loadStripe from 'stripe';
 
 //@ts-ignore
