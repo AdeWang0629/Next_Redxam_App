@@ -64,7 +64,7 @@ const getUserContribution = async userId => {
   return user.contribution;
 };
 
-const dataHandler = async userId => {
+export const dataHandler = async (userId: string) => {
   const deposits = await userDeposits(userId);
   const vaultsData = await getVaults();
   const lastDayBalance = await get24hRecordBalance(userId);
@@ -114,7 +114,7 @@ const getPercentageChange = (lastDayBalance, currentBalance) => {
     percentChange = (increase / lastDayBalance) * 100;
   } else if (currentBalance > 0) {
     percentChange = 100;
-  }  else { 
+  } else {
     percentChange = 0;
   }
   const dolarChange = currentBalance - lastDayBalance;
