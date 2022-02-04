@@ -4,7 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { google } from 'googleapis';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const auth = await google.auth.getClient({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });

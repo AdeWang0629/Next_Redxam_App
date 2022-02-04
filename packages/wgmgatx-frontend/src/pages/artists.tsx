@@ -4,7 +4,7 @@ import { google } from 'googleapis';
 import Navbar from '@components/general/Navbar';
 import wgmgArtistsImg from '@public/images/artists/artists-wgmg.jpeg';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const auth = await google.auth.getClient({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });
