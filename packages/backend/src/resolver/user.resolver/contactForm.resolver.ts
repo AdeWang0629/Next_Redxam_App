@@ -2,8 +2,8 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { render } from 'mustache';
 import { Attachment } from 'nodemailer/lib/mailer';
-import { Request } from 'express';
-import { isValidEmail } from '@/utils/helpers';
+import { messages } from '@/config/messages';
+import { isValidEmail, sanitize } from '@/utils/helpers';
 import { sendMail } from '@/apis/sendgrid/index';
 import { Argument } from '../types';
 
@@ -17,11 +17,12 @@ export interface FormData {
 }
 
 export const contactForm = async ({ arg }: Argument<FormData>) => {
-  const validation = validateForm(arg);
+  const form = sanitize(arg);
+  const validation = validateForm(form);
   if (!validation.isValid) return validation.res;
   try {
-    const userEmail = await sendUserEmail(arg.email);
-    const redxamEmail = await sendRedxamEmail(arg);
+    const userEmail = await sendUserEmail(form.email);
+    const redxamEmail = await sendRedxamEmail(form);
     return { success: true, message: 'contact send succesfully', userEmail, redxamEmail };
   } catch (error) {
     return { message: error.message, success: false };
@@ -30,23 +31,23 @@ export const contactForm = async ({ arg }: Argument<FormData>) => {
 
 const validateForm = (
   form: FormData,
-): { isValid: boolean; res?: { success: boolean; message: string } } => {
+): { isValid: boolean; res?: { success: boolean | number; message: string } } => {
   if (!form.email || !form.question) {
     return {
       isValid: false,
-      res: { success: false, message: 'please fill the required fields' },
+      res: messages.failed.requiredFields,
     };
   }
   if (form.email.length < 1 || form.question.length < 1) {
     return {
       isValid: false,
-      res: { success: false, message: 'please fill the required fields' },
+      res: messages.failed.requiredFields,
     };
   }
   if (!isValidEmail(form.email)) {
     return {
       isValid: false,
-      res: { success: false, message: 'email is not valid' },
+      res: messages.failed.invalidEmail,
     };
   }
   return { isValid: true };

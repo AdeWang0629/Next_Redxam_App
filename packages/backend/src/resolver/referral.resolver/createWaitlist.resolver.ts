@@ -1,15 +1,16 @@
-import { User } from '@/database';
-import { Argument, NewUser } from '../types';
-import { generateWallet } from '@/service/wallets';
+import { Request } from 'express';
+import crypto from 'crypto';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { render } from 'mustache';
-import sendGrid from '@/apis/sendgrid/index';
 import { Attachment } from 'nodemailer/lib/mailer';
+import { User } from '@/database';
+import { generateWallet } from '@/service/wallets';
+import sendGrid from '@/apis/sendgrid/index';
 import { SimpleWallet } from '@/database/types';
 import { messages } from '@/config/messages';
-import { Request } from 'express';
-import crypto from 'crypto';
+import { sanitize, isValidEmail } from '@/utils/helpers';
+import { Argument, NewUser } from '../types';
 
 const { SERVICE_EMAIL } = process.env;
 
@@ -211,17 +212,20 @@ const handleReferral = async referralCode => {
 };
 
 export const createWaitlist = async ({ arg }: Argument<NewUser>, req: Request) => {
-  const lastOrder = await fetchLastOrder(arg.email);
+  const form = sanitize(arg);
+  if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
+
+  const lastOrder = await fetchLastOrder(form.email);
 
   try {
     const jobs: Promise<any>[] = [];
     let referralId = null;
     if (!lastOrder.doesExist) {
-      if (arg.referralCode) {
-        if (arg.referralCode === 'FWLAUNCHPARTY2022') {
+      if (form.referralCode) {
+        if (form.referralCode === 'FWLAUNCHPARTY2022') {
           referralId = 'FWLAUNCHPARTY2022';
         } else {
-          const referralStatus = await handleReferral(arg.referralCode);
+          const referralStatus = await handleReferral(form.referralCode);
           if (!referralStatus.success) return referralStatus;
           referralId = referralStatus.referralId;
         }
@@ -230,7 +234,7 @@ export const createWaitlist = async ({ arg }: Argument<NewUser>, req: Request) =
       const waitlistToken = crypto.randomBytes(8).toString('hex');
       const referralCode = crypto.randomBytes(4).toString('hex');
       const jobCreate = createNewUser(
-        arg,
+        form,
         wallet,
         lastOrder.level + 1,
         waitlistToken,
@@ -240,7 +244,7 @@ export const createWaitlist = async ({ arg }: Argument<NewUser>, req: Request) =
       jobs.push(jobCreate);
 
       const jobMail = sendMail(
-        arg.email,
+        form.email,
         lastOrder.level + 1,
         req.headers.origin,
         waitlistToken,
@@ -250,7 +254,7 @@ export const createWaitlist = async ({ arg }: Argument<NewUser>, req: Request) =
       jobs.push(jobMail);
     } else {
       const jobMail = sendMail(
-        arg.email,
+        form.email,
         lastOrder.level,
         req.headers.origin,
         lastOrder.waitlistToken,
