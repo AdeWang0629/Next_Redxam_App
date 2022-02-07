@@ -35,6 +35,6 @@ export const sanitize = <T>(inputs: T): T => {
   return sanitizedInpunts;
 };
 
-export const shallowCompare = (obj1, obj2) =>
+export const shallowCompare = <T>(obj1: T, obj2: T): boolean =>
   Object.keys(obj1).length === Object.keys(obj2).length &&
   Object.keys(obj1).every(key => obj2.hasOwnProperty(key) && obj1[key] === obj2[key]);
