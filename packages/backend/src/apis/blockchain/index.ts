@@ -16,16 +16,18 @@ const axios = axiosModule.create({
   },
 });
 
-const getTx = async (txHash: String) => {
+const getTx = async (txHash: string): Promise<{ status: number; tx: Tx | null }> => {
   try {
-    const tx = (await axios.get(`/tx/${txHash}`)).data;
+    const tx: Tx = (await axios.get(`/tx/${txHash}`)).data;
     return { status: 200, tx };
   } catch (error) {
     return { status: 404, tx: null };
   }
 };
 
-const getTxByAddress = async (address: String) => {
+const getTxByAddress = async (
+  address: String,
+): Promise<{ status: number; txs: Tx[] | null; error?: string }> => {
   let addressTxs = [];
   let areMoreThanHundred = false;
   let lastTxId = 0;
@@ -44,14 +46,14 @@ const getTxByAddress = async (address: String) => {
     } while (areMoreThanHundred);
     return { status: 200, txs: addressTxs };
   } catch (error) {
-    return { status: 404, txs: null };
+    return { status: 404, txs: null, error };
   }
 };
 
 const getAddressUtxo = async (address: String) =>
   (await axios.get(`/coinbyaddr/${address}`)).data;
 
-const getAddressBalance = async (address: String) => {
+const getAddressBalance = async (address: String): Promise<number> => {
   const utxo = (await axios.get(`/coinbyaddr/${address}`)).data;
   let balance = 0;
   // eslint-disable-next-line @typescript-eslint/no-extra-parens
