@@ -3,9 +3,8 @@ import Image from 'next/image';
 import { google } from 'googleapis';
 import Navbar from '@components/general/Navbar';
 import wgmgArtistsImg from '@public/images/artists/artists-wgmg.jpeg';
-import ItemList from '@components/home/ItemList';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const auth = await google.auth.getClient({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });
@@ -13,7 +12,7 @@ export async function getServerSideProps() {
 
   const range = `Sheet1!A:E`;
   const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.ARTIST_SHEET_ID,
+    spreadsheetId: '1IAkfsKQ0CpMJoV0vNJONAykNLDPvQNXN8pN_BQyLvi0',
     range,
   });
 
@@ -56,17 +55,34 @@ interface Props {
 
 const Artists = (props: Props) => {
   return (
-    <>
+    <div>
       <Navbar title="Artists" />
-      <ItemList
-        artists={props.artists}
-        bgColor="black"
-        from={0}
-        to={props.artists.length}
-        title="Artists"
-        info={false}
-      />
-    </>
+      <h1 className="md:text-6xl text-4xl font-bold pt-14 text-center mb-16">
+        Artists
+      </h1>
+      <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-6 col-span-3 mx-[10%] pb-6">
+        {props.artists.map((item, index) => {
+          return (
+            <div className="m-4 flex justify-center" key={index}>
+              <div className="">
+                <Image
+                  src={item.image as string}
+                  width="400px"
+                  height="280px"
+                  className="mb-0 transition duration-200 ease-in-out saturate-[80%] hover:saturate-[100%] rounded-[15px] z-40 cursor-pointer"
+                  alt={item.name as string}
+                />
+                <p className="mt-3">{item.name}</p>
+                {/* <p className="mt-3">{item.description}</p> */}
+                <p className="mt-3">
+                  {item.social === '@' ? null : item.social}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 

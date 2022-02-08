@@ -10,6 +10,7 @@ import { waitlistLevel } from './waitlist.resolver';
 import { mxWidgetConnect } from './mxWidgetConnect.resolver';
 import { emailValidation, emailValidateToken } from './emailValidation.resolver';
 import { addDiscord } from './addDiscord.resolver';
+import { contactForm } from './contactForm.resolver';
 
 export const UserResolver = {
   checkRole,
@@ -25,4 +26,5 @@ export const UserResolver = {
   emailValidation,
   emailValidateToken,
   addDiscord,
+  contactForm,
 };
