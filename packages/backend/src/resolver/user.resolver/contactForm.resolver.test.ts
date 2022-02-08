@@ -26,7 +26,7 @@ describe('support contact form handle', () => {
       lastName: 'redxam',
     };
     const res = await contactForm({ arg: mock });
-    expect(res.message).toMatch('email is not valid');
+    expect(res.message).toMatch('email is not a valid email format');
     expect(res.success).toBeFalsy();
     expect(res.redxamEmail).toBeUndefined();
     expect(res.userEmail).toBeUndefined();
