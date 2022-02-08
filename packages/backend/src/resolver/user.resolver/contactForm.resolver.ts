@@ -6,6 +6,7 @@ import { messages } from '@/config/messages';
 import { isValidEmail, sanitize } from '@/utils/helpers';
 import { sendMail } from '@/apis/sendgrid/index';
 import { Argument } from '../types';
+import { ClientResponse } from '@sendgrid/mail';
 
 const { SERVICE_EMAIL } = process.env;
 
@@ -16,7 +17,14 @@ export interface FormData {
   question: string;
 }
 
-export const contactForm = async ({ arg }: Argument<FormData>) => {
+interface Response {
+  success: boolean | number;
+  message: string;
+  userEmail?: [ClientResponse, {}];
+  redxamEmail?: [ClientResponse, {}];
+}
+
+export const contactForm = async ({ arg }: Argument<FormData>): Promise<Response> => {
   const form = sanitize(arg);
   const validation = validateForm(form);
   if (!validation.isValid) return validation.res;
