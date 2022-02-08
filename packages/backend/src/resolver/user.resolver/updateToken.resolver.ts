@@ -1,14 +1,14 @@
+import { Request } from 'express';
+import { resolve } from 'path';
+import { readFileSync } from 'fs';
+import { render } from 'mustache';
+import { Attachment } from 'nodemailer/lib/mailer';
 import { JWT } from '@/config/jwt';
 import { messages, Message } from '@/config/messages';
 import { verify } from '@/config/twlio';
 import { User, UserProps } from '@/database';
 import sendGrid from '@/apis/sendgrid/index';
-import { Request } from 'express';
-import { readFileSync } from 'fs';
-import { render } from 'mustache';
-import { Attachment } from 'nodemailer/lib/mailer';
-import { resolve } from 'path';
-import { resolver } from '..';
+import { sanitize, isValidEmail } from '@/utils/helpers';
 import { Argument, LoginInput } from '../types';
 
 const { NODE_ENV, SERVICE_EMAIL } = process.env;
@@ -129,10 +129,13 @@ const updateByPhone = async (userId: string, phone: string) => {
 
 export const updateToken = async ({ arg }: Argument<LoginInput>, req: Request) => {
   console.debug('[Resolver] updateToken called');
-  if (!arg.email && arg.phone) {
+  const form = sanitize(arg);
+  if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
+
+  if (!form.email && form.phone) {
     return messages.failed.general;
   }
-  const user = await fetchUser(arg.email || arg.phone);
+  const user = await fetchUser(form.email || form.phone);
   if (!user) {
     console.warn('[Resolver] updateToken no user');
     return messages.failed.general;
@@ -146,10 +149,10 @@ export const updateToken = async ({ arg }: Argument<LoginInput>, req: Request) =
   try {
     0;
     let result: Message;
-    if (arg.email) {
-      result = await updateByEmail(user._id, arg.email, req.headers.origin);
-    } else if (arg.phone) {
-      result = await updateByPhone(user._id, arg.phone);
+    if (form.email) {
+      result = await updateByEmail(user._id, form.email, req.headers.origin);
+    } else if (form.phone) {
+      result = await updateByPhone(user._id, form.phone);
     }
 
     return result;
