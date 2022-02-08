@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Script from "next/script";
-import Particles from "react-particles-js";
+import Particles from "react-tsparticles";
 import Navbar from "@components/global/Navbar";
 import Hero from "@components/landing/Hero";
 import WhyUs from "@components/landing/WhyUs";
@@ -50,13 +50,13 @@ const Home: NextPage = () => {
         params={{
           particles: {
             number: {
-              value: 8,
+              value: 10,
             },
             color: {
               value: ["#219653", "#CA7795", "#A0DDFF", "#ACE96B"],
             },
             opacity: {
-              value: 0.9,
+              value: 0.8,
             },
             size: {
               value: 10,
@@ -66,7 +66,8 @@ const Home: NextPage = () => {
               enable: false,
             },
             move: {
-              speed: 0.6,
+              enable: true,
+              speed: 1,
             },
           },
         }}
@@ -86,7 +87,7 @@ const Home: NextPage = () => {
       <Calculate />
       <Banks />
       <Plan />
-      <FAQ  isSearchFilterRequired={false} />
+      <FAQ isSearchFilterRequired={false} />
       <Newsletter />
       <Footer />
       <Script id="tawk">
