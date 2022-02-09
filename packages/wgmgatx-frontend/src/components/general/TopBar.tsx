@@ -16,7 +16,7 @@ const TopBar = () => {
       <input
         type="text"
         placeholder="Search"
-        className="bg-[#171717] rounded-xl pl-10"
+        className="bg-[#171717] rounded-2xl pl-10"
       />
       <ul className="ml-10 flex">
         <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
