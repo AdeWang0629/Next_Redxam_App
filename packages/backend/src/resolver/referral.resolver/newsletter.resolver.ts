@@ -1,14 +1,12 @@
-import { messages } from '@/config/messages';
-import { User } from '@/database';
-import { SimpleWallet } from '@/database/types';
-import sendGrid from '@/apis/sendgrid/index';
-import { generateWallet } from '@/service/wallets';
 import { Request } from 'express';
 import { readFileSync } from 'fs';
 import { render } from 'mustache';
 import { Attachment } from 'nodemailer/lib/mailer';
 import { resolve } from 'path';
-import { Argument, LoginInput, NewUser } from '../types';
+import { messages } from '@/config/messages';
+import sendGrid from '@/apis/sendgrid/index';
+import { sanitize, isValidEmail } from '@/utils/helpers';
+import { Argument, LoginInput } from '../types';
 const { SERVICE_EMAIL } = process.env;
 
 const templatePath = resolve(__dirname, '../../emails/newsletter.hjs');
@@ -101,7 +99,10 @@ const sendMail = async (email: string, origin: string) => {
 
 export const newsLetterDemo = async ({ arg }: Argument<LoginInput>, req: Request) => {
   console.debug('[Resolver] createUser called');
-  sendMail(arg.email, req.headers.origin);
+  const form = sanitize(arg);
+  if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
+
+  sendMail(form.email, req.headers.origin);
   try {
     return messages.success.general;
   } catch {

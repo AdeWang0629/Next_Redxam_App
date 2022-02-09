@@ -30,6 +30,61 @@ class API {
       | {};
   }
 
+  validateEmail(
+    email: string,
+    firstName?: string,
+    lastName?: string,
+    referralCode?: string
+  ) {
+    const query = `query {
+      emailValidation(arg:{firstName:"${firstName}" lastName: "${lastName}" email: "${email}" referralCode: "${referralCode}"}) {
+          message
+          success
+      }
+  }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
+  }
+
+  validateEmailToken(token: string) {
+    console.log(token);
+    let mutation = `mutation {
+      emailValidateToken {
+          message
+          success
+      }
+  }`;
+
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+
+  contactform(form: {
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    question: string;
+  }) {
+    let query = `{
+      contactForm (arg: {
+        email: "${form.emailAddress}",
+        firstName: "${form.firstName}",
+        lastName: "${form.lastName}",
+        question: "${form.question}"
+      }) {
+          message
+          success
+      }
+  }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
+  }
+
   createWaitlist(
     email: string,
     firstName?: string,
@@ -48,7 +103,22 @@ class API {
         }
     }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1`, { query: mutation });
+  }
+
+  getWaitlistLevel(waitlistToken: String) {
+    const query = `
+    query{
+      waitlistLevel (waitlistToken: "${waitlistToken}")
+        {
+          message
+          success
+          level
+          referralCode
+        }
+      }
+    `;
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
   }
 
   login(email: string) {
@@ -61,7 +131,7 @@ class API {
           }
         }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1`, { query: mutation });
   }
 
   verify(token: string) {
@@ -73,7 +143,7 @@ class API {
         }
       }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1`, { query: mutation });
   }
 
   invite(code: string) {
@@ -84,9 +154,13 @@ class API {
       }
     }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   getUserData() {
@@ -98,6 +172,7 @@ class API {
           contribution
           level
           deposited
+          balance
           accountStatus
           withdrawn
           wallet {
@@ -108,9 +183,13 @@ class API {
       }
     `;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   getHomeData() {
@@ -123,23 +202,32 @@ class API {
     }
   `;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   getAdminDetails(token: string) {
     const query = `query { admin { email } }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
   }
 
   adminLogin(email: string, password: string) {
     const query = `query { adminLogin { token } }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, {
+    return this.axios.post(`${this.baseURL}/api/v1`, {
+      query,
       email,
       password,
     });
@@ -155,14 +243,19 @@ class API {
             firstName
             lastName
             accountStatus
+            referralId
           }
         }
       }
     `;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
   }
 
   getOverview(token: string) {
@@ -177,9 +270,13 @@ class API {
       }
     `;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
   }
 
   getApplicantData() {
@@ -202,9 +299,13 @@ class API {
         }
       }
     `;
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   getPlaidToken() {
@@ -248,9 +349,13 @@ class API {
         }
       }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   deposit(accountId: string, amount: number) {
@@ -271,6 +376,28 @@ class API {
         IDs,
       },
       { headers: { ...this.getAuthorizationHeader() } }
+    );
+  }
+
+  updateReferralScript(adminToken: String) {
+    const query = `query {
+      updateReferral {
+          message
+          success
+          updatedUsers {
+              userId
+              referralCode
+              waitlistToken
+          }
+          amount
+      }
+  }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` },
+      }
     );
   }
 }

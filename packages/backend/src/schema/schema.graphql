@@ -55,6 +55,8 @@ type User {
   created_at: String
   portfolio: String
   referralCode: String
+  referralId: String
+  discordId: String
 }
 
 type BalanceRecords {
@@ -113,6 +115,13 @@ input newAdmin {
   avatar: String!
   firstName: String!
   lastName: String!
+}
+
+input ContactForm {
+  firstName: String!
+  lastName: String
+  email: String!
+  question: String!
 }
 
 type Response {
@@ -185,6 +194,19 @@ type WidgetUrl {
   widgetUrl: String
 }
 
+type referralUpdatedUsers {
+  userId: String
+  referralCode: String
+  waitlistToken: String
+}
+
+type UpdateReferral {
+  message: String
+  success: Boolean
+  updatedUsers: [referralUpdatedUsers]
+  amount: Int
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -202,6 +224,9 @@ type Query {
   waitlistLevel(waitlistToken: String): WaitlistLevel
   internalDeposits: InternalDepositsResponse
   mxWidgetConnect: WidgetUrl
+  updateReferral: UpdateReferral
+  emailValidation(arg: NewUser): Response
+  contactForm(arg: ContactForm): Response
 }
 
 type Mutation {
@@ -211,8 +236,11 @@ type Mutation {
   sendReferral(arg: SendReferInput): Response
   goUpQueue: Response
   createWaitlist(arg: NewUser): Response
+  emailValidateToken: Response
   createManualUser(arg: NewManualUser): Response
   createAdmin(arg: newAdmin): Response
   changeRequest(arg: String): Response
   changeAccountStatus(arg: String): Response
+  addDiscord(arg: String): Response
+  updateUserStatus(arg: String): Response
 }

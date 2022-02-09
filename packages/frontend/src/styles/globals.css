@@ -77,7 +77,7 @@ p {
   transform: translateY(-18px);
 }
 
-.input-wrapper input {
+.input-wrapper input,textarea {
   font-size: 13px;
   color: #555;
   outline: none;
@@ -91,12 +91,12 @@ p {
   transform: translateY(0);
 }
 
-.input-wrapper input:focus {
+.input-wrapper input:focus,textarea:focus {
   border-color: #27ae60;
   border-radius: 20px;
 }
 
-.input-wrapper input:focus + label {
+.input-wrapper input:focus + label,textarea:focus + label {
   color: #27ae60;
   transform: translateY(-18px);
 }
@@ -117,10 +117,44 @@ input::-webkit-inner-spin-button {
   color: #ae2727;
 }
 
+.input-wrapper.invalid textarea,
+.input-wrapper.invalid textarea:focus {
+  border-color: #ae2727;
+}
+
+.input-wrapper.invalid textarea:focus + label,
+.input-wrapper.invalid textarea + label {
+  color: #ae2727;
+}
+
+
 input[type="number"] {
   -moz-appearance: textfield;
 }
 
 #widget iframe {
   border-radius: 25px;
+}
+
+.faq-input {
+  line-height: 32px;
+}
+
+.faq-input input {
+  font-size: 22px;
+  color: #555;
+  outline: none;
+  border: 1px solid #bbb;
+  padding: 10px 20px;
+  border-radius: 32px;
+  position: relative;
+}
+
+.faq-input input:focus {
+  border-color: #27ae60;
+  border-radius: 32px;
+}
+
+.faq-wrapper {
+  min-height: 300px;
 }

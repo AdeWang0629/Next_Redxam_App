@@ -10,9 +10,13 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.5",
+    "@stripe/stripe-js": "^1.22.0",
+    "axios": "^0.25.0",
+    "googleapis": "^94.0.0",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
     "swiper": "^7.4.1"
   },
   "devDependencies": {

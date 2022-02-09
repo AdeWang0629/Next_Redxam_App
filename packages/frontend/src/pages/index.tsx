@@ -86,7 +86,7 @@ const Home: NextPage = () => {
       <Calculate />
       <Banks />
       <Plan />
-      <FAQ />
+      <FAQ  isSearchFilterRequired={false} />
       <Newsletter />
       <Footer />
       <Script id="tawk">
