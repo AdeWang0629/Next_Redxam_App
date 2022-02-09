@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Navbar from '@components/general/Navbar';
+import TopBar from '@components/general/TopBar';
 import Link from 'next/link';
 
 // Icons
@@ -16,35 +17,7 @@ const Home: NextPage = () => {
     <div className="flex h-screen bg-[#1d1d1d]">
       <Navbar title="Homepage" />
       <div className="w-full h-screen pt-8">
-        <div className="flex pl-20 ">
-          <input
-            type="text"
-            placeholder="Search"
-            className="bg-[#171717] rounded-xl pl-10"
-          />
-          <ul className="ml-10 flex">
-            <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
-              <Link href="#" passHref>
-                <FontAwesomeIcon icon={faInstagram} color="#202020" size="lg" />
-              </Link>
-            </li>
-            <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
-              <Link href="#" passHref>
-                <FontAwesomeIcon icon={faBehance} color="#202020" size="lg" />
-              </Link>
-            </li>
-            <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
-              <Link href="#" passHref>
-                <FontAwesomeIcon icon={faTwitter} color="#202020" size="lg" />
-              </Link>
-            </li>
-            <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
-              <Link href="#" passHref>
-                <FontAwesomeIcon icon={faFacebook} color="#202020" size="lg" />
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <TopBar />
       </div>
     </div>
   );
