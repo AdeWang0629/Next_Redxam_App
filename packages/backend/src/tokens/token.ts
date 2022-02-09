@@ -10,6 +10,7 @@ export interface Token {
   getWallets(): Promise<UserWallet[]>;
   getWalletTxs(addres: string): Promise<Tx[]>;
   sendToAddress(address: string, amount: number): boolean;
+  getWalletDeposits(txs: any[], address: string): any[];
 }
 
 export interface Wallet {
