@@ -32,8 +32,8 @@ const Navbar = ({ title }: { title?: string }) => {
       <Head>
         <title>WGMGATX{title ? ` | ${title}` : ''}</title>
       </Head>
-      <div className="bg-[#171717] h-screen w-[12%]	pt-8">
-        <nav className="flex flex-col justify-center items-center">
+      <div className="bg-[#171717] w-[12%] pt-8 flex justify-center">
+        <nav className="flex flex-col items-center fixed">
           <div className="mb-8 rounded-full">
             <Image
               src={wgmgLogo}

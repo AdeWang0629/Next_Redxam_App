@@ -3,7 +3,7 @@ import unsplash from '@public/unsplash.png';
 
 const Hero = () => {
   return (
-    <section className="mt-8">
+    <section>
       <Image
         src={unsplash}
         alt="WGMG Hero Image"
