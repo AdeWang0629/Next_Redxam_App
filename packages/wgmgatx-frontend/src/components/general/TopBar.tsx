@@ -12,7 +12,7 @@ import {
 
 const TopBar = () => {
   return (
-    <div className="flex pl-20 ">
+    <div className="flex">
       <input
         type="text"
         placeholder="Search"
