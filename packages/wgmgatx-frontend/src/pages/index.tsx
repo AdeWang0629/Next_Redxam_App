@@ -1,20 +1,52 @@
 import type { NextPage } from 'next';
-import Hero from '@components/home/Hero';
-import ArtworkCarousel from '@components/home/ArtworkCarousel';
 import Navbar from '@components/general/Navbar';
-import mockData from '@mock-data';
-import UpcomingEvents from '@components/home/UpcomingEvents';
-import ContactForm from '@components/contact/ContactForm';
+import Link from 'next/link';
+
+// Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faInstagram,
+  faBehance,
+  faTwitter,
+  faFacebook,
+} from '@fortawesome/free-brands-svg-icons';
 
 const Home: NextPage = () => {
   return (
-    <>
+    <div className="flex h-screen bg-[#1d1d1d]">
       <Navbar title="Homepage" />
-      <Hero />
-      <div className="py-16">
-        <ContactForm />
+      <div className="w-full h-screen pt-8">
+        <div className="flex pl-20 ">
+          <input
+            type="text"
+            placeholder="Search"
+            className="bg-[#171717] rounded-xl pl-10"
+          />
+          <ul className="ml-10 flex">
+            <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
+              <Link href="#" passHref>
+                <FontAwesomeIcon icon={faInstagram} color="#202020" size="lg" />
+              </Link>
+            </li>
+            <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
+              <Link href="#" passHref>
+                <FontAwesomeIcon icon={faBehance} color="#202020" size="lg" />
+              </Link>
+            </li>
+            <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
+              <Link href="#" passHref>
+                <FontAwesomeIcon icon={faTwitter} color="#202020" size="lg" />
+              </Link>
+            </li>
+            <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
+              <Link href="#" passHref>
+                <FontAwesomeIcon icon={faFacebook} color="#202020" size="lg" />
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

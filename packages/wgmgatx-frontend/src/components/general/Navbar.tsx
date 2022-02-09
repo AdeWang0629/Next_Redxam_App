@@ -1,20 +1,30 @@
-import { MenuIcon, XIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 import Link from 'next/link';
-import Logo from './Logo';
+import Image from 'next/image';
 import Head from 'next/head';
+
+// Imgs
+import wgmgLogo from '@public/wgmg-logo.jpeg';
+
+// Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SizeProp } from '@fortawesome/fontawesome-svg-core';
+import {
+  faHome,
+  faMap,
+  faImage,
+  faUserFriends,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = ({ title }: { title?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const routes = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Gallery', path: '/gallery' },
-    { name: 'Artists', path: '/artists' },
-    { name: 'Contact', path: '/contact' },
-    // { name: "Press", path: "/press" },
-    // { name: "Upcoming Events", path: "/upcoming-events" },
-    // { name: "Submissions", path: "/submissions" },
+    { name: 'Home', path: '/', icon: faHome },
+    { name: 'About', path: '/about', icon: faMap },
+    { name: 'Gallery', path: '/gallery', icon: faImage },
+    { name: 'Artists', path: '/artists', icon: faUserFriends },
+    { name: 'Contact', path: '/contact', icon: faEnvelope },
   ];
 
   return (
@@ -22,39 +32,21 @@ const Navbar = ({ title }: { title?: string }) => {
       <Head>
         <title>WGMGATX{title ? ` | ${title}` : ''}</title>
       </Head>
-      <div className="relative flex items-center justify-center">
-        <Logo />
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="absolute z-[9999] bg-grayscale-300 p-3 right-[10%] -translate-y-full rounded-full md:hidden"
-        >
-          {isOpen ? (
-            <XIcon className="w-6 h-6" />
-          ) : (
-            <MenuIcon className="w-6 h-6" />
-          )}
-        </button>
-        <nav
-          className={`absolute z-[9990] bg-[#000] md:flex top-1/2 md:top-3/4 p-5 justify-center ${
-            isOpen ? 'flex' : 'hidden'
-          } items-center border-y-2 border-y-[#24221D] w-full`}
-        >
-          <ul className="flex flex-col items-center justify-center gap-14 md:gap-16 md:flex-row">
-            {routes.map(({ path, name }, index) => (
-              <li
-                key={index}
-                className={
-                  name.toLowerCase() === title?.toLowerCase()
-                    ? 'text-grayscale-500'
-                    : 'text-grayscale-400'
-                }
-              >
-                <Link href={path}>
-                  <a className="font-medium transition-colors hover:text-grayscale-500">
-                    {name}
-                  </a>
-                </Link>
-                {name.toLowerCase() === title?.toLowerCase() && <hr />}
+      <div className="bg-[#171717] h-screen w-[12%]	pt-8">
+        <nav className="flex flex-col justify-center items-center">
+          <div className="mb-8 rounded-full">
+            <Image
+              src={wgmgLogo}
+              alt="WGMG Logo"
+              width="120px"
+              height="120px"
+              className="rounded-full"
+            />
+          </div>
+          <ul>
+            {routes.map((route) => (
+              <li key={route.name} className="mb-8">
+                <FontAwesomeIcon icon={route.icon} size={'xl' as SizeProp} />
               </li>
             ))}
           </ul>
