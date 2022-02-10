@@ -39,8 +39,7 @@ const Cards: NextPage = () => {
   let questions = [
     {
       title: '¿Who can apply for the credit card?',
-      body:
-        'Currently any US Citizen and Resident with a Social Security Number is able to sign up for the debit card.',
+      body: 'Currently any US Citizen and Resident with a Social Security Number is able to sign up for the debit card.',
     },
     {
       title: '¿Does the card offer rewards?',
@@ -52,8 +51,7 @@ const Cards: NextPage = () => {
     },
     {
       title: '¿Can I use it anywhere, what are the limits?',
-      body:
-        'The redxam card has no limits! You can use it anywhere around the world where Mastercard is accepted.',
+      body: 'The redxam card has no limits! You can use it anywhere around the world where Mastercard is accepted.',
     },
     {
       title: '¿How many times can I change my rewards currency?',
@@ -64,111 +62,111 @@ const Cards: NextPage = () => {
   return (
     <>
       <Navbar />
-      <div className='max-w-[87rem] mx-auto my-0'>
-        <section className='px-16 md:px-0 mx-auto flex justify-between items-center mt-40'>
+      <div className="max-w-[87rem] mx-auto my-0">
+        <section className="px-16 md:px-0 mx-auto flex flex-col-reverse justify-between items-center mt-40">
           <div>
-            <p className='text-[#95989B] font-bold text-base mb-8'>
+            <p className="text-[#95989B] font-bold text-base mb-8">
               Magic Card
             </p>
-            <h1 className='text-5xl md:text-7xl leading-tight font-bold text-lighter-black mb-16'>
+            <h1 className="text-5xl md:text-7xl leading-tight font-bold text-lighter-black mb-16">
               Easy <br />
-              <span className='text-[#ACE96B]'>rewards</span>
+              <span className="text-[#ACE96B]">rewards</span>
               <br /> on purchase
             </h1>
-            <p className='font-primary text-sm text-[#6A6E73] max-w-sm leading-6 mb-8'>
+            <p className="font-primary text-sm text-[#6A6E73] max-w-sm leading-6 mb-8">
               Earn unlimited 1.5% back in crypto on every purchase with the
               BlockFi Rewards Mastercard Signature Credit Crad. See if you’re
               pre approved with no impact to your credit score.
             </p>
-            <button className='font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green'>
+            <button className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green">
               Get Your Card
             </button>
           </div>
-          <div>
-            <Image src={cards} alt='redxam Cards' />
+          <div className="w-full">
+            <Image src={cards} alt="redxam Cards" />
           </div>
         </section>
-        <section className='flex flex-col md:flex-row justify-between items-center'>
-          <Image src={phone} alt='Phone With redxam Card' />
-          <div className='md:w-[26rem]'>
-            <h2 className='text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-10'>
+        <section className="flex flex-col md:flex-row justify-between items-center">
+          <Image src={phone} alt="Phone With redxam Card" />
+          <div className="md:w-[26rem]">
+            <h2 className="text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-10">
               One Card. <br /> More Crypto.
             </h2>
-            <ul className='mb-8 relative'>
-              <li className='flex items-center mb-2'>
+            <ul className="mb-8 relative">
+              <li className="flex items-center mb-2">
                 <Image
                   src={check}
-                  alt='List Check'
-                  width='23.29px'
-                  height='23.29px'
+                  alt="List Check"
+                  width="23.29px"
+                  height="23.29px"
                 />
-                <p className='font-primary text-sm text-[#6A6E73] max-w-sm leading-6 ml-2'>
+                <p className="font-primary text-sm text-[#6A6E73] max-w-sm leading-6 ml-2">
                   No annual fee. No foreign transaction fees.
                 </p>
               </li>
-              <li className='flex items-center mb-2'>
+              <li className="flex items-center mb-2">
                 <Image
                   src={check}
-                  alt='List Check'
-                  width='23.29px'
-                  height='23.29px'
+                  alt="List Check"
+                  width="23.29px"
+                  height="23.29px"
                 />
-                <p className='font-primary text-sm text-[#6A6E73] max-w-sm leading-6 ml-2'>
+                <p className="font-primary text-sm text-[#6A6E73] max-w-sm leading-6 ml-2">
                   Earn 3.5% back in crypto during your first 3 months.
                 </p>
               </li>
-              <li className='flex items-center mb-2'>
+              <li className="flex items-center mb-2">
                 <Image
                   src={check}
-                  alt='List Check'
-                  width='23.29px'
-                  height='23.29px'
+                  alt="List Check"
+                  width="23.29px"
+                  height="23.29px"
                 />
-                <p className='font-primary text-sm text-[#6A6E73] max-w-sm leading-6 ml-2'>
+                <p className="font-primary text-sm text-[#6A6E73] max-w-sm leading-6 ml-2">
                   Earn 2% back in crypto on every purchase over $50,000 of
                   annual spend.
                 </p>
               </li>
-              <li className='flex items-center'>
+              <li className="flex items-center">
                 <Image
                   src={check}
-                  alt='List Check'
-                  width='23.29px'
-                  height='23.29px'
+                  alt="List Check"
+                  width="23.29px"
+                  height="23.29px"
                 />
-                <p className='font-primary text-sm text-[#6A6E73] max-w-sm leading-6 ml-2'>
+                <p className="font-primary text-sm text-[#6A6E73] max-w-sm leading-6 ml-2">
                   Refer a friend and get $30 in Bitcoin.
                 </p>
               </li>
             </ul>
-            <div className='flex justify-between items-center'>
-              <button className='font-primary text-[15px] w-[12rem] py-3.5 font-bold text-center rounded-[30px] bg-buttons-green'>
+            <div className="flex justify-between items-center">
+              <button className="font-primary text-[15px] w-[12rem] py-3.5 font-bold text-center rounded-[30px] bg-buttons-green">
                 Get Started
               </button>
-              <a href=''>
+              <a href="">
                 <Image
                   src={playstore}
-                  alt='Google PlayStore Logo'
-                  width='27.36px'
-                  height='29.98px'
+                  alt="Google PlayStore Logo"
+                  width="27.36px"
+                  height="29.98px"
                 />
               </a>
-              <a href=''>
+              <a href="">
                 <Image
                   src={appstore}
-                  alt='Apple AppStore Logo'
-                  width='33.33px'
-                  height='33.33px'
+                  alt="Apple AppStore Logo"
+                  width="33.33px"
+                  height="33.33px"
                 />
               </a>
             </div>
           </div>
         </section>
-        <section className='flex justify-center'>
-          <Image src={video} alt='redxam Card Video' />
+        <section className="flex justify-center">
+          <Image src={video} alt="redxam Card Video" />
         </section>
         <section>
-          <h2 className='text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-10'>
+          <h2 className="text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-10">
             FAQs
           </h2>
           <div className="flex flex-col">
