@@ -15,12 +15,6 @@ const Artists = (artists) => {
     <div className="bg-[#171717] p-8 rounded-[18px]">
       <div className="flex justify-between items-center mb-4 mx-10">
         <h2 className="text-3xl pt-6 font-bold ml-[3%]">Artists</h2>
-        <div className="mr-[3%] pt-6">
-          <label className="mr-4 font-light text-sm">Order by:</label>
-          <select className="rounded-[10px] bg-[#fce100] font-semibold text-sm px-[40px] py-[5px] text-[#000]">
-            <option value="lowerPrice">Lower Price</option>
-          </select>
-        </div>
       </div>
       <div className="mx-10">
         {/* <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-6 col-span-3 pb-6"> */}
@@ -29,7 +23,7 @@ const Artists = (artists) => {
           className="flex max-w-[100%] w-auto"
           columnClassName="px-[25px] bg-clip-padding"
         >
-          {artists.artists.map((item, index) => {
+          {artists.artists.slice(0,6).map((item, index) => {
             return (
               <div
                 className="relative flex justify-center py-[25px] w-full"

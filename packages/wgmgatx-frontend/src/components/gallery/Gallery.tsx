@@ -28,7 +28,7 @@ const Gallery = (gallery) => {
             className="flex max-w-[100%] w-auto"
             columnClassName="px-[25px] bg-clip-padding"
           >
-            {gallery.gallery.slice(0,3).map((item, index) => {
+            {gallery.gallery.slice(0,9).map((item, index) => {
               return (
                 <div
                 className="relative flex justify-center py-[25px] w-full"

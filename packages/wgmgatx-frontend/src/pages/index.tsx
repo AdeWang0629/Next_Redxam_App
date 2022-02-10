@@ -114,9 +114,9 @@ const Home = (props: Props) => {
         <div className="pb-[6vh]">
           <Gallery gallery={props.gallery} />
         </div>
-        {/* <div className='pb-[6vh]'>
+        <div className='pb-[6vh]'>
           <Artists artists={props.artists} />
-        </div> */}
+        </div>
       </div>
     </div>
   );
