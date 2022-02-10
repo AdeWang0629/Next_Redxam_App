@@ -97,7 +97,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
           </p>
         </div>
         <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
-          {t('join')}
+          {waitlistSuccess ? t('inbox') : t('join')}
         </h3>
         <p className="w-full mb-5 text-black text-opacity-80 leading-[1.8] text-lg font-primary text-center">
           {t('signup')}
@@ -182,7 +182,11 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
           <button
             className="text-lighter-black font-primary font-medium text-lg leading-[20px] tracking-[-0.02em] bg-buttons-green rounded-[30px] mt-8 py-4 px-8 outline-none cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
             disabled={
-              loading || referralCodeInvalid || emailInvalid || email === ''
+              loading ||
+              referralCodeInvalid ||
+              emailInvalid ||
+              email === '' ||
+              waitlistSuccess
             }
             id="join-waiting-button"
           >
