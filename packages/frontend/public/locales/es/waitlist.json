@@ -1,5 +1,6 @@
 {
-  "success": "¡Revisa tu correo!",
+  "success": "¡Te han añadido a la lista de espera!",
+  "inbox": "¡Revisa tu correo!",
   "join": "Únete a la lista de espera",
   "signup": "Regístrese para la versión beta y se el primero en recibir una notificación en nuestro lanzamiento",
   "invalid-email": "Introduzca un correo electrónico válida",
