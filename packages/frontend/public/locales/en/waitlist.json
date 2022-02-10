@@ -1,5 +1,6 @@
 {
   "success": "You've been added to the waitlist!",
+  "error": "Something went wrong, Please try again later",
   "inbox": "Check your Inbox!",
   "join": "Join our Waitlist",
   "signup": "Sign up for the beta and be the first to be notified when we launch",
