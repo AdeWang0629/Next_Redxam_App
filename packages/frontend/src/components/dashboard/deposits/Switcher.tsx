@@ -10,22 +10,22 @@ const Switcher: NextPage<SwitcherProps> = ({
   setActiveSection,
 }) => {
   return (
-    <div className='flex justify-center rounded-3xl border border-[#EAEAEB] mt-8 lg:mt-0'>
+    <div className="flex justify-center rounded-3xl border border-[#EAEAEB] mt-8 lg:mt-0">
       <button
         className={`font-secondary font-medium rounded-3xl text-base p-2 w-28 inline-block text-center disabled:opacity-30 disabled:cursor-not-allowed ${
-          activeSection === 'bitcoin'
+          activeSection === 'crypto'
             ? 'bg-lighter-black text-white'
             : 'text-lighter-black'
         }`}
-        onClick={() => setActiveSection('bitcoin')}
+        onClick={() => setActiveSection('crypto')}
         style={{
           boxShadow:
-            activeSection === 'bitcoin'
+            activeSection === 'crypto'
               ? '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)'
               : undefined,
         }}
       >
-        Bitcoin
+        Crypto
       </button>
 
       <button
