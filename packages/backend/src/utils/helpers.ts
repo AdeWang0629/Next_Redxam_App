@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import striptags from 'striptags';
 
 export function generateCode(email: string) {
   let code = crypto.createHash('md5').update(email).digest('hex').slice(0, 6);
@@ -30,9 +31,7 @@ export const isValidEmail = (email: string): boolean =>
 export const sanitize = <T>(inputs: T): T => {
   let sanitizedInpunts: T = {} as T;
   Object.keys(inputs).forEach(key => {
-    if (!(typeof inputs[key] === 'number')) {
-      sanitizedInpunts[key] = inputs[key].replace(/(<([^>]+)>)/gi, '');
-    }
+    sanitizedInpunts[key] = striptags(inputs[key].toString());
   });
   return sanitizedInpunts;
 };
