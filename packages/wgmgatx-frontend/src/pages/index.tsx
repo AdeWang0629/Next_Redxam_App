@@ -2,6 +2,9 @@ import Navbar from '@components/general/Navbar';
 import TopBar from '@components/general/TopBar';
 import Hero from '@components/home/Hero';
 import Gallery from '@components/gallery/Gallery';
+import Artists from '@components/artists/Artists';
+// import { data } from './artists';
+import data from '@components/artists/ArtistList';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { google } from 'googleapis';
@@ -47,6 +50,7 @@ export async function getStaticProps() {
   return {
     props: {
       gallery,
+      artists: data,
     },
   };
 }
@@ -62,9 +66,16 @@ interface Props {
     size: String;
     image: String;
   }[];
+  artists: {
+    id: String;
+    name: String;
+    description: String;
+    social: String;
+    image: String;
+  }[];
 }
 
-const Home = (gallery: Props) => {
+const Home = (props: Props) => {
   return (
     <div className="flex bg-[#1e1e1e]">
       <Navbar title="Homepage" />
@@ -75,7 +86,12 @@ const Home = (gallery: Props) => {
         {/* <div className='pb-[6vh]'>
           <Hero />
         </div> */}
-        <Gallery gallery={gallery} />
+        <div className='pb-[6vh]'>
+          <Gallery gallery={props.gallery} />
+        </div>
+        {/* <div className='pb-[6vh]'>
+          <Artists artists={props.artists} />
+        </div> */}
       </div>
     </div>
   );

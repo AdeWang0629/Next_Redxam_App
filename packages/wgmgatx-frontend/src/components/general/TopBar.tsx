@@ -10,16 +10,17 @@ import {
   faFacebook,
   faSearchengin
 } from '@fortawesome/free-brands-svg-icons';
+import { BiSearch } from 'react-icons/bi'
 
 const TopBar = () => {
   return (
     <div className="flex">
-      <div className='bg-[#171717] rounded-[18px] pl-[30px] h-[50px] w-[330px]'>
-        <FontAwesomeIcon icon={faSearchengin} color="#fff" size="lg" className='pr-[20px]'/>
+      <div className='flex bg-[#171717] rounded-[18px] pl-[8px] h-[50px] w-[330px]'>
+        <BiSearch color="#fff" size="50px" className='py-4 mx-[0px]'/>
         <input
           type="text"
           placeholder="Search"
-          className="outline-none h-[50px] w-[230px] bg-transparent"
+          className="outline-none h-[50px] w-[230px] bg-transparent ml-0"
           />
       </div>
       {/* <ul className="ml-10 flex">

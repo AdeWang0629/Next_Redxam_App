@@ -2,6 +2,19 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
+import {
+  BiHomeAlt,
+  BiMapAlt,
+  BiLandscape,
+  BiPhotoAlbum,
+  BiGroup,
+  BiMessageRoundedDetail
+} from 'react-icons/bi'
+// Home = BiHomeAlt
+// About = BiMapAlt
+// Gallery = BiLandscape or BiPhotoAlbum
+// Artists = BiGroup
+// Contact = BiMessageRoundedDetail
 
 // Imgs
 import wgmgLogo from '@public/logo-wgmg.png';
@@ -20,11 +33,11 @@ import {
 const Navbar = ({ title }: { title?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const routes = [
-    { name: 'Home', path: '/', icon: faHome },
-    { name: 'About', path: '/about', icon: faMap },
-    { name: 'Gallery', path: '/gallery', icon: faImage },
-    { name: 'Artists', path: '/artists', icon: faUserFriends },
-    { name: 'Contact', path: '/contact', icon: faEnvelope },
+    { name: 'Home', path: '/', icon: BiHomeAlt },
+    { name: 'About', path: '/about', icon: BiMapAlt },
+    { name: 'Gallery', path: '/gallery', icon: BiPhotoAlbum },
+    { name: 'Artists', path: '/artists', icon: BiGroup },
+    { name: 'Contact', path: '/contact', icon: BiMessageRoundedDetail },
   ];
 
   return (
@@ -46,7 +59,8 @@ const Navbar = ({ title }: { title?: string }) => {
           <ul>
             {routes.map((route) => (
               <li key={route.name} className="mb-8 text-center">
-                <FontAwesomeIcon icon={route.icon} size={'xl' as SizeProp} />
+                <route.icon size={'30px' as SizeProp} />
+                {/* <FontAwesomeIcon icon={route.icon} size={'xl' as SizeProp} /> */}
               </li>
             ))}
           </ul>

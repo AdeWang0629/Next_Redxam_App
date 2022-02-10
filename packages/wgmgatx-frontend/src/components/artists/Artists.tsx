@@ -2,18 +2,20 @@ import Image from 'next/image';
 import Masonry from 'react-masonry-css'
 
 
-const Gallery = (gallery) => {
+const Artists = ( artists ) => {
   // console.log(gallery);
   const Columns = {
     default: 3,
     1440: 3,
     1000: 2,
     700: 1
-  };
+  }
+  console.log(artists)
+
   return (
     <div className="bg-[#171717] p-8 rounded-[18px]">
       <div className="flex justify-between items-center mb-4 mx-10">
-        <h2 className="text-3xl pt-6 font-bold ml-[3%]">Gallery</h2>
+        <h2 className="text-3xl pt-6 font-bold ml-[3%]">Artists</h2>
         <div className='mr-[3%] pt-6'>
           <label className="mr-4 font-light text-sm">Order by:</label>
           <select className="rounded-[10px] bg-[#fce100] font-semibold text-sm px-[40px] py-[5px] text-[#000]">
@@ -28,7 +30,7 @@ const Gallery = (gallery) => {
             className="flex max-w-[100%] w-auto"
             columnClassName="px-[25px] bg-clip-padding"
           >
-            {gallery.gallery.slice(0,3).map((item, index) => {
+            {artists.artists.map((item, index) => {
               return (
                 <div
                 className="relative flex justify-center py-[25px] w-full"
@@ -50,4 +52,4 @@ const Gallery = (gallery) => {
   );
 };
 
-export default Gallery;
+export default Artists;
