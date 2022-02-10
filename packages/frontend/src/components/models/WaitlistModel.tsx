@@ -190,7 +190,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
             }
             id="join-waiting-button"
           >
-            {t('join')}
+            {waitlistSuccess ? t('inbox') : t('join')}
           </button>
         </form>
       </div>
