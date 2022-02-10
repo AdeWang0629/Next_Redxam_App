@@ -124,6 +124,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
                 onChange={(e) => setFirstName(e.target.value)}
                 value={firstName}
                 id="firstName"
+                disabled={waitlistSuccess}
               />
               <label className="font-primary" htmlFor="firstName">
                 {t('first-name')}
@@ -136,6 +137,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
                 onChange={(e) => setLastName(e.target.value)}
                 id="lastName"
                 value={lastName}
+                disabled={waitlistSuccess}
               />
               <label className="font-primary" htmlFor="lastName">
                 {t('second-name')}
@@ -152,6 +154,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               onBlur={() => checkEmail()}
               value={email}
               id="email"
+              disabled={waitlistSuccess}
             />
             <label className="font-primary" htmlFor="email">
               {t('email')}
@@ -164,10 +167,11 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
           >
             <input
               type="text"
-              className="font-secondary w-full"
+              className="font-secondary w-full disabled:opacity-30"
               onChange={(e) => handleReferralCode(e)}
               value={referralCodeString}
               id="referralCode"
+              disabled={waitlistSuccess}
               maxLength={120}
               autoComplete="off"
             />
