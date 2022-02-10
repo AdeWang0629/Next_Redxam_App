@@ -30,7 +30,9 @@ export const isValidEmail = (email: string): boolean =>
 export const sanitize = <T>(inputs: T): T => {
   let sanitizedInpunts: T = {} as T;
   Object.keys(inputs).forEach(key => {
-    sanitizedInpunts[key] = inputs[key].replace(/(<([^>]+)>)/gi, '');
+    if (!(typeof inputs[key] === 'number')) {
+      sanitizedInpunts[key] = inputs[key].replace(/(<([^>]+)>)/gi, '');
+    }
   });
   return sanitizedInpunts;
 };
