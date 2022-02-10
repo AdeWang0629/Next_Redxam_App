@@ -212,7 +212,6 @@ const handleReferral = async referralCode => {
 
 export const createWaitlist = async ({ arg }: Argument<NewUser>, req: Request) => {
   const form = sanitize(arg);
-  console.log('aqui?');
   if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
 
   const lastOrder = await fetchLastOrder(form.email);
