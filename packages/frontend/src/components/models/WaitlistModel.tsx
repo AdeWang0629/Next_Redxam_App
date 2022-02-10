@@ -24,6 +24,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
   const [referralCodeInvalid, setReferralCodeInvalid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [waitlistSuccess, setWaitlistSuccess] = useState(false);
+  const [error, setError] = useState(false);
   const outsideContainerRef = useRef(null);
 
   useEffect(() => {
@@ -66,18 +67,13 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
     const res = await api
       .validateEmail(email, firstName, lastName, referralCodeString)
       .catch((err) => {
-        console.log(err);
-        alert('An error occurred!');
+        setError(true);
       })
       .finally(() => {
         setLoading(false);
       });
 
-    console.log(res);
-
-    if (res?.data.data.emailValidation.success) {
-      setWaitlistSuccess(true);
-    }
+    if (res?.data.data.emailValidation.success) setWaitlistSuccess(true);
   };
 
   return (
@@ -94,6 +90,15 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
         >
           <p className="text-black text-center font-medium font-secondary">
             {t('success')}
+          </p>
+        </div>
+        <div
+          className={`bg-[#ae2727] w-full py-3 absolute top-0 rounded-t-[30px] transition-transform duration-500 ${
+            !error && 'translate-x-[-1000px]'
+          }`}
+        >
+          <p className="text-black text-center font-medium font-secondary">
+            {t('error')}
           </p>
         </div>
         <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
