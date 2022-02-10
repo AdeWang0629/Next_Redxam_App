@@ -3,8 +3,6 @@ import TopBar from '@components/general/TopBar';
 import Hero from '@components/home/Hero';
 import Gallery from '@components/gallery/Gallery';
 import Artists from '@components/artists/Artists';
-// import { data } from './artists';
-import data from '@components/artists/ArtistList';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { google } from 'googleapis';
@@ -15,10 +13,16 @@ export async function getStaticProps() {
   });
   const sheets = google.sheets({ version: 'v4', auth });
 
-  const range = `Sheet1!A:H`;
-  const response = await sheets.spreadsheets.values.get({
+  const rangeGallery = `Sheet1!A:H`;
+  const responseGallery = await sheets.spreadsheets.values.get({
     spreadsheetId: '186f-DiIytE8vh2HPsVIBCY9ABJCoIkbDs2f5CDN2WGo',
-    range,
+    range: rangeGallery,
+  });
+
+  const rangeArtist = `Sheet1!A:E`;
+  const responseArtist = await sheets.spreadsheets.values.get({
+    spreadsheetId: '1IAkfsKQ0CpMJoV0vNJONAykNLDPvQNXN8pN_BQyLvi0',
+    range: rangeArtist,
   });
 
   let gallery: {
@@ -32,7 +36,15 @@ export async function getStaticProps() {
     image: String;
   }[] = [];
 
-  response?.data?.values?.map((picture) => {
+  let artists: {
+    id: String;
+    name: String;
+    description: String;
+    social: String;
+    image: String;
+  }[] = [];
+
+  responseGallery?.data?.values?.map((picture) => {
     if (picture[0] !== null && picture !== null) {
       gallery[picture[0]] = {
         id: picture[0],
@@ -47,10 +59,22 @@ export async function getStaticProps() {
     }
   });
 
+  responseArtist?.data?.values?.map((artist) => {
+    if (artist[0] !== null) {
+      artists[artist[0]] = {
+        id: artist[0],
+        name: artist[1],
+        description: artist[2],
+        social: artist[3],
+        image: artist[4],
+      };
+    }
+  });
+
   return {
     props: {
       gallery,
-      artists: data,
+      artists,
     },
   };
 }
@@ -76,17 +100,18 @@ interface Props {
 }
 
 const Home = (props: Props) => {
+  console.log(props);
   return (
     <div className="flex bg-[#1e1e1e]">
       <Navbar title="Homepage" />
       <div className="w-full mx-[5%] h-full mt-[4vh]">
-        <div className='pb-[4vh]'>
+        <div className="pb-[4vh]">
           <TopBar />
         </div>
         {/* <div className='pb-[6vh]'>
           <Hero />
         </div> */}
-        <div className='pb-[6vh]'>
+        <div className="pb-[6vh]">
           <Gallery gallery={props.gallery} />
         </div>
         {/* <div className='pb-[6vh]'>

@@ -36,8 +36,7 @@ export async function getStaticProps() {
       };
     }
   });
-  data = artists;
-  
+
   return {
     props: {
       artists,
@@ -88,4 +87,4 @@ const Artists = (props: Props) => {
   );
 };
 
-export default Artists
+export default Artists;
