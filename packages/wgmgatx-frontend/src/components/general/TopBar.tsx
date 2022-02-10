@@ -8,17 +8,21 @@ import {
   faBehance,
   faTwitter,
   faFacebook,
+  faSearchengin
 } from '@fortawesome/free-brands-svg-icons';
 
 const TopBar = () => {
   return (
     <div className="flex">
-      <input
-        type="text"
-        placeholder="Search"
-        className="bg-[#171717] rounded-2xl pl-10"
-      />
-      <ul className="ml-10 flex">
+      <div className='bg-[#171717] rounded-[18px] pl-[30px] h-[50px] w-[330px]'>
+        <FontAwesomeIcon icon={faSearchengin} color="#fff" size="lg" className='pr-[20px]'/>
+        <input
+          type="text"
+          placeholder="Search"
+          className="outline-none h-[50px] w-[230px] bg-transparent"
+          />
+      </div>
+      {/* <ul className="ml-10 flex">
         <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
           <Link href="#" passHref>
             <FontAwesomeIcon icon={faInstagram} color="#202020" size="lg" />
@@ -39,7 +43,7 @@ const TopBar = () => {
             <FontAwesomeIcon icon={faFacebook} color="#202020" size="lg" />
           </Link>
         </li>
-      </ul>
+      </ul> */}
     </div>
   );
 };

@@ -1,42 +1,45 @@
 import Image from 'next/image';
 import unsplash from '@public/unsplash.png';
+import Masonry from 'react-masonry-css'
+
 
 const Gallery = ({ gallery }) => {
   console.log(gallery);
   return (
-    <div className="bg-[#171717] p-8 rounded-2xl">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-3xl font-bold">Gallery</h2>
-        <div>
-          <label className="mr-4">Order by</label>
-          <select className="rounded-2xl bg-[#fce100]">
+    <div className="bg-[#171717] p-8 rounded-[18px]">
+      <div className="flex justify-between items-center mb-4 mx-10">
+        <h2 className="text-3xl pt-6 font-bold ml-[3%]">Gallery</h2>
+        <div className='mr-[3%] pt-6'>
+          <label className="mr-4 font-light text-sm">Order by:</label>
+          <select className="rounded-[10px] bg-[#fce100] font-semibold text-sm px-[40px] py-[5px] text-[#000]">
             <option value="lowerPrice">Lower Price</option>
           </select>
         </div>
       </div>
-      <div>
-        <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-6 col-span-3 pb-6">
-          {gallery.gallery.map((item, index) => {
-            return (
-              <div
-                className="m-4 flex justify-center"
-                key={index}
+      <div className='mx-10'>
+        {/* <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-6 col-span-3 pb-6"> */}
+          <Masonry
+            breakpointCols={3}
+            className="flex max-w-[100%] w-auto"
+            columnClassName="px-[25px] bg-clip-padding"
+          >
+            {gallery.gallery.map((item, index) => {
+              return (
+                <div
+                className="relative flex justify-center py-[25px] w-full"
+                key={item.id}
                 onClick={() => createCheckOutSession(item)}
-              >
-                <div className="flex flex-col cursor-pointer">
-                  <img src={item.image} alt="" />
-                  {/* <Image
-                    src={item.image as string}
-                    width="100%"
-                    height="100%"
-                    className="mb-0 transition duration-200 ease-in-out saturate-[80%] hover:saturate-[100%] rounded-[15px] z-40 cursor-pointer"
-                    alt={item.name as string}
-                  /> */}
+                >
+
+                  <img className='rounded-[18px]' src={item.image} alt=""/>
+                   <div className='absolute bg-[#1e1e1e] inset-x-0 bottom-[25px] h-[40%] rounded-b-[18px]'>
+                    asdasd
+                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </Masonry>
+        {/* </div> */}
       </div>
     </div>
   );

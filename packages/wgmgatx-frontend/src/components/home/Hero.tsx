@@ -3,14 +3,14 @@ import unsplash from '@public/unsplash.png';
 
 const Hero = () => {
   return (
-    <section>
+    <div>
       <Image
         src={unsplash}
         alt="WGMG Hero Image"
         height="700px"
-        className="rounded-2xl"
+        className="rounded-[18px]"
       />
-    </section>
+    </div>
   );
 };
 

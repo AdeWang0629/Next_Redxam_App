@@ -66,11 +66,15 @@ interface Props {
 
 const Home = (gallery: Props) => {
   return (
-    <div className="flex bg-[#1d1d1d]">
+    <div className="flex bg-[#1e1e1e]">
       <Navbar title="Homepage" />
-      <div className="w-full h-full pt-8 px-16">
-        <TopBar />
-        <Hero />
+      <div className="w-full mx-[5%] h-full mt-[4vh]">
+        <div className='pb-[4vh]'>
+          <TopBar />
+        </div>
+        {/* <div className='pb-[6vh]'>
+          <Hero />
+        </div> */}
         <Gallery gallery={gallery} />
       </div>
     </div>

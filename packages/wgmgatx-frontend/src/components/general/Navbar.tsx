@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 
 // Imgs
-import wgmgLogo from '@public/wgmg-logo.jpeg';
+import wgmgLogo from '@public/logo-wgmg.png';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,20 +32,20 @@ const Navbar = ({ title }: { title?: string }) => {
       <Head>
         <title>WGMGATX{title ? ` | ${title}` : ''}</title>
       </Head>
-      <div className="bg-[#171717] w-[12%] pt-8 flex justify-center">
+      <div className="bg-[#181818] w-[12%] flex justify-center">
         <nav className="flex flex-col items-center fixed">
-          <div className="mb-8 rounded-full">
+          <div className="mb-8 rounded-full mt-[6vh]">
             <Image
               src={wgmgLogo}
               alt="WGMG Logo"
-              width="120px"
-              height="120px"
+              width="92%"
+              height="92%"
               className="rounded-full"
             />
           </div>
           <ul>
             {routes.map((route) => (
-              <li key={route.name} className="mb-8">
+              <li key={route.name} className="mb-8 text-center">
                 <FontAwesomeIcon icon={route.icon} size={'xl' as SizeProp} />
               </li>
             ))}
