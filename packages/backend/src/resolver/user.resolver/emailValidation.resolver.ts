@@ -41,6 +41,7 @@ export const emailValidateToken = async (_: void, req: Request) => {
   if (!auth.success) return auth;
   try {
     const payload: NewUser = verify(auth.token, TOKEN_SECURITY_KEY) as NewUser;
+
     return await createWaitlist({ arg: payload }, req);
   } catch (error) {
     return { message: error.message, success: false };

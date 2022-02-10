@@ -20,20 +20,25 @@ const USER_WALLET_QUERY = Object.freeze([
  */
 class WalletWatcher {
   private static watcher: NodeJS.Timeout;
+
   // TODO: Make the intervals a bit greater
   private static readonly interval = TIME_INTERVAL;
+
   public static wallets: {
     address: Hashstring;
     wif: string;
     userId: string;
     txsCount: number;
   }[] = [];
+
   private get watcher() {
     return WalletWatcher.watcher;
   }
+
   private set watcher(watcher) {
     WalletWatcher.watcher = watcher;
   }
+
   private static async getUserWallets() {
     const users = await User.find(...USER_WALLET_QUERY)
       .lean()
@@ -44,16 +49,20 @@ class WalletWatcher {
       hasPendingTxs: user.hasPendingTxs,
     }));
   }
+
   public async init() {
     console.log('INITIALIZING LIST OF WALLETS');
     WalletWatcher.wallets = await WalletWatcher.getUserWallets();
   }
+
   public get wallets() {
     return WalletWatcher.wallets;
   }
+
   public set wallets(wallets) {
     WalletWatcher.wallets = wallets;
   }
+
   private async updatePending(userId: string, pendingBalance: number) {
     // find user based on address
     const idStr = userId.toString();
@@ -68,6 +77,7 @@ class WalletWatcher {
       },
     );
   }
+
   /** Save how much un/confirmed BTC there is on each user's account. */
   private async checkWallets() {
     /**
@@ -119,6 +129,7 @@ class WalletWatcher {
       }
     }
   }
+
   public async start() {
     if (this.watcher) {
       throw new Error('Wallet watcher already watching!');
@@ -129,6 +140,7 @@ class WalletWatcher {
     this.watcher = setInterval(this.checkWallets.bind(this), WalletWatcher.interval);
     console.info('Wallet watcher started!');
   }
+
   public stop() {
     if (!this.watcher) {
       throw new Error('No Wallet watcher running!');
@@ -139,6 +151,7 @@ class WalletWatcher {
     this.watcher = null;
     console.info('Wallet watcher stopped!');
   }
+
   constructor() {
     this.init();
   }

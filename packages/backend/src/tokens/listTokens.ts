@@ -3,7 +3,7 @@ import btcmainent, { BitcoinBitcoinMainnetToken } from './bitcoin-bitcoin-mainne
 
 const tokens: Token[] = [new BitcoinBitcoinMainnetToken()];
 const btc = new BitcoinBitcoinMainnetToken();
-btc.getWalletDeposits<WalletDeposits>();
+
 const table = tokens.map(token => ({
   Name: token.name,
   Symbol: token.symbol,

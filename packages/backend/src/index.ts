@@ -4,7 +4,7 @@ import { connection } from 'mongoose';
 import { config as appConfig } from './appConfig';
 import { binanceBalanceWatcher } from './service/getTotalBalance';
 // import { updateAllContributions } from './service/updateAllContributions';
-import { walletWatcher } from './service/bitcoinService';
+// import { walletWatcher } from './service/bitcoinService';
 import { vaultWatcher } from './service/vaultService';
 import { balanceWatcher } from './service/balanceService';
 import { requestWatcher } from './service/changeRequestService';
@@ -21,9 +21,9 @@ switch (SERVICE) {
   case 'binance':
     binanceBalanceWatcher.start();
     break;
-  case 'wallets':
-    walletWatcher.start();
-    break;
+  // case 'wallets':
+  //   walletWatcher.start();
+  //   break;
   case 'balance':
     balanceWatcher.start();
     break;
@@ -53,9 +53,9 @@ connection.on('disconnected', () => {
     case 'binance':
       binanceBalanceWatcher.stop();
       break;
-    case 'wallets':
-      walletWatcher.stop();
-      break;
+    // case 'wallets':
+    //   walletWatcher.stop();
+    //   break;
     case 'balance':
       balanceWatcher.stop();
       break;

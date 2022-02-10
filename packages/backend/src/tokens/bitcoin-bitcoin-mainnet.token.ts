@@ -2,15 +2,8 @@ import WAValidator from 'trezor-address-validator';
 import { ECPair, payments, networks } from 'bitcoinjs-lib';
 import * as Sentry from '@sentry/node';
 import blockchain from '@/apis/blockchain';
-import { User } from '@/database';
-import { Token, Wallet, UserWallet } from './token';
-
-interface WalletDeposit {
-  block_id: string | number;
-  value: number;
-  txIndex: number;
-  txHash: string;
-}
+import { User, Deposits, DepositsType } from '@/database';
+import { Token, Wallet, UserWallet, Transaction, Deposit } from './token';
 
 export class BitcoinBitcoinMainnetToken implements Token {
   readonly name = 'Bitcoin';
@@ -26,7 +19,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
     const keyPair = ECPair.makeRandom({ network });
     const { address } = payments.p2pkh({ pubkey: keyPair.publicKey, network });
     const wif = keyPair.toWIF();
-    return { address, wif, txsCount: 0 };
+    return { address, wif, txsCount: 0, hasPendingTxs: false };
   }
 
   validateAddress(address: string): boolean {
@@ -41,38 +34,86 @@ export class BitcoinBitcoinMainnetToken implements Token {
   async getWallets(): Promise<UserWallet[]> {
     return (
       await User.find(
-        { wallet: { $exists: true }, verification: true, accountStatus: 'accepted' },
-        { _id: 1, wallet: 1, hasPendingTxs: 1 },
+        { wallets: { $exists: true }, verification: true, accountStatus: 'accepted' },
+        { _id: 1, 'wallets.BTC': 1 },
       )
-    ).map(doc => ({ ...doc, userId: doc._id } as UserWallet));
   }
 
-  async getWalletTxs(address: string): Promise<Tx[]> {
+  async getWalletTxs(address: string): Promise<Transaction[]> {
     const res = await blockchain.getTxByAddress(address);
     if (res.status === 200) {
-      return res.txs;
+      return res.txs.map(tx => ({
+        blockId: tx.height,
+        hash: tx.hash,
+        outputs: tx.outputs,
+      }));
     } else {
       Sentry.captureException(res.error);
       return [];
     }
   }
 
-  getWalletDeposits(txs: Tx[], address: string): WalletDeposit[] {
-    const userTxs: WalletDeposit[] = [];
+  getWalletDeposits(txs: Transaction[], address: string): Deposit[] {
+    const userTxs: Deposit[] = [];
 
     txs.forEach(tx => {
       const outputs = tx.outputs.filter(output => output.address === address);
       outputs.forEach((out, index) =>
         userTxs.push({
-          block_id: tx.height,
+          blockId: tx.blockId,
           value: out.value,
-          txIndex: index,
-          txHash: tx.hash,
+          index,
+          hash: tx.hash,
         }),
       );
     });
 
     return userTxs;
+  }
+
+  hasWalletNewTxs(wallet: UserWallet, txs: Transaction[]): boolean {
+    return txs.length > wallet.wallet.txsCount || wallet.wallet.hasPendingTxs;
+  }
+
+  async updateWalletDeposits(deposits: Deposit[], wallet: UserWallet): Promise<void> {
+    let hasPendingTxs = false;
+
+    for (const deposit of deposits) {
+      const status = deposit.blockId > 0 ? 'completed' : 'pending';
+      if (deposit.blockId === -1) hasPendingTxs = true;
+
+      await Deposits.updateOne(
+        { userId: wallet.userId, hash: deposit.hash },
+        {
+          $set: {
+            userId: wallet.userId,
+            address: wallet.wallet.address,
+            index: deposit.index,
+            type: DepositsType.CRYPTO,
+            currency: this.symbol,
+            processedByRedxam: false,
+            hash: deposit.hash,
+            amount: deposit.value,
+            status,
+          },
+          $setOnInsert: {
+            timestamp: Date.now(),
+          },
+        },
+        {
+          upsert: true,
+        },
+      );
+    }
+
+    await User.updateOne(
+      {
+        _id: wallet.userId,
+      },
+      {
+        $set: { hasPendingTxs, 'wallet.txsCount': deposits.length },
+      },
+    );
   }
 
   sendToAddress(address: string, amount: number): boolean {

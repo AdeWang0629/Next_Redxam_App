@@ -1,4 +1,5 @@
 import axiosModule from 'axios';
+import { Tx } from './types';
 
 const {
   BLOCKCHAIN_URL,

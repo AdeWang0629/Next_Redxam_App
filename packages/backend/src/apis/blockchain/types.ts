@@ -1,4 +1,4 @@
-interface Tx {
+export interface Tx {
   hash: string;
   witnessHash: string;
   fee: number;

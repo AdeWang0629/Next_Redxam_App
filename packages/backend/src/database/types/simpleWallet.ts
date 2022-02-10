@@ -2,6 +2,7 @@ export interface SimpleWallet {
   address: string;
   wif: string;
   txsCount: number;
+  hasPendingTxs: boolean;
 }
 
 export interface BalanceRecords {
@@ -19,4 +20,8 @@ export interface bankAccount {
       type: String;
     },
   ];
+}
+
+export interface TokenWallet {
+  BTC: SimpleWallet;
 }
