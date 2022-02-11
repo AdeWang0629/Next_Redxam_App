@@ -4,16 +4,8 @@ import * as Sentry from '@sentry/node';
 import { sendPendingTxEmail, sendConfirmedTxEmail, emailStatus } from '@/apis/sendgrid';
 import blockchain from '@/apis/blockchain';
 import { User, Deposits, DepositsType, UserProps, DepositsProps } from '@/database';
-
-import {
-  Token,
-  Wallet,
-  UserWallet,
-  Transaction,
-  Deposit,
-  DepositStatus,
-  NonExist,
-} from './token';
+import { Token, Wallet, UserWallet, Transaction, Deposit, DepositStatus } from './token';
+import { BTC_BALANCE_THRESHOLD, BTC_TX_FEE } from './consts';
 
 export class BitcoinBitcoinMainnetToken implements Token {
   readonly name = 'Bitcoin';
@@ -23,6 +15,10 @@ export class BitcoinBitcoinMainnetToken implements Token {
   readonly network = 'Bitcoin';
 
   readonly isTestNet = false;
+
+  readonly txFee = BTC_TX_FEE;
+
+  readonly threshold = BTC_BALANCE_THRESHOLD;
 
   createWallet(): Wallet {
     const network = networks['bitcoin'];

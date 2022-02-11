@@ -1,0 +1,10 @@
+const { networks } = require('bitcoinjs-lib');
+
+const { BINANCE_ADDRESS, BINANCE_TESTNET_ADDRESS, NODE_ENV } = process.env;
+const IS_PRODUCTION = NODE_ENV === 'production';
+export const REDXAM_ADDRESS = IS_PRODUCTION ? BINANCE_ADDRESS : BINANCE_TESTNET_ADDRESS;
+export const TIME_INTERVAL = IS_PRODUCTION ? 600000 : 25000;
+
+// BTC CONSTANTS
+export const BTC_TX_FEE = IS_PRODUCTION ? 21694 : 4095;
+export const BTC_BALANCE_THRESHOLD = IS_PRODUCTION ? 1000000 : 2500;
