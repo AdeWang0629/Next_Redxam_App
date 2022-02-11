@@ -59,19 +59,19 @@ a {
   top: 12px;
   padding: 0 2px;
   pointer-events: none;
-  background: black;
+  background: #1e1e1e;
   transition: transform 100ms ease;
   transform: translateY(-18px);
 }
 
 .input-wrapper input {
-  background-color: black;
+  background-color: #1e1e1e;
   font-size: 13px;
-  color: #555;
+  color: #fff;
   outline: none;
-  border: 1px solid #fff;
-  padding: 10px 20px;
-  border-radius: 20px;
+  border: 1px solid #1e1e1e;
+  padding: 15px 20px;
+  border-radius: 18px;
   position: relative;
 }
 
@@ -107,4 +107,19 @@ input::-webkit-inner-spin-button {
 
 input[type='number'] {
   -moz-appearance: textfield;
+}
+
+.image-container {
+  width: 100%;
+}
+
+.image-container > div {
+  position: unset !important;
+}
+
+.image-container .image {
+  object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important;
 }

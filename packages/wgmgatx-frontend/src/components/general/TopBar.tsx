@@ -8,28 +8,28 @@ import {
   faBehance,
   faTwitter,
   faFacebook,
-  faSearchengin
+  faSearchengin,
 } from '@fortawesome/free-brands-svg-icons';
-import { BiSearch } from 'react-icons/bi'
+import { BiSearch } from 'react-icons/bi';
 
 const TopBar = () => {
   return (
-    <div className="flex">
-      <div className='flex bg-[#171717] rounded-[18px] pl-[8px] h-[50px] w-[330px]'>
-        <BiSearch color="#fff" size="50px" className='py-4 mx-[0px]'/>
+    <div className="flex items-center">
+      <div className="flex bg-[#171717] rounded-[18px] pl-[8px] h-[50px] w-[330px]">
+        <BiSearch color="#fff" size="50px" className="py-4 mx-[0px]" />
         <input
           type="text"
           placeholder="Search"
           className="outline-none h-[50px] w-[230px] bg-transparent ml-0"
-          />
+        />
       </div>
-      {/* <ul className="ml-10 flex">
+      <ul className="ml-10 flex">
         <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
           <Link href="#" passHref>
             <FontAwesomeIcon icon={faInstagram} color="#202020" size="lg" />
           </Link>
         </li>
-        <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
+        {/* <li className="w-[35px] h-[35px] flex justify-center items-center mr-4 bg-white rounded-full cursor-pointer">
           <Link href="#" passHref>
             <FontAwesomeIcon icon={faBehance} color="#202020" size="lg" />
           </Link>
@@ -43,8 +43,8 @@ const TopBar = () => {
           <Link href="#" passHref>
             <FontAwesomeIcon icon={faFacebook} color="#202020" size="lg" />
           </Link>
-        </li>
-      </ul> */}
+        </li> */}
+      </ul>
     </div>
   );
 };

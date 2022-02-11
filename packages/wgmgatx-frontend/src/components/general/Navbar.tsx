@@ -8,8 +8,8 @@ import {
   BiLandscape,
   BiPhotoAlbum,
   BiGroup,
-  BiMessageRoundedDetail
-} from 'react-icons/bi'
+  BiMessageRoundedDetail,
+} from 'react-icons/bi';
 // Home = BiHomeAlt
 // About = BiMapAlt
 // Gallery = BiLandscape or BiPhotoAlbum
@@ -18,17 +18,6 @@ import {
 
 // Imgs
 import wgmgLogo from '@public/logo-wgmg.png';
-
-// Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SizeProp } from '@fortawesome/fontawesome-svg-core';
-import {
-  faHome,
-  faMap,
-  faImage,
-  faUserFriends,
-  faEnvelope,
-} from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = ({ title }: { title?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +34,7 @@ const Navbar = ({ title }: { title?: string }) => {
       <Head>
         <title>WGMGATX{title ? ` | ${title}` : ''}</title>
       </Head>
-      <div className="bg-[#181818] w-[12%] flex justify-center">
+      <div className="bg-[#181818] w-[12%] justify-center hidden md:flex">
         <nav className="flex flex-col items-center fixed">
           <div className="mb-8 rounded-full mt-[6vh]">
             <Image
@@ -59,8 +48,7 @@ const Navbar = ({ title }: { title?: string }) => {
           <ul>
             {routes.map((route) => (
               <li key={route.name} className="mb-8 text-center">
-                <route.icon size={'30px' as SizeProp} />
-                {/* <FontAwesomeIcon icon={route.icon} size={'xl' as SizeProp} /> */}
+                <route.icon size={'30px'} />
               </li>
             ))}
           </ul>

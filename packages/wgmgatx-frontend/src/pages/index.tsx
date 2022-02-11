@@ -3,7 +3,8 @@ import TopBar from '@components/general/TopBar';
 import Hero from '@components/home/Hero';
 import Gallery from '@components/gallery/Gallery';
 import Artists from '@components/artists/Artists';
-import { loadStripe } from '@stripe/stripe-js';
+import ContactForm from '@components/contact/ContactForm';
+// import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { google } from 'googleapis';
 
@@ -102,20 +103,23 @@ interface Props {
 const Home = (props: Props) => {
   console.log(props);
   return (
-    <div className="flex bg-[#1e1e1e]">
+    <div className="flex bg-[#1e1e1e] px-4 md:px-0">
       <Navbar title="Homepage" />
-      <div className="w-full mx-[5%] h-full mt-[4vh]">
+      <div className="w-full md:mx-[5%] h-full mt-[4vh]">
         <div className="pb-[4vh]">
           <TopBar />
         </div>
-        {/* <div className='pb-[6vh]'>
+        <div className="pb-[6vh]">
           <Hero />
-        </div> */}
+        </div>
         <div className="pb-[6vh]">
           <Gallery gallery={props.gallery} />
         </div>
-        <div className='pb-[6vh]'>
+        <div className="pb-[6vh]">
           <Artists artists={props.artists} />
+        </div>
+        <div className="pb-[6vh]">
+          <ContactForm />
         </div>
       </div>
     </div>
