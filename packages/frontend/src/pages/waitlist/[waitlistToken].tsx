@@ -1,11 +1,11 @@
-import type { NextPage } from "next";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import api from "@utils/api";
-import Card from "@components/dashboard/Card";
-import Logo from "@public/logo.svg";
-import AnimatedLogo from "@public/images/dashboard/footer-logo2.gif";
+import type { NextPage } from 'next';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import api from '@utils/api';
+import Card from '@components/dashboard/Card';
+import Logo from '@public/logo.svg';
+import AnimatedLogo from '@public/images/dashboard/footer-logo2.gif';
 
 const WaitlistToken: NextPage = () => {
   const router = useRouter();
@@ -15,34 +15,36 @@ const WaitlistToken: NextPage = () => {
     level: String;
     referralCode: String;
   }>({
-    message: "",
+    message: '',
     success: true,
-    level: "",
-    referralCode: "",
+    level: '',
+    referralCode: '',
   });
   const [loading, setLoading] = useState(true);
+  const [baseUrl, setBaseUrl] = useState('');
   const { waitlistToken } = router.query;
 
   useEffect(() => {
+    setBaseUrl(window.location.origin);
+    console.log(baseUrl);
     (async () => {
       if (waitlistToken) {
         const { data } = await api.getWaitlistLevel(waitlistToken as String);
-        console.log(data.data.waitlistLevel.success);
         setWaitlistLevel(data.data.waitlistLevel);
         setTimeout(() => {
           setLoading(false);
         }, 2000);
       }
     })();
-  }, [waitlistToken]);
+  }, [waitlistToken, baseUrl]);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       {loading ? (
         <Image
           src={AnimatedLogo}
-          width={"50px"}
-          height={"45,5px"}
+          width={'50px'}
+          height={'45,5px'}
           alt="redxam Animated Logo"
         />
       ) : (
@@ -70,11 +72,11 @@ const WaitlistToken: NextPage = () => {
                 {waitlistLevel.level}
               </p>
               <h3 className="font-secondary text-lg text-center">
-                Invite your friends and get higher your waitlist level with your
-                referral code <br />
+                Invite your friends to get higher on the waitlist by sharing
+                this link. <br />
               </h3>
-              <p className="font-bold text-3xl mt-4 text-[#38B000]">
-                {waitlistLevel.referralCode}
+              <p className="font-bold text-md mt-4 text-center text-[#38B000]">
+                {`${baseUrl}?referral=${waitlistLevel.referralCode}`}
               </p>
             </>
           ) : (
