@@ -14,11 +14,16 @@ export interface emailUser {
   email: string;
 }
 
+export interface emailStatus {
+  message: string;
+  status: number;
+}
+
 export const sendPendingTxEmail = async (
   user: emailUser,
   currency: Currency,
   value: number,
-) => {
+): Promise<emailStatus> => {
   const email = await sendMail({
     from: `redxam.com <${SERVICE_EMAIL}>`,
     to: user.email,
@@ -34,7 +39,7 @@ export const sendConfirmedTxEmail = async (
   user: emailUser,
   currency: Currency,
   value: number,
-) => {
+): Promise<emailStatus> => {
   const email = await sendMail({
     from: `redxam.com <${SERVICE_EMAIL}>`,
     to: user.email,

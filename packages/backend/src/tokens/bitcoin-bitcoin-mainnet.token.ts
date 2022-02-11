@@ -1,9 +1,19 @@
 import WAValidator from 'trezor-address-validator';
 import { ECPair, payments, networks } from 'bitcoinjs-lib';
 import * as Sentry from '@sentry/node';
+import { sendPendingTxEmail, sendConfirmedTxEmail, emailStatus } from '@/apis/sendgrid';
 import blockchain from '@/apis/blockchain';
-import { User, Deposits, DepositsType } from '@/database';
-import { Token, Wallet, UserWallet, Transaction, Deposit } from './token';
+import { User, Deposits, DepositsType, UserProps, DepositsProps } from '@/database';
+
+import {
+  Token,
+  Wallet,
+  UserWallet,
+  Transaction,
+  Deposit,
+  DepositStatus,
+  NonExist,
+} from './token';
 
 export class BitcoinBitcoinMainnetToken implements Token {
   readonly name = 'Bitcoin';
@@ -37,6 +47,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
         { wallets: { $exists: true }, verification: true, accountStatus: 'accepted' },
         { _id: 1, 'wallets.BTC': 1 },
       )
+    ).map(user => ({ userId: user._id, wallet: user.wallets.BTC }));
   }
 
   async getWalletTxs(address: string): Promise<Transaction[]> {
@@ -81,7 +92,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
     for (const deposit of deposits) {
       const status = deposit.blockId > 0 ? 'completed' : 'pending';
       if (deposit.blockId === -1) hasPendingTxs = true;
-
+      await this.depositConfirmationMailing(deposit, wallet.userId);
       await Deposits.updateOne(
         { userId: wallet.userId, hash: deposit.hash },
         {
@@ -114,6 +125,37 @@ export class BitcoinBitcoinMainnetToken implements Token {
         $set: { hasPendingTxs, 'wallet.txsCount': deposits.length },
       },
     );
+  }
+
+  isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
+    return status === 'pending' && !deposit;
+  }
+
+  isConfirmedDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
+    return status === 'completed' && deposit && deposit.status === 'pending';
+  }
+
+  isCofirmedDepositWithoutPending(status: DepositStatus, deposit: DepositsProps): boolean {
+    return status === 'completed' && !deposit;
+  }
+
+  async getUser(userId: string): Promise<UserProps> {
+    return User.findOne({ _id: userId });
+  }
+
+  async depositConfirmationMailing(deposit: Deposit, userId: string): Promise<emailStatus> {
+    const status = deposit.blockId > 0 ? 'completed' : 'pending';
+    const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
+    if (this.isPendingDeposit(status, dbDeposit)) {
+      const user = await this.getUser(userId);
+      return sendPendingTxEmail(user, this.symbol, deposit.value);
+    } else if (this.isConfirmedDeposit(status, dbDeposit)) {
+      const user = await this.getUser(userId);
+      return sendConfirmedTxEmail(user, this.symbol, deposit.value);
+    } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
+      const user = await this.getUser(userId);
+      return sendConfirmedTxEmail(user, this.symbol, deposit.value);
+    }
   }
 
   sendToAddress(address: string, amount: number): boolean {

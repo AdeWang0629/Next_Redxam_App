@@ -8,6 +8,7 @@ import { binanceBalanceWatcher } from './service/getTotalBalance';
 import { vaultWatcher } from './service/vaultService';
 import { balanceWatcher } from './service/balanceService';
 import { requestWatcher } from './service/changeRequestService';
+import { User } from './database';
 
 const { PORT = '3000', SERVICE } = process.env;
 
