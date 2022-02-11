@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import striptags from 'striptags';
 
 export function generateCode(email: string) {
   let code = crypto.createHash('md5').update(email).digest('hex').slice(0, 6);
@@ -28,9 +29,15 @@ export const isValidEmail = (email: string): boolean =>
   );
 
 export const sanitize = <T>(inputs: T): T => {
-  let sanitizedInpunts: T = {} as T;
+  const sanitizedInpunts: T = {} as T;
   Object.keys(inputs).forEach(key => {
-    sanitizedInpunts[key] = inputs[key].replace(/(<([^>]+)>)/gi, '');
+    if (typeof inputs[key] === 'string') {
+      sanitizedInpunts[key] = striptags(inputs[key]);
+    } else if (typeof inputs[key] === 'number' || typeof inputs[key] === 'boolean') {
+      sanitizedInpunts[key] = inputs[key];
+    } else {
+      throw new Error('unexpected input');
+    }
   });
   return sanitizedInpunts;
 };

@@ -43,7 +43,7 @@ class API {
       }
   }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`);
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
   }
 
   validateEmailToken(token: string) {
@@ -55,9 +55,13 @@ class API {
       }
   }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`, null, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
   }
 
   contactform(form: {
@@ -66,7 +70,7 @@ class API {
     emailAddress: string;
     question: string;
   }) {
-    let query = `query {
+    let query = `{
       contactForm (arg: {
         email: "${form.emailAddress}",
         firstName: "${form.firstName}",
@@ -78,7 +82,7 @@ class API {
       }
   }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {});
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
   }
 
   createWaitlist(
@@ -99,7 +103,7 @@ class API {
         }
     }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1`, { query: mutation });
   }
 
   getWaitlistLevel(waitlistToken: String) {
@@ -114,7 +118,7 @@ class API {
         }
       }
     `;
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`);
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
   }
 
   login(email: string) {
@@ -127,7 +131,7 @@ class API {
           }
         }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1`, { query: mutation });
   }
 
   verify(token: string) {
@@ -139,7 +143,7 @@ class API {
         }
       }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`);
+    return this.axios.post(`${this.baseURL}/api/v1`, { query: mutation });
   }
 
   invite(code: string) {
@@ -150,9 +154,13 @@ class API {
       }
     }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${mutation}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   getUserData() {
@@ -175,9 +183,13 @@ class API {
       }
     `;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   getHomeData() {
@@ -190,23 +202,32 @@ class API {
     }
   `;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   getAdminDetails(token: string) {
     const query = `query { admin { email } }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
   }
 
   adminLogin(email: string, password: string) {
     const query = `query { adminLogin { token } }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, {
+    return this.axios.post(`${this.baseURL}/api/v1`, {
+      query,
       email,
       password,
     });
@@ -228,9 +249,13 @@ class API {
       }
     `;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
   }
 
   getOverview(token: string) {
@@ -245,9 +270,13 @@ class API {
       }
     `;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
   }
 
   getApplicantData() {
@@ -270,9 +299,13 @@ class API {
         }
       }
     `;
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   getPlaidToken() {
@@ -316,9 +349,13 @@ class API {
         }
       }`;
 
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { ...this.getAuthorizationHeader() },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() },
+      }
+    );
   }
 
   deposit(accountId: string, amount: number) {
@@ -355,9 +392,13 @@ class API {
           amount
       }
   }`;
-    return this.axios.post(`${this.baseURL}/api/v1?query=${query}`, null, {
-      headers: { Authorization: `Bearer ${adminToken}` },
-    });
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` },
+      }
+    );
   }
 }
 
