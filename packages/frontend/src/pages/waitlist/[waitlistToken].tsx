@@ -24,15 +24,17 @@ const WaitlistToken: NextPage = () => {
   const [baseUrl, setBaseUrl] = useState('');
   const { waitlistToken } = router.query;
 
-  useEffect(async() => {
+  useEffect(() => {
     setBaseUrl(window.location.origin);
-    if (waitlistToken) {
-      const { data } = await api.getWaitlistLevel(waitlistToken as String);
-      setWaitlistLevel(data.data.waitlistLevel);
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
-    }
+    (async () => {
+      if (waitlistToken) {
+        const { data } = await api.getWaitlistLevel(waitlistToken as String);
+        setWaitlistLevel(data.data.waitlistLevel);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      }
+    })();
   }, [waitlistToken, baseUrl]);
 
   return (
