@@ -29,9 +29,9 @@ letter-spacing: -0.05em; color: #2A3037;'
             <p
               style='font-family: "DM Sans", sans-serif; font-size: 17px; line-height: 180%; text-align: center; color: #000000; opacity: 0.8;'
             >
-              You are trying to join the best crypto financial service in the world
+              You are trying to join the best crypto financial service in the world!
               <br />
-              please verify your email clicking the link below
+              Please verify your email clicking the link below:
             </p>
           </td>
         </tr>
@@ -41,7 +41,7 @@ letter-spacing: -0.05em; color: #2A3037;'
               style='font-family: "DM Sans", sans-serif; font-weight: bold; font-size: 19px; line-height: 180%; text-align: center; color: #000000; opacity: 0.8; margin-top: 0.25rem;'
             >
               Use this link to
-              <a href='{{origin}}/verification/{{verificationToken}}'>verify your email</a>
+              <a href='{{origin}}/verification/{{verificationToken}}'>verify your email</a>.
             </p>
           </td>
         </tr>
