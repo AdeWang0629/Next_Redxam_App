@@ -55,13 +55,17 @@ const WaitlistToken: NextPage = () => {
           {waitlistLevel.success ? (
             <>
               <div className="flex items-center mb-6">
-                <Image
-                  src={Logo}
-                  alt="redxam logo"
-                  width="46px"
-                  height="42px"
-                />
-                <h2 className="ml-4 font-medium text-3xl">redxam</h2>
+                <a href="/">
+                  <Image
+                    src={Logo}
+                    alt="redxam logo"
+                    width="46px"
+                    height="42px"
+                  />
+                </a>
+                <a href="/">
+                  <h2 className="ml-4 font-medium text-3xl">redxam</h2>
+                </a>
               </div>
 
               <h3 className="font-secondary text-lg text-center">
