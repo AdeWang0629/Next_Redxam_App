@@ -65,7 +65,7 @@ const WaitlistToken: NextPage = () => {
               </div>
 
               <h3 className="font-secondary text-lg text-center">
-                Your position in the waitlist is <br />
+                Your position in the waitlist is:<br />
               </h3>
               <p className="font-bold text-3xl my-2 text-[#38B000]">
                 {waitlistLevel.level}
@@ -75,7 +75,9 @@ const WaitlistToken: NextPage = () => {
                 this link. <br />
               </h3>
               <p className="font-bold text-md mt-4 text-center text-[#38B000]">
-                {`${baseUrl}?referral=${waitlistLevel.referralCode}`}
+                <a href={`${baseUrl}?referral=${waitlistLevel.referralCode}`}>
+                  {`${baseUrl}?referral=${waitlistLevel.referralCode}`}
+                </a>
               </p>
             </>
           ) : (
