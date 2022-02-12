@@ -1,15 +1,15 @@
-import { useContext, useState, useEffect } from 'react';
-import ReactPlaceholder from 'react-placeholder';
-import 'react-placeholder/lib/reactPlaceholder.css';
-import { UserContext } from '@providers/User';
-import { HomeContext } from '@providers/Home';
-import Image from 'next/image';
-import Link from 'next/link';
-import Card from './Card';
-import { useLocale } from '@utils/hooks';
+import { useContext, useState, useEffect } from "react";
+import ReactPlaceholder from "react-placeholder";
+import "react-placeholder/lib/reactPlaceholder.css";
+import { UserContext } from "@providers/User";
+import { HomeContext } from "@providers/Home";
+import Image from "next/image";
+import Link from "next/link";
+import Card from "./Card";
+import { useLocale } from "@utils/hooks";
 
 // Imgs
-import leafsBg from '@public/images/dashboard/leafs-bg.svg';
+import leafsBg from "@public/images/dashboard/leafs-bg.svg";
 
 const BalanceCard = () => {
   const { user } = useContext(UserContext);
@@ -17,27 +17,34 @@ const BalanceCard = () => {
   const [balance, setBalance] = useState(0);
   const locale = useLocale();
 
-  const country: string = locale == 'en' ? 'US' : locale == 'es' ? 'ES' : 'UAE';
-  if (home) {
-    if (home?.balance !== balance && home?.balance >= balance) {
-      setBalance(home?.balance);
-      console.log('condiontal');
+  const country: string = locale == "en" ? "US" : locale == "es" ? "ES" : "UAE";
+
+  useEffect(() => {
+    if (home) {
+      setBalance(home.balance);
     }
-  }
+  }, [home]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("loop");
+      setBalance((e) => e + (e * 0.05) / 365 / 24 / 60 / 60);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const balanceNumber =
-    country !== 'UAE' ? balance.toFixed(2) : (balance * 3.672).toFixed(2);
-
-  setInterval(() => setBalance(balance + 0.01), 1000);
-  console.log(balance);
+    country !== "UAE" ? balance.toFixed(5) : (balance * 3.672).toFixed(5);
 
   const balanceInfo =
-    country !== 'UAE' ? (
+    country !== "UAE" ? (
       <ReactPlaceholder
         showLoadingAnimation={true}
         type="textRow"
         ready={!loading}
-        style={{ height: 36, marginTop: 0, width: '80%' }}
+        style={{ height: 36, marginTop: 0, width: "80%" }}
       >
         <p className="font-secondary font-bold text-3xl text-black w-[80%]">
           ${balanceNumber}
@@ -48,7 +55,7 @@ const BalanceCard = () => {
         showLoadingAnimation={true}
         type="textRow"
         ready={!loading}
-        style={{ height: 36, marginTop: 0, width: '80%' }}
+        style={{ height: 36, marginTop: 0, width: "80%" }}
       >
         <p className="font-secondary font-bold text-3xl text-black w-[80%]">
           AED {balanceNumber}
