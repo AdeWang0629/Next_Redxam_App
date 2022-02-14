@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import api from "@utils/api";
-import Image from "next/image";
-import Card from "./Card";
-import { getMonthName } from "@utils/helpers";
-import filterIcon from "@public/icons/filter.svg";
-import BankIcon from "@public/icons/bank.svg";
-import EmptyImage from "@public/images/dashboard/deposits/empty.svg";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import api from '@utils/api';
+import Image from 'next/image';
+import Card from './Card';
+import { getMonthName } from '@utils/helpers';
+import filterIcon from '@public/icons/filter.svg';
+import BankIcon from '@public/icons/bank.svg';
+import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
 
 const RecentActivity = () => {
   const router = useRouter();
@@ -26,7 +26,7 @@ const RecentActivity = () => {
           bankIcon: string | null;
           bankName: string | null;
           bankType: string | null;
-        }
+        },
       ]
   >([]);
 
@@ -49,9 +49,9 @@ const RecentActivity = () => {
               bankIcon: string | null;
               bankName: string | null;
               bankType: string | null;
-            }
+            },
           ];
-        }
+        },
       ]
   >([]);
 
@@ -67,19 +67,18 @@ const RecentActivity = () => {
 
     setFilteredDeposits(
       // @ts-ignore
-      months.map((month) => {
+      months.map(month => {
         let filtered = deposits
-          .filter((deposit) => deposit.status !== "pending")
-          .filter((deposit) => {
+          .filter(deposit => deposit.status !== 'pending')
+          .filter(deposit => {
             return (
               new Date(deposit.timestamp).getMonth() + 1 === month &&
-              new Date(deposit.timestamp).getFullYear() ===
-                new Date().getFullYear()
+              new Date(deposit.timestamp).getFullYear() === new Date().getFullYear()
             );
           });
 
-        return { month, deposits: filtered };
-      })
+        return { month, deposits: filtered.sort((a, b) => b.timestamp - a.timestamp) };
+      }),
     );
   }, [deposits]);
 
@@ -90,51 +89,40 @@ const RecentActivity = () => {
           Recent Activity
         </p>
         <button className="flex justify-center items-center border border-[#EAEAEB] rounded-[81px] p-3">
-          <Image
-            src={filterIcon}
-            width={"20px"}
-            height={"16px"}
-            alt="Filter Button"
-          />
+          <Image src={filterIcon} width={'20px'} height={'16px'} alt="Filter Button" />
         </button>
       </div>
 
-      {deposits.filter((deposit) => deposit.status === "pending").length ? (
+      {deposits.filter(deposit => deposit.status === 'pending').length ? (
         <>
           <div className="bg-yellow-100 py-1.5">
-            <p className="font-secondary text-yellow-400 font-bold text-xs pl-7">
-              Pending
-            </p>
+            <p className="font-secondary text-yellow-400 font-bold text-xs pl-7">Pending</p>
           </div>
           <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
             {deposits
-              .filter((deposit) => deposit.status === "pending")
+              .filter(deposit => deposit.status === 'pending')
+              .sort((a, b) => b.timestamp - a.timestamp)
               .map((deposit, index) => (
                 <div
                   className={`flex items-center ${
-                    deposits.filter((deposit) => deposit.status === "pending")
-                      .length !== 1 && index === 0
-                      ? "pb-5"
-                      : deposits.filter(
-                          (deposit) => deposit.status === "pending"
-                        ).length !== 1
-                      ? "py-5"
-                      : ""
-                  } ${
-                    deposits.filter((deposit) => deposit.status === "pending")
-                      .length !== 1 &&
-                    index ===
-                      deposits.filter((deposit) => deposit.status === "pending")
-                        .length -
+                    deposits.filter(deposit => deposit.status === 'pending').length !== 1 &&
+                    index === 0
+                      ? 'pb-5'
+                      : deposits.filter(deposit => deposit.status === 'pending').length !==
                         1
-                      ? "pt-5 pb-0"
-                      : deposits.filter(
-                          (deposit) => deposit.status === "pending"
-                        ).length !== 1
-                      ? "border-b"
-                      : ""
+                      ? 'py-5'
+                      : ''
+                  } ${
+                    deposits.filter(deposit => deposit.status === 'pending').length !== 1 &&
+                    index ===
+                      deposits.filter(deposit => deposit.status === 'pending').length - 1
+                      ? 'pt-5 pb-0'
+                      : deposits.filter(deposit => deposit.status === 'pending').length !==
+                        1
+                      ? 'border-b'
+                      : ''
                   }`}
-                  key={"deposit" + deposit.timestamp}
+                  key={'deposit' + deposit.timestamp}
                 >
                   <Image
                     src={
@@ -142,14 +130,14 @@ const RecentActivity = () => {
                         ? `data:image/png;base64,${deposit.bankIcon}`
                         : BankIcon
                     }
-                    width={"40px"}
-                    height={"40px"}
-                    className={deposit.bankIcon ? "rounded-full" : ""}
+                    width={'40px'}
+                    height={'40px'}
+                    className={deposit.bankIcon ? 'rounded-full' : ''}
                     alt="Bank Image"
                   />
                   <div className="flex flex-col justify-center ml-4">
                     <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                      {deposit.bankName || "Unknown bank"}
+                      {deposit.bankName || 'Unknown bank'}
                     </p>
                     <p className="font-secondary text-xs text-[#95989B]">
                       PLACEHOLDER: ACC TYPE
@@ -157,27 +145,21 @@ const RecentActivity = () => {
                   </div>
                   <div className="flex flex-col justify-center items-end ml-auto">
                     <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
-                      {deposit.currency === "USD" ? "$" : deposit.currency}
+                      {deposit.currency === 'USD' ? '$' : deposit.currency}
                       {deposit.amount}
                     </p>
                     <div className="flex justify-center items-center">
                       <p className="font-secondary text-xs text-[#95989B] mr-1">
-                        Pending •{" "}
-                        {new Date(deposit.timestamp).toLocaleDateString(
-                          undefined,
-                          {
-                            day: "2-digit",
-                            month: "short",
-                          }
-                        )}
-                        {", "}
-                        {new Date(deposit.timestamp).toLocaleTimeString(
-                          undefined,
-                          {
-                            minute: "2-digit",
-                            hour: "2-digit",
-                          }
-                        )}
+                        Pending •{' '}
+                        {new Date(deposit.timestamp).toLocaleDateString(undefined, {
+                          day: '2-digit',
+                          month: 'short',
+                        })}
+                        {', '}
+                        {new Date(deposit.timestamp).toLocaleTimeString(undefined, {
+                          minute: '2-digit',
+                          hour: '2-digit',
+                        })}
                       </p>
                     </div>
                   </div>
@@ -189,27 +171,24 @@ const RecentActivity = () => {
 
       {filteredDeposits.length ? (
         filteredDeposits
-          .filter((filteredDeposits) => filteredDeposits.deposits.length)
-          .map((filteredDeposit) => (
-            <div key={"deposits" + filteredDeposit.month}>
+          .filter(filteredDeposits => filteredDeposits.deposits.length)
+          .map(filteredDeposit => (
+            <div key={'deposits' + filteredDeposit.month}>
               <div className="bg-[#FAFAFA] py-1.5">
                 <p className="font-secondary text-lighter-black font-bold text-xs pl-7">
-                  {getMonthName(filteredDeposit.month)}{" "}
-                  {new Date().getFullYear()}
+                  {getMonthName(filteredDeposit.month)} {new Date().getFullYear()}
                 </p>
               </div>
 
               <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
                 {filteredDeposit.deposits.map((deposit, index) => (
                   <div
-                    className={`flex items-center ${
-                      index === 0 ? "pb-5" : "py-5"
-                    } ${
+                    className={`flex items-center ${index === 0 ? 'pb-5' : 'py-5'} ${
                       index === filteredDeposit.deposits.length - 1
-                        ? "pt-5 pb-0"
-                        : "border-b"
+                        ? 'pt-5 pb-0'
+                        : 'border-b'
                     }`}
-                    key={"deposit" + filteredDeposit.month + deposit.timestamp}
+                    key={'deposit' + filteredDeposit.month + deposit.timestamp}
                   >
                     <Image
                       src={
@@ -217,41 +196,35 @@ const RecentActivity = () => {
                           ? `data:image/png;base64,${deposit.bankIcon}`
                           : BankIcon
                       }
-                      width={"40px"}
-                      height={"40px"}
-                      className={deposit.bankIcon ? "rounded-full" : ""}
+                      width={'40px'}
+                      height={'40px'}
+                      className={deposit.bankIcon ? 'rounded-full' : ''}
                       alt="Bank Image"
                     />
                     <div className="flex flex-col justify-center ml-4">
                       <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                        {deposit.bankName || "Unknown bank"}
+                        {deposit.bankName || 'Unknown bank'}
                       </p>
                       <p className="font-secondary text-xs text-[#95989B]">
-                        {deposit.bankType || "Unknown account type"}
+                        {deposit.bankType || 'Unknown account type'}
                       </p>
                     </div>
                     <div className="flex flex-col justify-center items-end ml-auto">
                       <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
-                        {deposit.currency === "USD" ? "$" : deposit.currency}
+                        {deposit.currency === 'USD' ? '$' : deposit.currency}
                         {deposit.amount}
                       </p>
                       <div className="flex justify-center items-center">
                         <p className="font-secondary text-xs text-[#95989B] mr-1">
-                          {new Date(deposit.timestamp).toLocaleDateString(
-                            undefined,
-                            {
-                              day: "2-digit",
-                              month: "short",
-                            }
-                          )}
-                          {", "}
-                          {new Date(deposit.timestamp).toLocaleTimeString(
-                            undefined,
-                            {
-                              minute: "2-digit",
-                              hour: "2-digit",
-                            }
-                          )}
+                          {new Date(deposit.timestamp).toLocaleDateString(undefined, {
+                            day: '2-digit',
+                            month: 'short',
+                          })}
+                          {', '}
+                          {new Date(deposit.timestamp).toLocaleTimeString(undefined, {
+                            minute: '2-digit',
+                            hour: '2-digit',
+                          })}
                         </p>
                       </div>
                     </div>
@@ -271,7 +244,7 @@ const RecentActivity = () => {
 
       <button
         className="w-full text-center font-medium font-secondary text-base underline py-4"
-        onClick={() => router.push("/deposit")}
+        onClick={() => router.push('/deposit')}
       >
         View all
       </button>
