@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import api from '@utils/api';
 import Card from '@components/dashboard/Card';
 import Logo from '@public/logo.svg';
@@ -55,17 +56,21 @@ const WaitlistToken: NextPage = () => {
           {waitlistLevel.success ? (
             <>
               <div className="flex items-center mb-6">
-                <a href="/">
-                  <Image
-                    src={Logo}
-                    alt="redxam logo"
-                    width="46px"
-                    height="42px"
-                  />
-                </a>
-                <a href="/">
-                  <h2 className="ml-4 font-medium text-3xl">redxam</h2>
-                </a>
+                <Link href="/">
+                  <a>
+                    <Image
+                      src={Logo}
+                      alt="redxam logo"
+                      width="46px"
+                      height="42px"
+                    />
+                  </a>
+                </Link>
+                <Link href="/">
+                  <a>
+                    <h2 className="ml-4 font-medium text-3xl">redxam</h2>
+                  </a>
+                </Link>
               </div>
 
               <h3 className="font-secondary text-lg text-center">
