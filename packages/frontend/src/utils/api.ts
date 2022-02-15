@@ -414,7 +414,7 @@ class API {
   `;
     return this.axios.post(
       `${this.baseURL}/api/v1`,
-      { query, view: 'MONTH' },
+      { query, view: 'ALL' },
       {
         headers: { ...this.getAuthorizationHeader() },
       },
