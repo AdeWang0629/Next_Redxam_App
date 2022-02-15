@@ -31,7 +31,7 @@ import { TEST_BTC_BALANCE_THRESHOLD, TEST_BTC_TX_FEE, TEST_REDXAM_ADDRESS } from
 export class BitcoinBitcoinTestnetToken implements Token {
   readonly name = 'Bitcoin';
 
-  readonly symbol = 'BTC';
+  readonly symbol = 'TEST_BTC';
 
   readonly network = 'Bitcoin';
 
@@ -62,9 +62,9 @@ export class BitcoinBitcoinTestnetToken implements Token {
     return (
       await User.find(
         { wallets: { $exists: true }, verification: true, accountStatus: 'accepted' },
-        { _id: 1, 'wallets.BTC': 1 },
+        { _id: 1, 'wallets.TEST_BTC': 1 },
       )
-    ).map(user => ({ userId: user._id, wallet: user.wallets.BTC }));
+    ).map(user => ({ userId: user._id, wallet: user.wallets.TEST_BTC }));
   }
 
   async getWalletTxs(address: string): Promise<Transaction[]> {
