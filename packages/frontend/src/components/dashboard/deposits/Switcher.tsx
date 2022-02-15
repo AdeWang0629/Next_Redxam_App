@@ -34,7 +34,6 @@ const Switcher: NextPage<SwitcherProps> = ({
             ? 'bg-lighter-black text-white'
             : 'text-lighter-black'
         }`}
-        disabled
         onClick={() => setActiveSection('card')}
         style={{
           boxShadow:
