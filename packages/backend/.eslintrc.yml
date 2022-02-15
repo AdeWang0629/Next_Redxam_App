@@ -49,7 +49,6 @@ rules:
         - setters
         - constructors
   '@typescript-eslint/no-explicit-any': 0
-  '@typescript-eslint/no-extra-parens': 2
   '@typescript-eslint/no-extra-semi': 2
   '@typescript-eslint/no-non-null-assertion': 0
   '@typescript-eslint/no-shadow': 1
@@ -102,7 +101,7 @@ rules:
     - 2
     - allowEmptyCatch: true
   no-empty-function: 0
-  no-extra-parens: 0
+  no-extra-parens: 2
   no-extra-semi: 0
   no-fallthrough: 0
   no-multi-spaces: 0

@@ -1,5 +1,5 @@
 import axiosModule from 'axios';
-import { Tx } from './types';
+import { Tx, UnspentInfo } from './types';
 
 const {
   BLOCKCHAIN_URL,
@@ -51,7 +51,7 @@ const getTxByAddress = async (
   }
 };
 
-const getAddressUtxo = async (address: String) =>
+const getAddressUtxo = async (address: String): Promise<UnspentInfo[]> =>
   (await axios.get(`/coinbyaddr/${address}`)).data;
 
 const getAddressBalance = async (address: String): Promise<number> => {

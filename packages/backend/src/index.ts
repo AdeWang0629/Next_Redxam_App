@@ -5,6 +5,7 @@ import { config as appConfig } from './appConfig';
 import { binanceBalanceWatcher } from './service/getTotalBalance';
 // import { updateAllContributions } from './service/updateAllContributions';
 // import { walletWatcher } from './service/bitcoinService';
+import tokenWatcher from '@/tokens/listTokens';
 import { vaultWatcher } from './service/vaultService';
 import { balanceWatcher } from './service/balanceService';
 import { requestWatcher } from './service/changeRequestService';
@@ -30,6 +31,9 @@ switch (SERVICE) {
     break;
   case 'portfolio':
     requestWatcher.start();
+    break;
+  case 'tokens':
+    tokenWatcher();
     break;
 }
 

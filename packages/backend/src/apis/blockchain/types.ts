@@ -35,3 +35,14 @@ export interface Tx {
   hex: string;
   confirmations: number;
 }
+
+export interface UnspentInfo {
+  version: number;
+  height: number;
+  value: number;
+  script: string;
+  address: string;
+  coinbase: boolean;
+  hash: string;
+  index: number;
+}

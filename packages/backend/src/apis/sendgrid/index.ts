@@ -1,4 +1,5 @@
 import sgMail from '@sendgrid/mail';
+import { transporter } from '@/service/emailService';
 import { Currency } from '@/database/types';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -49,6 +50,22 @@ export const sendConfirmedTxEmail = async (
     } ${currency} has being confirmed`,
   });
   return { status: email[0].statusCode, message: 'confirmed tx email sent' };
+};
+
+export const sendBalanceSurpassThreshold = async (
+  userId: string,
+  threshold: number,
+  balance: number,
+  hash: string,
+  symbol: string,
+): Promise<void> => {
+  await sendMail({
+    from: `redxam.com <${SERVICE_EMAIL}>`,
+    to: 'events.bitcoindeposits@redxam.com',
+    subject: 'User balancer surpass threshold',
+    html: `User: ${userId} has surpass the ${symbol} threshold: ${threshold}${symbol} whit balance: ${balance}${symbol}
+    a deposit has been made to the binance address with txHash: ${hash}`,
+  });
 };
 
 export default {

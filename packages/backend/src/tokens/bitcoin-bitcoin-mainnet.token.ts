@@ -1,11 +1,32 @@
 import WAValidator from 'trezor-address-validator';
-import { ECPair, payments, networks } from 'bitcoinjs-lib';
+import { ECPair, payments, networks, TransactionBuilder } from 'bitcoinjs-lib';
 import * as Sentry from '@sentry/node';
-import { sendPendingTxEmail, sendConfirmedTxEmail, emailStatus } from '@/apis/sendgrid';
+import {
+  sendPendingTxEmail,
+  sendConfirmedTxEmail,
+  emailStatus,
+  sendBalanceSurpassThreshold,
+} from '@/apis/sendgrid';
 import blockchain from '@/apis/blockchain';
-import { User, Deposits, DepositsType, UserProps, DepositsProps } from '@/database';
-import { Token, Wallet, UserWallet, Transaction, Deposit, DepositStatus } from './token';
-import { BTC_BALANCE_THRESHOLD, BTC_TX_FEE } from './consts';
+import {
+  User,
+  Deposits,
+  InternalDeposits,
+  DepositsType,
+  UserProps,
+  DepositsProps,
+} from '@/database';
+import {
+  Token,
+  Wallet,
+  UserWallet,
+  Transaction,
+  Deposit,
+  DepositStatus,
+  UnspentInfo,
+  TxData,
+} from './token';
+import { BTC_BALANCE_THRESHOLD, BTC_TX_FEE, REDXAM_ADDRESS } from './consts';
 
 export class BitcoinBitcoinMainnetToken implements Token {
   readonly name = 'Bitcoin';
@@ -154,8 +175,84 @@ export class BitcoinBitcoinMainnetToken implements Token {
     }
   }
 
-  sendToAddress(address: string, amount: number): boolean {
-    return true;
+  async getUnspentInfo(txs: Transaction[], wallet: UserWallet): Promise<UnspentInfo> {
+    const outputs = await blockchain.getAddressUtxo(wallet.wallet.address);
+    const unspentBalance = outputs
+      .filter(({ height }) => height > 0)
+      .reduce((prev, curr) => prev += curr.value, 0);
+    return { outputs, balance: unspentBalance };
+  }
+
+  createRawTx(txData: TxData, unspentInfo: UnspentInfo): { hash: string } {
+    const network = networks['testnet'];
+    const { senderWIF, receiverAddress } = txData;
+    const { outputs } = unspentInfo;
+
+    var txb = new TransactionBuilder(network);
+
+    let inputBalance = 0;
+
+    outputs.forEach(tx => {
+      const { hash, index, value } = tx;
+      txb.addInput(hash, index);
+      inputBalance += value;
+    });
+
+    // output is our Binance wallet
+    txb.addOutput(receiverAddress, inputBalance - this.txFee);
+
+    // sign with sender WIF (private key in WIF format)
+    let wif = senderWIF;
+    let keyPairSpend = ECPair.fromWIF(wif, network);
+
+    outputs.forEach((tx, idx) => {
+      txb.sign(idx, keyPairSpend);
+    });
+
+    //   print tx hex
+    let txHex = txb.build().toHex();
+
+    return { hash: txHex };
+  }
+
+  async handleThreshold(unspentInfo: UnspentInfo, wallet: UserWallet): Promise<void> {
+    if (unspentInfo.balance - this.txFee > this.threshold) {
+      try {
+        const { hash } = this.createRawTx(
+          {
+            senderWIF: wallet.wallet.wif,
+            receiverAddress: REDXAM_ADDRESS,
+          },
+          unspentInfo,
+        );
+
+        const txData = await blockchain.broadcastTx(hash);
+
+        if (txData.status === 200) {
+          await sendBalanceSurpassThreshold(
+            wallet.userId,
+            this.threshold,
+            unspentInfo.balance,
+            txData.data.result,
+            this.symbol,
+          );
+
+          await InternalDeposits.create({
+            amount: unspentInfo.balance - this.txFee,
+            hash: txData.data.result,
+            userId: wallet.userId,
+            address: wallet.wallet.address,
+            timestamp: new Date().getTime(),
+          });
+          console.debug(`TxHash: ${txData.data.result}`);
+        } else {
+          throw txData.data.error;
+        }
+      } catch (error) {
+        console.log(error);
+        Sentry.captureException(error);
+      }
+    }
   }
 
   // Methods not defined in the interface should be private

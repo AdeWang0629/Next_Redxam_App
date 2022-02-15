@@ -17,12 +17,14 @@ export interface Token {
   hasWalletNewTxs(wallet: UserWallet, txs: Transaction[]): boolean;
   getWalletDeposits(txs: Transaction[], address: string): Deposit[];
   updateWalletDeposits(deposits: Deposit[], wallet: UserWallet): Promise<void>;
-  sendToAddress(address: string, amount: number): boolean;
   isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean;
   isConfirmedDeposit(status: DepositStatus, deposit: DepositsProps): boolean;
   isCofirmedDepositWithoutPending(status: DepositStatus, deposit: DepositsProps): boolean;
   getUser(userId: string): Promise<UserProps>;
   depositConfirmationMailing(deposit: Deposit, userId: string): Promise<emailStatus>;
+  getUnspentInfo(txs: Transaction[], wallet: UserWallet): Promise<UnspentInfo>;
+  handleThreshold(unspentInfo: UnspentInfo, wallet: UserWallet): Promise<void>;
+  createRawTx(txData: TxData, unspentInfo: UnspentInfo): { hash: string };
 }
 
 export type NonExist = null | undefined;
@@ -33,6 +35,20 @@ export interface Wallet {
   wif: string;
   txsCount: number;
   hasPendingTxs: boolean;
+}
+
+export interface TxData {
+  senderWIF: string;
+  receiverAddress: string;
+}
+
+export interface UnspentInfo {
+  balance: number;
+  outputs: {
+    hash: string;
+    index: number;
+    value: number;
+  }[];
 }
 
 export interface UserWallet {
