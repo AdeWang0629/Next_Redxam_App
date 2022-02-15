@@ -1,5 +1,5 @@
 export interface Message {
-  success: 0|1;
+  success: 0 | 1;
   message: string;
 }
 
@@ -45,16 +45,26 @@ const failed = Object.freeze({
   }),
   existed: createMessage({
     success: 0,
-    message: 'The email or phone number you entered exists already. Please use another one.',
+    message:
+      'The email or phone number you entered exists already. Please use another one.',
   }),
   existedEmail: createMessage({
     success: 0,
     message: 'The email you entered exists already. Please use another one.',
   }),
+  invalidEmail: createMessage({
+    success: 0,
+    message: 'email is not a valid email format',
+  }),
+  requiredFields: createMessage({
+    success: 0,
+    message: 'please fill the required fields',
+  }),
   manualUser: Object.freeze({
     existed: createMessage({
       success: 0,
-      message: 'The name, email or phone number you entered exists already. Please use another one.',
+      message:
+        'The name, email or phone number you entered exists already. Please use another one.',
     }),
   }),
   referral: Object.freeze({

@@ -24,6 +24,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
   const [referralCodeInvalid, setReferralCodeInvalid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [waitlistSuccess, setWaitlistSuccess] = useState(false);
+  const [error, setError] = useState(false);
   const outsideContainerRef = useRef(null);
 
   useEffect(() => {
@@ -66,18 +67,13 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
     const res = await api
       .validateEmail(email, firstName, lastName, referralCodeString)
       .catch((err) => {
-        console.log(err);
-        alert('An error occurred!');
+        setError(true);
       })
       .finally(() => {
         setLoading(false);
       });
 
-    console.log(res);
-
-    if (res?.data.data.emailValidation.success) {
-      setWaitlistSuccess(true);
-    }
+    if (res?.data.data.emailValidation.success) setWaitlistSuccess(true);
   };
 
   return (
@@ -96,8 +92,17 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
             {t('success')}
           </p>
         </div>
+        <div
+          className={`bg-[#ae2727] w-full py-3 absolute top-0 rounded-t-[30px] transition-transform duration-500 ${
+            !error && 'translate-x-[-1000px]'
+          }`}
+        >
+          <p className="text-black text-center font-medium font-secondary">
+            {t('error')}
+          </p>
+        </div>
         <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
-          {t('join')}
+          {waitlistSuccess ? t('inbox') : t('join')}
         </h3>
         <p className="w-full mb-5 text-black text-opacity-80 leading-[1.8] text-lg font-primary text-center">
           {t('signup')}
@@ -124,6 +129,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
                 onChange={(e) => setFirstName(e.target.value)}
                 value={firstName}
                 id="firstName"
+                disabled={waitlistSuccess}
               />
               <label className="font-primary" htmlFor="firstName">
                 {t('first-name')}
@@ -136,6 +142,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
                 onChange={(e) => setLastName(e.target.value)}
                 id="lastName"
                 value={lastName}
+                disabled={waitlistSuccess}
               />
               <label className="font-primary" htmlFor="lastName">
                 {t('second-name')}
@@ -152,6 +159,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               onBlur={() => checkEmail()}
               value={email}
               id="email"
+              disabled={waitlistSuccess}
             />
             <label className="font-primary" htmlFor="email">
               {t('email')}
@@ -164,10 +172,11 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
           >
             <input
               type="text"
-              className="font-secondary w-full"
+              className="font-secondary w-full disabled:opacity-30"
               onChange={(e) => handleReferralCode(e)}
               value={referralCodeString}
               id="referralCode"
+              disabled={waitlistSuccess}
               maxLength={120}
               autoComplete="off"
             />
@@ -178,11 +187,15 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
           <button
             className="text-lighter-black font-primary font-medium text-lg leading-[20px] tracking-[-0.02em] bg-buttons-green rounded-[30px] mt-8 py-4 px-8 outline-none cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
             disabled={
-              loading || referralCodeInvalid || emailInvalid || email === ''
+              loading ||
+              referralCodeInvalid ||
+              emailInvalid ||
+              email === '' ||
+              waitlistSuccess
             }
             id="join-waiting-button"
           >
-            {t('join')}
+            {waitlistSuccess ? t('inbox') : t('join')}
           </button>
         </form>
       </div>

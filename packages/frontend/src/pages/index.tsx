@@ -1,20 +1,19 @@
-import type { NextPage } from "next";
-import Script from "next/script";
-import Particles from "react-particles-js";
-import Navbar from "@components/global/Navbar";
-import Hero from "@components/landing/Hero";
-import WhyUs from "@components/landing/WhyUs";
-import Starting from "@components/landing/Starting";
-import Relax from "@components/landing/Relax";
-import Calculate from "@components/landing/Calculate";
-import Banks from "@components/landing/Banks";
-import Plan from "@components/landing/Plan";
-import FAQ from "@components/landing/FAQ";
-import Newsletter from "@components/landing/Newsletter";
-import Footer from "@components/global/Footer";
-import { GetStaticProps } from "next";
-
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import type { NextPage } from 'next';
+import Script from 'next/script';
+import Particles from 'react-tsparticles';
+import Navbar from '@components/global/Navbar';
+import Hero from '@components/landing/Hero';
+import WhyUs from '@components/landing/WhyUs';
+import Starting from '@components/landing/Starting';
+import Relax from '@components/landing/Relax';
+import Calculate from '@components/landing/Calculate';
+import Banks from '@components/landing/Banks';
+import Plan from '@components/landing/Plan';
+import FAQ from '@components/landing/FAQ';
+import Newsletter from '@components/landing/Newsletter';
+import Footer from '@components/global/Footer';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -24,19 +23,19 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, [
-        "navbar",
-        "waitlist",
-        "login",
-        "hero",
-        "whyus",
-        "starting",
-        "relax",
-        "calculate",
-        "banks",
-        "plan",
-        "faq",
-        "newsletter",
-        "footer",
+        'navbar',
+        'waitlist',
+        'login',
+        'hero',
+        'whyus',
+        'starting',
+        'relax',
+        'calculate',
+        'banks',
+        'plan',
+        'faq',
+        'newsletter',
+        'footer',
       ])),
     },
   };
@@ -50,13 +49,13 @@ const Home: NextPage = () => {
         params={{
           particles: {
             number: {
-              value: 8,
+              value: 10,
             },
             color: {
-              value: ["#219653", "#CA7795", "#A0DDFF", "#ACE96B"],
+              value: ['#219653', '#CA7795', '#A0DDFF', '#ACE96B'],
             },
             opacity: {
-              value: 0.9,
+              value: 0.8,
             },
             size: {
               value: 10,
@@ -66,17 +65,18 @@ const Home: NextPage = () => {
               enable: false,
             },
             move: {
-              speed: 0.6,
+              enable: true,
+              speed: 1,
             },
           },
         }}
         style={{
           zIndex: -100,
-          position: "fixed",
+          position: 'fixed',
           top: 0,
           left: 0,
-          height: "100%",
-          width: "100%",
+          height: '100%',
+          width: '100%',
         }}
       />
       <Hero />
@@ -86,7 +86,7 @@ const Home: NextPage = () => {
       <Calculate />
       <Banks />
       <Plan />
-      <FAQ  isSearchFilterRequired={false} />
+      <FAQ isSearchFilterRequired={false} />
       <Newsletter />
       <Footer />
       <Script id="tawk">
