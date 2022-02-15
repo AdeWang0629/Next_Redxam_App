@@ -7,6 +7,7 @@ import Image from 'next/image';
 import api from '@utils/api';
 import Card from '../Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import UnlinkModel from '@components/models/UnlinkModel';
 import DepositModel from '@components/models/DepositModel';
 import TsxsTable from './TsxsTable';
@@ -132,7 +133,7 @@ const BanksView: NextPage = () => {
                     onClick={() => setUnlinkMode(true)}
                   >
                     <FontAwesomeIcon
-                      icon={faTrashAlt}
+                      icon={faTrashAlt as IconProp}
                       className="text-lighter-black"
                     />
                   </button>

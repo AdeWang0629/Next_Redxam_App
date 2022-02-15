@@ -6,27 +6,29 @@ import { getMonthName } from '@utils/helpers';
 import btcLogo from '@public/icons/bitcoin.svg';
 import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
 
-interface Props {
-  deposits: [
-    {
-      type: string;
-      amount: number;
-      index: null;
-      currency: string;
-      timestamp: number;
-      processedByRedxam: true | false;
-      status: string;
-      hash: null;
-      address: null;
-      bankIcon: string | null;
-      bankName: string | null;
-      bankType: string | null;
-    },
-  ];
+interface Deposits {
+  deposits:
+    | [
+        {
+          type: string;
+          amount: number;
+          index: null;
+          currency: string;
+          timestamp: number;
+          processedByRedxam: true | false;
+          status: string;
+          hash: null;
+          address: null;
+          bankIcon: string | null;
+          bankName: string | null;
+          bankType: string | null;
+        },
+      ]
+    | [];
 }
 
-const TsxsTable = (props: Props) => {
-  const { deposits } = props;
+const TsxsTable = ({ deposits }: Deposits) => {
+  //   const { deposits } = props;
   const [pendingDeposits, setPendingDeposits] = useState<
     | []
     | [
