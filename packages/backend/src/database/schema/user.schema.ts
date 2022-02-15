@@ -80,6 +80,10 @@ export const UserSchema = new Schema(
       type: TokenWalletSchema,
       required: true,
     },
+    wallet: {
+      type: SimpleWalletSchema,
+      required: false,
+    },
     contribution: {
       type: Number,
       default: 0,
