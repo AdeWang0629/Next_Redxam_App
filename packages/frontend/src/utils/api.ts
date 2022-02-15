@@ -36,7 +36,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string
+    referralCode?: string,
   ) {
     const query = `query {
       emailValidation(arg:{firstName:"${firstName}" lastName: "${lastName}" email: "${email}" referralCode: "${referralCode}"}) {
@@ -49,7 +49,6 @@ class API {
   }
 
   validateEmailToken(token: string) {
-    console.log(token);
     let mutation = `mutation {
       emailValidateToken {
           message
@@ -91,7 +90,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string
+    referralCode?: string,
   ) {
     let mutation = `mutation {
         createWaitlist(arg: {
@@ -367,7 +366,17 @@ class API {
         account_id: accountId,
         amount
       },
-      { headers: { ...this.getAuthorizationHeader() } }
+      { headers: { ...this.getAuthorizationHeader() } },
+    );
+  }
+
+  stripeDeposit(amount: number) {
+    return this.axios.post(
+      `${this.baseURL}/api/v2/stripe/create-checkout-session`,
+      {
+        amount,
+      },
+      { headers: { ...this.getAuthorizationHeader() } },
     );
   }
 
@@ -377,7 +386,7 @@ class API {
       {
         IDs
       },
-      { headers: { ...this.getAuthorizationHeader() } }
+      { headers: { ...this.getAuthorizationHeader() } },
     );
   }
 
@@ -415,6 +424,24 @@ class API {
       { query: mutation },
       {
         headers: { Authorization: `Bearer ${adminToken}` }
+      },
+    );
+  }
+
+  getPerformanceRecords() {
+    const query = `
+    query {
+      balanceRecords {
+        balance
+        timestamp
+      }
+    }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query, view: 'ALL' },
+      {
+        headers: { ...this.getAuthorizationHeader() }
       }
     );
   }

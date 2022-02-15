@@ -1,7 +1,10 @@
-import { NextPage } from "next";
-import { useState } from "react";
-import { LineChart, Line, Tooltip, ResponsiveContainer } from "recharts";
-import Card from "./Card";
+import { NextPage } from 'next';
+import { useState, useContext } from 'react';
+import ReactPlaceholder from 'react-placeholder';
+import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
+import Card from './Card';
+import { HomeContext } from '@providers/Home';
+import { BalanceRecordsContext } from '@providers/BalanceRecords';
 
 interface ChartProps {
   data: {
@@ -12,6 +15,13 @@ interface ChartProps {
 
 const Chart: NextPage<ChartProps> = ({ data }) => {
   const [value, setValue] = useState(0);
+  const { home, loading } = useContext(HomeContext);
+  const { balanceRecords } = useContext(BalanceRecordsContext);
+
+  const PerformanceData = balanceRecords?.map(balanceRecord => ({
+    time: balanceRecord.timestamp,
+    value: balanceRecord.balance,
+  }));
 
   return (
     <Card width="w-[440px]" height="h-[fit-content]">
@@ -21,9 +31,19 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
             <span className="font-secondary text-xs text-lighter-black">
               Performance
             </span>
-            <span className="font-secondary text-2xl font-bold">
-              <span className="text-[#61D404]">+</span>1.5% ($250.54)
-            </span>
+            <ReactPlaceholder
+              showLoadingAnimation={true}
+              type="textRow"
+              ready={!loading}
+              style={{ height: 32, marginTop: 0, width: '80%' }}
+            >
+              <span className="font-secondary text-2xl font-bold">
+                <span className="text-[#61D404]">+</span>
+                {`${home?.percentChange.toFixed(
+                  2,
+                )}% ($${home?.dolarChange.toFixed(2)})`}
+              </span>
+            </ReactPlaceholder>
           </div>
           <div className="flex flex-col">
             <span className="font-secondary text-xs text-lighter-black">
@@ -36,10 +56,10 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
           width="99%"
           height="99%"
           aspect={3}
-          className={"mt-7"}
+          className={'mt-7'}
         >
           <LineChart
-            data={data}
+            data={PerformanceData}
             onMouseEnter={(e: any) =>
               setValue(e.activePayload[0].payload.value)
             }

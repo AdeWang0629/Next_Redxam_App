@@ -8,7 +8,7 @@ executors:
   with-chrome:
     resource_class: small
     docker:
-      - image: "cypress/browsers:node14.16.0-chrome90-ff88"
+      - image: 'cypress/browsers:node16.13.2-chrome97-ff96'
 
 # Define the jobs we want to run for this project
 jobs:
@@ -56,10 +56,10 @@ workflows:
       - cypress/run:
           yarn: true
           store_artifacts: true
-          working_directory: "packages/frontend"
+          working_directory: 'packages/frontend'
           executor: with-chrome
           browser: chrome
           build: NEXT_PUBLIC_PROD_BASE_URL=https://api.redxam.com NEXT_PUBLIC_DEV_BASE_URL=http://localhost:5005 SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN yarn build
           start: yarn start
-          wait-on: "http://localhost:3000"
+          wait-on: 'http://localhost:3000'
           record: true

@@ -4,10 +4,10 @@ import {
   useEffect,
   Dispatch,
   SetStateAction,
-  ReactNode,
-} from "react";
-import { getCookie } from "cookies-next";
-import api from "@utils/api";
+  ReactNode
+} from 'react';
+import { getCookie } from 'cookies-next';
+import api from '@utils/api';
 
 export type Context = {
   user: null | {
@@ -34,7 +34,7 @@ export const UserContext = createContext<Context>({
   loading: false,
   setLoading: () => {},
   noUser: false,
-  setNoUser: () => {},
+  setNoUser: () => {}
 });
 
 export default function UserProvider({ children }: { children: ReactNode }) {
@@ -43,8 +43,8 @@ export default function UserProvider({ children }: { children: ReactNode }) {
   const [noUser, setNoUser] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (getCookie("token")) {
+    if (typeof window !== 'undefined') {
+      if (getCookie('token')) {
         setLoading(true);
         api
           .getUserData()
