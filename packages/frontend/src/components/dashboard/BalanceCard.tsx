@@ -62,7 +62,7 @@ const BalanceCard = () => {
       </ReactPlaceholder>
     );
   return (
-    <Card width="lg:w-[440px]" height="h-[197px]">
+    <Card width="lg:w-[440px]" height="h-[197px]" otherClasses="relative">
       <div className="absolute right-2.5 top-[-55px]">
         <Image
           src={leafsBg}
