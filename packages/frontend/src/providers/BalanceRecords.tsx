@@ -4,7 +4,7 @@ import {
   useEffect,
   Dispatch,
   SetStateAction,
-  ReactNode,
+  ReactNode
 } from 'react';
 import { getCookie } from 'cookies-next';
 import api from '@utils/api';
@@ -16,7 +16,7 @@ export type Context = {
         {
           balance: number;
           timestamp: number;
-        },
+        }
       ];
   setBalanceRecords: Dispatch<SetStateAction<null>>;
   loading: boolean;
@@ -31,7 +31,7 @@ export const BalanceRecordsContext = createContext<Context>({
   loading: false,
   setLoading: () => {},
   noBalanceRecords: false,
-  setNoBalanceRecords: () => {},
+  setNoBalanceRecords: () => {}
 });
 
 export default function UserProvider({ children }: { children: ReactNode }) {
@@ -63,7 +63,7 @@ export default function UserProvider({ children }: { children: ReactNode }) {
         loading,
         setLoading,
         noBalanceRecords,
-        setNoBalanceRecords,
+        setNoBalanceRecords
       }}
     >
       {children}

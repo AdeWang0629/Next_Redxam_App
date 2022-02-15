@@ -36,7 +36,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string,
+    referralCode?: string
   ) {
     const query = `query {
       emailValidation(arg:{firstName:"${firstName}" lastName: "${lastName}" email: "${email}" referralCode: "${referralCode}"}) {
@@ -61,8 +61,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query: mutation },
       {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
   }
 
@@ -91,7 +91,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string,
+    referralCode?: string
   ) {
     let mutation = `mutation {
         createWaitlist(arg: {
@@ -160,8 +160,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query: mutation },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
@@ -189,8 +189,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
@@ -208,8 +208,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
@@ -220,8 +220,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
   }
 
@@ -231,7 +231,7 @@ class API {
     return this.axios.post(`${this.baseURL}/api/v1`, {
       query,
       email,
-      password,
+      password
     });
   }
 
@@ -255,8 +255,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
   }
 
@@ -276,20 +276,20 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
   }
 
   getApplicantData() {
     return this.axios.post(`${this.baseURL}/api/v2/applicantData`, {
-      userToken: this.getToken(),
+      userToken: this.getToken()
     });
   }
 
   getSumsubAccessToken() {
     return this.axios.post(`${this.baseURL}/api/v2/sumsubAccesToken`, {
-      userToken: this.getToken(),
+      userToken: this.getToken()
     });
   }
 
@@ -305,14 +305,14 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
   getPlaidToken() {
     return this.axios.get(`${this.baseURL}/api/v2/plaid`, {
-      headers: { ...this.getAuthorizationHeader() },
+      headers: { ...this.getAuthorizationHeader() }
     });
   }
 
@@ -321,14 +321,14 @@ class API {
       `${this.baseURL}/api/v2/plaid`,
       { public_token: publicToken, metadata },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
   getBankAccounts() {
     return this.axios.get(`${this.baseURL}/api/v2/plaid/accounts`, {
-      headers: { ...this.getAuthorizationHeader() },
+      headers: { ...this.getAuthorizationHeader() }
     });
   }
 
@@ -355,8 +355,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
@@ -365,9 +365,9 @@ class API {
       `${this.baseURL}/api/v2/plaid/deposit`,
       {
         account_id: accountId,
-        amount,
+        amount
       },
-      { headers: { ...this.getAuthorizationHeader() } },
+      { headers: { ...this.getAuthorizationHeader() } }
     );
   }
 
@@ -375,9 +375,9 @@ class API {
     return this.axios.post(
       `${this.baseURL}/api/v2/plaid/accounts/unlink`,
       {
-        IDs,
+        IDs
       },
-      { headers: { ...this.getAuthorizationHeader() } },
+      { headers: { ...this.getAuthorizationHeader() } }
     );
   }
 
@@ -398,8 +398,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${adminToken}` },
-      },
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
     );
   }
 
@@ -416,8 +416,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query, view: 'ALL' },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 }

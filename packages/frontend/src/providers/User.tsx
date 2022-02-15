@@ -4,7 +4,7 @@ import {
   useEffect,
   Dispatch,
   SetStateAction,
-  ReactNode,
+  ReactNode
 } from 'react';
 import { getCookie } from 'cookies-next';
 import api from '@utils/api';
@@ -34,7 +34,7 @@ export const UserContext = createContext<Context>({
   loading: false,
   setLoading: () => {},
   noUser: false,
-  setNoUser: () => {},
+  setNoUser: () => {}
 });
 
 export default function UserProvider({ children }: { children: ReactNode }) {
