@@ -36,7 +36,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string
+    referralCode?: string,
   ) {
     const query = `query {
       emailValidation(arg:{firstName:"${firstName}" lastName: "${lastName}" email: "${email}" referralCode: "${referralCode}"}) {
@@ -49,7 +49,6 @@ class API {
   }
 
   validateEmailToken(token: string) {
-    console.log(token);
     let mutation = `mutation {
       emailValidateToken {
           message
@@ -61,8 +60,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query: mutation },
       {
-        headers: { Authorization: `Bearer ${token}` }
-      }
+        headers: { Authorization: `Bearer ${token}` },
+      },
     );
   }
 
@@ -91,7 +90,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string
+    referralCode?: string,
   ) {
     let mutation = `mutation {
         createWaitlist(arg: {
@@ -160,8 +159,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query: mutation },
       {
-        headers: { ...this.getAuthorizationHeader() }
-      }
+        headers: { ...this.getAuthorizationHeader() },
+      },
     );
   }
 
@@ -189,8 +188,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() }
-      }
+        headers: { ...this.getAuthorizationHeader() },
+      },
     );
   }
 
@@ -208,8 +207,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() }
-      }
+        headers: { ...this.getAuthorizationHeader() },
+      },
     );
   }
 
@@ -220,8 +219,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${token}` }
-      }
+        headers: { Authorization: `Bearer ${token}` },
+      },
     );
   }
 
@@ -255,8 +254,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${token}` }
-      }
+        headers: { Authorization: `Bearer ${token}` },
+      },
     );
   }
 
@@ -276,8 +275,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${token}` }
-      }
+        headers: { Authorization: `Bearer ${token}` },
+      },
     );
   }
 
@@ -305,8 +304,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() }
-      }
+        headers: { ...this.getAuthorizationHeader() },
+      },
     );
   }
 
@@ -321,8 +320,8 @@ class API {
       `${this.baseURL}/api/v2/plaid`,
       { public_token: publicToken, metadata },
       {
-        headers: { ...this.getAuthorizationHeader() }
-      }
+        headers: { ...this.getAuthorizationHeader() },
+      },
     );
   }
 
@@ -355,8 +354,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() }
-      }
+        headers: { ...this.getAuthorizationHeader() },
+      },
     );
   }
 
@@ -367,7 +366,17 @@ class API {
         account_id: accountId,
         amount
       },
-      { headers: { ...this.getAuthorizationHeader() } }
+      { headers: { ...this.getAuthorizationHeader() } },
+    );
+  }
+
+  stripeDeposit(amount: number) {
+    return this.axios.post(
+      `${this.baseURL}/api/v2/stripe/create-checkout-session`,
+      {
+        amount,
+      },
+      { headers: { ...this.getAuthorizationHeader() } },
     );
   }
 
@@ -377,7 +386,7 @@ class API {
       {
         IDs
       },
-      { headers: { ...this.getAuthorizationHeader() } }
+      { headers: { ...this.getAuthorizationHeader() } },
     );
   }
 
@@ -398,8 +407,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${adminToken}` }
-      }
+        headers: { Authorization: `Bearer ${adminToken}` },
+      },
     );
   }
 
