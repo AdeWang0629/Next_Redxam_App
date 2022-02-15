@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 
 import Logo from '@public/logo.svg';
+import ArabicLogo from '@public/arabic-logo.svg';
 import LoginModel from '@components/models/LoginModel';
 
 interface NavbarProps {
@@ -66,20 +67,22 @@ const Navbar: NextPage<NavbarProps> = ({
               <Link href="/">
                 <a className="flex items-center cursor-pointer">
                   <Image
-                    src={Logo}
+                    src={locale === 'ar' ? ArabicLogo : Logo}
                     alt="redxam logo"
-                    width="36px"
-                    height="32px"
+                    width={locale === 'ar' ? undefined : '36px'}
+                    height={locale === 'ar' ? '56px' : '32px'}
                   />
-                  <h2
-                    className={`ml-4 font-medium text-2xl  ${
-                      transparentBackground && scrollTop <= 0 && !navMobile
-                        ? 'text-buttons-green'
-                        : 'text-lighter-black'
-                    }`}
-                  >
-                    redxam
-                  </h2>
+                  {locale !== 'ar' && (
+                    <h2
+                      className={`ml-4 font-medium text-2xl  ${
+                        transparentBackground && scrollTop <= 0 && !navMobile
+                          ? 'text-buttons-green'
+                          : 'text-lighter-black'
+                      }`}
+                    >
+                      redxam
+                    </h2>
+                  )}
                 </a>
               </Link>
             </div>
