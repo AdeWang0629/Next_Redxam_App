@@ -30,7 +30,6 @@ const Verify: NextPage = () => {
         if (data.data.verifyToken.success) {
           setCookies('token', data.data.verifyToken.token);
           api.getUserData().then(({ data }) => {
-            console.log(data);
             setUser(data.data.user[0]);
             setNoUser(false);
             if (data.data.user[0].accountStatus === 'invited') {

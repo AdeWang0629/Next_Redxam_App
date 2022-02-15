@@ -1,7 +1,8 @@
-import { NextPage } from "next";
-import { useState } from "react";
-import { LineChart, Line, Tooltip, ResponsiveContainer } from "recharts";
-import Card from "./Card";
+import { NextPage } from 'next';
+import { useState, useContext } from 'react';
+import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
+import Card from './Card';
+import { BalanceRecordsContext } from '@providers/BalanceRecords';
 
 interface ChartProps {
   data: {
@@ -12,6 +13,7 @@ interface ChartProps {
 
 const Chart: NextPage<ChartProps> = ({ data }) => {
   const [value, setValue] = useState(0);
+  const { balanceRecords } = useContext(BalanceRecordsContext);
 
   return (
     <Card width="w-[440px]" height="h-[fit-content]">
@@ -36,7 +38,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
           width="99%"
           height="99%"
           aspect={3}
-          className={"mt-7"}
+          className={'mt-7'}
         >
           <LineChart
             data={data}
