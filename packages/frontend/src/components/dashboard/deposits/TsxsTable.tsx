@@ -3,10 +3,11 @@ import Image from 'next/image';
 import Card from '../Card';
 import { getMonthName } from '@utils/helpers';
 
+import filterIcon from '@public/icons/filter.svg';
 import btcLogo from '@public/icons/bitcoin.svg';
 import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
 
-interface Deposits {
+interface TsxsTableProps {
   deposits:
     | [
         {
@@ -25,10 +26,11 @@ interface Deposits {
         },
       ]
     | [];
+  depositsType: string;
 }
 
-const TsxsTable = ({ deposits }: Deposits) => {
-  //   const { deposits } = props;
+const TsxsTable = ({ deposits, depositsType }: TsxsTableProps) => {
+  console.log(depositsType);
   const [pendingDeposits, setPendingDeposits] = useState<
     | []
     | [
@@ -85,9 +87,29 @@ const TsxsTable = ({ deposits }: Deposits) => {
 
   return (
     <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0 lg:ml-3">
-      <h1 className="px-8 py-6 font-secondary font-medium text-lg">
-        Recent Deposits to Wallet
-      </h1>
+      {depositsType === 'all' ? (
+        <div className="flex justify-between items-center py-4 px-7">
+          <h2 className="font-secondary text-lg font-medium text-lighter-black">
+            Recent Activity
+          </h2>
+          <button className="flex justify-center items-center border border-[#EAEAEB] rounded-[81px] p-3">
+            <Image
+              src={filterIcon}
+              width={'20px'}
+              height={'16px'}
+              alt="Filter Button"
+            />
+          </button>
+        </div>
+      ) : depositsType === 'crypto' ? (
+        <h2 className="px-8 py-6 font-secondary font-medium text-lg">
+          Recent Deposits to Wallet
+        </h2>
+      ) : (
+        <h2 className="px-8 py-6 font-secondary font-medium text-lg">
+          Recent Deposits from Banks
+        </h2>
+      )}
 
       {deposits.length ? (
         <>
@@ -133,7 +155,7 @@ const TsxsTable = ({ deposits }: Deposits) => {
                     />
                     <div className="flex flex-col justify-center ml-4">
                       <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                        Bitcoin
+                        {pendingDeposit.bankName}
                       </p>
                       <p className="font-secondary text-xs text-[#95989B]">
                         Processing
@@ -144,10 +166,12 @@ const TsxsTable = ({ deposits }: Deposits) => {
                         {pendingDeposit.currency === 'USD'
                           ? '$'
                           : pendingDeposit.currency}{' '}
-                        {pendingDeposit.amount * 0.00000001}
+                        {pendingDeposit.type === 'FIAT'
+                          ? pendingDeposit.amount
+                          : pendingDeposit.amount * 0.00000001}
                       </p>
                       <div className="flex justify-center items-center">
-                        <p className="font-secondary text-xs text-[#95989B] mr-1">
+                        <p className="font-secondary text-xs text-[#95989B] mr-1 text-right">
                           Pending •{' '}
                           {new Date(
                             pendingDeposit.timestamp,
@@ -225,7 +249,9 @@ const TsxsTable = ({ deposits }: Deposits) => {
                                   {deposit.currency === 'USD'
                                     ? '$'
                                     : deposit.currency}{' '}
-                                  {deposit.amount * 0.00000001}
+                                  {deposit.type === 'FIAT'
+                                    ? deposit.amount
+                                    : deposit.amount * 0.00000001}
                                 </p>
                                 <div className="flex justify-center items-center">
                                   <p className="font-secondary text-xs text-[#95989B] mr-1">
@@ -262,6 +288,14 @@ const TsxsTable = ({ deposits }: Deposits) => {
             No transactions has been made from wallet.
           </p>
         </div>
+      )}
+      {depositsType === 'all' && (
+        <button
+          className="w-full text-center font-medium font-secondary text-base underline py-4"
+          onClick={() => router.push('/deposit')}
+        >
+          View all
+        </button>
       )}
     </Card>
   );

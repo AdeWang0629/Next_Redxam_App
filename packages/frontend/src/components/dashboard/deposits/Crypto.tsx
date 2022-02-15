@@ -320,7 +320,7 @@ const BitcoinView: NextPage = () => {
           </Card>
         </div>
 
-        <TsxsTable deposits={deposits} />
+        <TsxsTable deposits={deposits} depositsType="crypto" />
       </div>
     </>
   );

@@ -244,7 +244,7 @@ const BanksView: NextPage = () => {
           ) : null}
         </div>
 
-        <TsxsTable deposits={deposits} />
+        <TsxsTable deposits={deposits} depositsType="fiat" />
 
         {openMx && (
           <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
