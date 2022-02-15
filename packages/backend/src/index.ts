@@ -3,13 +3,10 @@ import express from 'express';
 import { connection } from 'mongoose';
 import { config as appConfig } from './appConfig';
 import { binanceBalanceWatcher } from './service/getTotalBalance';
-// import { updateAllContributions } from './service/updateAllContributions';
-// import { walletWatcher } from './service/bitcoinService';
 import tokenWatcher from '@/tokens/listTokens';
 import { vaultWatcher } from './service/vaultService';
 import { balanceWatcher } from './service/balanceService';
 import { requestWatcher } from './service/changeRequestService';
-import { User } from './database';
 
 const { PORT = '3000', SERVICE } = process.env;
 
@@ -23,16 +20,13 @@ switch (SERVICE) {
   case 'binance':
     binanceBalanceWatcher.start();
     break;
-  // case 'wallets':
-  //   walletWatcher.start();
-  //   break;
   case 'balance':
     balanceWatcher.start();
     break;
   case 'portfolio':
     requestWatcher.start();
     break;
-  case 'tokens':
+  case 'wallets':
     tokenWatcher();
     break;
 }
