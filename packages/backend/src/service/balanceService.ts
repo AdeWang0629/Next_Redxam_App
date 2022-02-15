@@ -34,8 +34,8 @@ class BalanceWatcher {
         { _id: 1, contribution: 1, balanceRecords: { $slice: -1 } },
       );
 
-      users.forEach(user => {
-        const newBalance = (user.contribution * totalPrice) / totalContribution;
+      for (const user of users) {
+        const newBalance = user.contribution * totalPrice / totalContribution;
         let balance = 0;
 
         if (user.balanceRecords[0]) {
@@ -43,7 +43,7 @@ class BalanceWatcher {
           balance = newBalance >= lastBalance ? newBalance : lastBalance;
         } else balance = newBalance;
 
-        User.updateOne(
+        await User.updateOne(
           {
             _id: user._id,
           },
@@ -56,7 +56,8 @@ class BalanceWatcher {
             },
           },
         );
-      });
+      }
+
     } catch (error) {
       console.log(error);
       this.stop();

@@ -46,7 +46,7 @@ const createAccessToken = (
 function createSignature(config) {
   console.log('Creating a signature for the request...');
 
-  var ts = Math.floor(Date.now() / 1000);
+  var ts = Math.floor(new Date().getTime() / 1000);
   const signature = crypto.createHmac('sha256', SUMSUB_SECRET_KEY);
   signature.update(ts + config.method.toUpperCase() + config.url);
 
