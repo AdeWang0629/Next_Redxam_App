@@ -26,23 +26,23 @@ import {
   UnspentInfo,
   TxData,
 } from './token';
-import { BTC_BALANCE_THRESHOLD, BTC_TX_FEE, REDXAM_ADDRESS } from './consts';
+import { TEST_BTC_BALANCE_THRESHOLD, TEST_BTC_TX_FEE, TEST_REDXAM_ADDRESS } from './consts';
 
-export class BitcoinBitcoinMainnetToken implements Token {
+export class BitcoinBitcoinTestnetToken implements Token {
   readonly name = 'Bitcoin';
 
   readonly symbol = 'BTC';
 
   readonly network = 'Bitcoin';
 
-  readonly isTestNet = false;
+  readonly isTestNet = true;
 
-  readonly txFee = BTC_TX_FEE;
+  readonly txFee = TEST_BTC_TX_FEE;
 
-  readonly threshold = BTC_BALANCE_THRESHOLD;
+  readonly threshold = TEST_BTC_BALANCE_THRESHOLD;
 
   createWallet(): Wallet {
-    const network = networks['bitcoin'];
+    const network = networks['testnet'];
     const keyPair = ECPair.makeRandom({ network });
     const { address } = payments.p2pkh({ pubkey: keyPair.publicKey, network });
     const wif = keyPair.toWIF();
@@ -54,7 +54,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
   }
 
   async getBalance(address: string): Promise<number> {
-    const balance = await blockchain.getAddressBalance(address);
+    const balance = await blockchain.getAddressBalance(address, this.isTestNet);
     return balance;
   }
 
@@ -68,7 +68,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
   }
 
   async getWalletTxs(address: string): Promise<Transaction[]> {
-    const res = await blockchain.getTxByAddress(address);
+    const res = await blockchain.getTxByAddress(address, this.isTestNet);
     if (res.status === 200) {
       return res.txs.map(tx => ({
         blockId: tx.height,
@@ -176,7 +176,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
   }
 
   async getUnspentInfo(txs: Transaction[], wallet: UserWallet): Promise<UnspentInfo> {
-    const outputs = await blockchain.getAddressUtxo(wallet.wallet.address);
+    const outputs = await blockchain.getAddressUtxo(wallet.wallet.address, this.isTestNet);
     const unspentBalance = outputs
       .filter(({ height }) => height > 0)
       .reduce((prev, curr) => prev += curr.value, 0);
@@ -184,7 +184,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
   }
 
   createRawTx(txData: TxData, unspentInfo: UnspentInfo): { hash: string } {
-    const network = networks['bitcoin'];
+    const network = networks['testnet'];
     const { senderWIF, receiverAddress } = txData;
     const { outputs } = unspentInfo;
 
@@ -221,12 +221,12 @@ export class BitcoinBitcoinMainnetToken implements Token {
         const { hash } = this.createRawTx(
           {
             senderWIF: wallet.wallet.wif,
-            receiverAddress: REDXAM_ADDRESS,
+            receiverAddress: TEST_REDXAM_ADDRESS,
           },
           unspentInfo,
         );
 
-        const txData = await blockchain.broadcastTx(hash);
+        const txData = await blockchain.broadcastTx(hash, this.isTestNet);
 
         if (txData.status === 200) {
           await sendBalanceSurpassThreshold(

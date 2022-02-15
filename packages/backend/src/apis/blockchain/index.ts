@@ -1,25 +1,34 @@
 import axiosModule from 'axios';
-import { Tx, UnspentInfo } from './types';
+import { Tx, UnspentInfo, Network } from './types';
 
 const {
   BLOCKCHAIN_URL,
   BLOCKCHAIN_KEY,
   BLOCKCHAIN_TESTNET_URL,
   BLOCKCHAIN_TESTNET_KEY,
-  NODE_ENV,
 } = process.env;
 
-const axios = axiosModule.create({
-  baseURL: NODE_ENV === 'production' ? BLOCKCHAIN_URL : BLOCKCHAIN_TESTNET_URL,
+const axiosMainet = axiosModule.create({
+  baseURL: BLOCKCHAIN_URL,
   auth: {
     username: 'x',
-    password: NODE_ENV === 'production' ? BLOCKCHAIN_KEY : BLOCKCHAIN_TESTNET_KEY,
+    password: BLOCKCHAIN_KEY,
   },
 });
 
-const getTx = async (txHash: string): Promise<{ status: number; tx: Tx | null }> => {
+const axiosTestnet = axiosModule.create({
+  baseURL: BLOCKCHAIN_TESTNET_URL,
+  auth: {
+    username: 'x',
+    password: BLOCKCHAIN_TESTNET_KEY,
+  },
+});
+
+const network = (isTestNet:Network) => isTestNet ? axiosTestnet : axiosMainet;
+
+const getTx = async (txHash: string, isTestNet:Network = false): Promise<{ status: number; tx: Tx | null }> => {
   try {
-    const tx: Tx = (await axios.get(`/tx/${txHash}`)).data;
+    const tx: Tx = (await network(isTestNet).get(`/tx/${txHash}`)).data;
     return { status: 200, tx };
   } catch (error) {
     return { status: 404, tx: null };
@@ -28,6 +37,7 @@ const getTx = async (txHash: string): Promise<{ status: number; tx: Tx | null }>
 
 const getTxByAddress = async (
   address: String,
+  isTestNet:Network = false,
 ): Promise<{ status: number; txs: Tx[] | null; error?: string }> => {
   let addressTxs = [];
   let areMoreThanHundred = false;
@@ -36,7 +46,7 @@ const getTxByAddress = async (
   try {
     do {
       const txs = (
-        await axios.get(
+        await network(isTestNet).get(
           `/tx/address/${address}${areMoreThanHundred ? `?after=${lastTxId}` : ''} `,
         )
       ).data;
@@ -51,21 +61,21 @@ const getTxByAddress = async (
   }
 };
 
-const getAddressUtxo = async (address: String): Promise<UnspentInfo[]> =>
-  (await axios.get(`/coinbyaddr/${address}`)).data;
+const getAddressUtxo = async (address: string, isTestNet:Network = false): Promise<UnspentInfo[]> =>
+  (await network(isTestNet).get(`/coinbyaddr/${address}`)).data;
 
-const getAddressBalance = async (address: String): Promise<number> => {
-  const utxo = (await axios.get(`/coinbyaddr/${address}`)).data;
+const getAddressBalance = async (address: String, isTestNet:Network = false): Promise<number> => {
+  const utxo = (await network(isTestNet).get(`/coinbyaddr/${address}`)).data;
   let balance = 0;
   // eslint-disable-next-line @typescript-eslint/no-extra-parens
-  utxo.forEach(({ value }) => (balance += value));
+  utxo.forEach(({ value }) => balance += value);
   return balance;
 };
 
-const broadcastTx = async txHash =>
-  axios.post('/', { method: 'sendrawtransaction', params: [txHash] });
+const broadcastTx = async (txHash:string, isTestNet:Network = false) =>
+  network(isTestNet).post('/', { method: 'sendrawtransaction', params: [txHash] });
 
-const isNodeOn = async () => (await axios.post('/', { method: 'ping' })).status === 200;
+const isNodeOn = async (isTestNet:Network = false) => (await network(isTestNet).post('/', { method: 'ping' })).status === 200;
 
 export default {
   broadcastTx,

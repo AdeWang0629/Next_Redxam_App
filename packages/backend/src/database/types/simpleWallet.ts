@@ -24,4 +24,5 @@ export interface bankAccount {
 
 export interface TokenWallet {
   BTC: SimpleWallet;
+  TEST_BTC: SimpleWallet;
 }

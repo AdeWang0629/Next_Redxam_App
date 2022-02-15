@@ -46,3 +46,5 @@ export interface UnspentInfo {
   hash: string;
   index: number;
 }
+
+export type Network = boolean;
