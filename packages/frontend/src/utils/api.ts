@@ -49,7 +49,6 @@ class API {
   }
 
   validateEmailToken(token: string) {
-    console.log(token);
     let mutation = `mutation {
       emailValidateToken {
           message
@@ -231,7 +230,7 @@ class API {
     return this.axios.post(`${this.baseURL}/api/v1`, {
       query,
       email,
-      password,
+      password
     });
   }
 
@@ -283,13 +282,13 @@ class API {
 
   getApplicantData() {
     return this.axios.post(`${this.baseURL}/api/v2/applicantData`, {
-      userToken: this.getToken(),
+      userToken: this.getToken()
     });
   }
 
   getSumsubAccessToken() {
     return this.axios.post(`${this.baseURL}/api/v2/sumsubAccesToken`, {
-      userToken: this.getToken(),
+      userToken: this.getToken()
     });
   }
 
@@ -312,7 +311,7 @@ class API {
 
   getPlaidToken() {
     return this.axios.get(`${this.baseURL}/api/v2/plaid`, {
-      headers: { ...this.getAuthorizationHeader() },
+      headers: { ...this.getAuthorizationHeader() }
     });
   }
 
@@ -328,7 +327,7 @@ class API {
 
   getBankAccounts() {
     return this.axios.get(`${this.baseURL}/api/v2/plaid/accounts`, {
-      headers: { ...this.getAuthorizationHeader() },
+      headers: { ...this.getAuthorizationHeader() }
     });
   }
 
@@ -365,7 +364,7 @@ class API {
       `${this.baseURL}/api/v2/plaid/deposit`,
       {
         account_id: accountId,
-        amount,
+        amount
       },
       { headers: { ...this.getAuthorizationHeader() } },
     );
@@ -385,7 +384,7 @@ class API {
     return this.axios.post(
       `${this.baseURL}/api/v2/plaid/accounts/unlink`,
       {
-        IDs,
+        IDs
       },
       { headers: { ...this.getAuthorizationHeader() } },
     );
@@ -410,6 +409,24 @@ class API {
       {
         headers: { Authorization: `Bearer ${adminToken}` },
       },
+    );
+  }
+
+  getPerformanceRecords() {
+    const query = `
+    query {
+      balanceRecords {
+        balance
+        timestamp
+      }
+    }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query, view: 'ALL' },
+      {
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 }

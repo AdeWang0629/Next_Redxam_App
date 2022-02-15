@@ -4,6 +4,7 @@ import EnvironmentsSwitcher from '@components/global/EnvironmentsSwitcher';
 import AdminProvider from '@providers/Admin';
 import HomeProvider from '@providers/Home';
 import UserProvider from '@providers/User';
+import BalanceRecordsProvider from '@providers/BalanceRecords';
 import Head from 'next/head';
 import { appWithTranslation } from 'next-i18next';
 import { useEffect } from 'react';
@@ -93,7 +94,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <AdminProvider>
         <HomeProvider>
           <UserProvider>
-            <Component {...pageProps} />
+            <BalanceRecordsProvider>
+              <Component {...pageProps} />
+            </BalanceRecordsProvider>
           </UserProvider>
         </HomeProvider>
       </AdminProvider>
