@@ -5,7 +5,7 @@ import Image from 'next/image';
 import api from '@utils/api';
 import Card from '../Card';
 import QRCode from 'qrcode';
-import TsxsTable from './TsxsTable';
+import TsxsTable from './TransactionsTable';
 
 import btcLogo from '@public/icons/bitcoin.svg';
 import arrowDrop from '@public/images/dashboard/deposits/arrow-drop.svg';

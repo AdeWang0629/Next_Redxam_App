@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import UnlinkModel from '@components/models/UnlinkModel';
 import DepositModel from '@components/models/DepositModel';
-import TsxsTable from './TsxsTable';
+import TsxsTable from './TransactionsTable';
 
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import BankImage from '@public/images/dashboard/deposits/bank.svg';

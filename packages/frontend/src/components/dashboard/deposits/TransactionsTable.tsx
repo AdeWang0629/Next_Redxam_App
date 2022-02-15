@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Card from '../Card';
 import { getMonthName } from '@utils/helpers';
@@ -7,7 +8,7 @@ import filterIcon from '@public/icons/filter.svg';
 import btcLogo from '@public/icons/bitcoin.svg';
 import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
 
-interface TsxsTableProps {
+interface TransactionsTableProps {
   deposits:
     | [
         {
@@ -29,8 +30,12 @@ interface TsxsTableProps {
   depositsType: string;
 }
 
-const TsxsTable = ({ deposits, depositsType }: TsxsTableProps) => {
-  console.log(depositsType);
+const TransactionsTable = ({
+  deposits,
+  depositsType,
+}: TransactionsTableProps) => {
+  const router = useRouter();
+
   const [pendingDeposits, setPendingDeposits] = useState<
     | []
     | [
@@ -301,4 +306,4 @@ const TsxsTable = ({ deposits, depositsType }: TsxsTableProps) => {
   );
 };
 
-export default TsxsTable;
+export default TransactionsTable;

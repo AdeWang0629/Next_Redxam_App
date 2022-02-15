@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import api from '@utils/api';
 import Image from 'next/image';
 import Card from './Card';
-import TsxsTable from './deposits/TsxsTable';
+import TsxsTable from './deposits/TransactionsTable';
 import filterIcon from '@public/icons/filter.svg';
 
 const RecentActivity = () => {
-  const router = useRouter();
   const [deposits, setDeposits] = useState<
     | []
     | [
