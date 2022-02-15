@@ -20,7 +20,7 @@ const stripeWebhook = async (req, res) => {
       sig,
       process.env.NODE_ENV === 'production'
         ? process.env.STRIPE_WEBHOOK_SECRET_PROD
-        : process.env.STRIPE_WEBHOOK_SECRET_DEV,
+        : process.env.STRIPE_WEBHOOK_SECRET_DEV
     );
 
     if (event.type === 'checkout.session.completed') {
@@ -29,8 +29,8 @@ const stripeWebhook = async (req, res) => {
         let paymentIntent = await stripeInstance.paymentIntents.retrieve(
           checkoutSession.payment_intent.toString(),
           {
-            expand: ['payment_method'],
-          },
+            expand: ['payment_method']
+          }
         );
 
         let paymentMethod =
@@ -46,7 +46,7 @@ const stripeWebhook = async (req, res) => {
           stripeChargeId: checkoutSession.id,
           bankName: 'Card',
           bankIcon: cardsBrands?.[paymentMethod.card.brand] || '',
-          bankType: paymentMethod.card.brand,
+          bankType: paymentMethod.card.brand
         });
       }
     } else if (event.type === 'charge.succeeded') {
@@ -54,7 +54,7 @@ const stripeWebhook = async (req, res) => {
       if (charge.status === 'succeeded') {
         Deposits.updateOne(
           { userId: charge.metadata.user_id, stripeChargeId: charge.id },
-          { $set: { status: 'completed' } },
+          { $set: { status: 'completed' } }
         );
       }
     }
@@ -65,8 +65,8 @@ const stripeWebhook = async (req, res) => {
       error: {
         status: error.status || 500,
         message: error.message || 'Internal Server Error',
-        stack: error.stack,
-      },
+        stack: error.stack
+      }
     });
   }
 };

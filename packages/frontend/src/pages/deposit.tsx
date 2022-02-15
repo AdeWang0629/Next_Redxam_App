@@ -18,7 +18,7 @@ const Deposit: NextPage = () => {
   const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
 
-  const [activeSection, setActiveSection] = useState('bank');
+  const [activeSection, setActiveSection] = useState('card');
   const [isApplicant, setIsApplicant] = useState(false);
   const [isValidApplicant, setIsValidApplicant] = useState(false);
   const [isInit, setIsInit] = useState(false);

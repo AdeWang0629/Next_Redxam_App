@@ -7,83 +7,31 @@ import { getMonthName } from '@utils/helpers';
 import filterIcon from '@public/icons/filter.svg';
 import btcLogo from '@public/icons/bitcoin.svg';
 import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
+import { Deposit } from '@utils/types';
 
 interface TransactionsTableProps {
-  deposits:
-    | [
-        {
-          type: string;
-          amount: number;
-          index: null;
-          currency: string;
-          timestamp: number;
-          processedByRedxam: true | false;
-          status: string;
-          hash: null;
-          address: null;
-          bankIcon: string | null;
-          bankName: string | null;
-          bankType: string | null;
-        },
-      ]
-    | [];
+  deposits: Deposit[] | [];
   depositsType: string;
 }
 
 const TransactionsTable = ({
   deposits,
-  depositsType,
+  depositsType
 }: TransactionsTableProps) => {
   const router = useRouter();
 
-  const [pendingDeposits, setPendingDeposits] = useState<
-    | []
-    | [
-        {
-          type: string;
-          amount: number;
-          index: null;
-          currency: string;
-          timestamp: number;
-          processedByRedxam: true | false;
-          status: string;
-          hash: null;
-          address: null;
-          bankIcon: string | null;
-          bankName: string | null;
-          bankType: string | null;
-        },
-      ]
-  >([]);
-  const [acceptedDeposits, setAcceptedDeposits] = useState<
-    | []
-    | [
-        {
-          type: string;
-          amount: number;
-          index: null;
-          currency: string;
-          timestamp: number;
-          processedByRedxam: true | false;
-          status: string;
-          hash: null;
-          address: null;
-          bankIcon: string | null;
-          bankName: string | null;
-          bankType: string | null;
-        },
-      ]
-  >([]);
+  const [pendingDeposits, setPendingDeposits] = useState<[] | Deposit[]>([]);
+  const [acceptedDeposits, setAcceptedDeposits] = useState<[] | Deposit[]>([]);
 
   useEffect(() => {
     setPendingDeposits(
       // @ts-ignore
-      deposits.filter(deposit => deposit.status === 'pending'),
+      deposits.filter(deposit => deposit.status === 'pending')
     );
 
     setAcceptedDeposits(
       // @ts-ignore
-      deposits.filter(deposit => deposit.status !== 'pending'),
+      deposits.filter(deposit => deposit.status !== 'pending')
     );
   }, [deposits]);
 
@@ -133,7 +81,7 @@ const TransactionsTable = ({
                         ? 'pb-5'
                         : pendingDeposits.filter(
                             pendingDeposit =>
-                              pendingDeposit.status === 'pending',
+                              pendingDeposit.status === 'pending'
                           ).length !== 1
                         ? 'py-5'
                         : ''
@@ -179,18 +127,18 @@ const TransactionsTable = ({
                         <p className="font-secondary text-xs text-[#95989B] mr-1 text-right">
                           Pending •{' '}
                           {new Date(
-                            pendingDeposit.timestamp,
+                            pendingDeposit.timestamp
                           ).toLocaleDateString(undefined, {
                             day: '2-digit',
                             month: 'short',
-                            year: 'numeric',
+                            year: 'numeric'
                           })}
                           {', '}
                           {new Date(
-                            pendingDeposit.timestamp,
+                            pendingDeposit.timestamp
                           ).toLocaleTimeString(undefined, {
                             minute: '2-digit',
-                            hour: '2-digit',
+                            hour: '2-digit'
                           })}
                         </p>
                       </div>
@@ -263,17 +211,17 @@ const TransactionsTable = ({
                                 <div className="flex justify-center items-center">
                                   <p className="font-secondary text-xs text-[#95989B] mr-1">
                                     {new Date(
-                                      deposit.timestamp,
+                                      deposit.timestamp
                                     ).toLocaleDateString(undefined, {
                                       day: '2-digit',
-                                      month: 'short',
+                                      month: 'short'
                                     })}
                                     {', '}
                                     {new Date(
-                                      deposit.timestamp,
+                                      deposit.timestamp
                                     ).toLocaleTimeString(undefined, {
                                       minute: '2-digit',
-                                      hour: '2-digit',
+                                      hour: '2-digit'
                                     })}
                                   </p>
                                 </div>
