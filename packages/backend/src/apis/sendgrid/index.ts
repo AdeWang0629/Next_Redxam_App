@@ -30,7 +30,7 @@ export const sendPendingTxEmail = async (
     to: user.email,
     subject: 'Your redxam deposits is being processing in the blockchain',
     html: `${user.firstName} your deposit to redxam for a value of ${
-      value * 0.00000001
+      value
     } ${currency} is being proccesed in the blockchain, we will send you another email when payment is confirmed`,
   });
   return { status: email[0].statusCode, message: 'pending tx email sent' };
@@ -46,7 +46,7 @@ export const sendConfirmedTxEmail = async (
     to: user.email,
     subject: 'Your redxam deposits is confirmed',
     html: `${user.firstName} your deposit to redxam for a value of ${
-      value * 0.00000001
+      value
     } ${currency} has being confirmed`,
   });
   return { status: email[0].statusCode, message: 'confirmed tx email sent' };

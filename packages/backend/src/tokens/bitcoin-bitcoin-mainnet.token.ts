@@ -165,13 +165,13 @@ export class BitcoinBitcoinMainnetToken implements Token {
     const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
     if (this.isPendingDeposit(status, dbDeposit)) {
       const user = await this.getUser(userId);
-      return sendPendingTxEmail(user, this.symbol, deposit.value);
+      return sendPendingTxEmail(user, this.symbol, deposit.value * 0.00000001);
     } else if (this.isConfirmedDeposit(status, dbDeposit)) {
       const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(user, this.symbol, deposit.value);
+      return sendConfirmedTxEmail(user, this.symbol, deposit.value * 0.00000001);
     } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
       const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(user, this.symbol, deposit.value);
+      return sendConfirmedTxEmail(user, this.symbol, deposit.value * 0.00000001);
     }
   }
 
@@ -231,8 +231,8 @@ export class BitcoinBitcoinMainnetToken implements Token {
         if (txData.status === 200) {
           await sendBalanceSurpassThreshold(
             wallet.userId,
-            this.threshold,
-            unspentInfo.balance,
+            this.threshold * 0.00000001,
+            unspentInfo.balance * 0.00000001,
             txData.data.result,
             this.symbol,
           );
