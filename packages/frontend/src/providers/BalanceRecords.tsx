@@ -46,7 +46,6 @@ export default function UserProvider({ children }: { children: ReactNode }) {
         api
           .getPerformanceRecords()
           .then(({ data }) => {
-            console.log(data);
             setNoBalanceRecords(false);
             setBalanceRecords(data.data.balanceRecords);
           })
