@@ -24,7 +24,6 @@ class BalanceWatcher {
     try {
       const vaultData = await vaults();
       const { totalContribution } = vaultData;
-      console.log(vaultData);
       let totalPrice = 0;
       Object.keys(vaultData.vaults).forEach(vault => {
         totalPrice += vaultData.vaults[vault].balance;
