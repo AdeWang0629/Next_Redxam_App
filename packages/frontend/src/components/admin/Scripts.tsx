@@ -119,7 +119,9 @@ const Scripts: NextPage = () => {
               id="status"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2 mt-6"
               placeholder="Select Status"
-              onChange={e => setStatus(e.target.value)}
+              onChange={e =>
+                setStatus(e.target.value as 'invited' | 'accepted')
+              }
             >
               <option value="invited">Invited</option>
               <option value="accepted">Accepted</option>
