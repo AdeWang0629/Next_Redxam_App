@@ -9,6 +9,7 @@ import IconButton from '@components/dashboard/IconButton';
 import Switcher from '@components/dashboard/deposits/Switcher';
 import KYC from '@components/dashboard/deposits/KYC';
 import Banks from '@components/dashboard/deposits/Banks';
+import Cards from '@components/dashboard/deposits/Cards';
 import Crypto from '@components/dashboard/deposits/Crypto';
 
 import BackIcon from '@public/icons/back.svg';
@@ -17,7 +18,7 @@ const Deposit: NextPage = () => {
   const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
 
-  const [activeSection, setActiveSection] = useState('bank');
+  const [activeSection, setActiveSection] = useState('card');
   const [isApplicant, setIsApplicant] = useState(false);
   const [isValidApplicant, setIsValidApplicant] = useState(false);
   const [isInit, setIsInit] = useState(false);
@@ -70,7 +71,7 @@ const Deposit: NextPage = () => {
     case 'card':
       depositContent = (
         <div>
-          {isValidApplicant && ''}
+          {isValidApplicant && <Cards />}
           {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
         </div>
       );
