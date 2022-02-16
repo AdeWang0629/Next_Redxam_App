@@ -12,7 +12,7 @@ const Artists = (artists: { artists: any[]; }) => {
   console.log(artists);
 
   return (
-    <div className="bg-[#171717] p-8 rounded-[18px]">
+    <div id='artists' className="bg-[#171717] p-8 rounded-[18px]">
       <div className="flex justify-center md:justify-start mb-4 md:mx-10">
         <h2 className="text-4xl pt-6 font-bold ml-[3%]">Artists</h2>
       </div>

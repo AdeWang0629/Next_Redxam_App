@@ -105,13 +105,13 @@ const Home = (props: Props) => {
   return (
     <div className="flex bg-[#1e1e1e] px-4 md:px-0">
       <Navbar title="Homepage" />
-      <div className="w-full md:mx-[5%] h-full mt-[4vh]">
-        <div className="pb-[4vh]">
+      <div className="w-full md:mx-[2%] h-full mt-[2vh]">
+        <div className="pb-[2vh]">
           <TopBar />
         </div>
-        <div className="pb-[6vh]">
+        {/* <div className="pb-[6vh]">
           <Hero />
-        </div>
+        </div> */}
         <div className="pb-[6vh]">
           <Gallery gallery={props.gallery} />
         </div>
