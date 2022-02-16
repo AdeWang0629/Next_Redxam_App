@@ -2,23 +2,13 @@ import { ChangeEvent, useState, useEffect } from 'react';
 import type { NextPage } from 'next';
 import { getCookie } from 'cookies-next';
 import api from '@utils/api';
+import { Users } from '@utils/types';
 
 const Scripts: NextPage = () => {
   const [script, setScript] = useState('');
   const [email, setEmail] = useState('');
   const [submitDisabled, setSubmitDisabled] = useState(true);
-  const [users, setUsers] = useState<
-    | []
-    | [
-        {
-          accountStatus: string;
-          email: string;
-          firstName: string;
-          lastName: string;
-          _id: string;
-        }
-      ]
-  >([]);
+  const [users, setUsers] = useState<[] | Users[]>([]);
   const [status, setStatus] = useState<'invited' | 'accepted'>('invited');
 
   useEffect(() => {
