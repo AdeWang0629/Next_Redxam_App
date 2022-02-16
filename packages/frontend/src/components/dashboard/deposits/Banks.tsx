@@ -18,8 +18,9 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 
 const BanksView: NextPage = () => {
-  const [paymentApi, setPaymentApi] = useState('MX')
+  const [paymentApi, setPaymentApi] = useState('TELLER')
   const [mxConnect, setMxConnect] = useState(null);
+  const [tellerConnect, setTellerConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
 
@@ -83,7 +84,8 @@ const BanksView: NextPage = () => {
         break;
 
       case 'TELLER':
-        
+        // @ts-ignore
+        tellerConnect.open()
       break;
 
       case 'PLAID' :
@@ -110,13 +112,22 @@ const BanksView: NextPage = () => {
         id="teller"
         src="https://cdn.teller.io/connect/connect.js"
         onLoad={() => {
-          setMxConnect(
-            // @ts-ignore
-            new window.MXConnect({
-              id: 'widget',
-              iframeTitle: 'Connect',
-              targetOrigin: '*'
-            })
+          setTellerConnect(
+          // @ts-ignore
+          window.TellerConnect.setup({
+            environment: "sandbox",
+            applicationId: "app_nu123i0nvg249720i8000",
+            onInit: function() {
+              console.log("Teller Connect has initialized");
+            },
+            // Part 3. Handle a successful enrollment's accessToken
+            onSuccess: function(enrollment:any) {
+              console.log("User enrolled successfully", enrollment.accessToken);
+            },
+            onExit: function() {
+              console.log("User closed Teller Connect");
+            }
+          })
           );
         }}
       />) : paymentApi === 'PLAID' && ''}
