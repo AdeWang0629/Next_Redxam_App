@@ -31,7 +31,7 @@ letter-spacing: -0.05em; color: #2A3037;'
             <p
               style='font-family: "DM Sans", sans-serif; font-size: 17px; line-height: 180%; text-align: center; color: #000000; opacity: 0.8;'
             >
-              Thank you for joining the waitlist. 😄
+              Thank you for joining the waitlist! 😄
               <br />
               We have added you to the queue.
               <br />
@@ -46,13 +46,13 @@ letter-spacing: -0.05em; color: #2A3037;'
             >
               There are
               {{lastOrder}}
-              people ahead in the queue
+              people ahead in the queue.
             </p>
             <p
               style='font-family: "DM Sans", sans-serif; font-weight: bold; font-size: 19px; line-height: 180%; text-align: center; color: #000000; opacity: 0.8; margin-top: 0.25rem;'
             >
               Use this link to see your position in waitlist
-              <a href='{{origin}}/waitlist/{{waitlistToken}}'>See waitlist</a>
+              <a href='{{origin}}/waitlist/{{waitlistToken}}'>See waitlist</a>.
             </p>
           </td>
         </tr>
