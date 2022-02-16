@@ -22,12 +22,18 @@ import wgmgLogo from '@public/logo-wgmg.png';
 const Navbar = ({ title }: { title?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const routes = [
-    { name: 'Home', path: '/', icon: BiHomeAlt },
+    { name: 'Home', path: '/#', icon: BiHomeAlt },
     { name: 'About', path: '/about', icon: BiMapAlt },
-    { name: 'Gallery', path: '/gallery', icon: BiPhotoAlbum },
-    { name: 'Artists', path: '/artists', icon: BiGroup },
+    { name: 'Gallery', path: '/#gallery', icon: BiPhotoAlbum },
+    { name: 'Artists', path: '/#artists', icon: BiGroup },
     { name: 'Contact', path: '/contact', icon: BiMessageRoundedDetail },
   ];
+  const [hoverStatus, setHoverStatus] = useState({
+    Gallery: false,
+    Artists: false
+  });
+
+
 
   return (
     <>
@@ -40,15 +46,19 @@ const Navbar = ({ title }: { title?: string }) => {
             <Image
               src={wgmgLogo}
               alt="WGMG Logo"
-              width="92%"
-              height="92%"
+              width="70%"
+              height="70%"
               className="rounded-full"
             />
           </div>
           <ul>
             {routes.map((route) => (
+
               <li key={route.name} className="mb-8 text-center">
-                <route.icon size={'30px'} />
+
+                <Link href={route.path}>
+                  <route.icon className='hover:fill-white ease-in-out duration-150 cursor-pointer' size={'30px'} color={'#817F8A'} />
+                </Link>
               </li>
             ))}
           </ul>
