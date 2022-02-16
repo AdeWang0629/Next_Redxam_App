@@ -42,16 +42,15 @@ const Scripts: NextPage = () => {
 
       case 'updateUserStatus':
         (async () => {
-          const res = await api
+          await api
             .updateUserStatusScript(
               getCookie('admin_token') as String,
               email,
               status
             )
-            .catch(err => {
-              console.log(err);
+            .then(res => {
+              alert(res.data.data.updateUserStatus.message);
             });
-          console.log(res);
         })();
         break;
 
