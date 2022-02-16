@@ -19,6 +19,7 @@ const Scripts: NextPage = () => {
         }
       ]
   >([]);
+  const [status, setStatus] = useState<'invited' | 'accepted'>('invited');
 
   useEffect(() => {
     (async () => {
@@ -40,7 +41,18 @@ const Scripts: NextPage = () => {
         break;
 
       case 'updateUserStatus':
-        api.updateUserStatusScript(getCookie('admin_token') as String, email);
+        (async () => {
+          const res = await api
+            .updateUserStatusScript(
+              getCookie('admin_token') as String,
+              email,
+              status
+            )
+            .catch(err => {
+              console.log(err);
+            });
+          console.log(res);
+        })();
         break;
 
       default:
@@ -64,7 +76,7 @@ const Scripts: NextPage = () => {
             placeholder="Select Script"
             onChange={e => handleOnChange(e)}
           >
-            <option disabled selected value="">
+            <option disabled selected>
               Scripts
             </option>
             <option value="updateReferral">Update Referral Code</option>
@@ -80,22 +92,40 @@ const Scripts: NextPage = () => {
           />
         </div>
         {script === 'updateUserStatus' && (
-          <select
-            name="emailTemplate"
-            id="emailTemplate"
-            className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2 mt-6"
-            placeholder="Select Script"
-            onChange={e => setEmail(e.target.value)}
-          >
-            <option disabled selected value="">
-              Select an email
-            </option>
-            {users.map(user => (
-              <option value={user.email} key={user._id}>
-                {user.email}
+          <>
+            <select
+              name="emailTemplate"
+              id="emailTemplate"
+              className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2 mt-6"
+              placeholder="Select Script"
+              onChange={e => setEmail(e.target.value)}
+            >
+              <option disabled selected>
+                Select an email
               </option>
-            ))}
-          </select>
+              {users
+                .filter(
+                  user =>
+                    user.accountStatus === 'pending' ||
+                    user.accountStatus === 'invited'
+                )
+                .map(user => (
+                  <option value={user.email} key={user._id}>
+                    {user.accountStatus} - {user.email}
+                  </option>
+                ))}
+            </select>
+            <select
+              name="status"
+              id="status"
+              className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2 mt-6"
+              placeholder="Select Status"
+              onChange={e => setStatus(e.target.value)}
+            >
+              <option value="invited">Invited</option>
+              <option value="accepted">Accepted</option>
+            </select>
+          </>
         )}
       </div>
     </>
