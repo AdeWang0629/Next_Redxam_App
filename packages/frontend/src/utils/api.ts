@@ -412,9 +412,13 @@ class API {
     );
   }
 
-  updateUserStatusScript(adminToken: String, email: String) {
-    const query = `query {
-      updateUserStatus (arg:{email: "${email}")} {
+  updateUserStatusScript(
+    adminToken: String,
+    email: String,
+    status: 'invited' | 'accepted'
+  ) {
+    const query = `mutation {
+      updateUserStatus (arg: {email: "${email}", status: "${status}"}) {
         message
         success
       }
