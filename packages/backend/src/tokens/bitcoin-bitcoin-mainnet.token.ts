@@ -19,7 +19,6 @@ import {
 import {
   Token,
   Wallet,
-  UserWallet,
   Transaction,
   Deposit,
   DepositStatus,
@@ -41,8 +40,10 @@ export class BitcoinBitcoinMainnetToken implements Token {
 
   readonly threshold = BTC_BALANCE_THRESHOLD;
 
+  readonly redxamAddress = REDXAM_ADDRESS;
+
   createWallet(): Wallet {
-    const network = networks['bitcoin'];
+    const network = networks[this.isTestNet ? 'testnet' : 'bitcoin'];
     const keyPair = ECPair.makeRandom({ network });
     const { address } = payments.p2pkh({ pubkey: keyPair.publicKey, network });
     const wif = keyPair.toWIF();
@@ -50,25 +51,35 @@ export class BitcoinBitcoinMainnetToken implements Token {
   }
 
   validateAddress(address: string): boolean {
-    return WAValidator.validate(address, this.symbol);
+    return WAValidator.validate(address, 'btc');
   }
 
   async getBalance(address: string): Promise<number> {
-    const balance = await blockchain.getAddressBalance(address);
+    const balance = await blockchain.getAddressBalance(address, this.isTestNet);
     return balance;
   }
 
-  async getWallets(): Promise<UserWallet[]> {
+  async getWallets(): Promise<Wallet[]> {
     return (
       await User.find(
-        { wallets: { $exists: true }, verification: true, accountStatus: 'accepted' },
+        {
+          wallets: { $exists: true },
+          verification: true,
+          accountStatus: 'accepted',
+        },
         { _id: 1, 'wallets.BTC': 1 },
       )
-    ).map(user => ({ userId: user._id, wallet: user.wallets.BTC }));
+    ).map(user => ({
+      userId: user._id,
+      address: user.wallets.BTC.address,
+      txsCount: user.wallets.BTC.txsCount,
+      hasPendingTxs: user.wallets.BTC.hasPendingTxs,
+      wif: user.wallets.BTC.wif,
+    }));
   }
 
   async getWalletTxs(address: string): Promise<Transaction[]> {
-    const res = await blockchain.getTxByAddress(address);
+    const res = await blockchain.getTxByAddress(address, this.isTestNet);
     if (res.status === 200) {
       return res.txs.map(tx => ({
         blockId: tx.height,
@@ -99,11 +110,14 @@ export class BitcoinBitcoinMainnetToken implements Token {
     return userTxs;
   }
 
-  hasWalletNewTxs(wallet: UserWallet, txs: Transaction[]): boolean {
-    return txs.length > wallet.wallet.txsCount || wallet.wallet.hasPendingTxs;
+  hasWalletNewTxs(wallet: Wallet, txs: Transaction[]): boolean {
+    return txs.length > wallet.txsCount || wallet.hasPendingTxs;
   }
 
-  async updateWalletDeposits(deposits: Deposit[], wallet: UserWallet): Promise<void> {
+  async updateWalletDeposits(
+    deposits: Deposit[],
+    wallet: Wallet,
+  ): Promise<void> {
     let hasPendingTxs = false;
 
     for (const deposit of deposits) {
@@ -115,7 +129,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
         {
           $set: {
             userId: wallet.userId,
-            address: wallet.wallet.address,
+            address: wallet.address,
             index: deposit.index,
             type: DepositsType.CRYPTO,
             currency: this.symbol,
@@ -152,7 +166,9 @@ export class BitcoinBitcoinMainnetToken implements Token {
     return status === 'completed' && deposit && deposit.status === 'pending';
   }
 
-  isCofirmedDepositWithoutPending(status: DepositStatus, deposit: DepositsProps): boolean {
+  isCofirmedDepositWithoutPending(
+    status: DepositStatus,
+    deposit: DepositsProps): boolean {
     return status === 'completed' && !deposit;
   }
 
@@ -160,7 +176,10 @@ export class BitcoinBitcoinMainnetToken implements Token {
     return User.findOne({ _id: userId });
   }
 
-  async depositConfirmationMailing(deposit: Deposit, userId: string): Promise<emailStatus> {
+  async depositConfirmationMailing(
+    deposit: Deposit,
+    userId: string,
+  ): Promise<emailStatus> {
     const status = deposit.blockId > 0 ? 'completed' : 'pending';
     const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
     if (this.isPendingDeposit(status, dbDeposit)) {
@@ -168,15 +187,29 @@ export class BitcoinBitcoinMainnetToken implements Token {
       return sendPendingTxEmail(user, this.symbol, deposit.value * 0.00000001);
     } else if (this.isConfirmedDeposit(status, dbDeposit)) {
       const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(user, this.symbol, deposit.value * 0.00000001);
+      return sendConfirmedTxEmail(
+        user,
+        this.symbol,
+        deposit.value * 0.00000001,
+      );
     } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
       const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(user, this.symbol, deposit.value * 0.00000001);
+      return sendConfirmedTxEmail(
+        user,
+        this.symbol,
+        deposit.value * 0.00000001,
+      );
     }
   }
 
-  async getUnspentInfo(txs: Transaction[], wallet: UserWallet): Promise<UnspentInfo> {
-    const outputs = await blockchain.getAddressUtxo(wallet.wallet.address);
+  async getUnspentInfo(
+    txs: Transaction[],
+    wallet: Wallet,
+  ): Promise<UnspentInfo> {
+    const outputs = await blockchain.getAddressUtxo(
+      wallet.address,
+      this.isTestNet,
+    );
     const unspentBalance = outputs
       .filter(({ height }) => height > 0)
       .reduce((prev, curr) => prev += curr.value, 0);
@@ -184,7 +217,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
   }
 
   createRawTx(txData: TxData, unspentInfo: UnspentInfo): { hash: string } {
-    const network = networks['bitcoin'];
+    const network = networks[this.isTestNet ? 'testnet' : 'bitcoin'];
     const { senderWIF, receiverAddress } = txData;
     const { outputs } = unspentInfo;
 
@@ -215,18 +248,21 @@ export class BitcoinBitcoinMainnetToken implements Token {
     return { hash: txHex };
   }
 
-  async handleThreshold(unspentInfo: UnspentInfo, wallet: UserWallet): Promise<void> {
+  async handleThreshold(
+    unspentInfo: UnspentInfo,
+    wallet: Wallet,
+  ): Promise<void> {
     if (unspentInfo.balance - this.txFee > this.threshold) {
       try {
         const { hash } = this.createRawTx(
           {
-            senderWIF: wallet.wallet.wif,
-            receiverAddress: REDXAM_ADDRESS,
+            senderWIF: wallet.wif,
+            receiverAddress: this.redxamAddress,
           },
           unspentInfo,
         );
 
-        const txData = await blockchain.broadcastTx(hash);
+        const txData = await blockchain.broadcastTx(hash, this.isTestNet);
 
         if (txData.status === 200) {
           await sendBalanceSurpassThreshold(
@@ -241,7 +277,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
             amount: unspentInfo.balance - this.txFee,
             hash: txData.data.result,
             userId: wallet.userId,
-            address: wallet.wallet.address,
+            address: wallet.address,
             timestamp: new Date().getTime(),
           });
           console.debug(`TxHash: ${txData.data.result}`);

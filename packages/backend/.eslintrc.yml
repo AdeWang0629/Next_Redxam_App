@@ -111,6 +111,9 @@ rules:
       maxBOF: 0
       maxEOF: 0
   no-shadow: 0
+  max-len:
+    - 2
+    - code: 80
   no-spaced-func: 2
   no-trailing-spaces: 2
   no-use-before-define: 0

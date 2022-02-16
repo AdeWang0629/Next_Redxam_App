@@ -24,9 +24,12 @@ const axiosTestnet = axiosModule.create({
   },
 });
 
-const network = (isTestNet:Network) => isTestNet ? axiosTestnet : axiosMainet;
+const network = (isTestNet: Network) => isTestNet ? axiosTestnet : axiosMainet;
 
-const getTx = async (txHash: string, isTestNet:Network = false): Promise<{ status: number; tx: Tx | null }> => {
+const getTx = async (
+  txHash: string,
+  isTestNet: Network = false,
+): Promise<{ status: number; tx: Tx | null }> => {
   try {
     const tx: Tx = (await network(isTestNet).get(`/tx/${txHash}`)).data;
     return { status: 200, tx };
@@ -37,7 +40,7 @@ const getTx = async (txHash: string, isTestNet:Network = false): Promise<{ statu
 
 const getTxByAddress = async (
   address: String,
-  isTestNet:Network = false,
+  isTestNet: Network = false,
 ): Promise<{ status: number; txs: Tx[] | null; error?: string }> => {
   let addressTxs = [];
   let areMoreThanHundred = false;
@@ -45,9 +48,10 @@ const getTxByAddress = async (
 
   try {
     do {
+      const hundredQuery = areMoreThanHundred ? `?after=${lastTxId}` : '';
       const txs = (
         await network(isTestNet).get(
-          `/tx/address/${address}${areMoreThanHundred ? `?after=${lastTxId}` : ''} `,
+          `/tx/address/${address}${hundredQuery}`,
         )
       ).data;
       if (txs.length < 1) break;
@@ -61,10 +65,16 @@ const getTxByAddress = async (
   }
 };
 
-const getAddressUtxo = async (address: string, isTestNet:Network = false): Promise<UnspentInfo[]> =>
+const getAddressUtxo = async (
+  address: string,
+  isTestNet: Network = false,
+): Promise<UnspentInfo[]> =>
   (await network(isTestNet).get(`/coinbyaddr/${address}`)).data;
 
-const getAddressBalance = async (address: String, isTestNet:Network = false): Promise<number> => {
+const getAddressBalance = async (
+  address: String,
+  isTestNet: Network = false,
+): Promise<number> => {
   const utxo = (await network(isTestNet).get(`/coinbyaddr/${address}`)).data;
   let balance = 0;
   // eslint-disable-next-line @typescript-eslint/no-extra-parens
@@ -72,10 +82,12 @@ const getAddressBalance = async (address: String, isTestNet:Network = false): Pr
   return balance;
 };
 
-const broadcastTx = async (txHash:string, isTestNet:Network = false) =>
-  network(isTestNet).post('/', { method: 'sendrawtransaction', params: [txHash] });
+const broadcastTx = async (txHash: string, isTestNet: Network = false) =>
+  network(isTestNet)
+    .post('/', { method: 'sendrawtransaction', params: [txHash] });
 
-const isNodeOn = async (isTestNet:Network = false) => (await network(isTestNet).post('/', { method: 'ping' })).status === 200;
+const isNodeOn = async (isTestNet: Network = false) =>
+  (await network(isTestNet).post('/', { method: 'ping' })).status === 200;
 
 export default {
   broadcastTx,

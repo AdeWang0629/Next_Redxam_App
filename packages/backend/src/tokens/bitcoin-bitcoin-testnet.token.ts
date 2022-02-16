@@ -1,257 +1,52 @@
-import WAValidator from 'trezor-address-validator';
-import { ECPair, payments, networks, TransactionBuilder } from 'bitcoinjs-lib';
-import * as Sentry from '@sentry/node';
+import { User } from '@/database';
+import { Token, Wallet } from './token';
+import { BitcoinBitcoinMainnetToken } from './bitcoin-bitcoin-mainnet.token';
 import {
-  sendPendingTxEmail,
-  sendConfirmedTxEmail,
-  emailStatus,
-  sendBalanceSurpassThreshold,
-} from '@/apis/sendgrid';
-import blockchain from '@/apis/blockchain';
-import {
-  User,
-  Deposits,
-  InternalDeposits,
-  DepositsType,
-  UserProps,
-  DepositsProps,
-} from '@/database';
-import {
-  Token,
-  Wallet,
-  UserWallet,
-  Transaction,
-  Deposit,
-  DepositStatus,
-  UnspentInfo,
-  TxData,
-} from './token';
-import { TEST_BTC_BALANCE_THRESHOLD, TEST_BTC_TX_FEE, TEST_REDXAM_ADDRESS } from './consts';
+  TEST_BTC_BALANCE_THRESHOLD,
+  TEST_BTC_TX_FEE,
+  TEST_REDXAM_ADDRESS,
+} from './consts';
 
-export class BitcoinBitcoinTestnetToken implements Token {
-  readonly name = 'Bitcoin';
 
-  readonly symbol = 'TEST_BTC';
+export class BitcoinBitcoinTestnetToken
+  extends BitcoinBitcoinMainnetToken
+  implements Token {
 
-  readonly network = 'Bitcoin';
+  readonly symbol;
 
-  readonly isTestNet = true;
+  readonly isTestNet;
 
-  readonly txFee = TEST_BTC_TX_FEE;
+  readonly txFee;
 
-  readonly threshold = TEST_BTC_BALANCE_THRESHOLD;
+  readonly threshold;
 
-  createWallet(): Wallet {
-    const network = networks['testnet'];
-    const keyPair = ECPair.makeRandom({ network });
-    const { address } = payments.p2pkh({ pubkey: keyPair.publicKey, network });
-    const wif = keyPair.toWIF();
-    return { address, wif, txsCount: 0, hasPendingTxs: false };
+  readonly redxamAddress;
+
+  constructor() {
+    super();
+    this.isTestNet = true;
+    this.symbol = 'TEST_BTC';
+    this.txFee = TEST_BTC_TX_FEE;
+    this.threshold = TEST_BTC_BALANCE_THRESHOLD;
+    this.redxamAddress = TEST_REDXAM_ADDRESS;
   }
 
-  validateAddress(address: string): boolean {
-    return WAValidator.validate(address, this.symbol);
-  }
-
-  async getBalance(address: string): Promise<number> {
-    const balance = await blockchain.getAddressBalance(address, this.isTestNet);
-    return balance;
-  }
-
-  async getWallets(): Promise<UserWallet[]> {
+  async getWallets(): Promise<Wallet[]> {
     return (
       await User.find(
-        { wallets: { $exists: true }, verification: true, accountStatus: 'accepted' },
+        {
+          wallets: { $exists: true },
+          verification: true,
+          accountStatus: 'accepted',
+        },
         { _id: 1, 'wallets.TEST_BTC': 1 },
       )
-    ).map(user => ({ userId: user._id, wallet: user.wallets.TEST_BTC }));
-  }
-
-  async getWalletTxs(address: string): Promise<Transaction[]> {
-    const res = await blockchain.getTxByAddress(address, this.isTestNet);
-    if (res.status === 200) {
-      return res.txs.map(tx => ({
-        blockId: tx.height,
-        hash: tx.hash,
-        outputs: tx.outputs,
-      }));
-    } else {
-      Sentry.captureException(res.error);
-      return [];
-    }
-  }
-
-  getWalletDeposits(txs: Transaction[], address: string): Deposit[] {
-    const userTxs: Deposit[] = [];
-
-    txs.forEach(tx => {
-      const outputs = tx.outputs.filter(output => output.address === address);
-      outputs.forEach((out, index) =>
-        userTxs.push({
-          blockId: tx.blockId,
-          value: out.value,
-          index,
-          hash: tx.hash,
-        }),
-      );
-    });
-
-    return userTxs;
-  }
-
-  hasWalletNewTxs(wallet: UserWallet, txs: Transaction[]): boolean {
-    return txs.length > wallet.wallet.txsCount || wallet.wallet.hasPendingTxs;
-  }
-
-  async updateWalletDeposits(deposits: Deposit[], wallet: UserWallet): Promise<void> {
-    let hasPendingTxs = false;
-
-    for (const deposit of deposits) {
-      const status = deposit.blockId > 0 ? 'completed' : 'pending';
-      if (deposit.blockId === -1) hasPendingTxs = true;
-      await this.depositConfirmationMailing(deposit, wallet.userId);
-      await Deposits.updateOne(
-        { userId: wallet.userId, hash: deposit.hash },
-        {
-          $set: {
-            userId: wallet.userId,
-            address: wallet.wallet.address,
-            index: deposit.index,
-            type: DepositsType.CRYPTO,
-            currency: this.symbol,
-            processedByRedxam: false,
-            hash: deposit.hash,
-            amount: deposit.value,
-            status,
-          },
-          $setOnInsert: {
-            timestamp: Date.now(),
-          },
-        },
-        {
-          upsert: true,
-        },
-      );
-    }
-
-    await User.updateOne(
-      {
-        _id: wallet.userId,
-      },
-      {
-        $set: { hasPendingTxs, 'wallet.txsCount': deposits.length },
-      },
-    );
-  }
-
-  isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
-    return status === 'pending' && !deposit;
-  }
-
-  isConfirmedDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
-    return status === 'completed' && deposit && deposit.status === 'pending';
-  }
-
-  isCofirmedDepositWithoutPending(status: DepositStatus, deposit: DepositsProps): boolean {
-    return status === 'completed' && !deposit;
-  }
-
-  async getUser(userId: string): Promise<UserProps> {
-    return User.findOne({ _id: userId });
-  }
-
-  async depositConfirmationMailing(deposit: Deposit, userId: string): Promise<emailStatus> {
-    const status = deposit.blockId > 0 ? 'completed' : 'pending';
-    const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
-    if (this.isPendingDeposit(status, dbDeposit)) {
-      const user = await this.getUser(userId);
-      return sendPendingTxEmail(user, this.symbol, deposit.value * 0.00000001);
-    } else if (this.isConfirmedDeposit(status, dbDeposit)) {
-      const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(user, this.symbol, deposit.value * 0.00000001);
-    } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
-      const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(user, this.symbol, deposit.value * 0.00000001);
-    }
-  }
-
-  async getUnspentInfo(txs: Transaction[], wallet: UserWallet): Promise<UnspentInfo> {
-    const outputs = await blockchain.getAddressUtxo(wallet.wallet.address, this.isTestNet);
-    const unspentBalance = outputs
-      .filter(({ height }) => height > 0)
-      .reduce((prev, curr) => prev += curr.value, 0);
-    return { outputs, balance: unspentBalance };
-  }
-
-  createRawTx(txData: TxData, unspentInfo: UnspentInfo): { hash: string } {
-    const network = networks['testnet'];
-    const { senderWIF, receiverAddress } = txData;
-    const { outputs } = unspentInfo;
-
-    var txb = new TransactionBuilder(network);
-
-    let inputBalance = 0;
-
-    outputs.forEach(tx => {
-      const { hash, index, value } = tx;
-      txb.addInput(hash, index);
-      inputBalance += value;
-    });
-
-    // output is our Binance wallet
-    txb.addOutput(receiverAddress, inputBalance - this.txFee);
-
-    // sign with sender WIF (private key in WIF format)
-    let wif = senderWIF;
-    let keyPairSpend = ECPair.fromWIF(wif, network);
-
-    outputs.forEach((tx, idx) => {
-      txb.sign(idx, keyPairSpend);
-    });
-
-    //   print tx hex
-    let txHex = txb.build().toHex();
-
-    return { hash: txHex };
-  }
-
-  async handleThreshold(unspentInfo: UnspentInfo, wallet: UserWallet): Promise<void> {
-    if (unspentInfo.balance - this.txFee > this.threshold) {
-      try {
-        const { hash } = this.createRawTx(
-          {
-            senderWIF: wallet.wallet.wif,
-            receiverAddress: TEST_REDXAM_ADDRESS,
-          },
-          unspentInfo,
-        );
-
-        const txData = await blockchain.broadcastTx(hash, this.isTestNet);
-
-        if (txData.status === 200) {
-          await sendBalanceSurpassThreshold(
-            wallet.userId,
-            this.threshold * 0.00000001,
-            unspentInfo.balance * 0.00000001,
-            txData.data.result,
-            this.symbol,
-          );
-
-          await InternalDeposits.create({
-            amount: unspentInfo.balance - this.txFee,
-            hash: txData.data.result,
-            userId: wallet.userId,
-            address: wallet.wallet.address,
-            timestamp: new Date().getTime(),
-          });
-          console.debug(`TxHash: ${txData.data.result}`);
-        } else {
-          throw txData.data.error;
-        }
-      } catch (error) {
-        console.log(error);
-        Sentry.captureException(error);
-      }
-    }
+    ).map(user => ({
+      userId: user._id,
+      address: user.wallets.TEST_BTC.address,
+      txsCount: user.wallets.TEST_BTC.txsCount,
+      hasPendingTxs: user.wallets.TEST_BTC.hasPendingTxs,
+      wif: user.wallets.TEST_BTC.wif,
+    }));
   }
 }
