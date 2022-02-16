@@ -4,7 +4,10 @@ import { Token } from './token';
 import { BitcoinBitcoinMainnetToken } from './bitcoin-bitcoin-mainnet.token';
 import { BitcoinBitcoinTestnetToken } from './bitcoin-bitcoin-testnet.token';
 
-export const tokens: Token[] = [new BitcoinBitcoinMainnetToken(), new BitcoinBitcoinTestnetToken()];
+export const tokens: Token[] = [
+  new BitcoinBitcoinMainnetToken(),
+  new BitcoinBitcoinTestnetToken(),
+];
 
 const tokenWatcher = () => {
   let interval;
@@ -12,14 +15,11 @@ const tokenWatcher = () => {
     interval = setInterval(() => {
       tokens.forEach(async token => {
         const wallets = await token.getWallets();
-        console.log(wallets);
         for (const wallet of wallets) {
-          const txs = await token.getWalletTxs(wallet.wallet.address);
+          const txs = await token.getWalletTxs(wallet.address);
           const hasNewTxs = token.hasWalletNewTxs(wallet, txs);
-          console.log(wallet);
-          console.log(txs);
           if (hasNewTxs) {
-            const deposits = token.getWalletDeposits(txs, wallet.wallet.address);
+            const deposits = token.getWalletDeposits(txs, wallet.address);
             await token.updateWalletDeposits(deposits, wallet);
           }
 
@@ -29,6 +29,7 @@ const tokenWatcher = () => {
       });
     }, INTERVAL);
   } catch (error) {
+    console.log(error);
     clearInterval(interval);
     Sentry.captureException(error);
   }

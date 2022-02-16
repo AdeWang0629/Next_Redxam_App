@@ -8,26 +8,32 @@ export interface Token {
   readonly isTestNet: boolean;
   readonly txFee: number;
   readonly threshold: number;
+  readonly redxamAddress: string;
 
   createWallet(): Wallet;
   validateAddress(address: string): boolean;
   getBalance(address: string): Promise<number>;
-  getWallets(): Promise<UserWallet[]>;
+  getWallets(): Promise<Wallet[]>;
   getWalletTxs(addres: string): Promise<Transaction[]>;
-  hasWalletNewTxs(wallet: UserWallet, txs: Transaction[]): boolean;
+  hasWalletNewTxs(wallet: Wallet, txs: Transaction[]): boolean;
   getWalletDeposits(txs: Transaction[], address: string): Deposit[];
-  updateWalletDeposits(deposits: Deposit[], wallet: UserWallet): Promise<void>;
+  updateWalletDeposits(deposits: Deposit[], wallet: Wallet): Promise<void>;
   isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean;
   isConfirmedDeposit(status: DepositStatus, deposit: DepositsProps): boolean;
-  isCofirmedDepositWithoutPending(status: DepositStatus, deposit: DepositsProps): boolean;
+  isCofirmedDepositWithoutPending(
+    status: DepositStatus,
+    deposit: DepositsProps
+  ): boolean;
   getUser(userId: string): Promise<UserProps>;
-  depositConfirmationMailing(deposit: Deposit, userId: string): Promise<emailStatus>;
-  getUnspentInfo(txs: Transaction[], wallet: UserWallet): Promise<UnspentInfo>;
-  handleThreshold(unspentInfo: UnspentInfo, wallet: UserWallet): Promise<void>;
+  depositConfirmationMailing(
+    deposit: Deposit,
+    userId: string
+  ): Promise<emailStatus>;
+  getUnspentInfo(txs: Transaction[], wallet: Wallet): Promise<UnspentInfo>;
+  handleThreshold(unspentInfo: UnspentInfo, wallet: Wallet): Promise<void>;
   createRawTx(txData: TxData, unspentInfo: UnspentInfo): { hash: string };
 }
 
-export type NonExist = null | undefined;
 export type DepositStatus = 'pending' | 'completed';
 
 export interface Wallet {
@@ -35,6 +41,7 @@ export interface Wallet {
   wif: string;
   txsCount: number;
   hasPendingTxs: boolean;
+  userId?: string;
 }
 
 export interface TxData {
@@ -49,11 +56,6 @@ export interface UnspentInfo {
     index: number;
     value: number;
   }[];
-}
-
-export interface UserWallet {
-  wallet: Wallet;
-  userId: string;
 }
 
 export interface Transaction {
