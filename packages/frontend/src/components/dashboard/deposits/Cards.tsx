@@ -22,7 +22,7 @@ const CardsView: NextPage = () => {
   >([]);
   const [pendingDeposits, setPendingDeposits] = useState<[] | Deposit[]>([]);
 
-  const [value, setValue] = useState<number>(10);
+  const [value, setValue] = useState<number>(0);
   const [depositLoading, setDepositLoading] = useState<boolean>(false);
 
   function numberWithCommas(x: number) {
@@ -102,6 +102,7 @@ const CardsView: NextPage = () => {
                   className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
                   value={`${numberWithCommas(value)}`}
                   style={{ width: value.toString().length + 'ch' }}
+                  autoFocus
                   onChange={({ target }) => {
                     const value = +target.value.replace(/[^0-9]/g, '');
                     setValue(value);
