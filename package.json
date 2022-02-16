@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "client:install": "cd packages/frontend && yarn",
     "client": "cd packages/frontend && yarn dev",
     "server": "cd packages/backend && yarn start",
     "start": "concurrently \"yarn run client\" \"yarn run server\""

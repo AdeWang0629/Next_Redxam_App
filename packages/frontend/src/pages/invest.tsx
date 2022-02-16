@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 
 const Invest: NextPage = () => {
-  let goal = '100,000';
+  let goal = '1,500,000';
   let previousInvestors = [
     {
       name: 'Salem',
@@ -68,7 +68,7 @@ const Invest: NextPage = () => {
         <div className="flex flex-col px-4 lg:px-0">
           <h1 className="text-[2rem] tracking-[-0.05em] font-secondary font-bold text-lighter-black dark:text-gray-200 leading-[3rem] w-full lg:max-w-[28.125rem]">
             Redxam: Your Personal Crypto Investment Assistant. Worry-Free Crypto
-            Holdings
+            Holdings!
           </h1>
 
           <div className="w-full h-5 bg-[#E5FEE1] rounded-[2rem] mt-8">
@@ -99,7 +99,7 @@ const Invest: NextPage = () => {
           </div>
 
           <a className="primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green mt-12">
-            Back this project
+            Invest in the redxam project!
           </a>
         </div>
       </div>
