@@ -18,6 +18,7 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 
 const BanksView: NextPage = () => {
+  const [paymentApi, setPaymentApi] = useState('MX')
   const [mxConnect, setMxConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
@@ -66,9 +67,33 @@ const BanksView: NextPage = () => {
     env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development'
   });
 
+  const handleAddBankAccount = async () => {
+    switch (paymentApi) {
+      case 'MX':
+        let { data: widgetUrl } = await api.getMXWidgetUrl();
+        if (widgetUrl.errors) {
+          Sentry.captureEvent(widgetUrl.errors);
+          return setMxWidgetError(true);
+        }
+        setOpenMx(true);
+        setTimeout(() => {
+          // @ts-ignore
+          mxConnect?.load(widgetUrl.data.mxWidgetConnect.widgetUrl);
+        }, 100);
+        break;
+
+      case 'TELLER':
+        
+      break;
+
+      case 'PLAID' :
+        break;
+      }
+  }
+
   return (
     <>
-      <Script
+      {paymentApi === 'MX' ? (<Script
         id="widget"
         src="https://atrium.mx.com/connect.js"
         onLoad={() => {
@@ -81,7 +106,21 @@ const BanksView: NextPage = () => {
             })
           );
         }}
-      />
+      />) : paymentApi === 'TELLER' ? (<Script
+        id="teller"
+        src="https://cdn.teller.io/connect/connect.js"
+        onLoad={() => {
+          setMxConnect(
+            // @ts-ignore
+            new window.MXConnect({
+              id: 'widget',
+              iframeTitle: 'Connect',
+              targetOrigin: '*'
+            })
+          );
+        }}
+      />) : paymentApi === 'PLAID' && ''}
+      
       <div className="flex flex-col lg:flex-row">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
@@ -188,25 +227,15 @@ const BanksView: NextPage = () => {
                   Your KYC is complete, now you can add multiple bank accounts
                   to your redxam.
                 </p>
+            
                 <button
                   className="bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                   style={{
                     boxShadow:
                       '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
                   }}
-                  onClick={async () => {
-                    let { data: widgetUrl } = await api.getMXWidgetUrl();
-                    if (widgetUrl.errors) {
-                      Sentry.captureEvent(widgetUrl.errors);
-                      return setMxWidgetError(true);
-                    }
-                    setOpenMx(true);
-                    setTimeout(() => {
-                      // @ts-ignore
-                      mxConnect?.load(widgetUrl.data.mxWidgetConnect.widgetUrl);
-                    }, 50);
-                  }}
-                  disabled={!plaidToken.length}
+                  onClick={handleAddBankAccount}
+                  // disabled={!plaidToken.length}
                 >
                   Add Bank Account
                 </button>
