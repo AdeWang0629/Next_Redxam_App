@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from 'next';
 import Navbar from '@components/global/Navbar';
 import Footer from '@components/global/Footer';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { numberWithCommas } from '@utils/helpers';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -22,23 +23,27 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const Invest: NextPage = () => {
   let goal = '100,000';
-  let raised = '2,156';
-  let progress =
-    (+raised.replace(/\,/gm, '') / +goal.replace(/\,/gm, '')) * 100;
   let previousInvestors = [
     {
       name: 'Salem',
-      value: '$60k'
+      value: '60k'
     },
     {
       name: 'Sultan',
-      value: '$30k'
-    },
-    {
-      name: 'Arsh',
-      value: '$1200k'
+      value: '30k'
     }
   ];
+
+  let raised = previousInvestors.reduce((acc, curr) => {
+    return (
+      acc +
+      (curr.value.includes('k')
+        ? +curr.value.replace('k', '') * 1000
+        : +curr.value)
+    );
+  }, 0);
+
+  let progress = (raised / +goal.replace(/\,/gm, '')) * 100;
 
   return (
     <>
@@ -79,7 +84,7 @@ const Invest: NextPage = () => {
                 FUNDS RAISED
               </span>
               <span className="font-secondary font-bold text-lighter-black text-[2rem] leading-[3rem]">
-                ${raised}
+                ${numberWithCommas(raised)}
               </span>
             </div>
 
@@ -112,7 +117,7 @@ const Invest: NextPage = () => {
                 {investor.name}
               </span>
               <span className="font-secondary font-bold text-2xl leading-9 text-lighter-black">
-                {investor.value}
+                ${investor.value}
               </span>
             </div>
           ))}
