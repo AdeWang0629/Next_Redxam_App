@@ -29,7 +29,8 @@ letter-spacing: -0.05em; color: #2A3037;'
             <p
               style='font-family: "DM Sans", sans-serif; font-size: 17px; line-height: 180%; text-align: center; color: #000000; opacity: 0.8;'
             >
-              You have been selected to join our beta! 🎉 Please try to log in at
+              You have been selected to join our beta! 🎉 Please try to log in
+              at
               <a href='https://redxam.com/'>redxam</a>
               and use the following code to access your account
             </p>
@@ -68,15 +69,17 @@ letter-spacing: -0.05em; color: #2A3037;'
           </a>
         </tr>
         <tr style='text-align: center;'>
-          <a href='https://www.linkedin.com/company/redxam'><img
+          <a href='https://bit.ly/3sDVHhe'><img
               src='cid:linkedin@invited'
             /></a>
-          <a href='https://twitter.com/redxamapp'><img src='cid:twitter@invited' /></a>
-          <a href='https://www.facebook.com/redxamenglish'><img
+          <a href='https://bit.ly/33oAfEe'><img src='cid:twitter@invited' /></a>
+          <a href='https://bit.ly/3uUt3el'><img
               src='cid:facebook@invited'
             /></a>
-          <a href='https://t.me/redxam'><img src='cid:telegram@invited' /></a>
-          <a href='https://dsc.gg/redxam'><img src='cid:discord@invited' /></a>
+          <a href='https://bit.ly/33qB53x'><img
+              src='cid:telegram@invited'
+            /></a>
+          <a href='https://bit.ly/3HVyJZe'><img src='cid:discord@invited' /></a>
         </tr>
       </tbody>
     </table>
