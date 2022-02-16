@@ -39,7 +39,7 @@ const TransactionsTable = ({
   let year = new Date().getFullYear();
 
   return (
-    <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0 lg:ml-3">
+    <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0">
       {depositsType === 'all' ? (
         <div className="flex justify-between items-center py-4 px-7">
           <h2 className="font-secondary text-lg font-medium text-lighter-black">
