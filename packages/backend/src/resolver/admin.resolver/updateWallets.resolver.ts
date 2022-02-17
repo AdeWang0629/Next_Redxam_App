@@ -22,19 +22,25 @@ export const updateWallets = async (_: void, req: Request) => {
     await updateWalletsScript();
     return {
       success: true,
-      message: 'users wallets updated sucessfully' };
+      message: 'users wallets updated sucessfully'
+    };
   } catch (err) {
     return { message: err.message, success: false };
   }
 };
 
 const updateWalletsScript = async () => {
-  const users = await User.find({}, { wallet: 1, hasPendingTxs: 1 });
+  const users = await User.find(
+    {},
+    { wallet: 1, hasPendingTxs: 1, wallets: 1 }
+  );
   for (const user of users) {
-
     if (!user.wallets) {
       const wallets = generateWallets();
-      const currentUserWallet = { ...user.wallet, hasPendingTxs: user.hasPendingTxs };
+      const currentUserWallet = {
+        ...user.wallet,
+        hasPendingTxs: user.hasPendingTxs
+      };
 
       if (NODE_ENV === 'production') {
         wallets.BTC = currentUserWallet;
