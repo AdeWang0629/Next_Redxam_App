@@ -103,26 +103,30 @@ interface Props {
 const Home = (props: Props) => {
   console.log(props);
   return (
-    <div className="flex bg-[#1e1e1e] px-4 md:px-0">
-      <Navbar title="Homepage" />
-      <div className="w-full md:mx-[2%] h-full mt-[2vh]">
-        <div className="pb-[2vh]">
-          <TopBar />
-        </div>
-        {/* <div className="pb-[6vh]">
-          <Hero />
-        </div> */}
-        <div className="pb-[6vh]">
-          <Gallery gallery={props.gallery} />
-        </div>
-        <div className="pb-[6vh]">
-          <Artists artists={props.artists} />
-        </div>
-        <div className="pb-[6vh]">
-          <ContactForm />
+    <>
+      <div className='flex bg-[#1e1e1e]'>
+      </div>
+      <div className="flex bg-[#1e1e1e] md:px-4">
+        <Navbar title="Homepage" />
+        <div className="w-full md:mx-[5%] h-full mt-[4vh]">
+          <div className="pb-[4vh] mx-4 md:mx-0">
+            <TopBar />
+          </div>
+          <div className="pb-[6vh]">
+            <Hero />
+          </div>
+          <div className="pb-[6vh] mx-4 md:mx-0">
+            <Gallery gallery={props.gallery} />
+          </div>
+          <div className="pb-[6vh] mx-4 md:mx-0">
+            <Artists artists={props.artists} />
+          </div>
+          <div className="pb-[6vh] mx-4 md:mx-0">
+            <ContactForm />
+          </div>
         </div>
       </div>
-    </div>
+      </>
   );
 };
 

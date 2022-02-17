@@ -40,7 +40,7 @@ const Navbar = ({ title }: { title?: string }) => {
       <Head>
         <title>WGMGATX{title ? ` | ${title}` : ''}</title>
       </Head>
-      <div className="bg-[#181818] w-[12%] justify-center hidden md:flex">
+      <div className="bg-[#181818] w-[12%] 2xl:w-[8%] justify-center hidden md:flex -ml-4">
         <nav className="flex flex-col items-center fixed">
           <div className="mb-8 rounded-full mt-[6vh]">
             <Image
