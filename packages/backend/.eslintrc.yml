@@ -33,7 +33,7 @@ rules:
     - 2
   '@typescript-eslint/lines-between-class-members':
     - 2
-    - never
+    - always
   '@typescript-eslint/member-delimiter-style':
     - 2
     - multiline:
@@ -95,12 +95,14 @@ rules:
     - afterColon: true
       beforeColon: false
       mode: strict
-  lines-between-class-members: 0
+  lines-between-class-members:
+    - 1
+    - always
   no-empty:
     - 2
     - allowEmptyCatch: true
   no-empty-function: 0
-  no-extra-parens: 0
+  no-extra-parens: 2
   no-extra-semi: 0
   no-fallthrough: 0
   no-multi-spaces: 0
@@ -110,6 +112,9 @@ rules:
       maxBOF: 0
       maxEOF: 0
   no-shadow: 0
+  max-len:
+    - 2
+    - code: 80
   no-spaced-func: 2
   no-trailing-spaces: 2
   no-use-before-define: 0

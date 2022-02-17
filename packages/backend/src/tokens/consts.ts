@@ -1,0 +1,11 @@
+const { BINANCE_ADDRESS, BINANCE_TESTNET_ADDRESS, NODE_ENV } = process.env;
+
+export const INTERVAL = NODE_ENV === 'production' ? 600000 : 20000;
+export const REDXAM_ADDRESS = BINANCE_ADDRESS;
+export const TEST_REDXAM_ADDRESS = BINANCE_TESTNET_ADDRESS;
+
+// BTC CONSTANTS
+export const BTC_TX_FEE = 21694;
+export const BTC_BALANCE_THRESHOLD = 1000000;
+export const TEST_BTC_TX_FEE = 500;
+export const TEST_BTC_BALANCE_THRESHOLD = 300;

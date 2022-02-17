@@ -2,7 +2,7 @@ import { messages } from '@/config/messages';
 import { User } from '@/database';
 import { SimpleWallet } from '@/database/types';
 import sendGrid from '@/apis/sendgrid/index';
-import { generateWallet } from '@/service/wallets';
+import { generateWallets } from '@/service/wallets';
 import { Request } from 'express';
 import { readFileSync } from 'fs';
 import { render } from 'mustache';
@@ -97,7 +97,6 @@ const sendMail = async (
 
 const createNewUser = async (
   user: NewUser,
-  wallet: SimpleWallet,
   level: number,
   waitlistToken: string,
   referralCode: string,
@@ -130,7 +129,7 @@ const createNewUser = async (
     balance: 0,
     email: email.toLowerCase(),
     phone,
-    wallet,
+    wallets: generateWallets(),
     level,
     token: '',
     deposited: 0,
@@ -171,7 +170,6 @@ export const createUser = async ({ arg }: Argument<NewUser>, req: Request) => {
   }
 
   try {
-    const wallet = generateWallet();
     const waitlistToken = crypto.randomBytes(8).toString('hex');
     const referralCode = crypto.randomBytes(4).toString('hex');
     const lastOrder = await getLastOrder();
@@ -183,13 +181,7 @@ export const createUser = async ({ arg }: Argument<NewUser>, req: Request) => {
       waitlistToken,
       referralCode,
     );
-    const jobCreate = createNewUser(
-      arg,
-      wallet,
-      lastOrder + 1,
-      waitlistToken,
-      referralCode,
-    );
+    const jobCreate = createNewUser(arg, lastOrder + 1, waitlistToken, referralCode);
 
     await Promise.all([jobSend, jobCreate]);
     return messages.success.register;
