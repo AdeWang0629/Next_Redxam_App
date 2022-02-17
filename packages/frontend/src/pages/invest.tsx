@@ -49,7 +49,7 @@ const Invest: NextPage = () => {
     <>
       <Navbar title="Your Personal Crypto Investment Assistant" />
       <div
-        className="flex flex-col lg:flex-row justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-10 pt-44 lg:pt-64 pb-20 border-b border-b-white"
+        className="flex flex-col lg:flex-row justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-10 pt-44 lg:pt-44 pb-20 border-b border-b-white"
         style={{
           boxShadow:
             '0px 6px 6px -6px rgba(0, 0, 0, 0.08), 0px 0px 1px rgba(0, 0, 0, 0.2)'
@@ -62,7 +62,7 @@ const Invest: NextPage = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="rounded-2xl w-full lg:w-[593px] h-[215px] lg:h-[421px] mx-auto"
+            className="rounded-2xl w-full lg:w-[593px] h-[215px] lg:h-[334px] mx-auto"
           ></iframe>
         </div>
         <div className="flex flex-col px-4 lg:px-0">
@@ -116,7 +116,10 @@ const Invest: NextPage = () => {
               className="bg-[#f5f5f5] px-8 py-4 flex items-center space-x-12 rounded-2xl"
               key={`previous-investor-${index}`}
             >
-              <span className="font-secondary font-medium text-2xl leading-9 text-lighter-black">
+              <span
+                className="font-secondary font-medium text-2xl leading-9 text-lighter-black text-transparent"
+                style={{ textShadow: '0 0 8px rgba(0,0,0,0.5)' }}
+              >
                 {investor.name}
               </span>
               <span className="font-secondary font-bold text-2xl leading-9 text-lighter-black">
