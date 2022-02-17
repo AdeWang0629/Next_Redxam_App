@@ -35,7 +35,7 @@ const EventBanner: NextComponentType = () => {
           className="w-full md:w-[70%] p-4 md:p-5 uppercase font-primary font-black text-[24px] font-bold text-center rounded-full bg-buttons-green mb-6 md:mb-0 md:mr-6"
           style={{ fontFamily: 'Montserrat' }}
         >
-          1pm podcast on clubhose!!
+          1pm podcast on clubhouse 👋!
         </div>
         <div className="text-center flex flex-col items-center justify-center">
           <div className="flex font-black" style={{ fontFamily: 'Montserrat' }}>
