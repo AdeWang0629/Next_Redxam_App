@@ -7,54 +7,22 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import BankIcon from '@public/icons/bank.svg';
 import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
-
+import { Deposit } from '@utils/types';
 const CardsView: NextPage = () => {
   const router = useRouter();
-  const [deposits, setDeposits] = useState<
-    | []
-    | [
-        {
-          type: string;
-          amount: number;
-          index: null;
-          currency: string;
-          timestamp: number;
-          processedByRedxam: true | false;
-          status: string;
-          hash: null;
-          address: null;
-          bankIcon: string | null;
-          bankName: string | null;
-          bankType: string | null;
-        },
-      ]
-  >([]);
+  const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
   const [filteredDeposits, setFilteredDeposits] = useState<
     | []
     | [
         {
           month: number;
-          deposits: [
-            {
-              type: string;
-              amount: number;
-              index: null;
-              currency: string;
-              timestamp: number;
-              processedByRedxam: true | false;
-              status: string;
-              hash: null;
-              address: null;
-              bankIcon: string | null;
-              bankName: string | null;
-              bankType: string | null;
-            },
-          ];
-        },
+          deposits: Deposit[];
+        }
       ]
   >([]);
+  const [pendingDeposits, setPendingDeposits] = useState<[] | Deposit[]>([]);
 
-  const [value, setValue] = useState<number>(10);
+  const [value, setValue] = useState<number>(0);
   const [depositLoading, setDepositLoading] = useState<boolean>(false);
 
   function numberWithCommas(x: number) {
@@ -83,6 +51,11 @@ const CardsView: NextPage = () => {
     (async () => {
       let { data: userDepositsData } = await api.getUserDeposits();
       setDeposits(userDepositsData.data.userDeposits);
+      setPendingDeposits(
+        userDepositsData.data.userDeposits.filter(
+          (deposit: Deposit) => deposit.status === 'pending'
+        )
+      );
     })();
   }, []);
 
@@ -105,9 +78,9 @@ const CardsView: NextPage = () => {
 
         return {
           month,
-          deposits: filtered.sort((a, b) => b.timestamp - a.timestamp),
+          deposits: filtered.sort((a, b) => b.timestamp - a.timestamp)
         };
-      }),
+      })
     );
   }, [deposits]);
 
@@ -129,6 +102,7 @@ const CardsView: NextPage = () => {
                   className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
                   value={`${numberWithCommas(value)}`}
                   style={{ width: value.toString().length + 'ch' }}
+                  autoFocus
                   onChange={({ target }) => {
                     const value = +target.value.replace(/[^0-9]/g, '');
                     setValue(value);
@@ -143,7 +117,7 @@ const CardsView: NextPage = () => {
                 className="w-full mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                 style={{
                   boxShadow:
-                    '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
+                    '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
                 }}
                 disabled={value < 10 || depositLoading}
                 onClick={deposit}
@@ -159,7 +133,7 @@ const CardsView: NextPage = () => {
             Recent deposits from Card
           </h1>
           <hr />
-          {deposits.filter(deposit => deposit.status === 'pending').length ? (
+          {pendingDeposits.length ? (
             <>
               <div className="bg-yellow-100 py-1.5">
                 <p className="font-secondary text-yellow-400 font-bold text-xs pl-7">
@@ -167,91 +141,79 @@ const CardsView: NextPage = () => {
                 </p>
               </div>
               <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
-                {deposits
-                  .filter(deposit => deposit.status === 'pending')
-                  .map((deposit, index) => (
-                    <div
-                      className={`flex items-center ${
-                        deposits.filter(deposit => deposit.status === 'pending')
-                          .length !== 1 && index === 0
-                          ? 'pb-5'
-                          : deposits.filter(
-                              deposit => deposit.status === 'pending',
-                            ).length !== 1
-                          ? 'py-5'
-                          : ''
-                      } ${
-                        deposits.filter(deposit => deposit.status === 'pending')
-                          .length !== 1 &&
-                        index ===
-                          deposits.filter(
-                            deposit => deposit.status === 'pending',
-                          ).length -
-                            1
-                          ? 'pt-5 pb-0'
-                          : deposits.filter(
-                              deposit => deposit.status === 'pending',
-                            ).length !== 1
-                          ? 'border-b'
-                          : ''
-                      }`}
-                      key={'deposit' + deposit.timestamp}
-                    >
-                      <Image
-                        src={
-                          deposit.bankIcon
-                            ? `data:image/png;base64,${deposit.bankIcon}`
-                            : BankIcon
-                        }
-                        width={'40px'}
-                        height={'40px'}
-                        alt="Card Image"
-                      />
-                      <div className="flex flex-col justify-center ml-4">
-                        <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                          {deposit.bankName || 'Unknown card'}
+                {pendingDeposits.map((deposit, index) => (
+                  <div
+                    className={`flex items-center ${
+                      pendingDeposits.length !== 1 && index === 0
+                        ? 'pb-5'
+                        : pendingDeposits.length !== 1
+                        ? 'py-5'
+                        : ''
+                    } ${
+                      pendingDeposits.length !== 1 &&
+                      index === pendingDeposits.length - 1
+                        ? 'pt-5 pb-0'
+                        : pendingDeposits.length !== 1
+                        ? 'border-b'
+                        : ''
+                    }`}
+                    key={'deposit' + deposit.timestamp}
+                  >
+                    <Image
+                      src={
+                        deposit.bankIcon
+                          ? `data:image/png;base64,${deposit.bankIcon}`
+                          : BankIcon
+                      }
+                      width={'40px'}
+                      height={'40px'}
+                      alt="Card Image"
+                    />
+                    <div className="flex flex-col justify-center ml-4">
+                      <p className="font-secondary text-sm text-lighter-black mb-1.5">
+                        {deposit.bankName || 'Unknown card'}
+                      </p>
+                      <p className="font-secondary text-xs text-[#95989B] capitalize">
+                        {deposit.bankType || 'Unknown card type'}
+                      </p>
+                    </div>
+                    <div className="flex flex-col justify-center items-end ml-auto">
+                      <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
+                        {deposit.currency === 'USD' ? '$' : deposit.currency}
+                        {deposit.amount}
+                      </p>
+                      <div className="flex justify-center items-center">
+                        <p className="font-secondary text-xs text-[#95989B] mr-1">
+                          Pending •{' '}
+                          {new Date(deposit.timestamp).toLocaleDateString(
+                            undefined,
+                            {
+                              day: '2-digit',
+                              month: 'short'
+                            }
+                          )}
+                          {', '}
+                          {new Date(deposit.timestamp).toLocaleTimeString(
+                            undefined,
+                            {
+                              minute: '2-digit',
+                              hour: '2-digit'
+                            }
+                          )}
                         </p>
-                        <p className="font-secondary text-xs text-[#95989B] capitalize">
-                          {deposit.bankType || 'Unknown card type'}
-                        </p>
-                      </div>
-                      <div className="flex flex-col justify-center items-end ml-auto">
-                        <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
-                          {deposit.currency === 'USD' ? '$' : deposit.currency}
-                          {deposit.amount}
-                        </p>
-                        <div className="flex justify-center items-center">
-                          <p className="font-secondary text-xs text-[#95989B] mr-1">
-                            Pending •{' '}
-                            {new Date(deposit.timestamp).toLocaleDateString(
-                              undefined,
-                              {
-                                day: '2-digit',
-                                month: 'short',
-                              },
-                            )}
-                            {', '}
-                            {new Date(deposit.timestamp).toLocaleTimeString(
-                              undefined,
-                              {
-                                minute: '2-digit',
-                                hour: '2-digit',
-                              },
-                            )}
-                          </p>
-                        </div>
                       </div>
                     </div>
-                  ))}
+                  </div>
+                ))}
               </div>
             </>
           ) : null}
           {filteredDeposits.length &&
           filteredDeposits.filter(
-            filteredDeposits => filteredDeposits.deposits.length,
+            filteredDeposit => filteredDeposit.deposits.length
           )?.length ? (
             filteredDeposits
-              .filter(filteredDeposits => filteredDeposits.deposits.length)
+              .filter(filteredDeposit => filteredDeposit.deposits.length)
               .map(filteredDeposit => (
                 <div key={'deposits' + filteredDeposit.month}>
                   <div className="bg-[#FAFAFA] py-1.5">
@@ -307,16 +269,16 @@ const CardsView: NextPage = () => {
                                 undefined,
                                 {
                                   day: '2-digit',
-                                  month: 'short',
-                                },
+                                  month: 'short'
+                                }
                               )}
                               {', '}
                               {new Date(deposit.timestamp).toLocaleTimeString(
                                 undefined,
                                 {
                                   minute: '2-digit',
-                                  hour: '2-digit',
-                                },
+                                  hour: '2-digit'
+                                }
                               )}
                             </p>
                           </div>

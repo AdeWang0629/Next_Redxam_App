@@ -15,29 +15,12 @@ import TsxsTable from './TransactionsTable';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import BankImage from '@public/images/dashboard/deposits/bank.svg';
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
+import { Deposit } from '@utils/types';
 
 const BanksView: NextPage = () => {
   const [mxConnect, setMxConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
-  const [deposits, setDeposits] = useState<
-    | []
-    | [
-        {
-          type: string;
-          amount: number;
-          index: null;
-          currency: string;
-          timestamp: number;
-          processedByRedxam: true | false;
-          status: string;
-          hash: null;
-          address: null;
-          bankIcon: string | null;
-          bankName: string | null;
-          bankType: string | null;
-        },
-      ]
-  >([]);
+  const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
 
   const [accounts, setAccounts] = useState<
     | []
@@ -65,9 +48,9 @@ const BanksView: NextPage = () => {
           .sort(
             (
               firstTimestamp: { timestamp: number },
-              secondTimeStamp: { timestamp: number },
-            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp,
-          ),
+              secondTimeStamp: { timestamp: number }
+            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
+          )
       );
     })();
   }, []);
@@ -80,7 +63,7 @@ const BanksView: NextPage = () => {
       }),
     token: plaidToken,
     countryCodes: ['US', 'CA', 'GB', 'IE', 'FR', 'ES', 'NL'],
-    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development',
+    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development'
   });
 
   return (
@@ -94,12 +77,12 @@ const BanksView: NextPage = () => {
             new window.MXConnect({
               id: 'widget',
               iframeTitle: 'Connect',
-              targetOrigin: '*',
-            }),
+              targetOrigin: '*'
+            })
           );
         }}
       />
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row lg:gap-x-3">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
             <div className="flex items-center justify-between px-8">
@@ -113,7 +96,7 @@ const BanksView: NextPage = () => {
                       className="bg-lighter-black text-white py-2 px-8 rounded-[25px] border font-secondary text-sm font-medium"
                       style={{
                         boxShadow:
-                          '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)',
+                          '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)'
                       }}
                       onClick={() => setShowUnlinkModel(true)}
                     >
@@ -176,12 +159,12 @@ const BanksView: NextPage = () => {
                             selectedToUnlink.includes(account._id)
                               ? // @ts-ignore
                                 setSelectedToUnlink(prev =>
-                                  prev.filter(id => id !== account._id),
+                                  prev.filter(id => id !== account._id)
                                 )
                               : // @ts-ignore
                                 setSelectedToUnlink(prev => [
                                   ...prev,
-                                  account._id,
+                                  account._id
                                 ]);
                           }}
                         />
@@ -209,7 +192,7 @@ const BanksView: NextPage = () => {
                   className="bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                   style={{
                     boxShadow:
-                      '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
+                      '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
                   }}
                   onClick={async () => {
                     let { data: widgetUrl } = await api.getMXWidgetUrl();
@@ -235,7 +218,7 @@ const BanksView: NextPage = () => {
               className="w-2/3 mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 boxShadow:
-                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
+                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
               }}
               onClick={() => setShowDepositModel(true)}
             >

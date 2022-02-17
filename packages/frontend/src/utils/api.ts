@@ -36,7 +36,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string,
+    referralCode?: string
   ) {
     const query = `query {
       emailValidation(arg:{firstName:"${firstName}" lastName: "${lastName}" email: "${email}" referralCode: "${referralCode}"}) {
@@ -90,7 +90,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string,
+    referralCode?: string
   ) {
     let mutation = `mutation {
         createWaitlist(arg: {
@@ -366,7 +366,7 @@ class API {
         account_id: accountId,
         amount
       },
-      { headers: { ...this.getAuthorizationHeader() } },
+      { headers: { ...this.getAuthorizationHeader() } }
     );
   }
 
@@ -374,9 +374,9 @@ class API {
     return this.axios.post(
       `${this.baseURL}/api/v2/stripe/create-checkout-session`,
       {
-        amount,
+        amount
       },
-      { headers: { ...this.getAuthorizationHeader() } },
+      { headers: { ...this.getAuthorizationHeader() } }
     );
   }
 
@@ -386,7 +386,7 @@ class API {
       {
         IDs
       },
-      { headers: { ...this.getAuthorizationHeader() } },
+      { headers: { ...this.getAuthorizationHeader() } }
     );
   }
 
@@ -424,7 +424,27 @@ class API {
       { query: mutation },
       {
         headers: { Authorization: `Bearer ${adminToken}` }
-      },
+      }
+    );
+  }
+
+  updateUserStatusScript(
+    adminToken: String,
+    email: String,
+    status: 'invited' | 'accepted'
+  ) {
+    const query = `mutation {
+      updateUserStatus (arg: {email: "${email}", status: "${status}"}) {
+        message
+        success
+      }
+    }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
     );
   }
 

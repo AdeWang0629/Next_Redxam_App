@@ -124,6 +124,11 @@ input ContactForm {
   question: String!
 }
 
+input UpdateStatus {
+  email: String!
+  status: String!
+}
+
 type Response {
   success: Boolean!
   message: String!
@@ -242,6 +247,6 @@ type Mutation {
   changeRequest(arg: String): Response
   changeAccountStatus(arg: String): Response
   addDiscord(arg: String): Response
-  updateUserStatus(arg: String): Response
   updateWallets: Response
+  updateUserStatus(arg: UpdateStatus): Response
 }

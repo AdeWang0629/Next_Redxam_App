@@ -11,6 +11,7 @@ import btcLogo from '@public/icons/bitcoin.svg';
 import arrowDrop from '@public/images/dashboard/deposits/arrow-drop.svg';
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import copyIcon from '@public/images/dashboard/deposits/copy.svg';
+import { Deposit } from '@utils/types';
 
 const BitcoinView: NextPage = () => {
   const { user } = useContext(UserContext);
@@ -22,31 +23,13 @@ const BitcoinView: NextPage = () => {
   const [network, setNetwork] = useState('');
   const [qrCode, setQrCode] = useState('');
   const [qrCodeModal, setQrCodeModal] = useState(false);
-  const [deposits, setDeposits] = useState<
-    | []
-    | [
-        {
-          type: string;
-          amount: number;
-          index: null;
-          currency: string;
-          timestamp: number;
-          processedByRedxam: true | false;
-          status: string;
-          hash: null;
-          address: null;
-          bankIcon: string | null;
-          bankName: string | null;
-          bankType: string | null;
-        },
-      ]
-  >([]);
+  const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
 
   useEffect(() => {
     async function generateQrCode() {
       try {
         const addressQrCode = await QRCode.toDataURL(
-          user?.wallet?.address || '',
+          user?.wallet?.address || ''
         );
         setQrCode(addressQrCode);
       } catch (error) {
@@ -65,9 +48,9 @@ const BitcoinView: NextPage = () => {
           .sort(
             (
               firstTimestamp: { timestamp: number },
-              secondTimeStamp: { timestamp: number },
-            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp,
-          ),
+              secondTimeStamp: { timestamp: number }
+            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
+          )
       );
     })();
   }, []);
@@ -85,7 +68,7 @@ const BitcoinView: NextPage = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row lg:gap-x-3">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
             <div className="flex items-center justify-between px-8">
@@ -262,7 +245,7 @@ const BitcoinView: NextPage = () => {
                     <button
                       onClick={() =>
                         navigator.clipboard.writeText(
-                          user?.wallet?.address || '',
+                          user?.wallet?.address || ''
                         )
                       }
                     >

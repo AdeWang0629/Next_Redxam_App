@@ -25,7 +25,7 @@ rules:
     - 1tbs
     - allowSingleLine: true
   '@typescript-eslint/comma-dangle':
-    - 2
+    - 0
     - always-multiline
   '@typescript-eslint/explicit-module-boundary-types': 0
   '@typescript-eslint/indent':
@@ -49,6 +49,7 @@ rules:
         - setters
         - constructors
   '@typescript-eslint/no-explicit-any': 0
+  '@typescript-eslint/no-extra-parens': 2
   '@typescript-eslint/no-extra-semi': 2
   '@typescript-eslint/no-non-null-assertion': 0
   '@typescript-eslint/no-shadow': 1
