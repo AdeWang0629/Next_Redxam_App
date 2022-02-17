@@ -15,6 +15,7 @@ const httpLogger = require('./httpLogger');
 // Routes
 import sumsub from './routes/sumsub';
 import plaid from './routes/plaid';
+import stripe from './routes/stripe';
 import discord from './routes/discord';
 
 // Webhooks
@@ -83,6 +84,7 @@ const serviceHandler = app => {
       setupGraphql(app);
       app.use('/api/v2', sumsub);
       app.use('/api/v2/plaid', plaid);
+      app.use('/api/v2/stripe', stripe);
       app.use('/api/v2/discord', discord);
       app.use('/', (req, res) => {
         res.send('V 1.1.0');

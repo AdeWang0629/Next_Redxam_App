@@ -14,6 +14,7 @@ import ContactFormModel from "@components/models/ContactFormModel";
 interface InterfaceTQuestions {
   title: string;
   body: string;
+  keywords: string;
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -50,28 +51,32 @@ const Support: NextPage = () => {
     {
       title: t("first-question-title"),
       body: t("first-question-body"),
+      keywords: t("first-question-keyword"),
     },
     {
       title: t("second-question-title"),
       body: t("second-question-body"),
+      keywords: t("second-question-keyword"),
     },
     {
       title: t("third-question-title"),
       body: t("third-question-body"),
+      keywords: t("third-question-keyword"),
     },
     {
       title: t("fourth-question-title"),
       body: t("fourth-question-body"),
+      keywords: t("fourth-question-keyword"),
     },
     {
       title: t("fifth-question-title"),
       body: t("fifth-question-body"),
+      keywords: t("fifth-question-keyword"),
     },
   ];
 
-  const [filteredQuestionsList, applyFilterInQuestionList] = useState(
-    questions
-  );
+  const [filteredQuestionsList, applyFilterInQuestionList] =
+    useState(questions);
   const [inputSearch, updateInputSearch] = useState("");
 
   const isInputSearchEmpty = !inputSearch || inputSearch?.length === 0;
@@ -88,10 +93,13 @@ const Support: NextPage = () => {
 
     const suggestedFAQ = [
       ...(questions?.filter((question) => {
-        const suggestionName = question?.title?.toLowerCase();
+        const faqContents =
+          question?.title?.toLowerCase() +
+          question?.body?.toLowerCase() +
+          question?.keywords?.toLowerCase();
         const searchName = event.target.value?.toLowerCase()?.trim();
 
-        return suggestionName.includes(searchName);
+        return faqContents.includes(searchName);
       }) || []),
     ];
 

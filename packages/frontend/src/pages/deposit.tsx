@@ -9,7 +9,8 @@ import IconButton from '@components/dashboard/IconButton';
 import Switcher from '@components/dashboard/deposits/Switcher';
 import KYC from '@components/dashboard/deposits/KYC';
 import Banks from '@components/dashboard/deposits/Banks';
-import Bitcoin from '@components/dashboard/deposits/Bitcoin';
+import Cards from '@components/dashboard/deposits/Cards';
+import Crypto from '@components/dashboard/deposits/Crypto';
 
 import BackIcon from '@public/icons/back.svg';
 
@@ -17,7 +18,7 @@ const Deposit: NextPage = () => {
   const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
 
-  const [activeSection, setActiveSection] = useState('bank');
+  const [activeSection, setActiveSection] = useState('card');
   const [isApplicant, setIsApplicant] = useState(false);
   const [isValidApplicant, setIsValidApplicant] = useState(false);
   const [isInit, setIsInit] = useState(false);
@@ -59,10 +60,10 @@ const Deposit: NextPage = () => {
   let depositContent = null;
 
   switch (activeSection) {
-    case 'bitcoin':
+    case 'crypto':
       depositContent = (
         <div>
-          <Bitcoin />
+          <Crypto />
         </div>
       );
       break;
@@ -70,7 +71,7 @@ const Deposit: NextPage = () => {
     case 'card':
       depositContent = (
         <div>
-          {isValidApplicant && ''}
+          {isValidApplicant && <Cards />}
           {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
         </div>
       );
@@ -88,12 +89,12 @@ const Deposit: NextPage = () => {
 
   return (
     <InternalLayout>
-      <div className='max-w-[900px] my-0 mx-auto px-3 lg:px-0'>
-        <div className='flex flex-col lg:flex-row justify-between items-center mb-10'>
+      <div className="max-w-[900px] my-0 mx-auto px-3 lg:px-0">
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-10">
           <IconButton
             buttonText={'Deposits'}
             buttonIcon={BackIcon}
-            buttonHref='/home'
+            buttonHref="/home"
           />
           <Switcher
             activeSection={activeSection}

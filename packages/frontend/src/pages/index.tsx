@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Script from 'next/script';
 import Particles from 'react-tsparticles';
 import Navbar from '@components/global/Navbar';
+import EventBanner from '@components/landing/EventBanner';
 import Hero from '@components/landing/Hero';
 import WhyUs from '@components/landing/WhyUs';
 import Starting from '@components/landing/Starting';
@@ -13,7 +14,6 @@ import FAQ from '@components/landing/FAQ';
 import Newsletter from '@components/landing/Newsletter';
 import Footer from '@components/global/Footer';
 import { GetStaticProps } from 'next';
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -36,9 +36,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         'plan',
         'faq',
         'newsletter',
-        'footer',
-      ])),
-    },
+        'footer'
+      ]))
+    }
   };
 };
 
@@ -50,26 +50,26 @@ const Home: NextPage = () => {
         params={{
           particles: {
             number: {
-              value: 10,
+              value: 10
             },
             color: {
-              value: ['#219653', '#CA7795', '#A0DDFF', '#ACE96B'],
+              value: ['#219653', '#CA7795', '#A0DDFF', '#ACE96B']
             },
             opacity: {
-              value: 0.8,
+              value: 0.8
             },
             size: {
               value: 10,
-              random: false,
+              random: false
             },
             line_linked: {
-              enable: false,
+              enable: false
             },
             move: {
               enable: true,
-              speed: 1,
-            },
-          },
+              speed: 1
+            }
+          }
         }}
         style={{
           zIndex: -100,
@@ -77,9 +77,10 @@ const Home: NextPage = () => {
           top: 0,
           left: 0,
           height: '100%',
-          width: '100%',
+          width: '100%'
         }}
       />
+      <EventBanner />
       <Hero />
       <WhyUs />
       <Starting />

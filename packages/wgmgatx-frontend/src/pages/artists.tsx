@@ -4,6 +4,8 @@ import { google } from 'googleapis';
 import Navbar from '@components/general/Navbar';
 import wgmgArtistsImg from '@public/images/artists/artists-wgmg.jpeg';
 
+let data = {};
+
 export async function getStaticProps() {
   const auth = await google.auth.getClient({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
@@ -23,7 +25,6 @@ export async function getStaticProps() {
     social: String;
     image: String;
   }[] = [];
-
   response?.data?.values?.map((artist) => {
     if (artist[0] !== null) {
       artists[artist[0]] = {

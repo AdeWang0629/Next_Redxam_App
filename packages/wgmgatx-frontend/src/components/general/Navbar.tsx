@@ -1,20 +1,32 @@
-import { MenuIcon, XIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 import Link from 'next/link';
-import Logo from './Logo';
+import Image from 'next/image';
 import Head from 'next/head';
+import {
+  BiHomeAlt,
+  BiMapAlt,
+  BiLandscape,
+  BiPhotoAlbum,
+  BiGroup,
+  BiMessageRoundedDetail,
+} from 'react-icons/bi';
+// Home = BiHomeAlt
+// About = BiMapAlt
+// Gallery = BiLandscape or BiPhotoAlbum
+// Artists = BiGroup
+// Contact = BiMessageRoundedDetail
+
+// Imgs
+import wgmgLogo from '@public/logo-wgmg.png';
 
 const Navbar = ({ title }: { title?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const routes = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Gallery', path: '/gallery' },
-    { name: 'Artists', path: '/artists' },
-    { name: 'Contact', path: '/contact' },
-    // { name: "Press", path: "/press" },
-    // { name: "Upcoming Events", path: "/upcoming-events" },
-    // { name: "Submissions", path: "/submissions" },
+    { name: 'Home', path: '/', icon: BiHomeAlt },
+    { name: 'About', path: '/about', icon: BiMapAlt },
+    { name: 'Gallery', path: '/gallery', icon: BiPhotoAlbum },
+    { name: 'Artists', path: '/artists', icon: BiGroup },
+    { name: 'Contact', path: '/contact', icon: BiMessageRoundedDetail },
   ];
 
   return (
@@ -22,39 +34,21 @@ const Navbar = ({ title }: { title?: string }) => {
       <Head>
         <title>WGMGATX{title ? ` | ${title}` : ''}</title>
       </Head>
-      <div className="relative flex items-center justify-center">
-        <Logo />
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="absolute z-[9999] bg-grayscale-300 p-3 right-[10%] -translate-y-full rounded-full md:hidden"
-        >
-          {isOpen ? (
-            <XIcon className="w-6 h-6" />
-          ) : (
-            <MenuIcon className="w-6 h-6" />
-          )}
-        </button>
-        <nav
-          className={`absolute z-[9990] bg-[#000] md:flex top-1/2 md:top-3/4 p-5 justify-center ${
-            isOpen ? 'flex' : 'hidden'
-          } items-center border-y-2 border-y-[#24221D] w-full`}
-        >
-          <ul className="flex flex-col items-center justify-center gap-14 md:gap-16 md:flex-row">
-            {routes.map(({ path, name }, index) => (
-              <li
-                key={index}
-                className={
-                  name.toLowerCase() === title?.toLowerCase()
-                    ? 'text-grayscale-500'
-                    : 'text-grayscale-400'
-                }
-              >
-                <Link href={path}>
-                  <a className="font-medium transition-colors hover:text-grayscale-500">
-                    {name}
-                  </a>
-                </Link>
-                {name.toLowerCase() === title?.toLowerCase() && <hr />}
+      <div className="bg-[#181818] w-[12%] justify-center hidden md:flex">
+        <nav className="flex flex-col items-center fixed">
+          <div className="mb-8 rounded-full mt-[6vh]">
+            <Image
+              src={wgmgLogo}
+              alt="WGMG Logo"
+              width="92%"
+              height="92%"
+              className="rounded-full"
+            />
+          </div>
+          <ul>
+            {routes.map((route) => (
+              <li key={route.name} className="mb-8 text-center">
+                <route.icon size={'30px'} />
               </li>
             ))}
           </ul>
