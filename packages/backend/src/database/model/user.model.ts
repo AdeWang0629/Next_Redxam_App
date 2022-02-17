@@ -1,7 +1,7 @@
 import { Document, model, Model } from 'mongoose';
 import { findOneOrCreate } from '../functions/findOneOrCreate';
 import { UserSchema } from '../schema/user.schema';
-import { TokenWallet, BalanceRecords, bankAccount } from '../types';
+import { TokenWallet, SimpleWallet, BalanceRecords, bankAccount } from '../types';
 
 export interface User {
   firstName: string;
@@ -9,6 +9,7 @@ export interface User {
   email: string;
   phone?: string;
   wallets: TokenWallet;
+  wallet?: SimpleWallet;
   contribution?: number;
   level: number;
   verification?: boolean;
