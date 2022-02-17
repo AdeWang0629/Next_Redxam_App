@@ -108,7 +108,9 @@ const TransactionsTable = ({
                     />
                     <div className="flex flex-col justify-center ml-4">
                       <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                        {pendingDeposit.bankName}
+                        {pendingDeposit.type === 'CRYPTO'
+                          ? 'Bitcoin'
+                          : pendingDeposit.bankName}
                       </p>
                       <p className="font-secondary text-xs text-[#95989B]">
                         Processing
