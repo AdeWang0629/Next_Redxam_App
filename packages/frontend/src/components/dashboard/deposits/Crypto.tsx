@@ -13,7 +13,7 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import copyIcon from '@public/images/dashboard/deposits/copy.svg';
 import { Deposit } from '@utils/types';
 
-const BitcoinView: NextPage = () => {
+const Crypto: NextPage = () => {
   const { user } = useContext(UserContext);
 
   const [tokenModal, setTokenModal] = useState(false);
@@ -309,4 +309,4 @@ const BitcoinView: NextPage = () => {
   );
 };
 
-export default BitcoinView;
+export default Crypto;

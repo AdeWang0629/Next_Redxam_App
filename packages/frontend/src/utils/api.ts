@@ -167,6 +167,7 @@ class API {
   getUserData() {
     const query = `query {
         user {
+          _id
           firstName
           email
           phone
@@ -466,14 +467,15 @@ class API {
     );
   }
 
-  connectTeller(tellerAccessToken: string) {
+  tellerAccounts(tellerAccessToken: string) {
     const query = `
     query {
       tellerAccounts {
         balance
         accountId
-        messages
-        succes
+        message
+        success
+        bankName
       }
     }
   `;
@@ -482,6 +484,92 @@ class API {
       { query },
       {
         headers: { Authorization: tellerAccessToken }
+      }
+    );
+  }
+
+  tellerPayee(accountId: string, tellerAccessToken: string) {
+    const query = `
+    query {
+      tellerPayee(accountId: "${accountId}") {
+        message
+        success
+        payeeId
+        connect_token
+    }
+
+    }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: tellerAccessToken }
+      }
+    );
+  }
+
+  tellerPayment(
+    accountId: string,
+    amount: number,
+    payee_id: string,
+    tellerAccessToken: string,
+    bankName: string,
+    userId: string,
+    memo?: string
+  ) {
+    console.log(payee_id);
+    const query = `
+    query {
+      tellerPayment (arg: {
+        accountId: "${accountId}", 
+        amount: "${amount}", 
+        payee_id: "${payee_id}", 
+        bankName: "${bankName}", 
+        userId: "${userId}",
+        memo: "${memo}" }
+      ) {
+        message
+        success
+        paymentId
+        connect_token
+      }
+    }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: tellerAccessToken }
+      }
+    );
+  }
+
+  tellerPaymentVerified(
+    paymentId: string,
+    amount: number,
+    bankName: string,
+    userId: string
+  ) {
+    const query = `
+    query {
+      tellerPaymentVerified (arg: {
+        paymentId: "${paymentId}", 
+        amount: "${amount}", 
+        bankName: "${bankName}", 
+        userId: "${userId}" 
+      }
+      ) {
+        message
+        success
+      }
+    }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() }
       }
     );
   }

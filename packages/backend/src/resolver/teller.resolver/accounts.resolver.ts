@@ -5,10 +5,9 @@ const baseUrl = 'https://api.teller.io';
 
 export const tellerAccounts = async (_: void, req: Request) => {
   console.debug('[Resolve] teller accounts called');
-
   try {
     const accessToken = req.headers.authorization;
-    console.log(accessToken);
+
     if (!accessToken)
       return {
         success: false,
@@ -32,6 +31,8 @@ export const tellerAccounts = async (_: void, req: Request) => {
       };
 
     const accountId = checkingAccount.id;
+    const bankName = checkingAccount.institution.name;
+
     const balanceRes = await axios.get(
       `${baseUrl}/accounts/${accountId}/balances`,
       {
@@ -45,7 +46,8 @@ export const tellerAccounts = async (_: void, req: Request) => {
     return {
       success: true,
       accountId,
-      balance
+      balance,
+      bankName
     };
   } catch (err) {
     return { message: err.response.data.error.message };

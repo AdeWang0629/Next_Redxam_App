@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { NextPage } from 'next';
 import * as Sentry from '@sentry/nextjs';
 import Script from 'next/script';
@@ -11,13 +11,33 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import UnlinkModel from '@components/models/UnlinkModel';
 import DepositModel from '@components/models/DepositModel';
 import TsxsTable from './TransactionsTable';
+import { UserContext } from '@providers/User';
+import { getCookie } from 'cookies-next';
 
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import BankImage from '@public/images/dashboard/deposits/bank.svg';
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 
+interface Teller {
+  accessToken: string;
+  invalidAccessToken: boolean;
+  accountId: string;
+  balance: number;
+  payeeId: string;
+  memo: string;
+  paymentModel: boolean;
+  depositValue: number;
+  userId: string;
+  bankName: string;
+}
+
 const BanksView: NextPage = () => {
+  const { user, loading, noUser } = useContext(UserContext);
+  let userId = '';
+  if (user) {
+    userId = user._id;
+  }
   const [paymentApi, setPaymentApi] = useState('TELLER');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
@@ -34,9 +54,23 @@ const BanksView: NextPage = () => {
   const [showDepositModel, setShowDepositModel] = useState(false);
   const [openMx, setOpenMx] = useState(false);
   const [mxWidgetError, setMxWidgetError] = useState(false);
-  const [tellerAccessToken, setTellerAccessToken] = useState('');
-  const [tellerInvalidAccessToken, setTellerInvalidAccessToken] =
-    useState(false);
+  const [teller, setTeller] = useState<Teller>({
+    accessToken: '',
+    invalidAccessToken: false,
+    accountId: '',
+    balance: 0,
+    payeeId: '',
+    memo: '',
+    paymentModel: false,
+    depositValue: 0,
+    userId: '',
+    bankName: ''
+  });
+
+  let currentEnvironment =
+    typeof window !== 'undefined'
+      ? (getCookie('environment') as string) || 'production'
+      : 'production';
 
   useEffect(() => {
     (async () => {
@@ -96,6 +130,110 @@ const BanksView: NextPage = () => {
     }
   };
 
+  const handleTellerAccount = async (accessToken: string): Promise<string> => {
+    const {
+      data: {
+        data: { tellerAccounts }
+      }
+    } = await api.tellerAccounts(accessToken);
+
+    if (tellerAccounts.message === 'invalid access token provided') {
+      setTeller(state => ({
+        ...state,
+        invalidAccessToken: true
+      }));
+    }
+
+    if (tellerAccounts.success) {
+      setTeller(state => ({
+        ...state,
+        accountId: tellerAccounts.accountId,
+        balance: tellerAccounts.balance,
+        bankName: tellerAccounts.bankName,
+        userId
+      }));
+    }
+    return tellerAccounts.accountId;
+  };
+
+  const handleTellerPayee = async (accountId: string, accessToken: string) => {
+    const {
+      data: {
+        data: { tellerPayee }
+      }
+    } = await api.tellerPayee(accountId, accessToken);
+
+    if (tellerPayee.connect_token) {
+      //@ts-ignore
+      const setup = window.TellerConnect.setup({
+        environment:
+          currentEnvironment === 'production' ? 'production' : 'sandbox',
+        connectToken: tellerPayee.connect_token,
+        applicationId: 'app_nu123i0nvg249720i8000',
+        onSuccess: function ({ payee: { id } }: { payee: { id: string } }) {
+          setTeller(state => ({
+            ...state,
+            paymentModel: true,
+            payeeId: id
+          }));
+        }
+      });
+      setup.open();
+    } else {
+      setTeller(state => ({
+        ...state,
+        paymentModel: true,
+        payeeId: tellerPayee.payeeId
+      }));
+    }
+  };
+
+  const handleBankDeposit = async () => {
+    const {
+      accountId,
+      depositValue,
+      payeeId,
+      accessToken,
+      memo,
+      bankName,
+      userId
+    } = teller;
+    const {
+      data: {
+        data: { tellerPayment }
+      }
+    } = await api.tellerPayment(
+      accountId,
+      depositValue,
+      payeeId,
+      accessToken,
+      bankName,
+      userId,
+      memo
+    );
+
+    if (tellerPayment.connect_token) {
+      //@ts-ignore
+      const setup = window.TellerConnect.setup({
+        environment:
+          currentEnvironment === 'production' ? 'production' : 'sandbox',
+        connectToken: tellerPayment.connect_token,
+        applicationId: 'app_nu123i0nvg249720i8000',
+        onSuccess: async function ({ payment: { id } }: any) {
+          setTeller(state => ({ ...state, paymentModel: false }));
+          const { depositValue, bankName, userId } = teller;
+          const res = await api.tellerPaymentVerified(
+            id,
+            depositValue,
+            bankName,
+            userId
+          );
+        }
+      });
+      setup.open();
+    }
+  };
+
   return (
     <>
       {paymentApi === 'MX' ? (
@@ -121,30 +259,20 @@ const BanksView: NextPage = () => {
             setTellerConnect(
               // @ts-ignore
               window.TellerConnect.setup({
-                environment: 'sandbox',
+                environment:
+                  currentEnvironment === 'production'
+                    ? 'production'
+                    : 'sandbox',
                 applicationId: 'app_nu123i0nvg249720i8000',
-                onInit: function () {
-                  console.log('Teller Connect has initialized');
-                },
-                // Part 3. Handle a successful enrollment's accessToken
-                onSuccess: function (enrollment: any) {
-                  console.log(
-                    'User enrolled successfully',
-                    enrollment.accessToken
-                  );
-                  setTellerAccessToken(enrollment.accessToken);
-                  (async () => {
-                    const res = await api.connectTeller(tellerAccessToken);
-                    console.log(res?.data.data.tellerAccounts.message);
-                    if (
-                      res?.data.data.tellerAccounts.message ===
-                      'invalid access token provided'
-                    )
-                      setTellerInvalidAccessToken(true);
-                  })();
-                },
-                onExit: function () {
-                  console.log('User closed Teller Connect');
+
+                onSuccess: async function ({ accessToken }: any) {
+                  setTeller(state => ({
+                    ...state,
+                    accessToken: accessToken
+                  }));
+
+                  const accountId = await handleTellerAccount(accessToken);
+                  await handleTellerPayee(accountId, accessToken);
                 }
               })
             );
@@ -154,7 +282,7 @@ const BanksView: NextPage = () => {
         paymentApi === 'PLAID' && ''
       )}
 
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row lg:gap-x-3">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
             <div className="flex items-center justify-between px-8">
@@ -275,18 +403,99 @@ const BanksView: NextPage = () => {
               </div>
             )}
             {/* TellerAccessToken Errr */}
-            {tellerAccessToken && (
+            {teller.invalidAccessToken && (
               <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
                 <Card
                   width="w-[622px]"
-                  height="h-[170px]"
+                  height="h-[150px]"
                   py="py-7"
                   otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
                 >
-                  <div className="w-full flex justify-between items-center px-7 pb-7 border-b border-[#E7EAEB]">
+                  <div className="w-full flex flex-col justify-between items-center px-7">
+                    <button
+                      className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px] mb-4"
+                      onClick={() =>
+                        setTeller(state => ({
+                          ...state,
+                          invalidAccessToken: false
+                        }))
+                      }
+                    >
+                      <Image
+                        src={closeIcon || ''}
+                        alt="Close Icon"
+                        width="14px"
+                        height="14px"
+                      />
+                    </button>
                     <p className="text-lg font-secondary">
                       Invalid Access Token
                     </p>
+                  </div>
+                </Card>
+              </div>
+            )}
+
+            {/* Teller Payment Model */}
+            {teller.paymentModel && (
+              <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
+                <Card
+                  width="w-[622px]"
+                  height="h-[320px]"
+                  py="py-4"
+                  otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
+                >
+                  <div className="p-8 flex flex-col items-center w-full">
+                    <div className="mb-4 input-wrapper">
+                      <input
+                        type="text"
+                        className="font-secondary"
+                        onChange={e =>
+                          setTeller(state => ({
+                            ...state,
+                            memo: e.target.value
+                          }))
+                        }
+                        value={teller.memo}
+                        id="tellerMemo"
+                      />
+                      <label className="font-primary" htmlFor="firstName">
+                        Enter a description
+                      </label>
+                    </div>
+                    <div className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
+                      <span className="text-card-button">$</span>
+                      <input
+                        className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
+                        value={`${teller.depositValue}`}
+                        style={{
+                          width: teller.depositValue.toString().length + 'ch'
+                        }}
+                        autoFocus
+                        onChange={({ target }) => {
+                          const value = target.value.replace(/[^0-9]/g, '');
+                          setTeller(state => ({
+                            ...state,
+                            depositValue: parseFloat(value)
+                          }));
+                        }}
+                      />
+                      <span>.00</span>
+                    </div>
+                    <span className="font-secondary text-sm text-[#95989B]">
+                      Enter amount you want to deposit
+                    </span>
+                    <button
+                      className="w-full mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
+                      style={{
+                        boxShadow:
+                          '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
+                      }}
+                      disabled={teller.depositValue < 10}
+                      onClick={() => handleBankDeposit()}
+                    >
+                      Deposit to Wallet
+                    </button>
                   </div>
                 </Card>
               </div>

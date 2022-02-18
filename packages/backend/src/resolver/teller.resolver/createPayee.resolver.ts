@@ -25,7 +25,7 @@ export const tellerPayee = async (
           type: 'email',
           value: 'max@redxam.com'
         },
-        name: 'payee-otp_error',
+        name: 'jhoseph-otp',
         type: 'person'
       },
       {
@@ -35,11 +35,14 @@ export const tellerPayee = async (
         }
       }
     );
-    console.log(payeeRes.data);
+
     const payeeId = payeeRes.data.id;
+    const connect_token = payeeRes.data.connect_token;
+
     return {
       success: true,
-      payeeId
+      payeeId,
+      connect_token
     };
   } catch (err) {
     return { message: err.response.data.error.message };
