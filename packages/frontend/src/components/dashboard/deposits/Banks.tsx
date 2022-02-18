@@ -131,7 +131,9 @@ const BanksView: NextPage = () => {
                     enrollment.accessToken
                   );
                   setTellerAccessToken(enrollment.accessToken);
-                  api.connectTeller(tellerAccessToken);
+                  (async () => {
+                    const res = await api.connectTeller(tellerAccessToken);
+                  })();
                 },
                 onExit: function () {
                   console.log('User closed Teller Connect');
