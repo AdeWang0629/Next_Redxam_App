@@ -270,7 +270,7 @@ type Query {
   updateReferral: UpdateReferral
   emailValidation(arg: NewUser): Response
   contactForm(arg: ContactForm): Response
-  tellerAccounts: TellerAccounts
+  tellerAccounts(userId: String): TellerAccounts
   tellerPayee(accountId: String): TellerPayee
   tellerPayment(arg: TellerPaymentInput): TellerPayment
   tellerPaymentVerified(arg: TellerPaymentVerifiedInput): Response

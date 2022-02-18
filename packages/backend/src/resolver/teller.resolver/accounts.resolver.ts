@@ -1,9 +1,13 @@
 import { Request } from 'express';
+import { User } from '@/database';
 import axios from 'axios';
 
 const baseUrl = 'https://api.teller.io';
 
-export const tellerAccounts = async (_: void, req: Request) => {
+export const tellerAccounts = async (
+  { userId }: { userId: string },
+  req: Request
+) => {
   console.debug('[Resolve] teller accounts called');
   try {
     const accessToken = req.headers.authorization;
@@ -20,6 +24,27 @@ export const tellerAccounts = async (_: void, req: Request) => {
         password: ''
       }
     });
+
+    const accounts = accountsRes.data.map(acc => ({
+      id: acc.id,
+      name: acc.institution.name,
+      type: acc.subtype
+    }));
+
+    const user = await User.findOne({ _id: userId });
+
+    await user.updateOne({
+      $set: {
+        bankAccounts: [
+          ...user.bankAccounts,
+          {
+            accessToken,
+            accounts
+          }
+        ]
+      }
+    });
+
     const checkingAccount = accountsRes.data.find(
       acc => acc.subtype === 'checking'
     );

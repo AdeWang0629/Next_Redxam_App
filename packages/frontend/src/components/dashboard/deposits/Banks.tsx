@@ -18,6 +18,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import BankImage from '@public/images/dashboard/deposits/bank.svg';
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
+import bankIcon from '@public/icons/bank.svg';
 
 interface Teller {
   accessToken: string;
@@ -135,7 +136,7 @@ const BanksView: NextPage = () => {
       data: {
         data: { tellerAccounts }
       }
-    } = await api.tellerAccounts(accessToken);
+    } = await api.tellerAccounts(accessToken, userId);
 
     if (tellerAccounts.message === 'invalid access token provided') {
       setTeller(state => ({
@@ -231,7 +232,7 @@ const BanksView: NextPage = () => {
         }
       });
       setup.open();
-    }
+    } else setTeller(state => ({ ...state, paymentModel: false }));
   };
 
   return (
@@ -333,7 +334,11 @@ const BanksView: NextPage = () => {
                   >
                     <div className="flex-1 flex items-center">
                       <Image
-                        src={`data:image/png;base64,${account.logo}`}
+                        src={
+                          account.logo
+                            ? `data:image/png;base64,${account.logo}`
+                            : bankIcon
+                        }
                         width="40"
                         height="40"
                         alt="account logo"

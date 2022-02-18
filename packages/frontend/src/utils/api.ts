@@ -467,10 +467,10 @@ class API {
     );
   }
 
-  tellerAccounts(tellerAccessToken: string) {
+  tellerAccounts(tellerAccessToken: string, userId: string) {
     const query = `
-    query {
-      tellerAccounts {
+    query  {
+      tellerAccounts(userId: "${userId}") {
         balance
         accountId
         message
