@@ -18,7 +18,7 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 
 const BanksView: NextPage = () => {
-  const [paymentApi, setPaymentApi] = useState('TELLER')
+  const [paymentApi, setPaymentApi] = useState('TELLER');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
@@ -34,6 +34,7 @@ const BanksView: NextPage = () => {
   const [showDepositModel, setShowDepositModel] = useState(false);
   const [openMx, setOpenMx] = useState(false);
   const [mxWidgetError, setMxWidgetError] = useState(false);
+  const [tellerAccessToken, setTellerAccessToken] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -85,53 +86,64 @@ const BanksView: NextPage = () => {
 
       case 'TELLER':
         // @ts-ignore
-        tellerConnect.open()
-      break;
-
-      case 'PLAID' :
+        tellerConnect.open();
         break;
-      }
-  }
+
+      case 'PLAID':
+        break;
+    }
+  };
 
   return (
     <>
-      {paymentApi === 'MX' ? (<Script
-        id="widget"
-        src="https://atrium.mx.com/connect.js"
-        onLoad={() => {
-          setMxConnect(
-            // @ts-ignore
-            new window.MXConnect({
-              id: 'widget',
-              iframeTitle: 'Connect',
-              targetOrigin: '*'
-            })
-          );
-        }}
-      />) : paymentApi === 'TELLER' ? (<Script
-        id="teller"
-        src="https://cdn.teller.io/connect/connect.js"
-        onLoad={() => {
-          setTellerConnect(
-          // @ts-ignore
-          window.TellerConnect.setup({
-            environment: "sandbox",
-            applicationId: "app_nu123i0nvg249720i8000",
-            onInit: function() {
-              console.log("Teller Connect has initialized");
-            },
-            // Part 3. Handle a successful enrollment's accessToken
-            onSuccess: function(enrollment:any) {
-              console.log("User enrolled successfully", enrollment.accessToken);
-            },
-            onExit: function() {
-              console.log("User closed Teller Connect");
-            }
-          })
-          );
-        }}
-      />) : paymentApi === 'PLAID' && ''}
-      
+      {paymentApi === 'MX' ? (
+        <Script
+          id="widget"
+          src="https://atrium.mx.com/connect.js"
+          onLoad={() => {
+            setMxConnect(
+              // @ts-ignore
+              new window.MXConnect({
+                id: 'widget',
+                iframeTitle: 'Connect',
+                targetOrigin: '*'
+              })
+            );
+          }}
+        />
+      ) : paymentApi === 'TELLER' ? (
+        <Script
+          id="teller"
+          src="https://cdn.teller.io/connect/connect.js"
+          onLoad={() => {
+            setTellerConnect(
+              // @ts-ignore
+              window.TellerConnect.setup({
+                environment: 'sandbox',
+                applicationId: 'app_nu123i0nvg249720i8000',
+                onInit: function () {
+                  console.log('Teller Connect has initialized');
+                },
+                // Part 3. Handle a successful enrollment's accessToken
+                onSuccess: function (enrollment: any) {
+                  console.log(
+                    'User enrolled successfully',
+                    enrollment.accessToken
+                  );
+                  setTellerAccessToken(enrollment.accessToken);
+                  api.connectTeller(tellerAccessToken);
+                },
+                onExit: function () {
+                  console.log('User closed Teller Connect');
+                }
+              })
+            );
+          }}
+        />
+      ) : (
+        paymentApi === 'PLAID' && ''
+      )}
+
       <div className="flex flex-col lg:flex-row">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
@@ -238,7 +250,7 @@ const BanksView: NextPage = () => {
                   Your KYC is complete, now you can add multiple bank accounts
                   to your redxam.
                 </p>
-            
+
                 <button
                   className="bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                   style={{
