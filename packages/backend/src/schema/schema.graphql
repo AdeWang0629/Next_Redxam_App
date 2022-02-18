@@ -219,6 +219,13 @@ type TellerAccounts {
   balance: Float
 }
 
+type TellerPayee {
+  message: String
+  success: Boolean
+  payeeId: String
+  connect_token: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -240,6 +247,7 @@ type Query {
   emailValidation(arg: NewUser): Response
   contactForm(arg: ContactForm): Response
   tellerAccounts: TellerAccounts
+  tellerPayee(accountId: String): TellerPayee
 }
 
 type Mutation {

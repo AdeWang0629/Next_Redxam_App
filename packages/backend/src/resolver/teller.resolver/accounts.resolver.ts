@@ -14,9 +14,40 @@ export const tellerAccounts = async (_: void, req: Request) => {
         success: false,
         message: 'invalid access token provided'
       };
+
     const accountsRes = await axios.get(`${baseUrl}/accounts`, {
-      headers: { Authorization: accessToken }
+      auth: {
+        username: accessToken,
+        password: ''
+      }
     });
-    console.log(accountsRes);
-  } catch (err) {}
+    const checkingAccount = accountsRes.data.find(
+      acc => acc.subtype === 'checking'
+    );
+
+    if (!checkingAccount)
+      return {
+        success: false,
+        message: 'no checking account'
+      };
+
+    const accountId = checkingAccount.id;
+    const balanceRes = await axios.get(
+      `${baseUrl}/accounts/${accountId}/balances`,
+      {
+        auth: {
+          username: accessToken,
+          password: ''
+        }
+      }
+    );
+    const balance = balanceRes.data.available;
+    return {
+      success: true,
+      accountId,
+      balance
+    };
+  } catch (err) {
+    return { message: err.response.data.error.message };
+  }
 };

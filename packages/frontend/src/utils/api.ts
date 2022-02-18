@@ -469,7 +469,7 @@ class API {
   connectTeller(tellerAccessToken: string) {
     const query = `
     query {
-      tellerAcounts {
+      tellerAccounts {
         balance
         accountId
         messages

@@ -35,6 +35,8 @@ const BanksView: NextPage = () => {
   const [openMx, setOpenMx] = useState(false);
   const [mxWidgetError, setMxWidgetError] = useState(false);
   const [tellerAccessToken, setTellerAccessToken] = useState('');
+  const [tellerInvalidAccessToken, setTellerInvalidAccessToken] =
+    useState(false);
 
   useEffect(() => {
     (async () => {
@@ -133,6 +135,12 @@ const BanksView: NextPage = () => {
                   setTellerAccessToken(enrollment.accessToken);
                   (async () => {
                     const res = await api.connectTeller(tellerAccessToken);
+                    console.log(res?.data.data.tellerAccounts.message);
+                    if (
+                      res?.data.data.tellerAccounts.message ===
+                      'invalid access token provided'
+                    )
+                      setTellerInvalidAccessToken(true);
                   })();
                 },
                 onExit: function () {
@@ -264,6 +272,23 @@ const BanksView: NextPage = () => {
                 >
                   Add Bank Account
                 </button>
+              </div>
+            )}
+            {/* TellerAccessToken Errr */}
+            {tellerAccessToken && (
+              <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
+                <Card
+                  width="w-[622px]"
+                  height="h-[170px]"
+                  py="py-7"
+                  otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
+                >
+                  <div className="w-full flex justify-between items-center px-7 pb-7 border-b border-[#E7EAEB]">
+                    <p className="text-lg font-secondary">
+                      Invalid Access Token
+                    </p>
+                  </div>
+                </Card>
               </div>
             )}
           </Card>
