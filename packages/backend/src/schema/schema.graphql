@@ -207,6 +207,13 @@ type UpdateReferral {
   amount: Int
 }
 
+type TellerAccounts {
+  message: String
+  success: Boolean
+  accountId: String
+  balance: Float
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -227,6 +234,7 @@ type Query {
   updateReferral: UpdateReferral
   emailValidation(arg: NewUser): Response
   contactForm(arg: ContactForm): Response
+  tellerAccounts: TellerAccounts
 }
 
 type Mutation {
