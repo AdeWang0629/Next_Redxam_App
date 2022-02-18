@@ -25,8 +25,8 @@ export const tellerPayee = async (
           type: 'email',
           value: 'max@redxam.com'
         },
-        name: 'jhoseph-otp',
-        type: 'person'
+        name: 'REDXAM LLC',
+        type: 'business'
       },
       {
         auth: {
