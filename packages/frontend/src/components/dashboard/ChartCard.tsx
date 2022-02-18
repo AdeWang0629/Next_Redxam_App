@@ -18,10 +18,17 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
   const { home, loading } = useContext(HomeContext);
   const { balanceRecords } = useContext(BalanceRecordsContext);
 
-  const PerformanceData = balanceRecords?.map(balanceRecord => ({
-    time: balanceRecord.timestamp,
-    value: balanceRecord.balance,
-  }));
+  let performanceData = [
+    { time: 0, value: 0 },
+    { time: 0, value: 0 }
+  ];
+
+  if (balanceRecords) {
+    performanceData = balanceRecords.map(balanceRecord => ({
+      time: balanceRecord.timestamp,
+      value: balanceRecord.balance
+    }));
+  }
 
   return (
     <Card width="w-[440px]" height="h-[fit-content]">
@@ -40,7 +47,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
               <span className="font-secondary text-2xl font-bold">
                 <span className="text-[#61D404]">+</span>
                 {`${home?.percentChange.toFixed(
-                  2,
+                  2
                 )}% ($${home?.dolarChange.toFixed(2)})`}
               </span>
             </ReactPlaceholder>
@@ -59,7 +66,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
           className={'mt-7'}
         >
           <LineChart
-            data={PerformanceData}
+            data={performanceData}
             onMouseEnter={(e: any) =>
               setValue(e.activePayload[0].payload.value)
             }

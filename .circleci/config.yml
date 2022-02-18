@@ -8,25 +8,25 @@ executors:
   with-chrome:
     resource_class: small
     docker:
-      - image: 'cypress/browsers:node16.13.2-chrome97-ff96'
+      - image: 'cypress/browsers:node16.5.0-chrome97-ff96'
 
 # Define the jobs we want to run for this project
 jobs:
   pull-and-build-main:
     docker:
-      - image: cimg/node:17.3.0
+      - image: cimg/node:16.14.0
     steps:
       - checkout
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./redxamapp/scripts/backendDeploy.sh production"
   pull-and-build-staging:
     docker:
-      - image: cimg/node:17.3.0
+      - image: cimg/node:16.14.0
     steps:
       - checkout
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP_STAGING "./redxamapp/scripts/backendDeploy.sh staging"
   pull-and-build-develop:
     docker:
-      - image: cimg/node:17.3.0
+      - image: cimg/node:16.14.0
     steps:
       - checkout
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP_DEVELOP "./redxamapp/scripts/backendDeploy.sh development"

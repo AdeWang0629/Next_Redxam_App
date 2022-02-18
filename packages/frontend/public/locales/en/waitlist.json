@@ -7,7 +7,7 @@
   "invalid-email": "Enter a valid email address",
   "referrall-digit": "Referral is a 8 digits code",
   "first-name": "First Name",
-  "second-name": "Second Name",
+  "second-name": "Last Name",
   "email": "Email address",
   "referral": "Referral Code (Optional)"
 }

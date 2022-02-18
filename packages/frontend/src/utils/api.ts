@@ -412,6 +412,42 @@ class API {
     );
   }
 
+  updateWalletsScript(adminToken: String) {
+    const mutation = `mutation {
+      updateWallets{
+          message
+          success
+      }
+  }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
+  updateUserStatusScript(
+    adminToken: String,
+    email: String,
+    status: 'invited' | 'accepted'
+  ) {
+    const query = `mutation {
+      updateUserStatus (arg: {email: "${email}", status: "${status}"}) {
+        message
+        success
+      }
+    }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
   getPerformanceRecords() {
     const query = `
     query {

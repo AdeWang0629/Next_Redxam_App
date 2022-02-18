@@ -7,6 +7,7 @@ import Scripts from '@components/admin/Scripts';
 import CreateUser from '@components/admin/CreateUser';
 import { AdminContext } from '@providers/Admin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   faSearch,
   faBell,
@@ -14,7 +15,7 @@ import {
   faUsers,
   faEnvelope,
   faCogs,
-  faPlayCircle,
+  faPlayCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Admin = () => {
@@ -31,7 +32,7 @@ export const Admin = () => {
         style={{
           flex: 1,
           background:
-            'linear-gradient(356.99deg, #8EE616 -77.71%, #3EB402 66.18%)',
+            'linear-gradient(356.99deg, #8EE616 -77.71%, #3EB402 66.18%)'
         }}
         className="py-4 min-h-screen text-white"
       >
@@ -43,7 +44,7 @@ export const Admin = () => {
             { name: 'Emails', icon: faEnvelope },
             { name: 'Scripts', icon: faPlayCircle },
             { divider: true },
-            { name: 'Settings', icon: faCogs },
+            { name: 'Settings', icon: faCogs }
           ].map((section) => {
             let id = section.name
               ? section.name.split(' ').join('_').toLowerCase()
@@ -64,7 +65,9 @@ export const Admin = () => {
                 }`}
                 onClick={() => setActiveSection(id)}
               >
-                {section?.icon && <FontAwesomeIcon icon={section.icon} />}
+                {section?.icon && (
+                  <FontAwesomeIcon icon={section.icon as IconProp} />
+                )}
                 <span className="ml-2">{section.name}</span>
               </li>
             );
@@ -81,8 +84,8 @@ export const Admin = () => {
           </div>
           <div className="flex-1 flex items-center justify-end">
             <div className="flex-1 flex justify-end pr-4 border-r border-black border-opacity-30 dark:text-white dark:border-white">
-              <FontAwesomeIcon icon={faSearch} />
-              <FontAwesomeIcon icon={faBell} className="ml-2" />
+              <FontAwesomeIcon icon={faSearch as IconProp} />
+              <FontAwesomeIcon icon={faBell as IconProp} className="ml-2" />
             </div>
             <div className="flex items-center px-4 dark:text-white">
               <span>{user.email}</span>
@@ -94,7 +97,7 @@ export const Admin = () => {
             onClick={() => setActiveSection('create_user')}
             style={{
               border: '1px solid rgb(62,180,2)',
-              color: 'rgba(62,180,2,1)',
+              color: 'rgba(62,180,2,1)'
             }}
             className="py-3 px-6 rounded-xl transition-opacity duration-300 hover:opacity-70"
           >
@@ -103,7 +106,7 @@ export const Admin = () => {
           <button
             style={{
               border: '1px solid rgb(62,180,2)',
-              backgroundColor: 'rgba(62,180,2,1)',
+              backgroundColor: 'rgba(62,180,2,1)'
             }}
             className="py-3 px-6 rounded-xl transition-opacity duration-300 hover:opacity-70 text-white ml-4"
           >

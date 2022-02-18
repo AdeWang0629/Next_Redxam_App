@@ -9,7 +9,10 @@ describe('user status resolver tests', () => {
   test('wrong admin token', async () => {
     const req: any = new Request();
     req.headers.authorization = 'Bearer Wrongtoken';
-    const res = await updateUserStatus({ arg: 'test@redxam.com' }, req);
+    const res = await updateUserStatus(
+      { arg: { email: 'test@redxam.com', status: 'invited' } },
+      req
+    );
     expect(res.message).toMatch('jwt malformed');
     expect(res.success).toBeFalsy();
   });
@@ -19,7 +22,10 @@ describe('user status resolver tests', () => {
     const req: any = new Request();
     req.headers.authorization = `Bearer ${token}`;
 
-    const res = await updateUserStatus({ arg: 'nonexisted@redxam.com' }, req);
+    const res = await updateUserStatus(
+      { arg: { email: 'nonexisted@redxam.com', status: 'invited' } },
+      req
+    );
     expect(res.message).toMatch('email is not in the waitlist');
     expect(res.success).toBeFalsy();
   });
@@ -33,7 +39,10 @@ describe('user status resolver tests', () => {
     const userLastStatus = user.accountStatus;
     await user.updateOne({ $set: { accountStatus: 'invited' } });
 
-    const res = await updateUserStatus({ arg: user.email }, req);
+    const res = await updateUserStatus(
+      { arg: { email: user.email, status: 'invited' } },
+      req
+    );
     expect(res.message).toMatch('user is already invited');
     expect(res.success).toBeFalsy();
     await user.updateOne({ $set: { accountStatus: userLastStatus } });
@@ -48,7 +57,10 @@ describe('user status resolver tests', () => {
     const userLastStatus = user.accountStatus;
     await user.updateOne({ $set: { accountStatus: 'pending' } });
 
-    const res = await updateUserStatus({ arg: user.email }, req);
+    const res = await updateUserStatus(
+      { arg: { email: user.email, status: 'invited' } },
+      req
+    );
     expect(res.message).toMatch('user status updated succesfully');
     expect(res.success).toBeTruthy();
     await user.updateOne({ $set: { accountStatus: userLastStatus } });

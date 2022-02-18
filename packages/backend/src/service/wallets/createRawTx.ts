@@ -45,16 +45,4 @@ export const createRawTx = (txData: TxData, prevTxs, isNode): Tx => {
   let txHex = txb.build().toHex();
 
   return { hash: txHex };
-
-  // const tx = new TransactionBuilder(NETWORK);
-  // const sender = ECPair.fromWIF(senderWIF, NETWORK);
-  // const index = txIndex + 1;
-
-  // tx.addInput(txHash, index);
-  // tx.addOutput(receiverAddress, amount);
-  // tx.sign(0, sender);
-
-  // const hash = tx.build().toHex();
-
-  // return { txHash: hash, txIndex: index };
 };

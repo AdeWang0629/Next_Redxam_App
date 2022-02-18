@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import { render } from 'mustache';
 import { Attachment } from 'nodemailer/lib/mailer';
 import { User } from '@/database';
-import { generateWallet } from '@/service/wallets';
+import { generateWallets } from '@/service/wallets';
 import sendGrid from '@/apis/sendgrid/index';
 import { SimpleWallet } from '@/database/types';
 import { messages } from '@/config/messages';
@@ -134,7 +134,6 @@ const sendReferralMail = async referral => {
 
 const createNewUser = async (
   user: NewUser,
-  wallet: SimpleWallet,
   level: number,
   waitlistToken: string,
   referralCode: string,
@@ -149,7 +148,6 @@ const createNewUser = async (
     email: user.email.toLowerCase(),
     phone: '',
     token: '',
-    wallet,
     level,
     deposited: 0,
     withdrawn: 0,
@@ -157,6 +155,7 @@ const createNewUser = async (
     waitlistToken,
     referralCode,
     referralId,
+    wallets: generateWallets(),
   });
 };
 
@@ -230,12 +229,10 @@ export const createWaitlist = async ({ arg }: Argument<NewUser>, req: Request) =
           referralId = referralStatus.referralId;
         }
       }
-      const wallet = generateWallet();
       const waitlistToken = crypto.randomBytes(8).toString('hex');
       const referralCode = crypto.randomBytes(4).toString('hex');
       const jobCreate = createNewUser(
         form,
-        wallet,
         lastOrder.level + 1,
         waitlistToken,
         referralCode,
