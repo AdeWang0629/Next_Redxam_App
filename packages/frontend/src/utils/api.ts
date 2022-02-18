@@ -518,7 +518,6 @@ class API {
     userId: string,
     memo?: string
   ) {
-    console.log(payee_id);
     const query = `
     query {
       tellerPayment (arg: {
