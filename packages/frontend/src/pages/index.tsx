@@ -80,7 +80,7 @@ const Home: NextPage = () => {
           width: '100%'
         }}
       />
-      <EventBanner />
+      { /* <EventBanner /> */ }
       <Hero />
       <WhyUs />
       <Starting />
