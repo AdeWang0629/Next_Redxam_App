@@ -49,7 +49,7 @@ const Invest: NextPage = () => {
     <>
       <Navbar title="Your Personal Crypto Investment Assistant" />
       <div
-        className="flex flex-col lg:flex-row justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-10 pt-44 lg:pt-64 pb-20 border-b border-b-white"
+        className="flex flex-col lg:flex-row justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-10 pt-44 lg:pt-44 pb-20 border-b border-b-white"
         style={{
           boxShadow:
             '0px 6px 6px -6px rgba(0, 0, 0, 0.08), 0px 0px 1px rgba(0, 0, 0, 0.2)'
@@ -62,7 +62,7 @@ const Invest: NextPage = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="rounded-2xl w-full lg:w-[593px] h-[215px] lg:h-[421px] mx-auto"
+            className="rounded-2xl w-full lg:w-[593px] h-[215px] lg:h-[334px] mx-auto"
           ></iframe>
         </div>
         <div className="flex flex-col px-4 lg:px-0">
@@ -98,7 +98,10 @@ const Invest: NextPage = () => {
             </div>
           </div>
 
-          <a className="primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green mt-12">
+          <a
+            className="primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green mt-12"
+            href={`mailto:investments@redxam.com?subject=Hi%20I%20would%20like%20to%20invest%20in%20redxam!&body=Hi%20redxam%20team%20%F0%9F%91%8B%2C%0D%0A%0D%0AMy%20name%20is%20________%20!I'm%20really%20interested%20in%20the%20project%20and%20I%20would%20like%20to%20be%20part%20of%20the%20seed%20investment%20round%20and%20get%20early%20into%20the%20token%20sale%20at%20%240.01%20per%20token!%0D%0A%0D%0AI%20would%20like%20to%20invest%20%24____%20towards%20your%20round%20and%20get%20the%20correspondent%20tokens%20to%20my%20cash%20amount.%0D%0A%0D%0A%23%23%23%20Please%20select%20the%20one%20that%20doesn't%20apply%20to%20you%20%23%23%23%0D%0A%5B%20%5D%20I%20have%20invested%20in%20a%20startup%20before%20and%20I'm%20ready%20to%20sign%0D%0A%5B%20%5D%20This%20will%20be%20my%20first%20time%20investing%20and%20I%20would%20like%20to%20learn%20about%20the%20process.%0D%0A%0D%0AThanks%20for%20your%20interest%20in%20us%2C%20a%20warm%20welcome!%0D%0A-%20the%20redxam.com%20family`}
+          >
             Invest in the redxam project!
           </a>
         </div>
@@ -113,7 +116,10 @@ const Invest: NextPage = () => {
               className="bg-[#f5f5f5] px-8 py-4 flex items-center space-x-12 rounded-2xl"
               key={`previous-investor-${index}`}
             >
-              <span className="font-secondary font-medium text-2xl leading-9 text-lighter-black">
+              <span
+                className="font-secondary font-medium text-2xl leading-9 text-lighter-black text-transparent"
+                style={{ textShadow: '0 0 8px rgba(0,0,0,0.5)' }}
+              >
                 {investor.name}
               </span>
               <span className="font-secondary font-bold text-2xl leading-9 text-lighter-black">

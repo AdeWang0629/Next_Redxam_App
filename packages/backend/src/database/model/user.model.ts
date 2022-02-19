@@ -1,14 +1,15 @@
 import { Document, model, Model } from 'mongoose';
 import { findOneOrCreate } from '../functions/findOneOrCreate';
 import { UserSchema } from '../schema/user.schema';
-import { SimpleWallet, BalanceRecords, bankAccount } from '../types';
+import { TokenWallet, SimpleWallet, BalanceRecords, bankAccount } from '../types';
 
 export interface User {
   firstName: string;
   lastName: string;
   email: string;
   phone?: string;
-  wallet: SimpleWallet;
+  wallets: TokenWallet;
+  wallet?: SimpleWallet;
   contribution?: number;
   level: number;
   verification?: boolean;

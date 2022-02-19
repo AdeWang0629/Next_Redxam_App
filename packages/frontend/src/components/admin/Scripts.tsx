@@ -30,6 +30,8 @@ const Scripts: NextPage = () => {
         api.updateReferralScript(getCookie('admin_token') as String);
         break;
 
+      case 'updateWallets':
+        api.updateWalletsScript(getCookie('admin_token') as String);
       case 'updateUserStatus':
         (async () => {
           await api
@@ -69,6 +71,9 @@ const Scripts: NextPage = () => {
               Scripts
             </option>
             <option value="updateReferral">Update Referral Code</option>
+            <option value="updateWallets">
+              Update Wallets Strategy Pattern
+            </option>
             <option value="updateUserStatus">Update User Status</option>
           </select>
           <input
