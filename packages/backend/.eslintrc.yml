@@ -33,7 +33,8 @@ rules:
     - 2
   '@typescript-eslint/lines-between-class-members':
     - 2
-    - always
+
+    - never
   '@typescript-eslint/member-delimiter-style':
     - 2
     - multiline:
