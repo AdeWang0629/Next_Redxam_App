@@ -7,7 +7,12 @@ import { resolve } from 'path';
 import sendGrid from '@/apis/sendgrid';
 import { plaidClient } from '@/apis/plaid';
 import { stripeInstance } from '@/apis/stripe';
-import { AccountSubtype, CountryCode, LinkTokenCreateRequest, Products } from 'plaid';
+import {
+  AccountSubtype,
+  CountryCode,
+  LinkTokenCreateRequest,
+  Products
+} from 'plaid';
 import { messages } from '@/config/messages';
 import { Deposits, DepositsCurrencyType, DepositsType, User } from '@/database';
 import Stripe from 'stripe';
@@ -20,44 +25,55 @@ const templateData = readFileSync(templatePath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  content: readFileSync(`${__dirname}/../emails/facebook.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/facebook.png`).toString(
+    'base64'
+  ),
   content_id: 'facebook@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const twitterIcon: Readonly<Attachment> = Object.freeze({
   filename: 'twitter.png',
-  content: readFileSync(`${__dirname}/../emails/twitter.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/twitter.png`).toString(
+    'base64'
+  ),
   content_id: 'twitter@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const linkedInIcon: Readonly<Attachment> = Object.freeze({
   filename: 'linkedin.png',
-  content: readFileSync(`${__dirname}/../emails/linkedin.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/linkedin.png`).toString(
+    'base64'
+  ),
   content_id: 'linkedin@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const telegramIcon: Readonly<Attachment> = Object.freeze({
   filename: 'telegram.png',
-  content: readFileSync(`${__dirname}/../emails/telegram.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/telegram.png`).toString(
+    'base64'
+  ),
   content_id: 'telegram@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const discordIcon: Readonly<Attachment> = Object.freeze({
   filename: 'discord.png',
-  content: readFileSync(`${__dirname}/../emails/discord.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../emails/discord.png`).toString(
+    'base64'
+  ),
   content_id: 'discord@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    if (!req.headers.authorization) return res.json(messages.failed.invalidToken);
+    if (!req.headers.authorization)
+      return res.json(messages.failed.invalidToken);
 
     const payload = await new JWT().authorize(req.headers.authorization);
 
@@ -67,7 +83,7 @@ router.get('/', async (req, res) => {
 
     const request: LinkTokenCreateRequest = {
       user: {
-        client_user_id: 'payload.userId',
+        client_user_id: 'payload.userId'
       },
       client_name: 'Redxam',
       products: [Products.Auth, Products.Transactions],
@@ -78,14 +94,14 @@ router.get('/', async (req, res) => {
         CountryCode.Ie,
         CountryCode.Fr,
         CountryCode.Es,
-        CountryCode.Nl,
+        CountryCode.Nl
       ],
       language: 'en',
       account_filters: {
         depository: {
-          account_subtypes: [AccountSubtype.Checking, AccountSubtype.Savings],
-        },
-      },
+          account_subtypes: [AccountSubtype.Checking, AccountSubtype.Savings]
+        }
+      }
     };
 
     const response = await plaidClient.linkTokenCreate(request);
@@ -97,8 +113,8 @@ router.get('/', async (req, res) => {
       error: {
         status: error.status || 500,
         message: error.message || 'Internal Server Error',
-        stack: error.stack,
-      },
+        stack: error.stack
+      }
     });
   }
 });
@@ -110,7 +126,8 @@ router.get('/', async (req, res) => {
  */
 router.post('/', async (req, res) => {
   try {
-    if (!req.headers.authorization) return res.json(messages.failed.invalidToken);
+    if (!req.headers.authorization)
+      return res.json(messages.failed.invalidToken);
 
     const payload = await new JWT().authorize(req.headers.authorization);
 
@@ -123,7 +140,7 @@ router.post('/', async (req, res) => {
     const user = await User.findOne({ _id: payload.userId });
 
     const response = await plaidClient.itemPublicTokenExchange({
-      public_token,
+      public_token
     });
 
     const institutionInfo = await plaidClient.institutionsGetById({
@@ -135,11 +152,11 @@ router.post('/', async (req, res) => {
         CountryCode.Ie,
         CountryCode.Fr,
         CountryCode.Es,
-        CountryCode.Nl,
+        CountryCode.Nl
       ],
       options: {
-        include_optional_metadata: true,
-      },
+        include_optional_metadata: true
+      }
     });
 
     user.bankAccounts.push({
@@ -148,8 +165,8 @@ router.post('/', async (req, res) => {
         id: acc.id,
         name: acc.name,
         logo: institutionInfo.data.institution.logo,
-        type: acc.type,
-      })),
+        type: acc.type
+      }))
     });
 
     await user.save();
@@ -160,8 +177,8 @@ router.post('/', async (req, res) => {
       error: {
         status: error.status || 500,
         message: error.message || 'Internal Server Error',
-        stack: error.stack,
-      },
+        stack: error.stack
+      }
     });
   }
 });
@@ -172,7 +189,8 @@ router.post('/', async (req, res) => {
  */
 router.get('/accounts', async (req, res) => {
   try {
-    if (!req.headers.authorization) return res.json(messages.failed.invalidToken);
+    if (!req.headers.authorization)
+      return res.json(messages.failed.invalidToken);
 
     const payload = await new JWT().authorize(req.headers.authorization);
 
@@ -182,14 +200,16 @@ router.get('/accounts', async (req, res) => {
 
     const user = await User.findOne({ _id: payload.userId });
 
-    res.json({ accounts: user.bankAccounts.map(bankAcc => bankAcc.accounts).flat() });
+    res.json({
+      accounts: user.bankAccounts.map(bankAcc => bankAcc.accounts).flat()
+    });
   } catch (error) {
     res.status(500).json({
       error: {
         status: error.status || 500,
         message: error.message || 'Internal Server Error',
-        stack: error.stack,
-      },
+        stack: error.stack
+      }
     });
   }
 });
@@ -199,7 +219,8 @@ router.get('/accounts', async (req, res) => {
  */
 router.post('/accounts/unlink', async (req, res) => {
   try {
-    if (!req.headers.authorization) return res.json(messages.failed.invalidToken);
+    if (!req.headers.authorization)
+      return res.json(messages.failed.invalidToken);
 
     const payload = await new JWT().authorize(req.headers.authorization);
 
@@ -237,8 +258,8 @@ router.post('/accounts/unlink', async (req, res) => {
       error: {
         status: error.status || 500,
         message: error.message || 'Internal Server Error',
-        stack: error.stack,
-      },
+        stack: error.stack
+      }
     });
   }
 });
@@ -249,7 +270,8 @@ router.post('/accounts/unlink', async (req, res) => {
  */
 router.post('/deposit', async (req, res) => {
   try {
-    if (!req.headers.authorization) return res.json(messages.failed.invalidToken);
+    if (!req.headers.authorization)
+      return res.json(messages.failed.invalidToken);
 
     const payload = await new JWT().authorize(req.headers.authorization);
 
@@ -266,14 +288,15 @@ router.post('/deposit', async (req, res) => {
       bankAcc.accounts.find(acc => {
         if (acc.id === account_id) usedAccount = acc;
         return acc.id === account_id;
-      }),
+      })
     );
 
     try {
-      const stripeInfo = await plaidClient.processorStripeBankAccountTokenCreate({
-        access_token: accountInfo.accessToken as string,
-        account_id,
-      });
+      const stripeInfo =
+        await plaidClient.processorStripeBankAccountTokenCreate({
+          access_token: accountInfo.accessToken as string,
+          account_id
+        });
 
       const charge = await stripeInstance.charges.create({
         amount: amount * 100,
@@ -281,8 +304,8 @@ router.post('/deposit', async (req, res) => {
         source: stripeInfo.data.stripe_bank_account_token,
         description: 'Redxam deposit',
         metadata: {
-          user_id: payload.userId,
-        },
+          user_id: payload.userId
+        }
       });
 
       await Deposits.create({
@@ -295,7 +318,7 @@ router.post('/deposit', async (req, res) => {
         stripeChargeId: charge.id,
         bankName: usedAccount.name,
         bankIcon: usedAccount.logo,
-        bankType: usedAccount.type,
+        bankType: usedAccount.type
       });
 
       await sendGrid.sendMail({
@@ -303,7 +326,13 @@ router.post('/deposit', async (req, res) => {
         to: user.email,
         subject: ' Your deposit on it’s way 💸 | redxam',
         html: render(templateData, { amount }),
-        attachments: [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon],
+        attachments: [
+          facebookIcon,
+          twitterIcon,
+          linkedInIcon,
+          telegramIcon,
+          discordIcon
+        ]
       });
 
       res.json({ success: 1 });
@@ -319,13 +348,16 @@ router.post('/deposit', async (req, res) => {
             CountryCode.Ie,
             CountryCode.Fr,
             CountryCode.Es,
-            CountryCode.Nl,
+            CountryCode.Nl
           ],
           language: 'en',
-          access_token: accountInfo.accessToken as string,
+          access_token: accountInfo.accessToken as string
         });
 
-        res.json({ token: linkTokenResponse.data.link_token, type: 'UPDATE_REQUIRED' });
+        res.json({
+          token: linkTokenResponse.data.link_token,
+          type: 'UPDATE_REQUIRED'
+        });
       } else throw error;
     }
   } catch (error) {
@@ -337,8 +369,8 @@ router.post('/deposit', async (req, res) => {
         error: {
           status: error.status || 500,
           message: error.message || 'Internal Server Error',
-          stack: error.stack,
-        },
+          stack: error.stack
+        }
       });
   }
 });

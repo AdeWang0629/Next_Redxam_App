@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Card from '../Card';
 import { getMonthName } from '@utils/helpers';
+import bankIcon from '@public/icons/bank.svg';
 
 import filterIcon from '@public/icons/filter.svg';
 import btcLogo from '@public/icons/bitcoin.svg';
@@ -99,6 +100,8 @@ const TransactionsTable = ({
                       src={
                         pendingDeposit.bankIcon
                           ? `data:image/png;base64,${pendingDeposit.bankIcon}`
+                          : pendingDeposit.type === 'FIAT'
+                          ? bankIcon
                           : btcLogo
                       }
                       width={'40px'}
@@ -182,6 +185,8 @@ const TransactionsTable = ({
                                 src={
                                   deposit.bankIcon
                                     ? `data:image/png;base64,${deposit.bankIcon}`
+                                    : deposit.type === 'FIAT'
+                                    ? bankIcon
                                     : btcLogo
                                 }
                                 width={'40px'}

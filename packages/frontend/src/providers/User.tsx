@@ -12,7 +12,7 @@ import api from '@utils/api';
 export type Context = {
   user: null | {
     token: string;
-    id: string;
+    _id: string;
     email: string;
     phone: string;
     accountStatus: string;
