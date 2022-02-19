@@ -30,6 +30,7 @@ git pull
 cd packages/backend
 yarn install
 
+rm -rf dist/
 npm run build
 
 pm2 delete all
