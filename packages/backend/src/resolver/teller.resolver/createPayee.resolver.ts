@@ -7,8 +7,6 @@ export const tellerPayee = async (
   { accountId }: { accountId: string },
   req: Request
 ) => {
-  console.debug('[Resolve] teller payees called');
-
   try {
     const accessToken = req.headers.authorization;
 

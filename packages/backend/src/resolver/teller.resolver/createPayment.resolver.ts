@@ -19,8 +19,6 @@ export const tellerPayment = async (
   },
   req: Request
 ) => {
-  console.debug('[Resolve] teller payees called');
-
   try {
     const accessToken = req.headers.authorization;
 
@@ -73,8 +71,6 @@ export const tellerPaymentVerified = async (
   },
   req: Request
 ) => {
-  console.debug('[Resolve] teller payees verified called');
-
   try {
     await saveDeposit(arg.paymentId, arg.amount, arg.userId, arg.bankName);
     return {
