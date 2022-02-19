@@ -21,8 +21,8 @@ interface Response {
 }
 
 export const updateUserStatus = async (
-  { arg }: { arg: string },
-  req: Request,
+  { arg }: { arg: { email: string; status: 'invited' | 'accepted' } },
+  req: Request
 ): Promise<Response> => {
   console.debug('[Resolve] admin called');
   const auth = getAuthorizationToken(req.headers.authorization);
@@ -34,12 +34,13 @@ export const updateUserStatus = async (
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'invalid admin token' };
 
-    const user = await User.findOne({ email: arg });
-    if (!user) return { success: false, message: 'email is not in the waitlist' };
-    if (user.accountStatus === 'invited' || user.accountStatus === 'accepted')
-      return { success: false, message: 'user is already invited' };
+    const user = await User.findOne({ email: arg.email });
+    if (!user)
+      return { success: false, message: 'email is not in the waitlist' };
+    if (user.accountStatus === arg.status)
+      return { success: false, message: `user is already ${arg.status}` };
 
-    await handleChangeAccountStatus(user);
+    await handleChangeAccountStatus(user, arg.status);
 
     return { success: true, message: 'user status updated succesfully' };
   } catch (err) {
@@ -47,8 +48,8 @@ export const updateUserStatus = async (
   }
 };
 
-const handleChangeAccountStatus = async (user: UserProps) => {
-  await user.updateOne({ $set: { accountStatus: 'invited' } });
+const handleChangeAccountStatus = async (user: UserProps, status: string) => {
+  await user.updateOne({ $set: { accountStatus: status } });
   await handleEmail(user);
 };
 
@@ -59,9 +60,15 @@ const handleEmail = async (user: UserProps) => {
     subject: 'You got access 🎉 | redxam',
     html: render(templateData, {
       code: generateCode(user.email),
-      randomText: `Ref #: ${Date.now()}`,
+      randomText: `Ref #: ${Date.now()}`
     }),
-    attachments: [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon],
+    attachments: [
+      facebookIcon,
+      twitterIcon,
+      linkedInIcon,
+      telegramIcon,
+      discordIcon
+    ]
   });
 };
 
@@ -70,35 +77,45 @@ const templateData = readFileSync(templatePath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString(
+    'base64'
+  ),
   content_id: 'facebook@invited',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const twitterIcon: Readonly<Attachment> = Object.freeze({
   filename: 'twitter.png',
-  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString(
+    'base64'
+  ),
   content_id: 'twitter@invited',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const linkedInIcon: Readonly<Attachment> = Object.freeze({
   filename: 'linkedin.png',
-  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString(
+    'base64'
+  ),
   content_id: 'linkedin@invited',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const telegramIcon: Readonly<Attachment> = Object.freeze({
   filename: 'telegram.png',
-  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString(
+    'base64'
+  ),
   content_id: 'telegram@invited',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const discordIcon: Readonly<Attachment> = Object.freeze({
   filename: 'discord.png',
-  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString(
+    'base64'
+  ),
   content_id: 'discord@invited',
-  disposition: 'inline',
+  disposition: 'inline'
 });
