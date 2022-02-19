@@ -37,7 +37,6 @@ const Home: NextPage = () => {
     <InternalLayout>
       <div className="px-3 lg:px-0 max-w-[900px] my-0 mx-auto">
         <div className="flex justify-between items-center mb-10">
-          <p>Hello</p>
           <IconButton buttonText={'Settings'} buttonIcon={settings} />
         </div>
         <div className="lg:grid lg:grid-cols-2 lg:gap-5">
@@ -48,7 +47,7 @@ const Home: NextPage = () => {
             data={new Array(100).fill(0).map((_, i) => {
               return {
                 time: new Date().getTime() + 60000 * 60 * 24 * i,
-                value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1),
+                value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1)
               };
             })}
           />
