@@ -361,14 +361,30 @@ class API {
   }
 
   deposit(accountId: string, amount: number) {
-    return this.axios.post(
-      `${this.baseURL}/api/v2/plaid/deposit`,
-      {
-        account_id: accountId,
-        amount
-      },
-      { headers: { ...this.getAuthorizationHeader() } }
-    );
+    switch ('TELLER' as string) {
+      case 'PLAID':
+        return this.axios.post(
+          `${this.baseURL}/api/v2/plaid/deposit`,
+          {
+            account_id: accountId,
+            amount
+          },
+          { headers: { ...this.getAuthorizationHeader() } }
+        );
+
+      case 'TELLER':
+        return this.axios.post(
+          `${this.baseURL}/api/v2/teller/deposit`,
+          {
+            account_id: accountId,
+            amount
+          },
+          { headers: { ...this.getAuthorizationHeader() } }
+        );
+
+      default:
+        break;
+    }
   }
 
   stripeDeposit(amount: number) {

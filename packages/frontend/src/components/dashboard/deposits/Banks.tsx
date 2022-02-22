@@ -381,6 +381,7 @@ const BanksView: NextPage = () => {
                   <button
                     className="font-secondary font-medium underline cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                     disabled={!plaidToken.length}
+                    onClick={handleAddBankAccount}
                   >
                     Add Bank Account
                   </button>
