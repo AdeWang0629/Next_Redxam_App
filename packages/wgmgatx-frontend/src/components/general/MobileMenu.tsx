@@ -5,18 +5,11 @@ import Head from 'next/head';
 import {
   BiHomeAlt,
   BiMapAlt,
-  BiLandscape,
   BiPhotoAlbum,
   BiGroup,
   BiMessageRoundedDetail,
 } from 'react-icons/bi';
-// Home = BiHomeAlt
-// About = BiMapAlt
-// Gallery = BiLandscape or BiPhotoAlbum
-// Artists = BiGroup
-// Contact = BiMessageRoundedDetail
 
-// Imgs
 import wgmgLogo from '@public/logo-wgmg.png';
 
 const MobileMenu = ({handleMenu}) => {
@@ -33,8 +26,6 @@ const MobileMenu = ({handleMenu}) => {
     Artists: false
   });
 
-
-
   return (
     <>
       <div className="w-[100%] items-center justify-center md:hidden flex">
@@ -50,9 +41,7 @@ const MobileMenu = ({handleMenu}) => {
           </div>
           <ul>
             {routes.map((route) => (
-
               <li key={route.name} className="text-center">
-
                 <Link href={route.path} >
                     <div onClick={handleMenu} className='group flex flex-col items-center justify-center w-screen py-5 hover:bg-[#1e1e1e] transition-colors duration-[100ms]'>
                         <route.icon className='ease-in-out duration-150 cursor-pointer group-hover:fill-white' size={'30px'} color={'#817F8A'} />
