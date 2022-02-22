@@ -1,72 +1,72 @@
-import { useState } from "react";
-import type { NextPage } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import Navbar from "@components/global/Navbar";
-import Footer from "@components/global/Footer";
-import Switcher from "@components/global/Switcher";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { useState } from 'react';
+import type { NextPage } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
+import Navbar from '@components/global/Navbar';
+import Footer from '@components/global/Footer';
+import Switcher from '@components/global/Switcher';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-import MouseIcon from "@public/icons/mouse.svg";
+import MouseIcon from '@public/icons/mouse.svg';
 
-import HeroImage1 from "@public/images/careers/hero-img1.png";
-import HeroImage2 from "@public/images/careers/hero-img2.png";
-import HeroImage3 from "@public/images/careers/hero-img3.png";
-import HeroImage4 from "@public/images/careers/hero-img4.png";
-import MissionImage from "@public/images/careers/mission-img.png";
+import HeroImage1 from '@public/images/careers/hero-img1.png';
+import HeroImage2 from '@public/images/careers/hero-img2.png';
+import HeroImage3 from '@public/images/careers/hero-img3.png';
+import HeroImage4 from '@public/images/careers/hero-img4.png';
+import MissionImage from '@public/images/careers/mission-img.png';
 
 const Careers: NextPage = () => {
-  let [activeGreenBox, setActiveGreenBox] = useState(0);
-  let [activeJob, setActiveJob] = useState(-1);
+  const [activeGreenBox, setActiveGreenBox] = useState(0);
+  const [activeJob, setActiveJob] = useState(-1);
 
-  let greenBoxes = [
+  const greenBoxes = [
     {
       id: 1,
-      title: "Customer\nCommitment",
+      title: 'Customer\nCommitment',
       content:
-        "we develop long lasting relationships that make a positive difference in our customers’ lives and their financial statements.",
+        'we develop long lasting relationships that make a positive difference in our customers’ lives and their financial statements.',
     },
     {
       id: 2,
-      title: "Quality",
+      title: 'Quality',
       content:
-        "we provide outstanding products and unsurpassed service that, together, deliver premium value to our customers.",
+        'we provide outstanding products and unsurpassed service that, together, deliver premium value to our customers.',
     },
     {
       id: 3,
-      title: "Integrity",
+      title: 'Integrity',
       content:
-        "we uphold the highest standards of integrity in all of our actions.",
+        'we uphold the highest standards of integrity in all of our actions.',
     },
     {
       id: 4,
-      title: "Team Work",
+      title: 'Team Work',
       content:
-        "we work together, across boundaries, to meet the needs of our customer and to help the company win.",
+        'we work together, across boundaries, to meet the needs of our customer and to help the company win.',
     },
   ];
 
-  let openJobs = [
+  const openJobs = [
     {
-      title: "Product Designers",
+      title: 'Product Designers',
       content:
-        "We are looking for a passionate designer that can take on complex problems and into simple and engaging experiences. Does this sounds like someone you know?",
+        'We are looking for a passionate designer that can take on complex problems and into simple and engaging experiences. Does this sounds like someone you know?',
     },
     {
-      title: "Front end developer",
+      title: 'Front end developer',
       content:
-        "We’re looking for an experienced front end web developer with strong js expertise who strives to do high-quality work and thrives on collaboration and working as part of a team. Does this sounds like someone you know?",
+        'We’re looking for an experienced front end web developer with strong js expertise who strives to do high-quality work and thrives on collaboration and working as part of a team. Does this sounds like someone you know?',
     },
     {
-      title: "Back end developer",
+      title: 'Back end developer',
       content:
-        "Have several years of practical experience building production-grade backend applications in Node.js. Does this sounds like someone you know?",
+        'Have several years of practical experience building production-grade backend applications in Node.js. Does this sounds like someone you know?',
     },
     {
-      title: "Community Manager",
+      title: 'Community Manager',
       content:
-        "Savvy with social trends, an exceptional writer with a creative mind and bring a knack for building relationships online—and offline. Does this sounds like someone you know?",
+        'Savvy with social trends, an exceptional writer with a creative mind and bring a knack for building relationships online—and offline. Does this sounds like someone you know?',
     },
   ];
 
@@ -98,7 +98,7 @@ const Careers: NextPage = () => {
       <section
         className="grid grid-cols-3 grid-rows-2 gap-2 md:gap-8 my-8 px-2 md:px-0 grid-"
         style={{
-          gridTemplateRows: "301px 179px",
+          gridTemplateRows: '301px 179px',
         }}
       >
         <div className="row-start-2 md:row-start-[unset] row-span-2 h-full flex careers-image">
@@ -196,7 +196,7 @@ const Careers: NextPage = () => {
                 className="text-4xl font-medium font-primary mb-3 text-white group-hover:text-darker-primary text-opacity-80"
                 style={{
                   WebkitTextStroke:
-                    activeGreenBox === greenBox.id ? "1px #fff" : "1px #000",
+                    activeGreenBox === greenBox.id ? '1px #fff' : '1px #000',
                 }}
               >
                 {greenBox.id}
@@ -223,27 +223,28 @@ const Careers: NextPage = () => {
           {openJobs.map((job, idx) => (
             <div
               className="flex flex-col w-full md:w-[63.75rem] py-4 px-4 md:px-16 bg-[#F6F6FA] rounded-[30px] mb-8 transition-all duration-500"
-              key={"job" + idx}
+              key={`job${idx}`}
             >
               <div
                 className="flex flex-row justify-between items-center cursor-pointer transition-all duration-500"
                 onClick={() =>
                   setActiveJob((prev) => (prev === idx ? -1 : idx))
                 }
+                role="article"
               >
                 <span className="text-2xl leading-10 w-auto font-primary font-medium text-black text-opacity-50 tracking-[-0.04em]">
                   {job.title}
                 </span>
                 <FontAwesomeIcon
                   className={`text-4xl text-black text-opacity-50 ml-1 ${
-                    activeJob === idx ? "animate-flip transform rotate-180" : ""
+                    activeJob === idx ? 'animate-flip transform rotate-180' : ''
                   }`}
                   icon={faAngleDown}
                 />
               </div>
               <p
                 className={`leading-[1.8] font-primary text-black text-opacity-40 pt-2 ${
-                  activeJob === idx ? "animate-fade-in-down" : "hidden"
+                  activeJob === idx ? 'animate-fade-in-down' : 'hidden'
                 }`}
               >
                 {job.content}

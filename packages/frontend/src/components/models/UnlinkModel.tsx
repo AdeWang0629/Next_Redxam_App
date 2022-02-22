@@ -1,27 +1,27 @@
-import type { NextPage } from "next";
-import { useRef, useEffect } from "react";
-import Image from "next/image";
+import type { NextPage } from 'next';
+import { useRef, useEffect } from 'react';
+import Image from 'next/image';
 
-import IconButton from "@components/dashboard/IconButton";
+import IconButton from '@components/dashboard/IconButton';
 
-import TimesIcon from "@public/icons/times.svg";
-import UnlinkImage from "@public/images/dashboard/deposits/unlink.svg";
-import api from "@utils/api";
+import TimesIcon from '@public/icons/times.svg';
+import UnlinkImage from '@public/images/dashboard/deposits/unlink.svg';
+import api from '@utils/api';
 
 interface UnlinkModelProps {
   isOpened: boolean;
   setOpened: (isOpened: boolean) => void;
   accounts:
-    | []
-    | [
-        {
-          _id: string;
-          id: string;
-          name: string;
-          logo?: string | undefined;
-          type: string;
-        }
-      ];
+  | []
+  | [
+    {
+      _id: string;
+      id: string;
+      name: string;
+      logo?: string | undefined;
+      type: string;
+    },
+  ];
   IDs: [] | [string];
   fetchAccounts: () => void;
 }
@@ -36,31 +36,31 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
   const outsideContainerRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
 
     if (isOpened) {
-      window.scroll({ top: 0, left: 0, behavior: "smooth" });
-      document.body.style.overflow = "hidden";
-    } else document.body.style.overflow = "auto";
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+      document.body.style.overflow = 'hidden';
+    } else document.body.style.overflow = 'auto';
   }, [isOpened]);
 
   function handleOutsideClick(event: any) {
-    if (outsideContainerRef.current == event.target) {
+    if (outsideContainerRef.current === event.target) {
       setOpened(false);
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
   }
 
   function unlinkAccounts() {
-    let bankAccountsToDeleteIDs = accounts
+    const bankAccountsToDeleteIDs = accounts
       // @ts-ignore
       .filter((acc) => IDs.includes(acc._id))
       .map((acc) => acc.id) as [string];
 
     api.deleteBankAccounts(bankAccountsToDeleteIDs).then(() => {
-      alert("Account(s) unlinked successfully!");
+      alert('Account(s) unlinked successfully!');
       setOpened(false);
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
       fetchAccounts();
     });
   }
@@ -70,6 +70,7 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
       className="flex flex-col justify-center items-center bg-black bg-opacity-75 absolute top-0 left-0 h-full w-full z-50"
       ref={outsideContainerRef}
       onClick={handleOutsideClick}
+      role="dialog"
     >
       <div className="flex flex-col justify-center bg-white rounded-[30px] w-3/4 md:w-1/2 pb-8">
         <div className="flex items-center justify-between p-8">
@@ -79,7 +80,7 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
           <button
             onClick={() => {
               setOpened(false);
-              document.body.style.overflow = "auto";
+              document.body.style.overflow = 'auto';
             }}
           >
             <IconButton buttonText="" buttonIcon={TimesIcon} />
@@ -89,14 +90,16 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
         <div className="flex flex-col items-center py-10 px-32">
           <Image src={UnlinkImage} alt="Unlink" width="324px" />
           <p className="font-secondary text-sm text-lighter-black text-center mt-6">
-            Are you sure you want to remove{" "}
+            Are you sure you want to remove
+            {' '}
             <b>
               {accounts
                 // @ts-ignore
                 .filter((acc) => IDs.includes(acc._id))
                 .map((acc) => acc.name)
-                .join(", ")}
-            </b>{" "}
+                .join(', ')}
+            </b>
+            {' '}
             from your list of added banks?
           </p>
           <button

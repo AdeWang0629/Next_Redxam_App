@@ -1,4 +1,3 @@
-import type { NextComponentType } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
@@ -138,7 +137,7 @@ const Footer = ({ card = false }) => {
         </span>
       </div>
       <div className="flex flex-col items-center justify-center lg:px-64">
-        {card == true ? (
+        {card === true ? (
           <>
             <span className="text-center font-primary text-black text-opacity-50 py-4">
               *Mastercard® Prepaid Cards are issued by MetaBank®, N.A., Member

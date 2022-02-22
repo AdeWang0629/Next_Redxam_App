@@ -15,7 +15,7 @@ import {
   faUsers,
   faEnvelope,
   faCogs,
-  faPlayCircle
+  faPlayCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Admin = () => {
@@ -32,7 +32,7 @@ export const Admin = () => {
         style={{
           flex: 1,
           background:
-            'linear-gradient(356.99deg, #8EE616 -77.71%, #3EB402 66.18%)'
+            'linear-gradient(356.99deg, #8EE616 -77.71%, #3EB402 66.18%)',
         }}
         className="py-4 min-h-screen text-white"
       >
@@ -44,9 +44,9 @@ export const Admin = () => {
             { name: 'Emails', icon: faEnvelope },
             { name: 'Scripts', icon: faPlayCircle },
             { divider: true },
-            { name: 'Settings', icon: faCogs }
+            { name: 'Settings', icon: faCogs },
           ].map((section) => {
-            let id = section.name
+            const id = section.name
               ? section.name.split(' ').join('_').toLowerCase()
               : `divider_${Math.floor(Math.random() * 1000)}`;
 
@@ -79,7 +79,7 @@ export const Admin = () => {
           <div className="flex-1 ml-4">
             <h1 className="text-2xl dark:text-white">
               {activeSection[0].toUpperCase() +
-                activeSection.replace(/\_/gm, ' ').slice(1)}
+                activeSection.replace(/_/gm, ' ').slice(1)}
             </h1>
           </div>
           <div className="flex-1 flex items-center justify-end">
@@ -97,7 +97,7 @@ export const Admin = () => {
             onClick={() => setActiveSection('create_user')}
             style={{
               border: '1px solid rgb(62,180,2)',
-              color: 'rgba(62,180,2,1)'
+              color: 'rgba(62,180,2,1)',
             }}
             className="py-3 px-6 rounded-xl transition-opacity duration-300 hover:opacity-70"
           >
@@ -106,27 +106,34 @@ export const Admin = () => {
           <button
             style={{
               border: '1px solid rgb(62,180,2)',
-              backgroundColor: 'rgba(62,180,2,1)'
+              backgroundColor: 'rgba(62,180,2,1)',
             }}
             className="py-3 px-6 rounded-xl transition-opacity duration-300 hover:opacity-70 text-white ml-4"
           >
             New deposit
           </button>
         </div>
-        {activeSection === 'overview' ? (
-          <Overview />
-        ) : activeSection === 'users' ? (
-          <Users />
-        ) : activeSection === 'create_user' ? (
-          <CreateUser setActiveSection={setActiveSection} />
-        ) : activeSection === 'emails' ? (
-          <Emails />
-        ) : activeSection === 'scripts' ? (
-          <Scripts />
-        ) : null}
+        <AdminView activeSection={activeSection} setActiveSection={setActiveSection} />
       </div>
     </div>
   );
 };
+
+function AdminView({ activeSection, setActiveSection }: any) {
+  switch (activeSection) {
+    case 'overview':
+      return <Overview />;
+    case 'users':
+      return <Users />;
+    case 'create_user':
+      return <CreateUser setActiveSection={setActiveSection} />;
+    case 'emails':
+      return <Emails />;
+    case 'scripts':
+      return <Scripts />;
+    default:
+      return null;
+  }
+}
 
 export default Admin;

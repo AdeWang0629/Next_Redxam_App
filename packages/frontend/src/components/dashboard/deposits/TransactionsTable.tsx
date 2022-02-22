@@ -1,7 +1,7 @@
+/* eslint-disable no-nested-ternary */
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import Card from '../Card';
 import { getMonthName } from '@utils/helpers';
 import bankIcon from '@public/icons/bank.svg';
 
@@ -9,6 +9,7 @@ import filterIcon from '@public/icons/filter.svg';
 import btcLogo from '@public/icons/bitcoin.svg';
 import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
 import { Deposit } from '@utils/types';
+import Card from '../Card';
 
 interface TransactionsTableProps {
   deposits: Deposit[] | [];
@@ -17,7 +18,7 @@ interface TransactionsTableProps {
 
 const TransactionsTable = ({
   deposits,
-  depositsType
+  depositsType,
 }: TransactionsTableProps) => {
   const router = useRouter();
 
@@ -27,12 +28,12 @@ const TransactionsTable = ({
   useEffect(() => {
     setPendingDeposits(
       // @ts-ignore
-      deposits.filter(deposit => deposit.status === 'pending')
+      deposits.filter((deposit) => deposit.status === 'pending'),
     );
 
     setAcceptedDeposits(
       // @ts-ignore
-      deposits.filter(deposit => deposit.status !== 'pending')
+      deposits.filter((deposit) => deposit.status !== 'pending'),
     );
   }, [deposits]);
 
@@ -49,8 +50,8 @@ const TransactionsTable = ({
           <button className="flex justify-center items-center border border-[#EAEAEB] rounded-[81px] p-3">
             <Image
               src={filterIcon}
-              width={'20px'}
-              height={'16px'}
+              width="20px"
+              height="16px"
               alt="Filter Button"
             />
           </button>
@@ -81,31 +82,31 @@ const TransactionsTable = ({
                       pendingDeposits.length !== 1 && index === 0
                         ? 'pb-5'
                         : pendingDeposits.filter(
-                            pendingDeposit =>
-                              pendingDeposit.status === 'pending'
-                          ).length !== 1
-                        ? 'py-5'
-                        : ''
+                          (pendingDepositDetails) =>
+                            pendingDepositDetails.status === 'pending',
+                        ).length !== 1
+                          ? 'py-5'
+                          : ''
                     } ${
                       pendingDeposits.length !== 1 &&
                       index === pendingDeposits.length - 1
                         ? 'pt-5 pb-0'
                         : pendingDeposits.length !== 1
-                        ? 'border-b'
-                        : ''
+                          ? 'border-b'
+                          : ''
                     }`}
-                    key={'pendingDeposit' + pendingDeposit.timestamp}
+                    key={`pendingDeposit${pendingDeposit.timestamp}`}
                   >
                     <Image
                       src={
                         pendingDeposit.bankIcon
                           ? `data:image/png;base64,${pendingDeposit.bankIcon}`
                           : pendingDeposit.type === 'FIAT'
-                          ? bankIcon
-                          : btcLogo
+                            ? bankIcon
+                            : btcLogo
                       }
-                      width={'40px'}
-                      height={'40px'}
+                      width="40px"
+                      height="40px"
                       className={pendingDeposit.bankIcon ? 'rounded-full' : ''}
                       alt="Bank Image"
                     />
@@ -123,27 +124,29 @@ const TransactionsTable = ({
                       <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
                         {pendingDeposit.currency === 'USD'
                           ? '$'
-                          : pendingDeposit.currency}{' '}
+                          : pendingDeposit.currency}
+                        {' '}
                         {pendingDeposit.type === 'FIAT'
                           ? pendingDeposit.amount
                           : pendingDeposit.amount * 0.00000001}
                       </p>
                       <div className="flex justify-center items-center">
                         <p className="font-secondary text-xs text-[#95989B] mr-1 text-right">
-                          Pending •{' '}
+                          Pending •
+                          {' '}
                           {new Date(
-                            pendingDeposit.timestamp
+                            pendingDeposit.timestamp,
                           ).toLocaleDateString(undefined, {
                             day: '2-digit',
                             month: 'short',
-                            year: 'numeric'
+                            year: 'numeric',
                           })}
                           {', '}
                           {new Date(
-                            pendingDeposit.timestamp
+                            pendingDeposit.timestamp,
                           ).toLocaleTimeString(undefined, {
                             minute: '2-digit',
-                            hour: '2-digit'
+                            hour: '2-digit',
                           })}
                         </p>
                       </div>
@@ -155,7 +158,7 @@ const TransactionsTable = ({
           )}
 
           {acceptedDeposits.length > 0 &&
-            acceptedDeposits.map(deposit => {
+            acceptedDeposits.map((deposit) => {
               if (
                 new Date(deposit.timestamp).getFullYear() <= year &&
                 new Date(deposit.timestamp).getMonth() + 1 !== month
@@ -163,44 +166,46 @@ const TransactionsTable = ({
                 year = new Date(deposit.timestamp).getFullYear();
                 month = new Date(deposit.timestamp).getMonth() + 1;
                 return (
-                  <div key={'deposits' + month + year}>
+                  <div key={`deposits${month}${year}`}>
                     <div className="bg-[#FAFAFA] py-1.5">
                       <p className="font-secondary text-lighter-black font-bold text-xs pl-7">
-                        {getMonthName(month)} {year}
+                        {getMonthName(month)}
+                        {' '}
+                        {year}
                       </p>
                     </div>
 
-                    {acceptedDeposits.map(deposit => {
+                    {acceptedDeposits.map((depositDetails) => {
                       if (
-                        new Date(deposit.timestamp).getFullYear() === year &&
-                        new Date(deposit.timestamp).getMonth() + 1 === month
+                        new Date(depositDetails.timestamp).getFullYear() === year &&
+                        new Date(depositDetails.timestamp).getMonth() + 1 === month
                       ) {
                         return (
                           <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
                             <div
-                              className={`flex items-center`}
-                              key={'deposit' + month + deposit.timestamp}
+                              className="flex items-center"
+                              key={`deposit${month}${depositDetails.timestamp}`}
                             >
                               <Image
                                 src={
-                                  deposit.bankIcon
-                                    ? `data:image/png;base64,${deposit.bankIcon}`
-                                    : deposit.type === 'FIAT'
-                                    ? bankIcon
-                                    : btcLogo
+                                  depositDetails.bankIcon
+                                    ? `data:image/png;base64,${depositDetails.bankIcon}`
+                                    : depositDetails.type === 'FIAT'
+                                      ? bankIcon
+                                      : btcLogo
                                 }
-                                width={'40px'}
-                                height={'40px'}
+                                width="40px"
+                                height="40px"
                                 className={
-                                  deposit.bankIcon ? 'rounded-full' : ''
+                                  depositDetails.bankIcon ? 'rounded-full' : ''
                                 }
                                 alt="Bank Image"
                               />
                               <div className="flex flex-col justify-center ml-4">
                                 <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                                  {deposit.type === 'CRYPTO'
+                                  {depositDetails.type === 'CRYPTO'
                                     ? 'Bitcoin'
-                                    : deposit.bankName}
+                                    : depositDetails.bankName}
                                 </p>
                                 <p className="font-secondary text-xs text-[#95989B]">
                                   Processed
@@ -208,27 +213,28 @@ const TransactionsTable = ({
                               </div>
                               <div className="flex flex-col justify-center items-end ml-auto">
                                 <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
-                                  {deposit.currency === 'USD'
+                                  {depositDetails.currency === 'USD'
                                     ? '$'
-                                    : deposit.currency}{' '}
-                                  {deposit.type === 'FIAT'
-                                    ? deposit.amount
-                                    : deposit.amount * 0.00000001}
+                                    : depositDetails.currency}
+                                  {' '}
+                                  {depositDetails.type === 'FIAT'
+                                    ? depositDetails.amount
+                                    : depositDetails.amount * 0.00000001}
                                 </p>
                                 <div className="flex justify-center items-center">
                                   <p className="font-secondary text-xs text-[#95989B] mr-1">
                                     {new Date(
-                                      deposit.timestamp
+                                      depositDetails.timestamp,
                                     ).toLocaleDateString(undefined, {
                                       day: '2-digit',
-                                      month: 'short'
+                                      month: 'short',
                                     })}
                                     {', '}
                                     {new Date(
-                                      deposit.timestamp
+                                      depositDetails.timestamp,
                                     ).toLocaleTimeString(undefined, {
                                       minute: '2-digit',
-                                      hour: '2-digit'
+                                      hour: '2-digit',
                                     })}
                                   </p>
                                 </div>
@@ -237,10 +243,14 @@ const TransactionsTable = ({
                           </div>
                         );
                       }
+
+                      return null;
                     })}
                   </div>
                 );
               }
+
+              return null;
             })}
         </>
       ) : (

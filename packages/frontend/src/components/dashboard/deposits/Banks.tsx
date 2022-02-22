@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useState, useEffect, useContext } from 'react';
 import { NextPage } from 'next';
 import * as Sentry from '@sentry/nextjs';
@@ -5,12 +7,10 @@ import Script from 'next/script';
 import { usePlaidLink } from 'react-plaid-link';
 import Image from 'next/image';
 import api from '@utils/api';
-import Card from '../Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import UnlinkModel from '@components/models/UnlinkModel';
 import DepositModel from '@components/models/DepositModel';
-import TsxsTable from './TransactionsTable';
 import { UserContext } from '@providers/User';
 import { getCookie } from 'cookies-next';
 
@@ -19,6 +19,8 @@ import BankImage from '@public/images/dashboard/deposits/bank.svg';
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
+import TsxsTable from './TransactionsTable';
+import Card from '../Card';
 
 interface Teller {
   accessToken: string;
@@ -34,20 +36,20 @@ interface Teller {
 }
 
 const BanksView: NextPage = () => {
-  const { user, loading, noUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   let userId = '';
   if (user) {
     userId = user._id;
   }
-  const [paymentApi, setPaymentApi] = useState('TELLER');
+  const [paymentApi] = useState('TELLER');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
 
   const [accounts, setAccounts] = useState<
-    | []
-    | [{ _id: string; id: string; name: string; logo?: string; type: string }]
+  | []
+  | [{ _id: string; id: string; name: string; logo?: string; type: string }]
   >([]);
   const [selectedToUnlink, setSelectedToUnlink] = useState<[] | [string]>([]);
   const [unlinkMode, setUnlinkMode] = useState(false);
@@ -65,51 +67,53 @@ const BanksView: NextPage = () => {
     paymentModel: false,
     depositValue: 0,
     userId: '',
-    bankName: ''
+    bankName: '',
   });
 
-  let currentEnvironment =
+  const currentEnvironment =
     typeof window !== 'undefined'
       ? (getCookie('environment') as string) || 'production'
       : 'production';
 
   useEffect(() => {
     (async () => {
-      let { data: plaidTokenData } = await api.getPlaidToken();
+      const { data: plaidTokenData } = await api.getPlaidToken();
       setPlaidToken(plaidTokenData.token);
 
-      let { data: accountsData } = await api.getBankAccounts();
+      const { data: accountsData } = await api.getBankAccounts();
       setAccounts(accountsData.accounts);
 
-      let { data: userDepositsData } = await api.getUserDeposits();
+      const { data: userDepositsData } = await api.getUserDeposits();
       setDeposits(
         userDepositsData.data.userDeposits
           .filter((deposit: { type: string }) => deposit.type === 'FIAT')
           .sort(
             (
               firstTimestamp: { timestamp: number },
-              secondTimeStamp: { timestamp: number }
-            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
-          )
+              secondTimeStamp: { timestamp: number },
+            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp,
+          ),
       );
     })();
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { open, exit, ready } = usePlaidLink({
     onSuccess: (public_token, metadata) =>
       api.linkPlaidAccount(public_token, metadata).then(async () => {
-        let { data: accountsData } = await api.getBankAccounts();
+        const { data: accountsData } = await api.getBankAccounts();
         setAccounts(accountsData.accounts);
       }),
     token: plaidToken,
     countryCodes: ['US', 'CA', 'GB', 'IE', 'FR', 'ES', 'NL'],
-    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development'
+    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development',
   });
 
   const handleAddBankAccount = async () => {
     switch (paymentApi) {
       case 'MX':
-        let { data: widgetUrl } = await api.getMXWidgetUrl();
+        // eslint-disable-next-line no-case-declarations
+        const { data: widgetUrl } = await api.getMXWidgetUrl();
         if (widgetUrl.errors) {
           Sentry.captureEvent(widgetUrl.errors);
           return setMxWidgetError(true);
@@ -128,30 +132,35 @@ const BanksView: NextPage = () => {
 
       case 'PLAID':
         break;
+
+      default:
+        break;
     }
+
+    return null;
   };
 
   const handleTellerAccount = async (accessToken: string): Promise<string> => {
     const {
       data: {
-        data: { tellerAccounts }
-      }
+        data: { tellerAccounts },
+      },
     } = await api.tellerAccounts(accessToken, userId);
 
     if (tellerAccounts.message === 'invalid access token provided') {
-      setTeller(state => ({
+      setTeller((state) => ({
         ...state,
-        invalidAccessToken: true
+        invalidAccessToken: true,
       }));
     }
 
     if (tellerAccounts.success) {
-      setTeller(state => ({
+      setTeller((state) => ({
         ...state,
         accountId: tellerAccounts.accountId,
         balance: tellerAccounts.balance,
         bankName: tellerAccounts.bankName,
-        userId
+        userId,
       }));
     }
     return tellerAccounts.accountId;
@@ -160,31 +169,31 @@ const BanksView: NextPage = () => {
   const handleTellerPayee = async (accountId: string, accessToken: string) => {
     const {
       data: {
-        data: { tellerPayee }
-      }
+        data: { tellerPayee },
+      },
     } = await api.tellerPayee(accountId, accessToken);
 
     if (tellerPayee.connect_token) {
-      //@ts-ignore
+      // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
           currentEnvironment === 'production' ? 'production' : 'sandbox',
         connectToken: tellerPayee.connect_token,
         applicationId: 'app_nu123i0nvg249720i8000',
-        onSuccess: function ({ payee: { id } }: { payee: { id: string } }) {
-          setTeller(state => ({
+        onSuccess({ payee: { id } }: { payee: { id: string } }) {
+          setTeller((state) => ({
             ...state,
             paymentModel: true,
-            payeeId: id
+            payeeId: id,
           }));
-        }
+        },
       });
       setup.open();
     } else {
-      setTeller(state => ({
+      setTeller((state) => ({
         ...state,
         paymentModel: true,
-        payeeId: tellerPayee.payeeId
+        payeeId: tellerPayee.payeeId,
       }));
     }
   };
@@ -197,42 +206,43 @@ const BanksView: NextPage = () => {
       accessToken,
       memo,
       bankName,
-      userId
+      userId: tellerUserId,
     } = teller;
     const {
       data: {
-        data: { tellerPayment }
-      }
+        data: { tellerPayment },
+      },
     } = await api.tellerPayment(
       accountId,
       depositValue,
       payeeId,
       accessToken,
       bankName,
-      userId,
-      memo
+      tellerUserId,
+      memo,
     );
 
     if (tellerPayment.connect_token) {
-      //@ts-ignore
+      // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
           currentEnvironment === 'production' ? 'production' : 'sandbox',
         connectToken: tellerPayment.connect_token,
         applicationId: 'app_nu123i0nvg249720i8000',
-        onSuccess: async function ({ payment: { id } }: any) {
-          setTeller(state => ({ ...state, paymentModel: false }));
+        async onSuccess({ payment: { id } }: any) {
+          setTeller((state) => ({ ...state, paymentModel: false }));
+          // eslint-disable-next-line @typescript-eslint/no-shadow
           const { depositValue, bankName, userId } = teller;
-          const res = await api.tellerPaymentVerified(
+          await api.tellerPaymentVerified(
             id,
             depositValue,
             bankName,
-            userId
+            userId,
           );
-        }
+        },
       });
       setup.open();
-    } else setTeller(state => ({ ...state, paymentModel: false }));
+    } else setTeller((state) => ({ ...state, paymentModel: false }));
   };
 
   return (
@@ -247,8 +257,8 @@ const BanksView: NextPage = () => {
               new window.MXConnect({
                 id: 'widget',
                 iframeTitle: 'Connect',
-                targetOrigin: '*'
-              })
+                targetOrigin: '*',
+              }),
             );
           }}
         />
@@ -266,16 +276,16 @@ const BanksView: NextPage = () => {
                     : 'sandbox',
                 applicationId: 'app_nu123i0nvg249720i8000',
 
-                onSuccess: async function ({ accessToken }: any) {
-                  setTeller(state => ({
+                async onSuccess({ accessToken }: any) {
+                  setTeller((state) => ({
                     ...state,
-                    accessToken: accessToken
+                    accessToken,
                   }));
 
                   const accountId = await handleTellerAccount(accessToken);
                   await handleTellerPayee(accountId, accessToken);
-                }
-              })
+                },
+              }),
             );
           }}
         />
@@ -297,7 +307,7 @@ const BanksView: NextPage = () => {
                       className="bg-lighter-black text-white py-2 px-8 rounded-[25px] border font-secondary text-sm font-medium"
                       style={{
                         boxShadow:
-                          '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)'
+                          '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)',
                       }}
                       onClick={() => setShowUnlinkModel(true)}
                     >
@@ -327,7 +337,7 @@ const BanksView: NextPage = () => {
             <hr />
             {accounts.length > 0 ? (
               <div className="flex flex-col">
-                {accounts.map(account => (
+                {accounts.map((account) => (
                   <div
                     className="flex items-center px-8 py-5 border-b"
                     key={account._id}
@@ -363,14 +373,13 @@ const BanksView: NextPage = () => {
                             // @ts-ignore
                             selectedToUnlink.includes(account._id)
                               ? // @ts-ignore
-                                setSelectedToUnlink(prev =>
-                                  prev.filter(id => id !== account._id)
-                                )
+                              setSelectedToUnlink((prev) =>
+                                prev.filter((id) => id !== account._id))
                               : // @ts-ignore
-                                setSelectedToUnlink(prev => [
-                                  ...prev,
-                                  account._id
-                                ]);
+                              setSelectedToUnlink((prev) => [
+                                ...prev,
+                                account._id,
+                              ]);
                           }}
                         />
                       </div>
@@ -398,7 +407,7 @@ const BanksView: NextPage = () => {
                   className="bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                   style={{
                     boxShadow:
-                      '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
+                      '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
                   }}
                   onClick={handleAddBankAccount}
                   // disabled={!plaidToken.length}
@@ -420,9 +429,9 @@ const BanksView: NextPage = () => {
                     <button
                       className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px] mb-4"
                       onClick={() =>
-                        setTeller(state => ({
+                        setTeller((state) => ({
                           ...state,
-                          invalidAccessToken: false
+                          invalidAccessToken: false,
                         }))
                       }
                     >
@@ -455,10 +464,10 @@ const BanksView: NextPage = () => {
                       <input
                         type="text"
                         className="font-secondary"
-                        onChange={e =>
-                          setTeller(state => ({
+                        onChange={(e) =>
+                          setTeller((state) => ({
                             ...state,
-                            memo: e.target.value
+                            memo: e.target.value,
                           }))
                         }
                         value={teller.memo}
@@ -474,14 +483,15 @@ const BanksView: NextPage = () => {
                         className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
                         value={`${teller.depositValue}`}
                         style={{
-                          width: teller.depositValue.toString().length + 'ch'
+                          width: `${teller.depositValue.toString().length}ch`,
                         }}
+                        // eslint-disable-next-line jsx-a11y/no-autofocus
                         autoFocus
                         onChange={({ target }) => {
                           const value = target.value.replace(/[^0-9]/g, '');
-                          setTeller(state => ({
+                          setTeller((state) => ({
                             ...state,
-                            depositValue: parseFloat(value)
+                            depositValue: parseFloat(value),
                           }));
                         }}
                       />
@@ -494,7 +504,7 @@ const BanksView: NextPage = () => {
                       className="w-full mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                       style={{
                         boxShadow:
-                          '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
+                          '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
                       }}
                       disabled={teller.depositValue < 10}
                       onClick={() => handleBankDeposit()}
@@ -511,7 +521,7 @@ const BanksView: NextPage = () => {
               className="w-2/3 mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 boxShadow:
-                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
+                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
               }}
               onClick={() => setShowDepositModel(true)}
             >
@@ -543,7 +553,7 @@ const BanksView: NextPage = () => {
                   />
                 </button>
               </div>
-              <div id="widget" className="z-10"></div>
+              <div id="widget" className="z-10" />
             </Card>
           </div>
         )}
@@ -582,7 +592,7 @@ const BanksView: NextPage = () => {
           accounts={accounts}
           IDs={selectedToUnlink}
           fetchAccounts={async () => {
-            let { data: accountsData } = await api.getBankAccounts();
+            const { data: accountsData } = await api.getBankAccounts();
             setAccounts(accountsData.accounts);
             setUnlinkMode(false);
             setSelectedToUnlink([]);

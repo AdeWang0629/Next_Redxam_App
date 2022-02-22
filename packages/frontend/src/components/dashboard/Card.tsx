@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import type { NextPage } from "next";
+import { ReactNode } from 'react';
+import type { NextPage } from 'next';
 
 interface CardProps {
   width?: string;
@@ -15,24 +15,22 @@ interface CardProps {
 }
 
 const Card: NextPage<CardProps> = ({
-  width = "",
-  height = "",
-  py = "",
-  px = "",
-  p = "",
-  my = "",
-  mx = "",
-  m = "",
+  width = '',
+  height = '',
+  py = '',
+  px = '',
+  p = '',
+  my = '',
+  mx = '',
+  m = '',
   children,
-  otherClasses = "",
-}) => {
-  return (
-    <div
-      className={`shadow-card rounded-[25px] overflow-hidden ${width} ${height} ${p} ${py} ${px} ${my} ${mx} ${m} ${otherClasses}`}
-    >
-      {children}
-    </div>
-  );
-};
+  otherClasses = '',
+}) => (
+  <div
+    className={`shadow-card rounded-[25px] overflow-hidden ${width} ${height} ${p} ${py} ${px} ${my} ${mx} ${m} ${otherClasses}`}
+  >
+    {children}
+  </div>
+);
 
 export default Card;
