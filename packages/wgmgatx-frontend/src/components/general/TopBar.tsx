@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
+import MobileMenu from './MobileMenu'
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,10 +20,20 @@ const TopBar = () => {
   // const container = document.getElementById('menu')?.style.opacity;
 
   const handleMenu = () => {
+      hidden ? setTimeout(() => {
+        setHidden(!hidden);
+      }, 0)
+      :
+      setTimeout(() => {
+        setHidden(!hidden);
+      }, 350)
     setMenu(!menu);
-    setTimeout(() => {
-      setHidden(!hidden);
-    }, 200);
+      // menu ? setTimeout(() => {
+      //   setHidden(!hidden);
+      // }, 0):
+    // setTimeout(() => {
+    //   setHidden(!hidden);
+    // }, 0);
 
   }
   console.log('menu:'+menu);
@@ -66,10 +77,11 @@ const TopBar = () => {
         </li> */}
       </ul>
       {
-        <div className={`${hidden ? 'hidden' : 'flex'} ${menu ? 'opacity-0' : 'opacity-100 flex'} fixed z-20 h-full w-full m-auto inset-x-0 inset-y-0 p-4 bg-[#171717] rounded-sm transition-opacity ease-in-out duration-[350ms]`}>
-          <a className='' onClick={() => handleMenu()}>
-            <BiUndo className='hover:fill-white ease-in-out duration-150 ml-3 mt-3' color="#817F8A" size='25px'/>
+        <div className={`${hidden ? 'hidden' : 'flex'} ${menu ? 'opacity-0' : 'opacity-100'} fixed z-20 h-full w-full m-auto inset-x-0 inset-y-0 p-4 bg-[#171717] rounded-sm transition-opacity ease-in-out duration-[350ms]`}>
+          <a className='absolute left-[30px] top-[45px]' onClick={() => handleMenu()}>
+            <BiUndo className='hover:fill-white ease-in-out duration-150' color="#817F8A" size='25px'/>
           </a>
+          <MobileMenu handleMenu={handleMenu}/>
         </div>
         // <div className='relative fixed bg-white t-0 h-[100vh] w-[]'>
 
