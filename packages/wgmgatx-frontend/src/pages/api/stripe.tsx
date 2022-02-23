@@ -9,7 +9,7 @@ async function CreateStripeSession(
   const redirectURL =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : 'https://wgmgatx.vercel.app/';
+      : 'https://wgmg.vercel.app';
 
   const transformedItem = {
     price_data: {
