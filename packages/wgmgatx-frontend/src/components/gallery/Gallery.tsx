@@ -59,52 +59,57 @@ const Gallery = (gallery: { gallery: any[] }) => {
           className="flex max-w-[100%] w-auto"
           columnClassName="sm:mx-5 bg-clip-padding"
         >
-          {gallery.gallery.slice(0, 9).map((item, index) => {
-            return (
-              <div key={item.id}>
-                <div className="relative flex justify-center pt-[25px] w-full">
-                  <img className="rounded-t-[18px]" src={item.image} alt="" />
-                </div>
-                <div className="bg-[#1e1e1e] rounded-b-[18px]">
-                  <div className="p-8">
-                    <h2 className="font-bold text-[16px] lg:text-[18px] text-left">
-                      {' '}
-                      {item.name}{' '}
-                    </h2>
-                    <h2 className="font-semibold text-xs text-[#817F8A] py-1 mt-2">
-                      {' '}
-                      {item.artist}{' '}
-                    </h2>
-                    <h2 className="font-semibold text-xs text-[#817F8A] py-1">
-                      {' '}
-                      {item.description}{' '}
-                    </h2>
-                    <h2 className="font-semibold text-xs text-[#817F8A] py-1">
-                      {' '}
-                      {item.size}{' '}
-                    </h2>
-                    <div className="flex justify-between items-center pt-2">
-                      <h2 className="font-bold text-sm text-left text-[16px] lg:text-[]">
+          {gallery.gallery
+            .slice(0, gallery.gallery.length)
+            .map((item, index) => {
+              return (
+                <div key={index}>
+                  <div
+                    className="relative flex justify-center pt-[25px] w-full"
+                    key={item.id}
+                  >
+                    <img className="rounded-t-[18px]" src={item.image} alt="" />
+                  </div>
+                  <div className="bg-[#1e1e1e] rounded-b-[18px]">
+                    <div className="p-8">
+                      <h2 className="font-bold text-[16px] lg:text-[18px] text-left">
                         {' '}
-                        {item.price.length >= 6
-                          ? null
-                          : '$' +
-                            item.price
-                              .toString()
-                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                        {item.name}{' '}
                       </h2>
-                      <a
-                        className="bg-white font-bold text-[#1e1e1e] text-[12px] px-6 py-2 rounded-[12px] hover:ring-2 hover:ring-white hover:bg-[#1e1e1e] hover:text-white cursor-pointer"
-                        onClick={() => createCheckOutSession(item)}
-                      >
-                        Buy
-                      </a>
+                      <h2 className="font-semibold text-xs text-[#817F8A] py-1 mt-2">
+                        {' '}
+                        {item.artist}{' '}
+                      </h2>
+                      <h2 className="font-semibold text-xs text-[#817F8A] py-1">
+                        {' '}
+                        {item.description}{' '}
+                      </h2>
+                      <h2 className="font-semibold text-xs text-[#817F8A] py-1">
+                        {' '}
+                        {item.size}{' '}
+                      </h2>
+                      <div className="flex justify-between items-center pt-2">
+                        <h2 className="font-bold text-sm text-left text-[16px] lg:text-[]">
+                          {' '}
+                          {item.price.length >= 6
+                            ? null
+                            : '$' +
+                              item.price
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                        </h2>
+                        <a
+                          className="bg-white font-bold text-[#1e1e1e] text-[12px] px-6 py-2 rounded-[12px] hover:ring-2 hover:ring-white hover:bg-[#1e1e1e] hover:text-white cursor-pointer"
+                          onClick={() => createCheckOutSession(item)}
+                        >
+                          Buy
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </Masonry>
       </div>
     </div>
