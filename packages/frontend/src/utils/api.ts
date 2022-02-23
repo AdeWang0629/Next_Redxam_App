@@ -152,15 +152,13 @@ class API {
       invitationCode(code: "${invitationCode}"){
           message
           success
+          token
       }
   }`;
 
     return this.axios.post(
       `${this.baseURL}/api/v1`,
-      { query: mutation },
-      {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+      { query: mutation }
     );
   }
 

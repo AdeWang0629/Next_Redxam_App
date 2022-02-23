@@ -250,6 +250,12 @@ input TellerPaymentVerifiedInput {
   userId: String!
 }
 
+type InvitationCode {
+  success: Boolean
+  message: String
+  token: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -284,7 +290,7 @@ type Mutation {
   goUpQueue: Response
   createWaitlist(arg: NewUser): Response
   inviteUser(arg: NewUser): Response
-  invitationCode(code: String): Response
+  invitationCode(code: String): InvitationCode
   emailValidateToken: Response
   createManualUser(arg: NewManualUser): Response
   createAdmin(arg: newAdmin): Response

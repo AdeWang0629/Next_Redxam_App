@@ -24,7 +24,7 @@ export const invitationCode = async (
       user.waitlistToken,
       user.referralCode
     );
-    const token = new JWT({ userId: user._id, type: 'verified' }).signSync();
+    const token = new JWT({ userId: user._id, type: 'login' }).signSync();
     await user.updateOne({
       $set: {
         invitationAccepted: true,
@@ -35,7 +35,8 @@ export const invitationCode = async (
     });
     return {
       success: true,
-      message: 'user invited sucessfully'
+      message: 'user invited sucessfully',
+      token
     };
   } catch (error) {
     return { message: error.message, success: false };

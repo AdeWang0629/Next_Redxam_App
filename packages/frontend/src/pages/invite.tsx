@@ -15,11 +15,6 @@ const Invite: NextPage = () => {
   const [code, setCode] = useState('');
   const [submitLoading, setSubmitLoading] = useState(false);
 
-  // @ts-ignore
-  useEffect(() => {
-    if (noUser) return router.push('/login');
-  }, [noUser]);
-
   useEffect(() => {
     if (
       !loading &&
@@ -34,15 +29,13 @@ const Invite: NextPage = () => {
   if (loading) return <span>loading</span>;
 
   const handleSubmit = () => {
-    // if (!code || code.length !== 6) return alert('Invalid code!');
-
     setSubmitLoading(true);
     api
       .invite(code)
       .then(({ data }) => {
         if (
           !data.data.invitationCode.success &&
-          data.data.invitationCode.message === 'invalid code'
+          data.data.invitationCode.message === 'no invitation code found'
         ) {
           alert('Invalid code!');
         } else if (data.data.invitationCode.success) {
@@ -52,7 +45,7 @@ const Invite: NextPage = () => {
               console.log(accountData);
               setNoUser(false);
               setUser(accountData.data.user[0]);
-              alert('Account activated successfully!');
+              router.push(`/verify?token=${data.data.invitationCode.token}`)
             })
             .catch(() => setNoUser(true))
             .finally(() => setLoading(false));
