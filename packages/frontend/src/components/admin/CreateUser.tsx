@@ -41,8 +41,7 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
     const emptyFields: string[] = [];
 
     Object.keys(userData).forEach((key) => {
-      // @ts-ignore
-      if (userData[key] === '') {
+      if (userData[key as keyof typeof userData] === '') {
         emptyFields.push(key);
       }
     });
@@ -60,15 +59,14 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
 
     const query = `mutation { createUser(arg: {
       ${Object.keys(userData)
-  // @ts-ignore
-    .filter((key) => userData[key])
+    .filter((key) => userData[key as keyof typeof userData])
     .map(
       (key, idx) =>
-      // @ts-ignore
-        `${key}: "${userData[key]}"${
+        `${key}: "${userData[key as keyof typeof userData]}"${
           idx ===
-              // @ts-ignore
-              Object.keys(userData).filter((key2) => userData[key2]).length - 1
+            Object.keys(userData)
+              .filter((key2) => userData[key2 as keyof typeof userData])
+              .length - 1
             ? ''
             : ', '
         }`,

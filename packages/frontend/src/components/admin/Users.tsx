@@ -3,7 +3,15 @@ import { getCookie } from 'cookies-next';
 import api from '@utils/api';
 
 export default function Users() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<[] | [{
+    created_at: number;
+    _id: string;
+    firstName: string;
+    lastName: string;
+    accountStatus: string;
+    referralId: string;
+    email: string;
+  }]>([]);
 
   useEffect(() => {
     (async () => {
@@ -42,42 +50,34 @@ export default function Users() {
       <tbody>
         {users
           .sort(
-            // @ts-ignore
             (a, b) =>
-            // @ts-ignore
-              new Date(b.created_at).getTime <
-                // @ts-ignore
+              Number(
+                new Date(b.created_at).getTime() <
                 new Date(a.created_at).getTime(),
+              ),
           )
           .map((user) => (
-            // @ts-ignore
             <tr key={user._id}>
               <td className="bg-black dark:bg-gray-300 bg-opacity-5 p-4 text-left border border-black dark:border-white border-opacity-20">
-                {/* @ts-ignore */}
                 {!user.firstName ? (
                   <span className="underline font-bold">N/A</span>
                 ) : (
-                /* @ts-ignore */
                   user.firstName
                 )}
               </td>
               <td className="bg-black dark:bg-gray-300 bg-opacity-5 p-4 text-left border border-black dark:border-white border-opacity-20">
-                {/* @ts-ignore */}
                 {!user.lastName ? (
                   <span className="underline font-bold">N/A</span>
                 ) : (
-                /* @ts-ignore */
                   user.lastName
                 )}
               </td>
               <td
                 className="bg-black dark:bg-gray-300 bg-opacity-5 p-4 text-left border border-black dark:border-white border-opacity-20"
                 style={{
-                  // @ts-ignore
                   color: user.accountStatus === 'accepted' ? 'green' : 'red',
                 }}
               >
-                {/* @ts-ignore */}
                 {user.accountStatus || (
                 <span className="underline font-bold">
                   N/A (need to be migrated)
@@ -85,13 +85,11 @@ export default function Users() {
                 )}
               </td>
               <td className="bg-black dark:bg-gray-300 bg-opacity-5 p-4 text-left border border-black dark:border-white border-opacity-20">
-                {/* @ts-ignore */}
                 {user.referralId || (
                 <span className="underline font-bold">No code used</span>
                 )}
               </td>
               <td className="bg-black dark:bg-gray-300 bg-opacity-5 p-4 text-left border border-black dark:border-white border-opacity-20">
-                {/* @ts-ignore */}
                 {user.email}
               </td>
             </tr>

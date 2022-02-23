@@ -77,8 +77,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
             }
             onMouseLeave={() => setValue(0)}
           >
-            {/* @ts-ignore */}
-            <Line type="monotone" dataKey="value" stroke="#61D404" dot={null} />
+            <Line type="monotone" dataKey="value" stroke="#61D404" dot={undefined} />
             <Tooltip content={<CustomTooltip />} position={{ y: 50 }} />
           </LineChart>
         </ResponsiveContainer>
