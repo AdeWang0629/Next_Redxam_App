@@ -73,21 +73,11 @@ letter-spacing: -0.05em; color: #2A3037;'
           </a>
         </tr>
         <tr style='text-align: center;'>
-          <a href='https://bit.ly/3sDVHhe'><img
-              src='cid:linkedin@invitation'
-            /></a>
-          <a href='https://bit.ly/33oAfEe'><img
-              src='cid:twitter@invitation'
-            /></a>
-          <a href='https://bit.ly/3uUt3el'><img
-              src='cid:facebook@invitation'
-            /></a>
-          <a href='https://bit.ly/33qB53x'><img
-              src='cid:telegram@invitation'
-            /></a>
-          <a href='https://bit.ly/3HVyJZe'><img
-              src='cid:discord@invitation'
-            /></a>
+          <a href='https://bit.ly/3sDVHhe'><img src='cid:linkedin@ico' /></a>
+          <a href='https://bit.ly/33oAfEe'><img src='cid:twitter@ico' /></a>
+          <a href='https://bit.ly/3uUt3el'><img src='cid:facebook@ico' /></a>
+          <a href='https://bit.ly/33qB53x'><img src='cid:telegram@ico' /></a>
+          <a href='https://bit.ly/3HVyJZe'><img src='cid:discord@ico' /></a>
         </tr>
       </tbody>
     </table>
