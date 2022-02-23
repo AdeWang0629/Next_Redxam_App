@@ -39,12 +39,12 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
     type: string;
   }) {
     setValue(account);
-    setShowOptions(prevState => !prevState);
+    setShowOptions((prevState) => !prevState);
   }
 
   return (
     <div>
-      <div onClick={() => setShowOptions(prevState => !prevState)}>
+      <div onClick={() => setShowOptions((prevState) => !prevState)} role="list">
         <div className="flex flex-col rounded-3xl border px-6 pt-6 pb-3 min-w-[15.0625rem]">
           <div className="flex cursor-pointer">
             <Image
@@ -85,11 +85,12 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
           >
             Cancel
           </button>
-          {accounts.map(account => (
+          {accounts.map((account) => (
             <div
               className="flex border-b p-6 min-w-[15.0625rem] cursor-pointer"
               key={account._id}
               onClick={() => handleOptionClick(account)}
+              role="listitem"
             >
               <Image
                 src={`data:image/png;base64,${account?.logo}`}

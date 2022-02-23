@@ -29,10 +29,10 @@ const Verify: NextPage = () => {
       .then(async ({ data }) => {
         if (data.data.verifyToken.success) {
           setCookies('token', data.data.verifyToken.token);
-          api.getUserData().then(({ data }) => {
-            setUser(data.data.user[0]);
+          api.getUserData().then(({ data: userData }) => {
+            setUser(userData.data.user[0]);
             setNoUser(false);
-            if (data.data.user[0].accountStatus === 'invited') {
+            if (userData.data.user[0].accountStatus === 'invited') {
               router.push('/invite');
             } else router.push('/home');
           });
@@ -48,7 +48,7 @@ const Verify: NextPage = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [router.query?.token]);
+  }, [router.query?.token, router, setLoading, setNoUser, setUser]);
   return <div>loading</div>;
 };
 

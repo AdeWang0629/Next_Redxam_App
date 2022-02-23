@@ -27,36 +27,36 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         'navbar',
         'footer',
         'waitlist',
-        'login',
-      ])),
-    },
+        'login'
+      ]))
+    }
   };
 };
 
 const Cards: NextPage = () => {
   const [activeQuestion, setActiveQuestion] = useState(-1);
 
-  let questions = [
+  const questions = [
     {
       title: '¿Who can apply for the credit card?',
-      body: 'Currently any US Citizen and Resident with a Social Security Number is able to sign up for the debit card.',
+      body: 'Currently any US Citizen and Resident with a Social Security Number is able to sign up for the debit card.'
     },
     {
       title: '¿Does the card offer rewards?',
-      body: 'We offer 3.5% rewards on the crypto of your choice!',
+      body: 'We offer 3.5% rewards on the crypto of your choice!'
     },
     {
       title: '¿Do I have to have a good credit score to apply?',
-      body: 'This is a debit card and no credit check will be done.',
+      body: 'This is a debit card and no credit check will be done.'
     },
     {
       title: '¿Can I use it anywhere, what are the limits?',
-      body: 'The redxam card has no limits! You can use it anywhere around the world where Mastercard is accepted.',
+      body: 'The redxam card has no limits! You can use it anywhere around the world where Mastercard is accepted.'
     },
     {
       title: '¿How many times can I change my rewards currency?',
-      body: 'You can change the cryptocurrency of the rewards once a week.',
-    },
+      body: 'You can change the cryptocurrency of the rewards once a week.'
+    }
   ];
 
   return (
@@ -69,9 +69,13 @@ const Cards: NextPage = () => {
               Magic Card
             </p>
             <h1 className="text-5xl md:text-7xl leading-tight font-bold text-lighter-black mb-16">
-              Easy <br />
+              Easy
+              {' '}
+              <br />
               <span className="text-[#ACE96B]">rewards</span>
-              <br /> on purchase
+              <br />
+              {' '}
+              on purchase
             </h1>
             <p className="font-primary text-sm text-[#6A6E73] max-w-sm leading-6 mb-8">
               Earn unlimited 1.5% back in crypto on every purchase with the
@@ -90,7 +94,11 @@ const Cards: NextPage = () => {
           <Image src={phone} alt="Phone With redxam Card" />
           <div className="md:w-[26rem]">
             <h2 className="text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-10">
-              One Card. <br /> More Crypto.
+              One Card.
+              {' '}
+              <br />
+              {' '}
+              More Crypto.
             </h2>
             <ul className="mb-8 relative">
               <li className="flex items-center mb-2">
@@ -173,13 +181,14 @@ const Cards: NextPage = () => {
             {questions.map((question, idx) => (
               <div
                 className="w-full flex flex-col py-8 px-8 md:px-16 bg-[#F6F6FA] rounded-[30px] mb-8 transition-all duration-500"
-                key={'question' + idx}
+                key={`question${idx}`}
               >
                 <div
                   className="flex flex-row justify-between items-center cursor-pointer transition-all duration-500"
                   onClick={() =>
                     setActiveQuestion((prev) => (prev === idx ? -1 : idx))
                   }
+                  role="article"
                 >
                   <span className="text-2xl md:text-4xl leading-10 w-auto font-primary font-medium text-black text-opacity-50 tracking-[-0.04em]">
                     {question.title}
@@ -205,7 +214,7 @@ const Cards: NextPage = () => {
           </div>
         </section>
       </div>
-      <Footer card={true} />
+      <Footer card />
     </>
   );
 };

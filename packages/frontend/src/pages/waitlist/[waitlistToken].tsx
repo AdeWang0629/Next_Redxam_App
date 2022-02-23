@@ -19,7 +19,7 @@ const WaitlistToken: NextPage = () => {
     message: '',
     success: true,
     level: '',
-    referralCode: '',
+    referralCode: ''
   });
   const [loading, setLoading] = useState(true);
   const [baseUrl, setBaseUrl] = useState('');
@@ -43,8 +43,8 @@ const WaitlistToken: NextPage = () => {
       {loading ? (
         <Image
           src={AnimatedLogo}
-          width={'50px'}
-          height={'45,5px'}
+          width="50px"
+          height="45,5px"
           alt="redxam Animated Logo"
         />
       ) : (
@@ -82,7 +82,9 @@ const WaitlistToken: NextPage = () => {
               </p>
               <h3 className="font-secondary text-lg text-center">
                 Invite your friends to get higher on the waitlist by sharing
-                this link. <br />
+                this link.
+                {' '}
+                <br />
               </h3>
               <p className="font-bold text-md mt-4 text-center text-[#38B000]">
                 <a href={`${baseUrl}?referral=${waitlistLevel.referralCode}`}>

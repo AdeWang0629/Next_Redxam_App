@@ -128,6 +128,7 @@ const Scripts: NextPage = () => {
                 {' '}
                 -
                 {' '}
+
                 {user.email}
               </option>
             ))}
@@ -146,7 +147,6 @@ const Scripts: NextPage = () => {
         </select>
       </>
       )}
-
       {script === 'inviteUser' && (
       <input
         type="text"

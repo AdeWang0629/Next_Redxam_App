@@ -5,11 +5,11 @@ import { UserContext } from '@providers/User';
 import { HomeContext } from '@providers/Home';
 import Image from 'next/image';
 import Link from 'next/link';
-import Card from './Card';
 import { useLocale } from '@utils/hooks';
 
 // Imgs
 import leafsBg from '@public/images/dashboard/leafs-bg.svg';
+import Card from './Card';
 
 const BalanceCard = () => {
   const { user } = useContext(UserContext);
@@ -17,7 +17,12 @@ const BalanceCard = () => {
   const [balance, setBalance] = useState(0);
   const locale = useLocale();
 
-  const country: string = locale == 'en' ? 'US' : locale == 'es' ? 'ES' : 'UAE';
+  const localeToCountry = new Map();
+
+  localeToCountry.set('en', 'US');
+  localeToCountry.set('es', 'ES');
+
+  const country: string = localeToCountry.get(locale) || 'UAE';
 
   useEffect(() => {
     if (home) {
@@ -27,7 +32,7 @@ const BalanceCard = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setBalance(e => e + (e * 0.05) / 365 / 24 / 60 / 60);
+      setBalance((e) => e + (e * 0.05) / 365 / 24 / 60 / 60);
     }, 1000);
     return () => {
       clearInterval(interval);
@@ -40,24 +45,27 @@ const BalanceCard = () => {
   const balanceInfo =
     country !== 'UAE' ? (
       <ReactPlaceholder
-        showLoadingAnimation={true}
+        showLoadingAnimation
         type="textRow"
         ready={!loading}
         style={{ height: 36, marginTop: 0, width: '80%' }}
       >
         <p className="font-secondary font-bold text-3xl text-black w-[80%]">
-          ${balanceNumber}
+          $
+          {balanceNumber}
         </p>
       </ReactPlaceholder>
     ) : (
       <ReactPlaceholder
-        showLoadingAnimation={true}
+        showLoadingAnimation
         type="textRow"
         ready={!loading}
         style={{ height: 36, marginTop: 0, width: '80%' }}
       >
         <p className="font-secondary font-bold text-3xl text-black w-[80%]">
-          AED {balanceNumber}
+          AED
+          {' '}
+          {balanceNumber}
         </p>
       </ReactPlaceholder>
     );
@@ -81,7 +89,8 @@ const BalanceCard = () => {
       <p className="text-center bg-light-gray py-1 font-secondary text-sm text-[#95989B]">
         Your pending balance is
         <span className="text-lighter-black font-medium ml-1.5">
-          ${user?.pending_balance}
+          $
+          {user?.pending_balance}
         </span>
       </p>
       <div className="w-full">

@@ -1,9 +1,4 @@
-import { loadStripe } from '@stripe/stripe-js/pure';
-
-//@ts-ignore
-const stripe = loadStripe(
-  'sk_test_51IVEgYEPejRluWxLQtuVRwiUkGJHmztuubzqjf6bPc0SJ8Q7JShj3KxHB4DQjaiuAfO9eCnn4ZK6rHkqRftgAWM400lv9hFz0x'
-);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 async function CreateStripeSession(
   req: { body: { item: any } },
@@ -14,7 +9,7 @@ async function CreateStripeSession(
   const redirectURL =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : 'https://wgmgatx.vercel.app/';
+      : 'https://wgmg.vercel.app';
 
   const transformedItem = {
     price_data: {

@@ -24,7 +24,7 @@ const Invite: NextPage = () => {
     ) {
       router.push('/');
     }
-  }, [user?.accountStatus]);
+  }, [user?.accountStatus, noUser, loading, router]);
 
   if (loading) return <span>loading</span>;
 
