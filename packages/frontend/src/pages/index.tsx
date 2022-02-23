@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 import Script from 'next/script';
 import Particles from 'react-tsparticles';
 import Navbar from '@components/global/Navbar';
-import EventBanner from '@components/landing/EventBanner';
 import Hero from '@components/landing/Hero';
 import WhyUs from '@components/landing/WhyUs';
 import Starting from '@components/landing/Starting';
@@ -42,57 +41,55 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-const Home: NextPage = () => {
-  return (
-    <>
-      <Navbar title="Your Personal Crypto Investment Assistant" />
-      <Particles
-        params={{
-          particles: {
-            number: {
-              value: 10
-            },
-            color: {
-              value: ['#219653', '#CA7795', '#A0DDFF', '#ACE96B']
-            },
-            opacity: {
-              value: 0.8
-            },
-            size: {
-              value: 10,
-              random: false
-            },
-            line_linked: {
-              enable: false
-            },
-            move: {
-              enable: true,
-              speed: 1
-            }
+const Home: NextPage = () => (
+  <>
+    <Navbar title="Your Personal Crypto Investment Assistant" />
+    <Particles
+      params={{
+        particles: {
+          number: {
+            value: 10
+          },
+          color: {
+            value: ['#219653', '#CA7795', '#A0DDFF', '#ACE96B']
+          },
+          opacity: {
+            value: 0.8
+          },
+          size: {
+            value: 10,
+            random: false
+          },
+          line_linked: {
+            enable: false
+          },
+          move: {
+            enable: true,
+            speed: 1
           }
-        }}
-        style={{
-          zIndex: -100,
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          height: '100%',
-          width: '100%'
-        }}
-      />
-      { /* <EventBanner /> */ }
-      <Hero />
-      <WhyUs />
-      <Starting />
-      <Relax />
-      <Calculate />
-      <Banks />
-      <Plan />
-      <FAQ isSearchFilterRequired={false} />
-      <Newsletter />
-      <Footer />
-      <Script id="tawk">
-        {`var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        }
+      }}
+      style={{
+        zIndex: -100,
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: '100%'
+      }}
+    />
+    <Hero />
+    <WhyUs />
+    <Starting />
+    <Relax />
+    <Calculate />
+    <Banks />
+    <Plan />
+    <FAQ isSearchFilterRequired={false} />
+    <Newsletter />
+    <Footer />
+    <Script id="tawk">
+      {`var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
           (function(){
           var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
           s1.async=true;
@@ -101,9 +98,8 @@ const Home: NextPage = () => {
           s1.setAttribute('crossorigin','*');
           s0.parentNode.insertBefore(s1,s0);
           })();`}
-      </Script>
-    </>
-  );
-};
+    </Script>
+  </>
+);
 
 export default Home;

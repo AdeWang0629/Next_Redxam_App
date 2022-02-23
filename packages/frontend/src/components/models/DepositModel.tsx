@@ -69,13 +69,13 @@ const DepositModel: NextPage<DepositModelProps> = ({
     } else document.body.style.overflow = 'auto';
   }, [isOpened]);
 
-  let currentEnvironment =
+  const currentEnvironment =
     typeof window !== 'undefined'
       ? (getCookie('environment') as string) || 'production'
       : 'production';
 
   function handleOutsideClick(event: any) {
-    if (outsideContainerRef.current == event.target) {
+    if (outsideContainerRef.current === event.target) {
       setOpened(false);
       document.body.style.overflow = 'auto';
     }
@@ -86,7 +86,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
   }
 
   const deposit = async () => {
-    let confirmation = confirm(
+    const confirmation = confirm(
       `Are you sure you want to deposit $${value} from ${selectedAccount.name}?`
     );
     if (!confirmation) return;
@@ -106,14 +106,14 @@ const DepositModel: NextPage<DepositModelProps> = ({
     );
 
     if (tellerPayment.connect_token) {
-      //@ts-ignore typescript does not recognize CDN script types
+      // @ts-ignore typescript does not recognize CDN script types
       const setup = window.TellerConnect.setup({
         environment:
           currentEnvironment === 'production' ? 'production' : 'sandbox',
         connectToken: tellerPayment.connect_token,
         applicationId: 'app_nu123i0nvg249720i8000',
-        onSuccess: async function ({ payment: { id } }: any) {
-          const res = await api.tellerPaymentVerified(
+        async onSuccess({ payment: { id } }: any) {
+          await api.tellerPaymentVerified(
             id,
             value,
             selectedAccount.name,
@@ -124,22 +124,6 @@ const DepositModel: NextPage<DepositModelProps> = ({
       setup.open();
     }
     setOpened(false);
-
-    // api
-    //   .deposit(selectedAccount.id, value)
-    //   .then(res => {
-    //     if (res?.data?.type === 'UPDATE_REQUIRED') {
-    //       return setUpdateToken(res.data.token);
-    //     } else {
-    //       alert('Deposit successful!');
-    //       setOpened(false);
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //     alert(error?.response?.data?.message || 'An error occurred!');
-    //   })
-    //   .finally(() => setDepositLoading(false));
   };
 
   return (
@@ -148,6 +132,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
         className="flex flex-col justify-center items-center bg-black bg-opacity-75 absolute top-0 left-0 h-full w-full z-50"
         ref={outsideContainerRef}
         onClick={handleOutsideClick}
+        role="dialog"
       >
         <div className="flex flex-col justify-center bg-white rounded-[30px] w-3/4 md:w-1/2 pb-8">
           <div className="flex items-center justify-between p-8">
@@ -194,10 +179,10 @@ const DepositModel: NextPage<DepositModelProps> = ({
                 <input
                   className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
                   value={`${numberWithCommas(value)}`}
-                  style={{ width: value.toString().length + 'ch' }}
+                  style={{ width: `${value.toString().length}ch` }}
                   onChange={({ target }) => {
-                    const value = +target.value.replace(/[^0-9]/g, '');
-                    setValue(value);
+                    const newValue = +target.value.replace(/[^0-9]/g, '');
+                    setValue(newValue);
                   }}
                 />
                 <span>.00</span>
@@ -211,7 +196,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
               <input
                 type="text"
                 className="font-secondary"
-                onChange={e => setMemo(e.target.value)}
+                onChange={(e) => setMemo(e.target.value)}
                 value={memo}
                 id="tellerMemo"
               />
@@ -238,6 +223,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
         <PlaidUpdate
           token={updateToken}
           setToken={setUpdateToken}
+          // eslint-disable-next-line react/jsx-no-bind
           deposit={deposit}
         />
       ) : null}
