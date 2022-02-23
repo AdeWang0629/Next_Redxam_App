@@ -1,5 +1,6 @@
-import { User } from '@/database';
 import { Request } from 'express';
+import { JWT } from '@/config/jwt';
+import { User } from '@/database';
 import { sendMail } from '../referral.resolver/createWaitlist.resolver';
 
 export const invitationCode = async (
@@ -23,9 +24,14 @@ export const invitationCode = async (
       user.waitlistToken,
       user.referralCode
     );
-
+    const token = new JWT({ userId: user._id, type: 'verified' }).signSync();
     await user.updateOne({
-      $set: { invitationAccepted: true, accountStatus: 'accepted' }
+      $set: {
+        invitationAccepted: true,
+        accountStatus: 'accepted',
+        token,
+        verification: true
+      }
     });
     return {
       success: true,
