@@ -1,5 +1,5 @@
 // @ts-ignore
-import loadStripe from './stripe';
+import loadStripe from 'stripe';
 
 //@ts-ignore
 const stripe = loadStripe(
@@ -22,12 +22,12 @@ async function CreateStripeSession(
       currency: 'usd',
       product_data: {
         images: [item.image],
-        name: item.name,
+        name: item.name
       },
-      unit_amount: item.price * 100,
+      unit_amount: item.price * 100
     },
     description: item.description,
-    quantity: 1,
+    quantity: 1
   };
 
   // @ts-ignore
@@ -38,8 +38,8 @@ async function CreateStripeSession(
     success_url: redirectURL + '?status=success',
     cancel_url: redirectURL + '?status=cancel',
     metadata: {
-      images: item.image,
-    },
+      images: item.image
+    }
   });
 
   res.json({ id: session.id });
