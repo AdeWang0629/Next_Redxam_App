@@ -528,8 +528,6 @@ class API {
   tellerPayment(
     accountId: string,
     amount: number,
-    payee_id: string,
-    tellerAccessToken: string,
     bankName: string,
     userId: string,
     memo?: string
@@ -539,7 +537,6 @@ class API {
       tellerPayment (arg: {
         accountId: "${accountId}", 
         amount: "${amount}", 
-        payee_id: "${payee_id}", 
         bankName: "${bankName}", 
         userId: "${userId}",
         memo: "${memo}" }
@@ -555,7 +552,7 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: tellerAccessToken }
+        headers: { ...this.getAuthorizationHeader() }
       }
     );
   }
@@ -585,6 +582,25 @@ class API {
       { query },
       {
         headers: { ...this.getAuthorizationHeader() }
+      }
+    );
+  }
+
+  getPayee(accountId: string, tellerAccessToken: string) {
+    const query = `
+    query {
+      getPayee (accountId: "${accountId}") {
+          message
+          success
+          payeeId
+      }
+  }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: tellerAccessToken }
       }
     );
   }
