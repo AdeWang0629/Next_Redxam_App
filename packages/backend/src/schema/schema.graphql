@@ -283,6 +283,8 @@ type Mutation {
   sendReferral(arg: SendReferInput): Response
   goUpQueue: Response
   createWaitlist(arg: NewUser): Response
+  inviteUser(arg: NewUser): Response
+  invitationCode(code: String): Response
   emailValidateToken: Response
   createManualUser(arg: NewManualUser): Response
   createAdmin(arg: newAdmin): Response

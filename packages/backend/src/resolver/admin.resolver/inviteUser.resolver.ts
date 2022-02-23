@@ -1,20 +1,25 @@
 import { Request } from 'express';
+import { verify } from 'jsonwebtoken';
 import crypto from 'crypto';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { render } from 'mustache';
 import { Attachment } from 'nodemailer/lib/mailer';
-import { User } from '@/database';
+import { User, Admin } from '@/database';
 import { generateWallets } from '@/service/wallets';
 import sendGrid from '@/apis/sendgrid/index';
-import { SimpleWallet } from '@/database/types';
 import { messages } from '@/config/messages';
 import { sanitize, isValidEmail } from '@/utils/helpers';
 import { Argument, NewUser } from '../types';
+import getAuthorizationToken from '../getAuthorizationToken';
 
-const { SERVICE_EMAIL } = process.env;
+interface adminToken {
+  adminId: string;
+}
 
-const templatePath = resolve(__dirname, '../../emails/simplewaitlist.hjs');
+const { SERVICE_EMAIL, TOKEN_SECURITY_KEY } = process.env;
+
+const templatePath = resolve(__dirname, '../../emails/invitation.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');
 const templateReferralPath = resolve(
   __dirname,
@@ -24,17 +29,13 @@ const templateReferralData = readFileSync(templateReferralPath, 'utf-8');
 
 const renderTemplate = (
   email: string,
-  lastOrder: number,
   origin: string,
-  waitlistToken: string,
-  referralCode: string
+  invitationCode: string
 ) => {
   return render(templateData, {
     origin,
-    lastOrder,
     email,
-    waitlistToken,
-    referralCode,
+    invitationCode,
     randomText: `Ref #: ${Date.now()}`
   });
 };
@@ -44,7 +45,7 @@ const facebookIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString(
     'base64'
   ),
-  content_id: 'facebook@waitlist',
+  content_id: 'facebook@invitation',
   disposition: 'inline'
 });
 
@@ -53,7 +54,7 @@ const twitterIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString(
     'base64'
   ),
-  content_id: 'twitter@waitlist',
+  content_id: 'twitter@invitation',
   disposition: 'inline'
 });
 
@@ -62,7 +63,7 @@ const linkedInIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString(
     'base64'
   ),
-  content_id: 'linkedin@waitlist',
+  content_id: 'linkedin@invitation',
   disposition: 'inline'
 });
 
@@ -71,7 +72,7 @@ const telegramIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString(
     'base64'
   ),
-  content_id: 'telegram@waitlist',
+  content_id: 'telegram@invitation',
   disposition: 'inline'
 });
 
@@ -80,7 +81,7 @@ const discordIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/discord.png`).toString(
     'base64'
   ),
-  content_id: 'discord@waitlist',
+  content_id: 'discord@invitation',
   disposition: 'inline'
 });
 
@@ -117,18 +118,16 @@ const fetchLastOrder = async (email: string) => {
   };
 };
 
-export const sendMail = async (
+const sendMail = async (
   email: string,
-  lastOrder: number,
   origin: string,
-  waitlistToken: string,
-  referralCode: string
+  invitationCode: string
 ) => {
   await sendGrid.sendMail({
     from: `redxam.com <${SERVICE_EMAIL}>`,
     to: email,
     subject: 'You Joined The Waitlist | redxam',
-    html: renderTemplate(email, lastOrder, origin, waitlistToken, referralCode),
+    html: renderTemplate(email, origin, invitationCode),
     attachments: [
       facebookIcon,
       twitterIcon,
@@ -162,7 +161,8 @@ const createNewUser = async (
   level: number,
   waitlistToken: string,
   referralCode: string,
-  referralId: string
+  referralId: string,
+  invitationCode: string
 ) => {
   await User.create({
     accountBalance: 0,
@@ -180,7 +180,9 @@ const createNewUser = async (
     waitlistToken,
     referralCode,
     referralId,
-    wallets: generateWallets()
+    wallets: generateWallets(),
+    invitationCode,
+    invitationAccepted: false
   });
 };
 
@@ -239,16 +241,20 @@ const handleReferral = async referralCode => {
   return { success: true, referralId: referral._id };
 };
 
-export const createWaitlist = async (
-  { arg }: Argument<NewUser>,
-  req: Request
-) => {
+export const inviteUser = async ({ arg }: Argument<NewUser>, req: Request) => {
+  const auth = getAuthorizationToken(req.headers.authorization);
+  if (!auth.success) return { message: auth.message, success: auth.success };
+
   const form = sanitize(arg);
   if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
 
   const lastOrder = await fetchLastOrder(form.email);
 
   try {
+    const payload = verify(auth.token, TOKEN_SECURITY_KEY) as adminToken;
+    const adminData = await Admin.findOne({ _id: payload.adminId });
+    if (!adminData) return { success: false, message: 'invalid admin token' };
+
     const jobs: Promise<any>[] = [];
     let referralId = null;
     if (!lastOrder.doesExist) {
@@ -263,34 +269,23 @@ export const createWaitlist = async (
       }
       const waitlistToken = crypto.randomBytes(8).toString('hex');
       const referralCode = crypto.randomBytes(4).toString('hex');
+      const invitationCode = crypto.randomBytes(4).toString('hex');
+
       const jobCreate = createNewUser(
         form,
         lastOrder.level + 1,
         waitlistToken,
         referralCode,
-        referralId
+        referralId,
+        invitationCode
       );
       jobs.push(jobCreate);
 
-      const jobMail = sendMail(
-        form.email,
-        lastOrder.level + 1,
-        req.headers.origin,
-        waitlistToken,
-        referralCode
-      );
+      const jobMail = sendMail(form.email, req.headers.origin, invitationCode);
 
       jobs.push(jobMail);
     } else {
-      const jobMail = sendMail(
-        form.email,
-        lastOrder.level,
-        req.headers.origin,
-        lastOrder.waitlistToken,
-        lastOrder.referralCode
-      );
-
-      jobs.push(jobMail);
+      return messages.failed.existed;
     }
 
     await Promise.all(jobs);
