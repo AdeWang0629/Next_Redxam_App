@@ -1,23 +1,23 @@
-import { NextPage } from "next";
-import { useState, useEffect, useContext } from "react";
-import Image from "next/image";
-import api from "@utils/api";
-import { useRouter } from "next/router";
-import { UserContext } from "@providers/User";
+import { NextPage } from 'next';
+import { useState, useEffect, useContext } from 'react';
+import Image from 'next/image';
+import api from '@utils/api';
+import { useRouter } from 'next/router';
+import { UserContext } from '@providers/User';
 
-import Logo from "@public/logo.svg";
+import Logo from '@public/logo.svg';
 
 const Invite: NextPage = () => {
   const { user, loading, noUser, setUser, setLoading, setNoUser } = useContext(
-    UserContext
+    UserContext,
   );
   const router = useRouter();
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState('');
   const [submitLoading, setSubmitLoading] = useState(false);
 
   // @ts-ignore
   useEffect(() => {
-    if (noUser) return router.push("/login");
+    if (noUser) return router.push('/login');
   }, [noUser]);
 
   useEffect(() => {
@@ -25,45 +25,46 @@ const Invite: NextPage = () => {
       !loading &&
       !noUser &&
       user?.accountStatus &&
-      user?.accountStatus !== "invited"
+      user?.accountStatus !== 'invited'
     ) {
-      router.push("/");
+      router.push('/');
     }
   }, [user?.accountStatus]);
 
   if (loading) return <span>loading</span>;
 
-  function handleSubmit() {
-    if (!code || code.length !== 6) return alert("Invalid code!");
+  const handleSubmit = () => {
+    // if (!code || code.length !== 6) return alert('Invalid code!');
 
     setSubmitLoading(true);
     api
       .invite(code)
       .then(({ data }) => {
         if (
-          !data.data.changeAccountStatus.success &&
-          data.data.changeAccountStatus.message === "invalid code"
+          !data.data.invitationCode.success &&
+          data.data.invitationCode.message === 'invalid code'
         ) {
-          alert("Invalid code!");
-        } else if (data.data.changeAccountStatus.success) {
+          alert('Invalid code!');
+        } else if (data.data.invitationCode.success) {
           api
             .getUserData()
             .then(({ data: accountData }) => {
+              console.log(accountData);
               setNoUser(false);
               setUser(accountData.data.user[0]);
-              alert("Account activated successfully!");
+              alert('Account activated successfully!');
             })
             .catch(() => setNoUser(true))
             .finally(() => setLoading(false));
         }
       })
-      .catch(() => alert("An error occurred!"))
+      .catch(() => alert('An error occurred!'))
       .finally(() => setSubmitLoading(false));
-  }
+  };
   return (
     <main className="min-h-screen flex flex-col items-center justify-center">
       <section className="flex items-center">
-        <Image src={Logo} width={"68px"} height={"59px"} />
+        <Image src={Logo} width="68px" height="59px" />
         <span className="font-primary font-bold text-5xl text-buttons-green ml-7">
           redxam
         </span>
