@@ -19,7 +19,7 @@ const WaitlistToken: NextPage = () => {
     message: '',
     success: true,
     level: '',
-    referralCode: '',
+    referralCode: ''
   });
   const [loading, setLoading] = useState(true);
   const [baseUrl, setBaseUrl] = useState('');

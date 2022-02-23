@@ -25,49 +25,49 @@ const Careers: NextPage = () => {
       id: 1,
       title: 'Customer\nCommitment',
       content:
-        'we develop long lasting relationships that make a positive difference in our customers’ lives and their financial statements.',
+        'we develop long lasting relationships that make a positive difference in our customers’ lives and their financial statements.'
     },
     {
       id: 2,
       title: 'Quality',
       content:
-        'we provide outstanding products and unsurpassed service that, together, deliver premium value to our customers.',
+        'we provide outstanding products and unsurpassed service that, together, deliver premium value to our customers.'
     },
     {
       id: 3,
       title: 'Integrity',
       content:
-        'we uphold the highest standards of integrity in all of our actions.',
+        'we uphold the highest standards of integrity in all of our actions.'
     },
     {
       id: 4,
       title: 'Team Work',
       content:
-        'we work together, across boundaries, to meet the needs of our customer and to help the company win.',
-    },
+        'we work together, across boundaries, to meet the needs of our customer and to help the company win.'
+    }
   ];
 
   const openJobs = [
     {
       title: 'Product Designers',
       content:
-        'We are looking for a passionate designer that can take on complex problems and into simple and engaging experiences. Does this sounds like someone you know?',
+        'We are looking for a passionate designer that can take on complex problems and into simple and engaging experiences. Does this sounds like someone you know?'
     },
     {
       title: 'Front end developer',
       content:
-        'We’re looking for an experienced front end web developer with strong js expertise who strives to do high-quality work and thrives on collaboration and working as part of a team. Does this sounds like someone you know?',
+        'We’re looking for an experienced front end web developer with strong js expertise who strives to do high-quality work and thrives on collaboration and working as part of a team. Does this sounds like someone you know?'
     },
     {
       title: 'Back end developer',
       content:
-        'Have several years of practical experience building production-grade backend applications in Node.js. Does this sounds like someone you know?',
+        'Have several years of practical experience building production-grade backend applications in Node.js. Does this sounds like someone you know?'
     },
     {
       title: 'Community Manager',
       content:
-        'Savvy with social trends, an exceptional writer with a creative mind and bring a knack for building relationships online—and offline. Does this sounds like someone you know?',
-    },
+        'Savvy with social trends, an exceptional writer with a creative mind and bring a knack for building relationships online—and offline. Does this sounds like someone you know?'
+    }
   ];
 
   return (
@@ -98,7 +98,7 @@ const Careers: NextPage = () => {
       <section
         className="grid grid-cols-3 grid-rows-2 gap-2 md:gap-8 my-8 px-2 md:px-0 grid-"
         style={{
-          gridTemplateRows: '301px 179px',
+          gridTemplateRows: '301px 179px'
         }}
       >
         <div className="row-start-2 md:row-start-[unset] row-span-2 h-full flex careers-image">
@@ -196,7 +196,7 @@ const Careers: NextPage = () => {
                 className="text-4xl font-medium font-primary mb-3 text-white group-hover:text-darker-primary text-opacity-80"
                 style={{
                   WebkitTextStroke:
-                    activeGreenBox === greenBox.id ? '1px #fff' : '1px #000',
+                    activeGreenBox === greenBox.id ? '1px #fff' : '1px #000'
                 }}
               >
                 {greenBox.id}

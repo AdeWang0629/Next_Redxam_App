@@ -19,7 +19,7 @@ const RecentActivity = () => {
       bankIcon: string | null;
       bankName: string | null;
       bankType: string | null;
-    },
+    }
   ]
   >([]);
 

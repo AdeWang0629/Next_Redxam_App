@@ -12,7 +12,7 @@ interface CustomSelectProps {
       name: string;
       logo?: string | undefined;
       type: string;
-    },
+    }
   ];
   value: {
     _id: string;
@@ -27,7 +27,7 @@ interface CustomSelectProps {
 const CustomSelect: NextPage<CustomSelectProps> = ({
   accounts,
   value,
-  setValue,
+  setValue
 }) => {
   const [showOptions, setShowOptions] = useState(false);
 

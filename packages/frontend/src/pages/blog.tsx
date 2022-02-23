@@ -19,8 +19,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['newsletter'])),
-    },
+      ...(await serverSideTranslations(locale, ['newsletter']))
+    }
   };
 };
 
@@ -32,7 +32,7 @@ const Blog: NextPage = () => {
       title: 'Our Beta Testing Program',
       description:
         'We are delighted to announce that we are officially launching our Beta Testing Program. This program enrolls 20 chosen applicants to be the beta users for the redxam app. This is an initiative for us to have your valuable opinion as customer satisfaction is our top priority. 🔥What are the…',
-      url: 'https://redxam.medium.com/our-beta-testing-program-39d36cc20b40',
+      url: 'https://redxam.medium.com/our-beta-testing-program-39d36cc20b40'
     },
     {
       image: PassiveBlogPostImage,
@@ -40,8 +40,8 @@ const Blog: NextPage = () => {
       title: 'Introducing Under the Hood, a New Robinhood Podcast',
       description:
         'Our passive plan offers balanced exposure to stablecoins via high interest generating decentralized pools. Our plan is spread evenly across the top three dollar-pegged coins in the market: USDC, USDT, and DAI.',
-      url: 'https://redxam.medium.com/passive-plan-bbf8c58e2f7d',
-    },
+      url: 'https://redxam.medium.com/passive-plan-bbf8c58e2f7d'
+    }
   ];
 
   return (
@@ -100,7 +100,7 @@ const BlogPost: NextPage<BlogPostProps> = ({
   date,
   title,
   description,
-  url,
+  url
 }) => (
   <div className="text-center md:text-left mb-28 md:mb-0">
     <div className="my-0 mx-auto md:mx-0 w-full blog-image">

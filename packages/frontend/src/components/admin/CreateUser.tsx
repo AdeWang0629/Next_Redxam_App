@@ -27,7 +27,7 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
     issuancePlace: '',
     issuanceStatus: '',
     issuanceDate: '',
-    expiringDate: '',
+    expiringDate: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -50,7 +50,7 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
       return setError(
         `${emptyFields
           .filter((field) => requiredFields.includes(field))
-          .join(', ')} field(s) are required!`,
+          .join(', ')} field(s) are required!`
       );
     }
 
@@ -69,7 +69,7 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               .length - 1
             ? ''
             : ', '
-        }`,
+        }`
     )
     .join('\n')}
      }) { success, message } }`;
@@ -77,8 +77,8 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
     api.axios
       .post(`${api.baseURL}/api/v1?query=${query}`, null, {
         headers: {
-          authorization: `Bearer ${getCookie('admin_token')}`,
-        },
+          authorization: `Bearer ${getCookie('admin_token')}`
+        }
       })
       .then(({ data }) => {
         if (data.data.createUser.success) {

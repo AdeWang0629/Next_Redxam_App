@@ -26,7 +26,7 @@ const FAQ: FC<InterfaceFAQ> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   filteredQuestionsList = [],
   isInputSearchEmpty,
-  isSearchFilterRequired,
+  isSearchFilterRequired
 }) => {
   const [activeQuestion, setActiveQuestion] = useState(-1);
 
@@ -37,24 +37,24 @@ const FAQ: FC<InterfaceFAQ> = ({
   const questions = [
     {
       title: t('first-question-title'),
-      body: t('first-question-body'),
+      body: t('first-question-body')
     },
     {
       title: t('second-question-title'),
-      body: t('second-question-body'),
+      body: t('second-question-body')
     },
     {
       title: t('third-question-title'),
-      body: t('third-question-body'),
+      body: t('third-question-body')
     },
     {
       title: t('fourth-question-title'),
-      body: t('fourth-question-body'),
+      body: t('fourth-question-body')
     },
     {
       title: t('fifth-question-title'),
-      body: t('fifth-question-body'),
-    },
+      body: t('fifth-question-body')
+    }
   ];
 
   /**

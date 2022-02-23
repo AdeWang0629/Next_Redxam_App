@@ -35,9 +35,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         'plan',
         'faq',
         'newsletter',
-        'footer',
-      ])),
-    },
+        'footer'
+      ]))
+    }
   };
 };
 
@@ -48,26 +48,26 @@ const Home: NextPage = () => (
       params={{
         particles: {
           number: {
-            value: 10,
+            value: 10
           },
           color: {
-            value: ['#219653', '#CA7795', '#A0DDFF', '#ACE96B'],
+            value: ['#219653', '#CA7795', '#A0DDFF', '#ACE96B']
           },
           opacity: {
-            value: 0.8,
+            value: 0.8
           },
           size: {
             value: 10,
-            random: false,
+            random: false
           },
           line_linked: {
-            enable: false,
+            enable: false
           },
           move: {
             enable: true,
-            speed: 1,
-          },
-        },
+            speed: 1
+          }
+        }
       }}
       style={{
         zIndex: -100,
@@ -75,7 +75,7 @@ const Home: NextPage = () => (
         top: 0,
         left: 0,
         height: '100%',
-        width: '100%',
+        width: '100%'
       }}
     />
     <Hero />

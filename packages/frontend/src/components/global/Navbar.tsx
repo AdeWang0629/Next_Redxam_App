@@ -17,7 +17,7 @@ interface NavbarProps {
 
 const Navbar: NextPage<NavbarProps> = ({
   transparentBackground = false,
-  title,
+  title
 }) => {
   const { locale } = useRouter();
   const { t } = useTranslation('navbar');
@@ -52,7 +52,7 @@ const Navbar: NextPage<NavbarProps> = ({
             : 'bg-white'
         } fixed w-full top-0`}
         style={{
-          boxShadow: '0 2px 2px -2px rgb(0 0 0 / 20%)',
+          boxShadow: '0 2px 2px -2px rgb(0 0 0 / 20%)'
         }}
       >
         <div className="flex flex-col md:flex-row max-w-7xl mx-auto items-center">

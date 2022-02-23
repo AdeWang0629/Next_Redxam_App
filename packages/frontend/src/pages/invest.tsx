@@ -15,9 +15,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         'navbar',
         'waitlist',
         'login',
-        'footer',
-      ])),
-    },
+        'footer'
+      ]))
+    }
   };
 };
 
@@ -26,12 +26,12 @@ const Invest: NextPage = () => {
   const previousInvestors = [
     {
       name: 'Salem',
-      value: '60k',
+      value: '60k'
     },
     {
       name: 'Sultan',
-      value: '30k',
-    },
+      value: '30k'
+    }
   ];
 
   const raised = previousInvestors.reduce((acc, curr) => (
@@ -50,7 +50,7 @@ const Invest: NextPage = () => {
         className="flex flex-col lg:flex-row justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-10 pt-44 lg:pt-44 pb-20 border-b border-b-white"
         style={{
           boxShadow:
-            '0px 6px 6px -6px rgba(0, 0, 0, 0.08), 0px 0px 1px rgba(0, 0, 0, 0.2)',
+            '0px 6px 6px -6px rgba(0, 0, 0, 0.08), 0px 0px 1px rgba(0, 0, 0, 0.2)'
         }}
       >
         <div className="flex w-full lg:w-auto px-4 lg:px-0">

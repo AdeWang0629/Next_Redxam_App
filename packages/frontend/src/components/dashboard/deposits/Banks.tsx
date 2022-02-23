@@ -67,7 +67,7 @@ const BanksView: NextPage = () => {
     paymentModel: false,
     depositValue: 0,
     userId: '',
-    bankName: '',
+    bankName: ''
   });
 
   const currentEnvironment =
@@ -90,9 +90,9 @@ const BanksView: NextPage = () => {
           .sort(
             (
               firstTimestamp: { timestamp: number },
-              secondTimeStamp: { timestamp: number },
-            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp,
-          ),
+              secondTimeStamp: { timestamp: number }
+            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
+          )
       );
     })();
   }, []);
@@ -106,7 +106,7 @@ const BanksView: NextPage = () => {
       }),
     token: plaidToken,
     countryCodes: ['US', 'CA', 'GB', 'IE', 'FR', 'ES', 'NL'],
-    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development',
+    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development'
   });
 
   const handleAddBankAccount = async () => {
@@ -143,14 +143,14 @@ const BanksView: NextPage = () => {
   const handleTellerAccount = async (accessToken: string): Promise<string> => {
     const {
       data: {
-        data: { tellerAccounts },
-      },
+        data: { tellerAccounts }
+      }
     } = await api.tellerAccounts(accessToken, userId);
 
     if (tellerAccounts.message === 'invalid access token provided') {
       setTeller((state) => ({
         ...state,
-        invalidAccessToken: true,
+        invalidAccessToken: true
       }));
     }
 
@@ -160,7 +160,7 @@ const BanksView: NextPage = () => {
         accountId: tellerAccounts.accountId,
         balance: tellerAccounts.balance,
         bankName: tellerAccounts.bankName,
-        userId,
+        userId
       }));
     }
     return tellerAccounts.accountId;
@@ -169,8 +169,8 @@ const BanksView: NextPage = () => {
   const handleTellerPayee = async (accountId: string, accessToken: string) => {
     const {
       data: {
-        data: { tellerPayee },
-      },
+        data: { tellerPayee }
+      }
     } = await api.tellerPayee(accountId, accessToken);
 
     if (tellerPayee.connect_token) {
@@ -183,15 +183,15 @@ const BanksView: NextPage = () => {
         onSuccess({ payee: { id } }: { payee: { id: string } }) {
           setTeller((state) => ({
             ...state,
-            payeeId: id,
+            payeeId: id
           }));
-        },
+        }
       });
       setup.open();
     } else {
       setTeller((state) => ({
         ...state,
-        payeeId: tellerPayee.payeeId,
+        payeeId: tellerPayee.payeeId
       }));
     }
   };
@@ -202,18 +202,18 @@ const BanksView: NextPage = () => {
       depositValue,
       memo,
       bankName,
-      userId: tellerUserId,
+      userId: tellerUserId
     } = teller;
     const {
       data: {
-        data: { tellerPayment },
-      },
+        data: { tellerPayment }
+      }
     } = await api.tellerPayment(
       accountId,
       depositValue,
       bankName,
       tellerUserId,
-      memo,
+      memo
     );
 
     if (tellerPayment.connect_token) {
@@ -228,16 +228,16 @@ const BanksView: NextPage = () => {
           const {
             depositValue: newDepositValue,
             bankName: newBankName,
-            userId: newUserId,
+            userId: newUserId
           } = teller;
 
           await api.tellerPaymentVerified(
             id,
             newDepositValue,
             newBankName,
-            newUserId,
+            newUserId
           );
-        },
+        }
       });
       setup.open();
     } else setTeller((state) => ({ ...state }));
@@ -255,8 +255,8 @@ const BanksView: NextPage = () => {
               new window.MXConnect({
                 id: 'widget',
                 iframeTitle: 'Connect',
-                targetOrigin: '*',
-              }),
+                targetOrigin: '*'
+              })
             );
           }}
         />
@@ -277,13 +277,13 @@ const BanksView: NextPage = () => {
                 async onSuccess({ accessToken }: any) {
                   setTeller((state) => ({
                     ...state,
-                    accessToken,
+                    accessToken
                   }));
 
                   const accountId = await handleTellerAccount(accessToken);
                   await handleTellerPayee(accountId, accessToken);
-                },
-              }),
+                }
+              })
             );
           }}
         />
@@ -305,7 +305,7 @@ const BanksView: NextPage = () => {
                       className="bg-lighter-black text-white py-2 px-8 rounded-[25px] border font-secondary text-sm font-medium"
                       style={{
                         boxShadow:
-                          '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)',
+                          '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)'
                       }}
                       onClick={() => setShowUnlinkModel(true)}
                     >
@@ -376,7 +376,7 @@ const BanksView: NextPage = () => {
                               : // @ts-ignore
                               setSelectedToUnlink((prev) => [
                                 ...prev,
-                                account._id,
+                                account._id
                               ]);
                           }}
                         />
@@ -406,7 +406,7 @@ const BanksView: NextPage = () => {
                   className="bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                   style={{
                     boxShadow:
-                      '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
+                      '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
                   }}
                   onClick={handleAddBankAccount}
                   // disabled={!plaidToken.length}
@@ -430,7 +430,7 @@ const BanksView: NextPage = () => {
                       onClick={() =>
                         setTeller((state) => ({
                           ...state,
-                          invalidAccessToken: false,
+                          invalidAccessToken: false
                         }))
                       }
                     >
@@ -466,7 +466,7 @@ const BanksView: NextPage = () => {
                         onChange={(e) =>
                           setTeller((state) => ({
                             ...state,
-                            memo: e.target.value,
+                            memo: e.target.value
                           }))
                         }
                         value={teller.memo}
@@ -482,7 +482,7 @@ const BanksView: NextPage = () => {
                         className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
                         value={`${teller.depositValue}`}
                         style={{
-                          width: `${teller.depositValue.toString().length}ch`,
+                          width: `${teller.depositValue.toString().length}ch`
                         }}
                         // eslint-disable-next-line jsx-a11y/no-autofocus
                         autoFocus
@@ -490,7 +490,7 @@ const BanksView: NextPage = () => {
                           const value = target.value.replace(/[^0-9]/g, '');
                           setTeller((state) => ({
                             ...state,
-                            depositValue: parseFloat(value),
+                            depositValue: parseFloat(value)
                           }));
                         }}
                       />
@@ -503,7 +503,7 @@ const BanksView: NextPage = () => {
                       className="w-full mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                       style={{
                         boxShadow:
-                          '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
+                          '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
                       }}
                       disabled={teller.depositValue < 10}
                       onClick={() => handleBankDeposit()}
@@ -520,7 +520,7 @@ const BanksView: NextPage = () => {
               className="w-2/3 mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 boxShadow:
-                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
+                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
               }}
               onClick={() => setShowDepositModel(true)}
             >

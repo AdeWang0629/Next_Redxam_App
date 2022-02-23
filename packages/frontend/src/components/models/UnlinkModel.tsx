@@ -20,7 +20,7 @@ interface UnlinkModelProps {
       name: string;
       logo?: string | undefined;
       type: string;
-    },
+    }
   ];
   IDs: [] | [string];
   fetchAccounts: () => void;
@@ -31,7 +31,7 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
   setOpened,
   accounts,
   IDs,
-  fetchAccounts,
+  fetchAccounts
 }) => {
   const outsideContainerRef = useRef(null);
 

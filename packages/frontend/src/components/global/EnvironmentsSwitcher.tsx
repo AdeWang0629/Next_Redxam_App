@@ -8,7 +8,7 @@ const EnvironmentsSwitcher: NextPage = () => {
   const [currentEnvironment, setCurrentEnvironment] = useState(
     typeof window !== 'undefined'
       ? (getCookie('environment') as string) || 'production'
-      : 'production',
+      : 'production'
   );
   const [hidden, setHidden] = useState(false);
 

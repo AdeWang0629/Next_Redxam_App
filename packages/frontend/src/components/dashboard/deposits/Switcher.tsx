@@ -7,7 +7,7 @@ interface SwitcherProps {
 
 const Switcher: NextPage<SwitcherProps> = ({
   activeSection,
-  setActiveSection,
+  setActiveSection
 }) => (
   <div className="flex justify-center rounded-3xl border border-[#EAEAEB] mt-8 lg:mt-0">
     <button
@@ -21,7 +21,7 @@ const Switcher: NextPage<SwitcherProps> = ({
         boxShadow:
             activeSection === 'crypto'
               ? '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)'
-              : undefined,
+              : undefined
       }}
     >
       Crypto
@@ -38,7 +38,7 @@ const Switcher: NextPage<SwitcherProps> = ({
         boxShadow:
             activeSection === 'card'
               ? '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)'
-              : undefined,
+              : undefined
       }}
     >
       Card
@@ -56,7 +56,7 @@ const Switcher: NextPage<SwitcherProps> = ({
         boxShadow:
             activeSection === 'bank'
               ? '0px 12px 20px rgba(39, 43, 34, 0.1), 0px 8.14815px 8px rgba(39, 43, 34, 0.05), 0px 1.85185px 8px rgba(39, 43, 34, 0.025)'
-              : undefined,
+              : undefined
       }}
     >
       Bank

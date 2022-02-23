@@ -18,7 +18,7 @@ const CardsView: NextPage = () => {
     {
       month: number;
       deposits: Deposit[];
-    },
+    }
   ]
   >([]);
   const [pendingDeposits, setPendingDeposits] = useState<[] | Deposit[]>([]);
@@ -54,8 +54,8 @@ const CardsView: NextPage = () => {
       setDeposits(userDepositsData.data.userDeposits);
       setPendingDeposits(
         userDepositsData.data.userDeposits.filter(
-          (depositDetails: Deposit) => depositDetails.status === 'pending',
-        ),
+          (depositDetails: Deposit) => depositDetails.status === 'pending'
+        )
       );
     })();
   }, []);
@@ -77,9 +77,9 @@ const CardsView: NextPage = () => {
 
         return {
           month,
-          deposits: filtered.sort((a, b) => b.timestamp - a.timestamp),
+          deposits: filtered.sort((a, b) => b.timestamp - a.timestamp)
         };
-      }),
+      })
     );
   }, [deposits]);
 
@@ -116,7 +116,7 @@ const CardsView: NextPage = () => {
               className="w-full mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 boxShadow:
-                    '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
+                    '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
               }}
               disabled={value < 10 || depositLoading}
               onClick={deposit}
@@ -191,16 +191,16 @@ const CardsView: NextPage = () => {
                           undefined,
                           {
                             day: '2-digit',
-                            month: 'short',
-                          },
+                            month: 'short'
+                          }
                         )}
                         {', '}
                         {new Date(depositDetails.timestamp).toLocaleTimeString(
                           undefined,
                           {
                             minute: '2-digit',
-                            hour: '2-digit',
-                          },
+                            hour: '2-digit'
+                          }
                         )}
                       </p>
                     </div>
@@ -212,7 +212,7 @@ const CardsView: NextPage = () => {
         ) : null}
         {filteredDeposits.length &&
           filteredDeposits.filter(
-            (filteredDeposit) => filteredDeposit.deposits.length,
+            (filteredDeposit) => filteredDeposit.deposits.length
           )?.length ? (
             filteredDeposits
               .filter((filteredDeposit) => filteredDeposit.deposits.length)
@@ -272,16 +272,16 @@ const CardsView: NextPage = () => {
                                 undefined,
                                 {
                                   day: '2-digit',
-                                  month: 'short',
-                                },
+                                  month: 'short'
+                                }
                               )}
                               {', '}
                               {new Date(depositDetails.timestamp).toLocaleTimeString(
                                 undefined,
                                 {
                                   minute: '2-digit',
-                                  hour: '2-digit',
-                                },
+                                  hour: '2-digit'
+                                }
                               )}
                             </p>
                           </div>

@@ -13,7 +13,7 @@ interface WaitlistModelProps {
 const WaitlistModel: NextPage<WaitlistModelProps> = ({
   isOpened,
   setOpened,
-  referralCode = '',
+  referralCode = ''
 }) => {
   const { t } = useTranslation('waitlist');
   const [firstName, setFirstName] = useState('');

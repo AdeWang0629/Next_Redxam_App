@@ -15,7 +15,7 @@ const Scripts: NextPage = () => {
     (async () => {
       try {
         const { data } = await api.getAllUsers(
-          getCookie('admin_token') as string,
+          getCookie('admin_token') as string
         );
         setUsers(data.data.users);
       } catch (error) {
@@ -40,7 +40,7 @@ const Scripts: NextPage = () => {
             .updateUserStatusScript(
               getCookie('admin_token') as String,
               email,
-              status,
+              status
             )
             .then((res) => {
               alert(res.data.data.updateUserStatus.message);
@@ -102,7 +102,7 @@ const Scripts: NextPage = () => {
             .filter(
               (user) =>
                 user.accountStatus === 'pending' ||
-                    user.accountStatus === 'invited',
+                    user.accountStatus === 'invited'
             )
             .map((user) => (
               <option value={user.email} key={user._id}>

@@ -46,9 +46,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         'navbar',
         'footer',
         'waitlist',
-        'login',
-      ])),
-    },
+        'login'
+      ]))
+    }
   };
 };
 
@@ -58,23 +58,23 @@ const About: NextPage = () => {
     {
       name: 'Salem Al Qassimi',
       picture: SalemProfileImage,
-      role: 'CIO, Co-Founder',
+      role: 'CIO, Co-Founder'
     },
     {
       name: 'Jacob Fattakhov',
       picture: JakeProfileImage,
-      role: 'COO, Co-Founder',
+      role: 'COO, Co-Founder'
     },
     {
       name: 'Alejandro Gonzalez',
       picture: AlexProfileImage,
-      role: 'Engineering',
+      role: 'Engineering'
     },
     {
       name: 'Jhoseph Guerrero',
       picture: JhosephProfileImage,
-      role: 'Engineering',
-    },
+      role: 'Engineering'
+    }
   ];
 
   return (

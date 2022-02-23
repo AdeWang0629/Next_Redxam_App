@@ -59,7 +59,7 @@ const StaffLogin: NextPage = () => {
           <span
             style={{
               backgroundColor: 'rgba(255,0,0,0.2)',
-              borderLeft: '2px solid red',
+              borderLeft: '2px solid red'
             }}
             className="mt-12 flex items-center justify-between text-lg text-black dark:text-white py-4 px-6 rounded-lg"
           >

@@ -5,7 +5,7 @@ import {
   useState,
   Dispatch,
   SetStateAction,
-  useContext,
+  useContext
 } from 'react';
 import Image from 'next/image';
 import api from '@utils/api';
@@ -31,14 +31,14 @@ interface DepositModelProps {
       name: string;
       logo?: string | undefined;
       type: string;
-    },
+    }
   ];
 }
 
 const DepositModel: NextPage<DepositModelProps> = ({
   isOpened,
   setOpened,
-  accounts,
+  accounts
 }) => {
   const { user } = useContext(UserContext);
 
@@ -87,7 +87,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
 
   const deposit = async () => {
     const confirmation = confirm(
-      `Are you sure you want to deposit $${value} from ${selectedAccount.name}?`,
+      `Are you sure you want to deposit $${value} from ${selectedAccount.name}?`
     );
     if (!confirmation) return;
 
@@ -95,14 +95,14 @@ const DepositModel: NextPage<DepositModelProps> = ({
 
     const {
       data: {
-        data: { tellerPayment },
-      },
+        data: { tellerPayment }
+      }
     } = await api.tellerPayment(
       selectedAccount.id,
       value,
       selectedAccount.name,
       userId,
-      memo,
+      memo
     );
 
     if (tellerPayment.connect_token) {
@@ -117,9 +117,9 @@ const DepositModel: NextPage<DepositModelProps> = ({
             id,
             value,
             selectedAccount.name,
-            userId,
+            userId
           );
-        },
+        }
       });
       setup.open();
     }
@@ -209,7 +209,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
               className="w-2/3 mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 boxShadow:
-                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
+                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
               }}
               disabled={value < 10 || depositLoading}
               onClick={deposit}
@@ -239,7 +239,7 @@ interface PlaidUpdateProps {
 const PlaidUpdate: NextPage<PlaidUpdateProps> = ({
   token,
   setToken,
-  deposit,
+  deposit
 }) => {
   const { open } = usePlaidLink({
     onSuccess: () => {
@@ -248,7 +248,7 @@ const PlaidUpdate: NextPage<PlaidUpdateProps> = ({
     },
     token,
     countryCodes: ['US', 'CA', 'GB', 'IE', 'FR', 'ES', 'NL'],
-    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development',
+    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development'
   });
 
   if (token.length) open();

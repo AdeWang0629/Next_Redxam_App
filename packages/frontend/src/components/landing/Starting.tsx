@@ -46,7 +46,7 @@ const Starting: NextPage = () => {
               step === 0 ? 'bg-[#fcfcfc] shadow-2xl' : ''
             }`}
             style={{
-              boxShadow: step === 0 ? '0 5px 40px rgb(0 0 0 / 8%)' : undefined,
+              boxShadow: step === 0 ? '0 5px 40px rgb(0 0 0 / 8%)' : undefined
             }}
             onMouseEnter={() => setStep(0)}
           >
@@ -83,7 +83,7 @@ const Starting: NextPage = () => {
               step === 1 ? 'bg-[#fcfcfc] shadow-2xl' : ''
             }`}
             style={{
-              boxShadow: step === 1 ? '0 5px 40px rgb(0 0 0 / 8%)' : undefined,
+              boxShadow: step === 1 ? '0 5px 40px rgb(0 0 0 / 8%)' : undefined
             }}
             onMouseEnter={() => setStep(1)}
           >
@@ -120,7 +120,7 @@ const Starting: NextPage = () => {
               step === 2 ? 'bg-[#fcfcfc] shadow-2xl' : ''
             }`}
             style={{
-              boxShadow: step === 2 ? '0 5px 40px rgb(0 0 0 / 8%)' : undefined,
+              boxShadow: step === 2 ? '0 5px 40px rgb(0 0 0 / 8%)' : undefined
             }}
             onMouseEnter={() => setStep(2)}
           >

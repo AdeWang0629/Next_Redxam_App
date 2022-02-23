@@ -13,7 +13,7 @@ interface KYCModelProps {
 const KYCModel: NextPage<KYCModelProps> = ({
   isOpened,
   setOpened,
-  children,
+  children
 }) => {
   const outsideContainerRef = useRef(null);
 

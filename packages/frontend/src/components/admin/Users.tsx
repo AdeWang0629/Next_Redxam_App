@@ -17,7 +17,7 @@ export default function Users() {
     (async () => {
       try {
         const { data } = await api.getAllUsers(
-          getCookie('admin_token') as string,
+          getCookie('admin_token') as string
         );
         setUsers(data.data.users);
       } catch (error) {
@@ -53,8 +53,8 @@ export default function Users() {
             (a, b) =>
               Number(
                 new Date(b.created_at).getTime() <
-                new Date(a.created_at).getTime(),
-              ),
+                new Date(a.created_at).getTime()
+              )
           )
           .map((user) => (
             <tr key={user._id}>
@@ -75,7 +75,7 @@ export default function Users() {
               <td
                 className="bg-black dark:bg-gray-300 bg-opacity-5 p-4 text-left border border-black dark:border-white border-opacity-20"
                 style={{
-                  color: user.accountStatus === 'accepted' ? 'green' : 'red',
+                  color: user.accountStatus === 'accepted' ? 'green' : 'red'
                 }}
               >
                 {user.accountStatus || (

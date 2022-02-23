@@ -24,7 +24,7 @@ const CompletedKYC: NextPage<CompletedKYCProps> = ({ setShowKYC }) => (
       onClick={() => setShowKYC(true)}
       style={{
         boxShadow:
-            '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)',
+            '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
       }}
     >
       Check KYC status

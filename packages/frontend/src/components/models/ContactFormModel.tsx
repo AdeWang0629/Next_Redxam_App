@@ -26,25 +26,25 @@ interface ContactInformation {
 
 const ContactFormModel: NextPage<ContactFormProps> = ({
   isOpened,
-  setOpened,
+  setOpened
 }) => {
   const { t } = useTranslation('contact');
 
   const [
     contactInformation,
-    setContactInformation,
+    setContactInformation
   ] = useState<ContactInformation>({
     firstName: '',
     lastName: '',
     emailAddress: '',
-    question: '',
+    question: ''
   });
 
   const [errors, setErrors] = useState<Error>({
     firstName: '',
     lastName: '',
     emailAddress: '',
-    question: '',
+    question: ''
   });
 
   const [isFormValid, setIsFormValid] = useState(false);
@@ -111,7 +111,7 @@ const ContactFormModel: NextPage<ContactFormProps> = ({
 
     setContactInformation((prevContactInformation) => ({
       ...prevContactInformation,
-      [contactFiled]: value,
+      [contactFiled]: value
     }));
 
     validateField(contactFiled, value);

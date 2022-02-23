@@ -29,7 +29,7 @@ const Crypto: NextPage = () => {
     async function generateQrCode() {
       try {
         const addressQrCode = await QRCode.toDataURL(
-          user?.wallet?.address || '',
+          user?.wallet?.address || ''
         );
         setQrCode(addressQrCode);
       } catch (error) {
@@ -51,9 +51,9 @@ const Crypto: NextPage = () => {
           .sort(
             (
               firstTimestamp: { timestamp: number },
-              secondTimeStamp: { timestamp: number },
-            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp,
-          ),
+              secondTimeStamp: { timestamp: number }
+            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
+          )
       );
     })();
   }, []);
@@ -247,7 +247,7 @@ const Crypto: NextPage = () => {
                 <button
                   onClick={() =>
                     navigator.clipboard.writeText(
-                      user?.wallet?.address || '',
+                      user?.wallet?.address || ''
                     )
                       }
                 >

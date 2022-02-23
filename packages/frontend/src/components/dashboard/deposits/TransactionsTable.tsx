@@ -18,7 +18,7 @@ interface TransactionsTableProps {
 
 const TransactionsTable = ({
   deposits,
-  depositsType,
+  depositsType
 }: TransactionsTableProps) => {
   const router = useRouter();
 
@@ -28,12 +28,12 @@ const TransactionsTable = ({
   useEffect(() => {
     setPendingDeposits(
       // @ts-ignore
-      deposits.filter((deposit) => deposit.status === 'pending'),
+      deposits.filter((deposit) => deposit.status === 'pending')
     );
 
     setAcceptedDeposits(
       // @ts-ignore
-      deposits.filter((deposit) => deposit.status !== 'pending'),
+      deposits.filter((deposit) => deposit.status !== 'pending')
     );
   }, [deposits]);
 
@@ -83,7 +83,7 @@ const TransactionsTable = ({
                         ? 'pb-5'
                         : pendingDeposits.filter(
                           (pendingDepositDetails) =>
-                            pendingDepositDetails.status === 'pending',
+                            pendingDepositDetails.status === 'pending'
                         ).length !== 1
                           ? 'py-5'
                           : ''
@@ -135,18 +135,18 @@ const TransactionsTable = ({
                           Pending •
                           {' '}
                           {new Date(
-                            pendingDeposit.timestamp,
+                            pendingDeposit.timestamp
                           ).toLocaleDateString(undefined, {
                             day: '2-digit',
                             month: 'short',
-                            year: 'numeric',
+                            year: 'numeric'
                           })}
                           {', '}
                           {new Date(
-                            pendingDeposit.timestamp,
+                            pendingDeposit.timestamp
                           ).toLocaleTimeString(undefined, {
                             minute: '2-digit',
-                            hour: '2-digit',
+                            hour: '2-digit'
                           })}
                         </p>
                       </div>
@@ -224,17 +224,17 @@ const TransactionsTable = ({
                                 <div className="flex justify-center items-center">
                                   <p className="font-secondary text-xs text-[#95989B] mr-1">
                                     {new Date(
-                                      depositDetails.timestamp,
+                                      depositDetails.timestamp
                                     ).toLocaleDateString(undefined, {
                                       day: '2-digit',
-                                      month: 'short',
+                                      month: 'short'
                                     })}
                                     {', '}
                                     {new Date(
-                                      depositDetails.timestamp,
+                                      depositDetails.timestamp
                                     ).toLocaleTimeString(undefined, {
                                       minute: '2-digit',
-                                      hour: '2-digit',
+                                      hour: '2-digit'
                                     })}
                                   </p>
                                 </div>

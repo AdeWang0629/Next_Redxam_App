@@ -22,13 +22,13 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
 
   let performanceData = [
     { time: 0, value: 0 },
-    { time: 0, value: 0 },
+    { time: 0, value: 0 }
   ];
 
   if (balanceRecords) {
     performanceData = balanceRecords.map((balanceRecord) => ({
       time: balanceRecord.timestamp,
-      value: balanceRecord.balance,
+      value: balanceRecord.balance
     }));
   }
 
@@ -49,7 +49,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
               <span className="font-secondary text-2xl font-bold">
                 <span className="text-[#61D404]">+</span>
                 {`${home?.percentChange.toFixed(
-                  2,
+                  2
                 )}% ($${home?.dolarChange.toFixed(2)})`}
               </span>
             </ReactPlaceholder>

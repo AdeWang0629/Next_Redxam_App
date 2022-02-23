@@ -28,7 +28,9 @@
     "jsx-a11y/click-events-have-key-events": "warn",
     "jsx-a11y/no-noninteractive-element-interactions": "warn",
     "react/no-array-index-key": "warn",
-    "no-restricted-globals": "warn"
+    "no-restricted-globals": "warn",
+    "comma-dangle": ["error", "never"],
+    "@typescript-eslint/comma-dangle": ["error", "never"]
   },
   "parserOptions": {
     "project": "tsconfig.json"

@@ -47,7 +47,7 @@ const Home: NextPage = () => {
           <Chart
             data={new Array(100).fill(0).map((_, i) => ({
               time: new Date().getTime() + 60000 * 60 * 24 * i,
-              value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1),
+              value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1)
             }))}
           />
           <div />

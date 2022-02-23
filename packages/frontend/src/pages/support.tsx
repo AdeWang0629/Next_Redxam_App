@@ -38,9 +38,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         'faq',
         'newsletter',
         'footer',
-        'contact',
-      ])),
-    },
+        'contact'
+      ]))
+    }
   };
 };
 
@@ -51,28 +51,28 @@ const Support: NextPage = () => {
     {
       title: t('first-question-title'),
       body: t('first-question-body'),
-      keywords: t('first-question-keyword'),
+      keywords: t('first-question-keyword')
     },
     {
       title: t('second-question-title'),
       body: t('second-question-body'),
-      keywords: t('second-question-keyword'),
+      keywords: t('second-question-keyword')
     },
     {
       title: t('third-question-title'),
       body: t('third-question-body'),
-      keywords: t('third-question-keyword'),
+      keywords: t('third-question-keyword')
     },
     {
       title: t('fourth-question-title'),
       body: t('fourth-question-body'),
-      keywords: t('fourth-question-keyword'),
+      keywords: t('fourth-question-keyword')
     },
     {
       title: t('fifth-question-title'),
       body: t('fifth-question-body'),
-      keywords: t('fifth-question-keyword'),
-    },
+      keywords: t('fifth-question-keyword')
+    }
   ];
 
   const [filteredQuestionsList, applyFilterInQuestionList] =
@@ -103,7 +103,7 @@ const Support: NextPage = () => {
         const searchName = event.target.value?.toLowerCase()?.trim();
 
         return faqContents.includes(searchName);
-      }) || []),
+      }) || [])
     ];
 
     applyFilterInQuestionList(suggestedFAQ);

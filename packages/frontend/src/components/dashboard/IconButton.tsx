@@ -11,7 +11,7 @@ interface IconButtonProps {
 const IconButton: NextPage<IconButtonProps> = ({
   buttonText,
   buttonIcon,
-  buttonHref,
+  buttonHref
 }) => (buttonHref ? (
   <Link href={buttonHref}>
     <div className="flex justify-center items-center cursor-pointer self-start">

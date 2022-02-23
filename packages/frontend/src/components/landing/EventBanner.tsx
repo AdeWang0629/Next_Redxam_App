@@ -6,7 +6,7 @@ const EventBanner: NextComponentType = () => {
   const timestamp = 1647414000000;
   const defaultRemainingTime = {
     seconds: 0,
-    minutes: 0,
+    minutes: 0
   };
   const [remainingTime, setRemainingTime] =
     useState<{ seconds: number; minutes: number }>(defaultRemainingTime);
@@ -19,7 +19,7 @@ const EventBanner: NextComponentType = () => {
   }, [timestamp]);
 
   const updateRemainingTime = (
-    newTimestamp: string | number | Date | dayjs.Dayjs | null | undefined,
+    newTimestamp: string | number | Date | dayjs.Dayjs | null | undefined
   ) => {
     const timestampDayJs = dayjs(newTimestamp);
     const nowDayJs = dayjs();

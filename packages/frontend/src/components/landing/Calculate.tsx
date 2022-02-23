@@ -20,17 +20,17 @@ const Calculate: NextPage = () => {
         id: 1,
         name: t('passive-plan'),
         interest: averageRedxam,
-        icon: ConservativePlan,
+        icon: ConservativePlan
       },
 
       {
         id: 2,
         name: t('regular-banks'),
         interest: 0.0001,
-        icon: RegularBanks,
-      },
+        icon: RegularBanks
+      }
     ],
-    [averageRedxam, t],
+    [averageRedxam, t]
   );
 
   const [plan, setPlan] = useState(rates[0].id);
@@ -45,7 +45,7 @@ const Calculate: NextPage = () => {
 
     handleManualNumber(
       // eslint-disable-next-line no-nested-ternary
-      val === 5 ? val * 100 : val <= 49 ? val * 200 : 10000 + 1800 * (val - 50),
+      val === 5 ? val * 100 : val <= 49 ? val * 200 : 10000 + 1800 * (val - 50)
     );
   };
 
@@ -74,7 +74,7 @@ const Calculate: NextPage = () => {
       <div
         className="flex flex-col md:flex-row w-full md:w-[46.0625rem] h-full md:h-[24.5625rem] py-8 md:py-[1.875rem] px-8 md:px-[4.375rem] bg-calculator-bg backdrop-filter backdrop-blur-[30px] border-2 border-white rounded-[30px] mb-5"
         style={{
-          boxShadow: '0 4px 30px 0 rgb(0 0 0 / 5%)',
+          boxShadow: '0 4px 30px 0 rgb(0 0 0 / 5%)'
         }}
       >
         <div className="py-5 flex-[2]">
@@ -100,7 +100,7 @@ const Calculate: NextPage = () => {
           <input
             className="font-primary text-[2.8125rem] font-bold text-[#4f4f4f] dark:text-black mb-6 rounded-[20px] tracking-[-0.05em] border border-white backdrop-filter backdrop-blur-[10px] px-3.5 w-full md:w-[16.25rem]"
             style={{
-              backgroundColor: 'rgba(234, 234, 234, 0.7)',
+              backgroundColor: 'rgba(234, 234, 234, 0.7)'
             }}
             value={`$${numberWithCommas(value)}`}
             onChange={({ target }) => {
@@ -125,7 +125,7 @@ const Calculate: NextPage = () => {
       <div
         className="flex flex-col w-full md:w-[46.0625rem] h-[9.375rem] items-center justify-center py-[1.875rem] px-[4.375rem] bg-calculator-bg backdrop-filter backdrop-blur-[30px] border-2 border-white rounded-[30px] mb-5"
         style={{
-          boxShadow: '0 4px 30px 0 rgb(0 0 0 / 5%)',
+          boxShadow: '0 4px 30px 0 rgb(0 0 0 / 5%)'
         }}
       >
         <h4 className="font-medium font-secondary tracking-[0.3em] uppercase text-[#828282] dark:text-black mb-4">
@@ -154,7 +154,7 @@ const CalculateAsset: NextPage<CalculateAssetProps> = ({
   image,
   name,
   isActive,
-  onClick,
+  onClick
 }) => (
   <div className="flex flex-col">
     <button

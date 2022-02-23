@@ -10,14 +10,14 @@ const Overview: NextPage = () => {
     totalUsers: 0,
     invitedUsers: 0,
     acceptedUsers: 0,
-    usersWithBalance: 0,
+    usersWithBalance: 0
   });
 
   useEffect(() => {
     (async () => {
       try {
         const { data: overviewData } = await api.getOverview(
-          getCookie('admin_token') as string,
+          getCookie('admin_token') as string
         );
         console.log(overviewData);
         setData(overviewData.data.overview);
@@ -35,7 +35,7 @@ const Overview: NextPage = () => {
             { title: 'Total Users', value: data?.totalUsers || 0 },
             { title: 'Invited Users', value: data?.invitedUsers || 0 },
             { title: 'Accepted Users', value: data?.acceptedUsers || 0 },
-            { title: 'Users with balance', value: data?.usersWithBalance || 0 },
+            { title: 'Users with balance', value: data?.usersWithBalance || 0 }
           ].map((item) => {
             const id = item.title.split(' ').join('_').toLowerCase();
 
@@ -99,7 +99,7 @@ const Overview: NextPage = () => {
               { title: 'Received', value: 426 },
               { title: 'Average first response time', value: '33m' },
               { title: 'Average response time', value: '3h 8m' },
-              { title: 'Resolution within SLA', value: '64%' },
+              { title: 'Resolution within SLA', value: '64%' }
             ].map((item, idx) => {
               const id = item.title.split(' ').join('_').toLowerCase();
 
@@ -147,7 +147,7 @@ const Overview: NextPage = () => {
             { title: 'Waiting on Feature Request', value: 4238 },
             { title: 'Awaiting Customer Response', value: 1005 },
             { title: 'Awaiting Developer Fix', value: 914 },
-            { title: 'Pending', value: 281 },
+            { title: 'Pending', value: 281 }
           ].map((item, idx) => {
             const id = item.title.split(' ').join('_').toLowerCase();
 

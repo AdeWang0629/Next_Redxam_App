@@ -27,9 +27,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         'navbar',
         'footer',
         'waitlist',
-        'login',
-      ])),
-    },
+        'login'
+      ]))
+    }
   };
 };
 
@@ -39,24 +39,24 @@ const Cards: NextPage = () => {
   const questions = [
     {
       title: '¿Who can apply for the credit card?',
-      body: 'Currently any US Citizen and Resident with a Social Security Number is able to sign up for the debit card.',
+      body: 'Currently any US Citizen and Resident with a Social Security Number is able to sign up for the debit card.'
     },
     {
       title: '¿Does the card offer rewards?',
-      body: 'We offer 3.5% rewards on the crypto of your choice!',
+      body: 'We offer 3.5% rewards on the crypto of your choice!'
     },
     {
       title: '¿Do I have to have a good credit score to apply?',
-      body: 'This is a debit card and no credit check will be done.',
+      body: 'This is a debit card and no credit check will be done.'
     },
     {
       title: '¿Can I use it anywhere, what are the limits?',
-      body: 'The redxam card has no limits! You can use it anywhere around the world where Mastercard is accepted.',
+      body: 'The redxam card has no limits! You can use it anywhere around the world where Mastercard is accepted.'
     },
     {
       title: '¿How many times can I change my rewards currency?',
-      body: 'You can change the cryptocurrency of the rewards once a week.',
-    },
+      body: 'You can change the cryptocurrency of the rewards once a week.'
+    }
   ];
 
   return (
