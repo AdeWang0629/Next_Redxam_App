@@ -183,7 +183,7 @@ const BanksView: NextPage = () => {
         onSuccess({ payee: { id } }: { payee: { id: string } }) {
           setTeller((state) => ({
             ...state,
-            payeeId: id
+            payeeId: id,
           }));
         },
       });
@@ -200,8 +200,6 @@ const BanksView: NextPage = () => {
     const {
       accountId,
       depositValue,
-      payeeId,
-      accessToken,
       memo,
       bankName,
       userId: tellerUserId,
@@ -225,19 +223,24 @@ const BanksView: NextPage = () => {
           currentEnvironment === 'production' ? 'production' : 'sandbox',
         connectToken: tellerPayment.connect_token,
         applicationId: 'app_nu123i0nvg249720i8000',
-        onSuccess: async function ({ payment: { id } }: any) {
-          setTeller(state => ({ ...state }));
-          const { depositValue, bankName, userId } = teller;
+        async onSuccess({ payment: { id } }: any) {
+          setTeller((state) => ({ ...state }));
+          const {
+            depositValue: newDepositValue,
+            bankName: newBankName,
+            userId: newUserId,
+          } = teller;
+
           await api.tellerPaymentVerified(
             id,
-            depositValue,
-            bankName,
-            userId,
+            newDepositValue,
+            newBankName,
+            newUserId,
           );
         },
       });
       setup.open();
-    } else setTeller(state => ({ ...state }));
+    } else setTeller((state) => ({ ...state }));
   };
 
   return (

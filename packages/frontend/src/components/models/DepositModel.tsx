@@ -5,7 +5,7 @@ import {
   useState,
   Dispatch,
   SetStateAction,
-  useContext
+  useContext,
 } from 'react';
 import Image from 'next/image';
 import api from '@utils/api';
@@ -38,7 +38,7 @@ interface DepositModelProps {
 const DepositModel: NextPage<DepositModelProps> = ({
   isOpened,
   setOpened,
-  accounts
+  accounts,
 }) => {
   const { user } = useContext(UserContext);
 
@@ -69,7 +69,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
     } else document.body.style.overflow = 'auto';
   }, [isOpened]);
 
-  let currentEnvironment =
+  const currentEnvironment =
     typeof window !== 'undefined'
       ? (getCookie('environment') as string) || 'production'
       : 'production';
@@ -86,8 +86,8 @@ const DepositModel: NextPage<DepositModelProps> = ({
   }
 
   const deposit = async () => {
-    let confirmation = confirm(
-      `Are you sure you want to deposit $${value} from ${selectedAccount.name}?`
+    const confirmation = confirm(
+      `Are you sure you want to deposit $${value} from ${selectedAccount.name}?`,
     );
     if (!confirmation) return;
 
@@ -95,35 +95,36 @@ const DepositModel: NextPage<DepositModelProps> = ({
 
     const {
       data: {
-        data: { tellerPayment }
-      }
+        data: { tellerPayment },
+      },
     } = await api.tellerPayment(
       selectedAccount.id,
       value,
       selectedAccount.name,
       userId,
-      memo
+      memo,
     );
 
     if (tellerPayment.connect_token) {
-      //@ts-ignore typescript does not recognize CDN script types
+      // @ts-ignore typescript does not recognize CDN script types
       const setup = window.TellerConnect.setup({
         environment:
           currentEnvironment === 'production' ? 'production' : 'sandbox',
         connectToken: tellerPayment.connect_token,
         applicationId: 'app_nu123i0nvg249720i8000',
-        onSuccess: async function ({ payment: { id } }: any) {
-          const res = await api.tellerPaymentVerified(
+        async onSuccess({ payment: { id } }: any) {
+          await api.tellerPaymentVerified(
             id,
             value,
             selectedAccount.name,
-            userId
+            userId,
           );
-        }
+        },
       });
       setup.open();
     }
     setOpened(false);
+  };
 
   return (
     <>
@@ -178,7 +179,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
                 <input
                   className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
                   value={`${numberWithCommas(value)}`}
-                  style={{ width: value.toString().length + 'ch' }}
+                  style={{ width: `${value.toString().length}ch` }}
                   onChange={({ target }) => {
                     const newValue = +target.value.replace(/[^0-9]/g, '');
                     setValue(newValue);
@@ -195,7 +196,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
               <input
                 type="text"
                 className="font-secondary"
-                onChange={e => setMemo(e.target.value)}
+                onChange={(e) => setMemo(e.target.value)}
                 value={memo}
                 id="tellerMemo"
               />
@@ -238,7 +239,7 @@ interface PlaidUpdateProps {
 const PlaidUpdate: NextPage<PlaidUpdateProps> = ({
   token,
   setToken,
-  deposit
+  deposit,
 }) => {
   const { open } = usePlaidLink({
     onSuccess: () => {
