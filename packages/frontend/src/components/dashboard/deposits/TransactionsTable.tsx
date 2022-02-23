@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Card from '../Card';
 import { getMonthName } from '@utils/helpers';
+import bankIcon from '@public/icons/bank.svg';
 
 import filterIcon from '@public/icons/filter.svg';
 import btcLogo from '@public/icons/bitcoin.svg';
@@ -39,7 +40,7 @@ const TransactionsTable = ({
   let year = new Date().getFullYear();
 
   return (
-    <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0 lg:ml-3">
+    <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0">
       {depositsType === 'all' ? (
         <div className="flex justify-between items-center py-4 px-7">
           <h2 className="font-secondary text-lg font-medium text-lighter-black">
@@ -99,6 +100,8 @@ const TransactionsTable = ({
                       src={
                         pendingDeposit.bankIcon
                           ? `data:image/png;base64,${pendingDeposit.bankIcon}`
+                          : pendingDeposit.type === 'FIAT'
+                          ? bankIcon
                           : btcLogo
                       }
                       width={'40px'}
@@ -108,7 +111,9 @@ const TransactionsTable = ({
                     />
                     <div className="flex flex-col justify-center ml-4">
                       <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                        {pendingDeposit.bankName}
+                        {pendingDeposit.type === 'CRYPTO'
+                          ? 'Bitcoin'
+                          : pendingDeposit.bankName}
                       </p>
                       <p className="font-secondary text-xs text-[#95989B]">
                         Processing
@@ -180,6 +185,8 @@ const TransactionsTable = ({
                                 src={
                                   deposit.bankIcon
                                     ? `data:image/png;base64,${deposit.bankIcon}`
+                                    : deposit.type === 'FIAT'
+                                    ? bankIcon
                                     : btcLogo
                                 }
                                 width={'40px'}

@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { NextPage } from "next";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useState } from 'react';
+import { NextPage } from 'next';
+import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 interface CustomSelectProps {
   accounts: [
@@ -27,7 +27,7 @@ interface CustomSelectProps {
 const CustomSelect: NextPage<CustomSelectProps> = ({
   accounts,
   value,
-  setValue,
+  setValue
 }) => {
   const [showOptions, setShowOptions] = useState(false);
 
@@ -39,12 +39,12 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
     type: string;
   }) {
     setValue(account);
-    setShowOptions((prevState) => !prevState);
+    setShowOptions(prevState => !prevState);
   }
 
   return (
     <div>
-      <div onClick={() => setShowOptions((prevState) => !prevState)}>
+      <div onClick={() => setShowOptions(prevState => !prevState)}>
         <div className="flex flex-col rounded-3xl border px-6 pt-6 pb-3 min-w-[15.0625rem]">
           <div className="flex cursor-pointer">
             <Image
@@ -75,9 +75,9 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
       </div>
       {showOptions && (
         <div
-          className="flex flex-col max-h-[6rem] overflow-y-auto overflow-x-hidden rounded-3xl"
+          className="flex flex-col max-h-[6rem] overflow-y-auto overflow-x-hidden rounded-3xl absolute z-50 bg-light-gray"
           id="deposit-banks-list"
-          style={{ boxShadow: "0px 12px 60px rgba(0, 0, 0, 0.12)" }}
+          style={{ boxShadow: '0px 12px 60px rgba(0, 0, 0, 0.12)' }}
         >
           <button
             className="border-b flex items-center justify-center underline py-3 font-secondary"
@@ -85,7 +85,7 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
           >
             Cancel
           </button>
-          {accounts.map((account) => (
+          {accounts.map(account => (
             <div
               className="flex border-b p-6 min-w-[15.0625rem] cursor-pointer"
               key={account._id}

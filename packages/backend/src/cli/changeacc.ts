@@ -23,44 +23,54 @@ const { SERVICE_EMAIL } = process.env;
 function renderTemplate(code: string) {
   return render(templateData, {
     code,
-    randomText: `Ref #: ${Date.now()}`,
+    randomText: `Ref #: ${Date.now()}`
   });
 }
 
 function getAttachments() {
   const facebookIcon: Readonly<Attachment> = Object.freeze({
     filename: 'facebook.png',
-    content: readFileSync(`${__dirname}/../emails/facebook.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/facebook.png`).toString(
+      'base64'
+    ),
     content_id: 'facebook@invited',
-    disposition: 'inline',
+    disposition: 'inline'
   });
 
   const twitterIcon: Readonly<Attachment> = Object.freeze({
     filename: 'twitter.png',
-    content: readFileSync(`${__dirname}/../emails/twitter.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/twitter.png`).toString(
+      'base64'
+    ),
     content_id: 'twitter@invited',
-    disposition: 'inline',
+    disposition: 'inline'
   });
 
   const linkedInIcon: Readonly<Attachment> = Object.freeze({
     filename: 'linkedin.png',
-    content: readFileSync(`${__dirname}/../emails/linkedin.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/linkedin.png`).toString(
+      'base64'
+    ),
     content_id: 'linkedin@invited',
-    disposition: 'inline',
+    disposition: 'inline'
   });
 
   const telegramIcon: Readonly<Attachment> = Object.freeze({
     filename: 'telegram.png',
-    content: readFileSync(`${__dirname}/../emails/telegram.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/telegram.png`).toString(
+      'base64'
+    ),
     content_id: 'telegram@invited',
-    disposition: 'inline',
+    disposition: 'inline'
   });
 
   const discordIcon: Readonly<Attachment> = Object.freeze({
     filename: 'discord.png',
-    content: readFileSync(`${__dirname}/../emails/discord.png`).toString('base64'),
+    content: readFileSync(`${__dirname}/../emails/discord.png`).toString(
+      'base64'
+    ),
     content_id: 'discord@invited',
-    disposition: 'inline',
+    disposition: 'inline'
   });
 
   return [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon];
@@ -70,9 +80,9 @@ async function sendMail(code: string) {
   await sendGrid.sendMail({
     from: `redxam.com <${SERVICE_EMAIL}>`,
     to: email,
-    subject: 'You got access 🎉 | redxam',
+    subject: 'You got invited to access redxam 🎉 | redxam',
     html: renderTemplate(code),
-    attachments: getAttachments(),
+    attachments: getAttachments()
   });
 }
 
@@ -96,7 +106,10 @@ async function handleAccountChange() {
 
   let code = generateCode(email);
 
-  Promise.all([sendMail(code), userData.updateOne({ accountStatus: 'invited' })])
+  Promise.all([
+    sendMail(code),
+    userData.updateOne({ accountStatus: 'invited' })
+  ])
     .then(() => {
       console.log('[INFO] : Successfully invited');
       return exit();

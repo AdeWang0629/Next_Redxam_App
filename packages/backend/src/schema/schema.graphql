@@ -124,6 +124,11 @@ input ContactForm {
   question: String!
 }
 
+input UpdateStatus {
+  email: String!
+  status: String!
+}
+
 type Response {
   success: Boolean!
   message: String!
@@ -207,6 +212,49 @@ type UpdateReferral {
   amount: Int
 }
 
+type TellerAccounts {
+  message: String
+  success: Boolean
+  accountId: String
+  balance: Float
+  bankName: String
+}
+
+type TellerPayee {
+  message: String
+  success: Boolean
+  payeeId: String
+  connect_token: String
+}
+
+type TellerPayment {
+  message: String
+  success: Boolean
+  paymentId: String
+  connect_token: String
+}
+
+input TellerPaymentInput {
+  accountId: String!
+  amount: String!
+  memo: String
+  bankName: String!
+  userId: String!
+}
+
+input TellerPaymentVerifiedInput {
+  amount: String!
+  paymentId: String!
+  bankName: String!
+  userId: String!
+}
+
+type GetPayee {
+  success: Boolean
+  message: String
+  payeeId: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -227,6 +275,11 @@ type Query {
   updateReferral: UpdateReferral
   emailValidation(arg: NewUser): Response
   contactForm(arg: ContactForm): Response
+  tellerAccounts(userId: String): TellerAccounts
+  tellerPayee(accountId: String): TellerPayee
+  tellerPayment(arg: TellerPaymentInput): TellerPayment
+  tellerPaymentVerified(arg: TellerPaymentVerifiedInput): Response
+  getPayee(accountId: String): GetPayee
 }
 
 type Mutation {
@@ -242,5 +295,6 @@ type Mutation {
   changeRequest(arg: String): Response
   changeAccountStatus(arg: String): Response
   addDiscord(arg: String): Response
-  updateUserStatus(arg: String): Response
+  updateWallets: Response
+  updateUserStatus(arg: UpdateStatus): Response
 }

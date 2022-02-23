@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 import { UsersPortfolios } from '../enums';
 
-export const UserWalletSchema = new Schema(
+export const SimpleWalletSchema = new Schema(
   {
     address: {
       type: String,
@@ -15,6 +15,20 @@ export const UserWalletSchema = new Schema(
       type: Number,
       default: 0,
     },
+    hasPendingTxs: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    _id: false,
+  },
+);
+
+export const TokenWalletSchema = new Schema(
+  {
+    BTC: SimpleWalletSchema,
+    TEST_BTC: SimpleWalletSchema,
   },
   {
     _id: false,
@@ -62,9 +76,13 @@ export const UserSchema = new Schema(
       type: String,
       required: false,
     },
-    wallet: {
-      type: UserWalletSchema,
+    wallets: {
+      type: TokenWalletSchema,
       required: true,
+    },
+    wallet: {
+      type: SimpleWalletSchema,
+      required: false,
     },
     contribution: {
       type: Number,

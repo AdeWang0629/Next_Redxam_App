@@ -12,3 +12,11 @@ export interface Deposit {
   bankName: string | null;
   bankType: string | null;
 }
+
+export interface Users {
+  accountStatus: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  _id: string;
+}

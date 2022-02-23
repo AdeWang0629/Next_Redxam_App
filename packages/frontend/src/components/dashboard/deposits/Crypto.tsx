@@ -13,7 +13,7 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import copyIcon from '@public/images/dashboard/deposits/copy.svg';
 import { Deposit } from '@utils/types';
 
-const BitcoinView: NextPage = () => {
+const Crypto: NextPage = () => {
   const { user } = useContext(UserContext);
 
   const [tokenModal, setTokenModal] = useState(false);
@@ -68,7 +68,7 @@ const BitcoinView: NextPage = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row lg:gap-x-3">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
             <div className="flex items-center justify-between px-8">
@@ -309,4 +309,4 @@ const BitcoinView: NextPage = () => {
   );
 };
 
-export default BitcoinView;
+export default Crypto;

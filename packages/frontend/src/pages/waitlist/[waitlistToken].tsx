@@ -74,7 +74,8 @@ const WaitlistToken: NextPage = () => {
               </div>
 
               <h3 className="font-secondary text-lg text-center">
-                Your position in the waitlist is:<br />
+                Your position in the waitlist is:
+                <br />
               </h3>
               <p className="font-bold text-3xl my-2 text-[#38B000]">
                 {waitlistLevel.level}

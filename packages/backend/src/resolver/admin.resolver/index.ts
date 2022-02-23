@@ -4,6 +4,7 @@ import { createAdmin } from './createAdminResolver';
 import { overview } from './overview.resolver';
 import { updateReferral } from './updateReferral.resolver';
 import { updateUserStatus } from './updateUserStatus.resolver';
+import { updateWallets } from './updateWallets.resolver';
 
 export const AdminResolver = {
   adminLogin,
@@ -12,4 +13,5 @@ export const AdminResolver = {
   overview,
   updateReferral,
   updateUserStatus,
+  updateWallets,
 };

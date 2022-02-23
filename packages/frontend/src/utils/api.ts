@@ -36,7 +36,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string,
+    referralCode?: string
   ) {
     const query = `query {
       emailValidation(arg:{firstName:"${firstName}" lastName: "${lastName}" email: "${email}" referralCode: "${referralCode}"}) {
@@ -60,8 +60,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query: mutation },
       {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
   }
 
@@ -90,7 +90,7 @@ class API {
     email: string,
     firstName?: string,
     lastName?: string,
-    referralCode?: string,
+    referralCode?: string
   ) {
     let mutation = `mutation {
         createWaitlist(arg: {
@@ -159,14 +159,15 @@ class API {
       `${this.baseURL}/api/v1`,
       { query: mutation },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
   getUserData() {
     const query = `query {
         user {
+          _id
           firstName
           email
           phone
@@ -188,8 +189,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
@@ -207,8 +208,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
@@ -219,8 +220,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
   }
 
@@ -254,8 +255,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
   }
 
@@ -275,8 +276,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
   }
 
@@ -304,8 +305,8 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
@@ -320,8 +321,8 @@ class API {
       `${this.baseURL}/api/v2/plaid`,
       { public_token: publicToken, metadata },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
@@ -354,29 +355,45 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { ...this.getAuthorizationHeader() },
-      },
+        headers: { ...this.getAuthorizationHeader() }
+      }
     );
   }
 
   deposit(accountId: string, amount: number) {
-    return this.axios.post(
-      `${this.baseURL}/api/v2/plaid/deposit`,
-      {
-        account_id: accountId,
-        amount
-      },
-      { headers: { ...this.getAuthorizationHeader() } },
-    );
+    switch ('TELLER' as string) {
+      case 'PLAID':
+        return this.axios.post(
+          `${this.baseURL}/api/v2/plaid/deposit`,
+          {
+            account_id: accountId,
+            amount
+          },
+          { headers: { ...this.getAuthorizationHeader() } }
+        );
+
+      case 'TELLER':
+        return this.axios.post(
+          `${this.baseURL}/api/v2/teller/deposit`,
+          {
+            account_id: accountId,
+            amount
+          },
+          { headers: { ...this.getAuthorizationHeader() } }
+        );
+
+      default:
+        break;
+    }
   }
 
   stripeDeposit(amount: number) {
     return this.axios.post(
       `${this.baseURL}/api/v2/stripe/create-checkout-session`,
       {
-        amount,
+        amount
       },
-      { headers: { ...this.getAuthorizationHeader() } },
+      { headers: { ...this.getAuthorizationHeader() } }
     );
   }
 
@@ -386,7 +403,7 @@ class API {
       {
         IDs
       },
-      { headers: { ...this.getAuthorizationHeader() } },
+      { headers: { ...this.getAuthorizationHeader() } }
     );
   }
 
@@ -407,8 +424,44 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: `Bearer ${adminToken}` },
-      },
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
+  updateWalletsScript(adminToken: String) {
+    const mutation = `mutation {
+      updateWallets{
+          message
+          success
+      }
+  }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
+  updateUserStatusScript(
+    adminToken: String,
+    email: String,
+    status: 'invited' | 'accepted'
+  ) {
+    const query = `mutation {
+      updateUserStatus (arg: {email: "${email}", status: "${status}"}) {
+        message
+        success
+      }
+    }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
     );
   }
 
@@ -426,6 +479,128 @@ class API {
       { query, view: 'ALL' },
       {
         headers: { ...this.getAuthorizationHeader() }
+      }
+    );
+  }
+
+  tellerAccounts(tellerAccessToken: string, userId: string) {
+    const query = `
+    query  {
+      tellerAccounts(userId: "${userId}") {
+        balance
+        accountId
+        message
+        success
+        bankName
+      }
+    }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: tellerAccessToken }
+      }
+    );
+  }
+
+  tellerPayee(accountId: string, tellerAccessToken: string) {
+    const query = `
+    query {
+      tellerPayee(accountId: "${accountId}") {
+        message
+        success
+        payeeId
+        connect_token
+    }
+
+    }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: tellerAccessToken }
+      }
+    );
+  }
+
+  tellerPayment(
+    accountId: string,
+    amount: number,
+    bankName: string,
+    userId: string,
+    memo?: string
+  ) {
+    const query = `
+    query {
+      tellerPayment (arg: {
+        accountId: "${accountId}", 
+        amount: "${amount}", 
+        bankName: "${bankName}", 
+        userId: "${userId}",
+        memo: "${memo}" }
+      ) {
+        message
+        success
+        paymentId
+        connect_token
+      }
+    }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() }
+      }
+    );
+  }
+
+  tellerPaymentVerified(
+    paymentId: string,
+    amount: number,
+    bankName: string,
+    userId: string
+  ) {
+    const query = `
+    query {
+      tellerPaymentVerified (arg: {
+        paymentId: "${paymentId}", 
+        amount: "${amount}", 
+        bankName: "${bankName}", 
+        userId: "${userId}" 
+      }
+      ) {
+        message
+        success
+      }
+    }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { ...this.getAuthorizationHeader() }
+      }
+    );
+  }
+
+  getPayee(accountId: string, tellerAccessToken: string) {
+    const query = `
+    query {
+      getPayee (accountId: "${accountId}") {
+          message
+          success
+          payeeId
+      }
+  }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: tellerAccessToken }
       }
     );
   }

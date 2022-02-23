@@ -4,7 +4,9 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "client": "cd packages/frontend && yarn dev",
+    "client:install": "cd packages/frontend && yarn",
     "server": "cd packages/backend && yarn start",
+    "server:install": "cd packages/backend && yarn",
     "start": "concurrently \"yarn run client\" \"yarn run server\""
   },
   "devDependencies": {
