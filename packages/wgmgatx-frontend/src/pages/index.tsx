@@ -2,9 +2,8 @@ import Navbar from '@components/general/Navbar';
 import TopBar from '@components/general/TopBar';
 import Hero from '@components/home/Hero';
 import Gallery from '@components/gallery/Gallery';
-import Artists from '@components/artists/Artists';
-import ContactForm from '@components/contact/ContactForm';
-// import { loadStripe } from '@stripe/stripe-js';
+import ArtistList from '@components/artists/ArtistList';
+import ContactUs from '@components/contact/ContactUs';
 import axios from 'axios';
 import { google } from 'googleapis';
 
@@ -110,17 +109,42 @@ const Home = (props: Props) => {
           <div className="pb-[4vh] mx-4 md:mx-0">
             <TopBar />
           </div>
-          <div className="pb-[6vh]">
+          <div className="md:pb-[6vh]">
             <Hero />
+            <div
+              className="flex flex-col items-center my-14 p-10 md:p-10"
+              id="about"
+            >
+              <h1 className=" text-4xl md:text-6xl font-bold text-center md:mx-16">
+                About WGMGART
+              </h1>
+              <div className="flex flex-col items-center">
+                <p className=" text-md px-3 my-10 opacity-80 text-grayscale-400 text-justify">
+                  WGMGART is an Agency to protect artists And to be given
+                  opportunities to have their work curated at other venues
+                  around the world. We offer a secure way to sell your work,
+                  help with creating merch, access to prints and connecting with
+                  other artists to learn new skills. We are working on launching
+                  a blockchain and will have animators to make your art
+                  animation dreams come true.
+                </p>
+                <a
+                  href="about"
+                  className=" w-full md:w-1/2 text-center font-bold rounded-[12px] py-3 bg-[#fff] text-[#1e1e1e] hover:ring-2 hover:ring-white hover:bg-[#1e1e1e] hover:text-white capitalizep"
+                >
+                  Read more about us
+                </a>
+              </div>
+            </div>
           </div>
           <div className="pb-[6vh] mx-4 md:mx-0">
             <Gallery gallery={props.gallery} />
           </div>
           <div className="pb-[6vh] mx-4 md:mx-0">
-            <Artists artists={props.artists} />
+            <ArtistList artists={props.artists} />
           </div>
-          <div className="pb-[6vh] mx-4 md:mx-0">
-            <ContactForm />
+          <div className="pb-[6vh] mx-4 md:mx-0" id="contact">
+            <ContactUs />
           </div>
         </div>
       </div>
