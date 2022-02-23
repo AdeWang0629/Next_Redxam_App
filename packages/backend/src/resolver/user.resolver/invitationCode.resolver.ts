@@ -24,7 +24,9 @@ export const invitationCode = async (
       user.referralCode
     );
 
-    await user.updateOne({ $set: { invitationAccepted: true } });
+    await user.updateOne({
+      $set: { invitationAccepted: true, accountStatus: 'accepted' }
+    });
     return {
       success: true,
       message: 'user invited sucessfully'
