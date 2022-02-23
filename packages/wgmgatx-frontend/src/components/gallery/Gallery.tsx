@@ -100,7 +100,7 @@ const Gallery = (gallery: { gallery: any[] }) => {
                         </h2>
                         <a
                           className="bg-white font-bold text-[#1e1e1e] text-[12px] px-6 py-2 rounded-[12px] hover:ring-2 hover:ring-white hover:bg-[#1e1e1e] hover:text-white cursor-pointer"
-                          //onClick={() => createCheckOutSession(item)}
+                          onClick={() => createCheckOutSession(item)}
                         >
                           Buy
                         </a>
