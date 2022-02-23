@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { JWT } from '@/config/jwt';
 import { User } from '@/database';
-import { sendMail } from '../referral.resolver/createWaitlist.resolver';
+import { sendWaitlistMail } from '../share/userCreate';
 
 export const invitationCode = async (
   { code }: { code: string },
@@ -17,7 +17,7 @@ export const invitationCode = async (
         message: 'no invitation code found'
       };
     }
-    await sendMail(
+    await sendWaitlistMail(
       user.email,
       user.level,
       req.headers.origin,
