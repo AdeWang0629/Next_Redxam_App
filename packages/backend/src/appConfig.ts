@@ -15,6 +15,7 @@ const httpLogger = require('./httpLogger');
 // Routes
 import sumsub from './routes/sumsub';
 import plaid from './routes/plaid';
+import teller from './routes/teller';
 import stripe from './routes/stripe';
 import discord from './routes/discord';
 
@@ -28,7 +29,7 @@ raven.config(SENTRY_DSN).install();
 
 // Cors options
 const corsOptions: CorsOptions = {
-  origin: true,
+  origin: true
 };
 
 export const config = (app: Express) => {
@@ -42,12 +43,12 @@ export const config = (app: Express) => {
       // enable HTTP calls tracing
       new Sentry.Integrations.Http({ tracing: true }),
       // enable Express.js middleware tracing
-      new Tracing.Integrations.Express({ app }),
+      new Tracing.Integrations.Express({ app })
     ],
     // Set tracesSampleRate to 1.0 to capture 100%
     // of transactions for performance monitoring.
     // We recommend adjusting this value in production
-    tracesSampleRate: IS_PRODUCTION ? 1.0 : 0,
+    tracesSampleRate: IS_PRODUCTION ? 1.0 : 0
   });
   // RequestHandler creates a separate execution context using domains, so that every
   // transaction/span/breadcrumb is attached to its own Hub instance
@@ -66,8 +67,8 @@ export const config = (app: Express) => {
           // @ts-ignore
           req.rawBody = buf.toString(encoding || 'utf8');
         }
-      },
-    }),
+      }
+    })
   );
 
   serviceHandler(app);
@@ -84,6 +85,7 @@ const serviceHandler = app => {
       setupGraphql(app);
       app.use('/api/v2', sumsub);
       app.use('/api/v2/plaid', plaid);
+      app.use('/api/v2/teller', teller);
       app.use('/api/v2/stripe', stripe);
       app.use('/api/v2/discord', discord);
       app.use('/', (req, res) => {
@@ -101,7 +103,7 @@ const setupGraphql = app => {
     schema,
     rootValue: resolver,
     graphiql: !IS_PRODUCTION,
-    customFormatErrorFn: error => customFormatError(req, raven, error),
+    customFormatErrorFn: error => customFormatError(req, raven, error)
   }));
   app.use('/api/v1', graphql);
 };

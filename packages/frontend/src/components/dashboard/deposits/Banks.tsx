@@ -183,8 +183,7 @@ const BanksView: NextPage = () => {
         onSuccess({ payee: { id } }: { payee: { id: string } }) {
           setTeller((state) => ({
             ...state,
-            paymentModel: true,
-            payeeId: id,
+            payeeId: id
           }));
         },
       });
@@ -192,7 +191,6 @@ const BanksView: NextPage = () => {
     } else {
       setTeller((state) => ({
         ...state,
-        paymentModel: true,
         payeeId: tellerPayee.payeeId,
       }));
     }
@@ -215,8 +213,6 @@ const BanksView: NextPage = () => {
     } = await api.tellerPayment(
       accountId,
       depositValue,
-      payeeId,
-      accessToken,
       bankName,
       tellerUserId,
       memo,
@@ -229,9 +225,8 @@ const BanksView: NextPage = () => {
           currentEnvironment === 'production' ? 'production' : 'sandbox',
         connectToken: tellerPayment.connect_token,
         applicationId: 'app_nu123i0nvg249720i8000',
-        async onSuccess({ payment: { id } }: any) {
-          setTeller((state) => ({ ...state, paymentModel: false }));
-          // eslint-disable-next-line @typescript-eslint/no-shadow
+        onSuccess: async function ({ payment: { id } }: any) {
+          setTeller(state => ({ ...state }));
           const { depositValue, bankName, userId } = teller;
           await api.tellerPaymentVerified(
             id,
@@ -242,7 +237,7 @@ const BanksView: NextPage = () => {
         },
       });
       setup.open();
-    } else setTeller((state) => ({ ...state, paymentModel: false }));
+    } else setTeller(state => ({ ...state }));
   };
 
   return (
@@ -390,6 +385,7 @@ const BanksView: NextPage = () => {
                   <button
                     className="font-secondary font-medium underline cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                     disabled={!plaidToken.length}
+                    onClick={handleAddBankAccount}
                   >
                     Add Bank Account
                   </button>

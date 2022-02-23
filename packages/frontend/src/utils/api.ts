@@ -361,14 +361,30 @@ class API {
   }
 
   deposit(accountId: string, amount: number) {
-    return this.axios.post(
-      `${this.baseURL}/api/v2/plaid/deposit`,
-      {
-        account_id: accountId,
-        amount
-      },
-      { headers: { ...this.getAuthorizationHeader() } }
-    );
+    switch ('TELLER' as string) {
+      case 'PLAID':
+        return this.axios.post(
+          `${this.baseURL}/api/v2/plaid/deposit`,
+          {
+            account_id: accountId,
+            amount
+          },
+          { headers: { ...this.getAuthorizationHeader() } }
+        );
+
+      case 'TELLER':
+        return this.axios.post(
+          `${this.baseURL}/api/v2/teller/deposit`,
+          {
+            account_id: accountId,
+            amount
+          },
+          { headers: { ...this.getAuthorizationHeader() } }
+        );
+
+      default:
+        break;
+    }
   }
 
   stripeDeposit(amount: number) {
@@ -512,8 +528,6 @@ class API {
   tellerPayment(
     accountId: string,
     amount: number,
-    payee_id: string,
-    tellerAccessToken: string,
     bankName: string,
     userId: string,
     memo?: string
@@ -523,7 +537,6 @@ class API {
       tellerPayment (arg: {
         accountId: "${accountId}", 
         amount: "${amount}", 
-        payee_id: "${payee_id}", 
         bankName: "${bankName}", 
         userId: "${userId}",
         memo: "${memo}" }
@@ -539,7 +552,7 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: tellerAccessToken }
+        headers: { ...this.getAuthorizationHeader() }
       }
     );
   }
@@ -569,6 +582,25 @@ class API {
       { query },
       {
         headers: { ...this.getAuthorizationHeader() }
+      }
+    );
+  }
+
+  getPayee(accountId: string, tellerAccessToken: string) {
+    const query = `
+    query {
+      getPayee (accountId: "${accountId}") {
+          message
+          success
+          payeeId
+      }
+  }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: tellerAccessToken }
       }
     );
   }

@@ -1,10 +1,4 @@
-// @ts-ignore
-import loadStripe from './stripe';
-
-//@ts-ignore
-const stripe = loadStripe(
-  'sk_test_51IVEgYEPejRluWxLQtuVRwiUkGJHmztuubzqjf6bPc0SJ8Q7JShj3KxHB4DQjaiuAfO9eCnn4ZK6rHkqRftgAWM400lv9hFz0x'
-);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 async function CreateStripeSession(
   req: { body: { item: any } },
@@ -15,19 +9,19 @@ async function CreateStripeSession(
   const redirectURL =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : 'https://wgmgatx.vercel.app/';
+      : 'https://wgmg.vercel.app';
 
   const transformedItem = {
     price_data: {
       currency: 'usd',
       product_data: {
         images: [item.image],
-        name: item.name,
+        name: item.name
       },
-      unit_amount: item.price * 100,
+      unit_amount: item.price * 100
     },
     description: item.description,
-    quantity: 1,
+    quantity: 1
   };
 
   // @ts-ignore
@@ -38,8 +32,8 @@ async function CreateStripeSession(
     success_url: redirectURL + '?status=success',
     cancel_url: redirectURL + '?status=cancel',
     metadata: {
-      images: item.image,
-    },
+      images: item.image
+    }
   });
 
   res.json({ id: session.id });

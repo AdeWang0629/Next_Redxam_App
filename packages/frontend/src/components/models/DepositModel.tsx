@@ -1,8 +1,17 @@
 import type { NextPage } from 'next';
-import { useRef, useEffect, useState, Dispatch, SetStateAction } from 'react';
+import {
+  useRef,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+  useContext
+} from 'react';
 import Image from 'next/image';
 import api from '@utils/api';
 import { usePlaidLink } from 'react-plaid-link';
+import { UserContext } from '@providers/User';
+import { getCookie } from 'cookies-next';
 
 import IconButton from '@components/dashboard/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,8 +38,15 @@ interface DepositModelProps {
 const DepositModel: NextPage<DepositModelProps> = ({
   isOpened,
   setOpened,
-  accounts,
+  accounts
 }) => {
+  const { user } = useContext(UserContext);
+
+  let userId = '';
+  if (user) {
+    userId = user._id;
+  }
+
   const outsideContainerRef = useRef(null);
   const [selectedAccount, setSelectedAccount] = useState<{
     _id: string;
@@ -40,6 +56,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
     type: string;
   }>(accounts[0]);
   const [value, setValue] = useState<number>(10);
+  const [memo, setMemo] = useState<string>('');
   const [depositLoading, setDepositLoading] = useState<boolean>(false);
   const [updateToken, setUpdateToken] = useState('');
 
@@ -48,10 +65,14 @@ const DepositModel: NextPage<DepositModelProps> = ({
 
     if (isOpened) {
       window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-      console.log('hi');
       document.body.style.overflow = 'hidden';
     } else document.body.style.overflow = 'auto';
   }, [isOpened]);
+
+  let currentEnvironment =
+    typeof window !== 'undefined'
+      ? (getCookie('environment') as string) || 'production'
+      : 'production';
 
   function handleOutsideClick(event: any) {
     if (outsideContainerRef.current === event.target) {
@@ -64,31 +85,45 @@ const DepositModel: NextPage<DepositModelProps> = ({
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
-  function deposit() {
-    const confirmation = confirm(
-      `Are you sure you want to deposit $${value} from ${selectedAccount.name}?`,
+  const deposit = async () => {
+    let confirmation = confirm(
+      `Are you sure you want to deposit $${value} from ${selectedAccount.name}?`
     );
     if (!confirmation) return;
 
     setDepositLoading(true);
 
-    api
-      .deposit(selectedAccount.id, value)
-      .then((res) => {
-        if (res?.data?.type === 'UPDATE_REQUIRED') {
-          return setUpdateToken(res.data.token);
-        }
-        alert('Deposit successful!');
-        setOpened(false);
+    const {
+      data: {
+        data: { tellerPayment }
+      }
+    } = await api.tellerPayment(
+      selectedAccount.id,
+      value,
+      selectedAccount.name,
+      userId,
+      memo
+    );
 
-        return null;
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error?.response?.data?.message || 'An error occurred!');
-      })
-      .finally(() => setDepositLoading(false));
-  }
+    if (tellerPayment.connect_token) {
+      //@ts-ignore typescript does not recognize CDN script types
+      const setup = window.TellerConnect.setup({
+        environment:
+          currentEnvironment === 'production' ? 'production' : 'sandbox',
+        connectToken: tellerPayment.connect_token,
+        applicationId: 'app_nu123i0nvg249720i8000',
+        onSuccess: async function ({ payment: { id } }: any) {
+          const res = await api.tellerPaymentVerified(
+            id,
+            value,
+            selectedAccount.name,
+            userId
+          );
+        }
+      });
+      setup.open();
+    }
+    setOpened(false);
 
   return (
     <>
@@ -143,7 +178,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
                 <input
                   className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
                   value={`${numberWithCommas(value)}`}
-                  style={{ width: `${value.toString().length}ch` }}
+                  style={{ width: value.toString().length + 'ch' }}
                   onChange={({ target }) => {
                     const newValue = +target.value.replace(/[^0-9]/g, '');
                     setValue(newValue);
@@ -154,6 +189,19 @@ const DepositModel: NextPage<DepositModelProps> = ({
               <span className="font-secondary text-sm text-[#95989B]">
                 Enter amount you want to deposit
               </span>
+            </div>
+
+            <div className="mb-4 input-wrapper">
+              <input
+                type="text"
+                className="font-secondary"
+                onChange={e => setMemo(e.target.value)}
+                value={memo}
+                id="tellerMemo"
+              />
+              <label className="font-primary" htmlFor="firstName">
+                Enter a description
+              </label>
             </div>
 
             <button
@@ -190,7 +238,7 @@ interface PlaidUpdateProps {
 const PlaidUpdate: NextPage<PlaidUpdateProps> = ({
   token,
   setToken,
-  deposit,
+  deposit
 }) => {
   const { open } = usePlaidLink({
     onSuccess: () => {

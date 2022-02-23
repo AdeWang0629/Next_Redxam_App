@@ -234,26 +234,30 @@ router.post('/accounts/unlink', async (req, res) => {
 
     if (!IDs || !IDs.length) return res.json(messages.failed.general);
 
-    user.bankAccounts.forEach(bankAcc => {
-      bankAcc.accounts
-        .filter(acc => IDs.includes(acc.id))
-        .forEach(async acc => {
-          // @ts-ignore
-          await bankAcc.accounts.pull({ _id: acc._id });
-        });
+    const bankAccounts = [];
+    user.bankAccounts.forEach(bank => bankAccounts.push(bank));
+
+    const filteredAccounts = bankAccounts.map(bank => {
+      const accounts = bank.accounts.filter(account => {
+        return !IDs.includes(account.id);
+      });
+
+      return { _id: bank._id, accessToken: bank.accessToken, accounts };
     });
 
-    user.bankAccounts.forEach(async bankAcc => {
-      if (!bankAcc.accounts.length) {
-        // @ts-ignore
-        await user.bankAccounts.pull({ _id: bankAcc._id });
+    const filteredBanks = filteredAccounts.filter(
+      bank => bank.accounts.length > 0
+    );
+
+    await user.updateOne({
+      $set: {
+        bankAccounts: filteredBanks
       }
     });
 
-    await user.save();
-
     res.json({ success: 1 });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       error: {
         status: error.status || 500,
