@@ -3,9 +3,7 @@ import TopBar from '@components/general/TopBar';
 import Hero from '@components/home/Hero';
 import Gallery from '@components/gallery/Gallery';
 import ArtistList from '@components/artists/ArtistList';
-// import ContactForm from '@components/contact/ContactForm.jsx';
 import ContactUs from '@components/contact/ContactUs';
-// import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { google } from 'googleapis';
 
