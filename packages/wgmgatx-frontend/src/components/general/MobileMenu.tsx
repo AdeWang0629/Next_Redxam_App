@@ -7,19 +7,20 @@ import {
   BiMapAlt,
   BiPhotoAlbum,
   BiGroup,
-  BiMessageRoundedDetail,
+  BiMessageRoundedDetail
 } from 'react-icons/bi';
 
 import wgmgLogo from '@public/logo-wgmg.png';
 
-const MobileMenu = ({handleMenu}) => {
+// @ts-ignore
+const MobileMenu = ({ handleMenu }) => {
   const [isOpen, setIsOpen] = useState(false);
   const routes = [
     { name: 'Home', path: '/#', icon: BiHomeAlt },
     { name: 'About', path: '/about', icon: BiMapAlt },
     { name: 'Gallery', path: '/#gallery', icon: BiPhotoAlbum },
     { name: 'Artists', path: '/#artists', icon: BiGroup },
-    { name: 'Contact', path: '/contact', icon: BiMessageRoundedDetail },
+    { name: 'Contact', path: '/contact', icon: BiMessageRoundedDetail }
   ];
   const [hoverStatus, setHoverStatus] = useState({
     Gallery: false,
@@ -40,13 +41,23 @@ const MobileMenu = ({handleMenu}) => {
             />
           </div>
           <ul>
-            {routes.map((route) => (
+            {routes.map(route => (
               <li key={route.name} className="text-center">
-                <Link href={route.path} >
-                    <div onClick={handleMenu} className='group flex flex-col items-center justify-center w-screen py-5 hover:bg-[#1e1e1e] transition-colors duration-[100ms]'>
-                        <route.icon className='ease-in-out duration-150 cursor-pointer group-hover:fill-white' size={'30px'} color={'#817F8A'} />
-                        <span className='font-bold mt-1 text-[#817F8A] group-hover:text-white'> { route.name } </span>
-                    </div>
+                <Link href={route.path}>
+                  <div
+                    onClick={handleMenu}
+                    className="group flex flex-col items-center justify-center w-screen py-5 hover:bg-[#1e1e1e] transition-colors duration-[100ms]"
+                  >
+                    <route.icon
+                      className="ease-in-out duration-150 cursor-pointer group-hover:fill-white"
+                      size={'30px'}
+                      color={'#817F8A'}
+                    />
+                    <span className="font-bold mt-1 text-[#817F8A] group-hover:text-white">
+                      {' '}
+                      {route.name}{' '}
+                    </span>
+                  </div>
                 </Link>
               </li>
             ))}

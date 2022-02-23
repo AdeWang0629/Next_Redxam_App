@@ -10,20 +10,20 @@ import { google } from 'googleapis';
 
 export async function getStaticProps() {
   const auth = await google.auth.getClient({
-    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']
   });
   const sheets = google.sheets({ version: 'v4', auth });
 
   const rangeGallery = `Sheet1!A:H`;
   const responseGallery = await sheets.spreadsheets.values.get({
     spreadsheetId: '186f-DiIytE8vh2HPsVIBCY9ABJCoIkbDs2f5CDN2WGo',
-    range: rangeGallery,
+    range: rangeGallery
   });
 
   const rangeArtist = `Sheet1!A:E`;
   const responseArtist = await sheets.spreadsheets.values.get({
     spreadsheetId: '1IAkfsKQ0CpMJoV0vNJONAykNLDPvQNXN8pN_BQyLvi0',
-    range: rangeArtist,
+    range: rangeArtist
   });
 
   let gallery: {
@@ -45,7 +45,7 @@ export async function getStaticProps() {
     image: String;
   }[] = [];
 
-  responseGallery?.data?.values?.map((picture) => {
+  responseGallery?.data?.values?.map(picture => {
     if (picture[0] !== null && picture !== null) {
       gallery[picture[0]] = {
         id: picture[0],
@@ -55,19 +55,19 @@ export async function getStaticProps() {
         description: picture[4],
         size: picture[5],
         price: picture[6],
-        image: picture[7],
+        image: picture[7]
       };
     }
   });
 
-  responseArtist?.data?.values?.map((artist) => {
+  responseArtist?.data?.values?.map(artist => {
     if (artist[0] !== null) {
       artists[artist[0]] = {
         id: artist[0],
         name: artist[1],
         description: artist[2],
         social: artist[3],
-        image: artist[4],
+        image: artist[4]
       };
     }
   });
@@ -75,8 +75,8 @@ export async function getStaticProps() {
   return {
     props: {
       gallery,
-      artists,
-    },
+      artists
+    }
   };
 }
 
@@ -101,11 +101,9 @@ interface Props {
 }
 
 const Home = (props: Props) => {
-  console.log(props);
   return (
     <>
-      <div className='flex bg-[#1e1e1e]'>
-      </div>
+      <div className="flex bg-[#1e1e1e]"></div>
       <div className="flex bg-[#1e1e1e] md:px-4">
         <Navbar title="Homepage" />
         <div className="w-full md:mx-[5%] h-full mt-[4vh]">
@@ -126,7 +124,7 @@ const Home = (props: Props) => {
           </div>
         </div>
       </div>
-      </>
+    </>
   );
 };
 
