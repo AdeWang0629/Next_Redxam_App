@@ -9,17 +9,11 @@ import Logo from '@public/logo.svg';
 
 const Invite: NextPage = () => {
   const { user, loading, noUser, setUser, setLoading, setNoUser } = useContext(
-    UserContext
+    UserContext,
   );
   const router = useRouter();
   const [code, setCode] = useState('');
   const [submitLoading, setSubmitLoading] = useState(false);
-
-  // @ts-ignore
-  useEffect(() => {
-    if (noUser) return router.push('/login');
-    return null;
-  }, [noUser, router]);
 
   useEffect(() => {
     if (
@@ -34,25 +28,24 @@ const Invite: NextPage = () => {
 
   if (loading) return <span>loading</span>;
 
-  function handleSubmit() {
-    if (!code || code.length !== 6) return alert('Invalid code!');
-
+  const handleSubmit = () => {
     setSubmitLoading(true);
     api
       .invite(code)
       .then(({ data }) => {
         if (
-          !data.data.changeAccountStatus.success &&
-          data.data.changeAccountStatus.message === 'invalid code'
+          !data.data.invitationCode.success &&
+          data.data.invitationCode.message === 'no invitation code found'
         ) {
           alert('Invalid code!');
-        } else if (data.data.changeAccountStatus.success) {
+        } else if (data.data.invitationCode.success) {
           api
             .getUserData()
             .then(({ data: accountData }) => {
+              console.log(accountData);
               setNoUser(false);
               setUser(accountData.data.user[0]);
-              alert('Account activated successfully!');
+              router.push(`/verify?token=${data.data.invitationCode.token}`)
             })
             .catch(() => setNoUser(true))
             .finally(() => setLoading(false));
@@ -60,9 +53,7 @@ const Invite: NextPage = () => {
       })
       .catch(() => alert('An error occurred!'))
       .finally(() => setSubmitLoading(false));
-
-    return null;
-  }
+  };
   return (
     <main className="min-h-screen flex flex-col items-center justify-center">
       <section className="flex items-center">

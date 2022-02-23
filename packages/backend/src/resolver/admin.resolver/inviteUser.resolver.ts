@@ -1,63 +1,57 @@
 import { Request } from 'express';
 import { messages } from '@/config/messages';
 import { sanitize, isValidEmail } from '@/utils/helpers';
+import { isValidAdmin } from './adminHelpers';
 import userCreate from '../share/userCreate';
 import { Argument, NewUser } from '../types';
 
-export const createWaitlist = async (
-  { arg }: Argument<NewUser>,
-  req: Request
-) => {
-  const form = sanitize(arg);
-  if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
-
-  const lastOrder = await userCreate.fetchLastOrder(form.email);
-
+export const inviteUser = async ({ arg }: Argument<NewUser>, req: Request) => {
   try {
+    const auth = await isValidAdmin(req.headers.authorization);
+    if (!auth.success) return auth;
+
+    const form = sanitize(arg);
+    if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
+
+    const lastOrder = await userCreate.fetchLastOrder(form.email);
     const jobs: Promise<any>[] = [];
 
-    let referralId = null;
     if (!lastOrder.doesExist) {
       const referral = await userCreate.handleReferral(form.referralCode);
       if (!referral.success) return referral;
 
-      const { waitlistToken, referralCode } = userCreate.createUserCodes();
+      const { waitlistToken, referralCode, invitationCode } =
+        userCreate.createUserCodes();
 
       const jobCreate = userCreate.createNewUser(
         form,
         lastOrder.level + 1,
         waitlistToken,
         referralCode,
-        referralId
+        referral.id,
+        invitationCode
       );
-      jobs.push(jobCreate);
 
-      const jobMail = userCreate.sendWaitlistMail(
+      const jobMail = userCreate.sendInvitationEmail(
         form.email,
-        lastOrder.level + 1,
         req.headers.origin,
-        waitlistToken,
-        referralCode
+        invitationCode
       );
 
+      jobs.push(jobCreate);
       jobs.push(jobMail);
     } else {
-      const jobMail = userCreate.sendWaitlistMail(
+      const jobMail = userCreate.sendInvitationEmail(
         form.email,
-        lastOrder.level,
         req.headers.origin,
-        lastOrder.waitlistToken,
-        lastOrder.referralCode
+        lastOrder.invitationCode
       );
-
       jobs.push(jobMail);
     }
 
     await Promise.all(jobs);
-
     return messages.success.register;
   } catch (error) {
-    console.error(error.message);
     return messages.failed.general;
   }
 };

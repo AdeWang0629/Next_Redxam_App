@@ -5,224 +5,232 @@ export const SimpleWalletSchema = new Schema(
   {
     address: {
       type: String,
-      required: true,
+      required: true
     },
     wif: {
       type: String,
-      required: true,
+      required: true
     },
     txsCount: {
       type: Number,
-      default: 0,
+      default: 0
     },
     hasPendingTxs: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   {
-    _id: false,
-  },
+    _id: false
+  }
 );
 
 export const TokenWalletSchema = new Schema(
   {
     BTC: SimpleWalletSchema,
-    TEST_BTC: SimpleWalletSchema,
+    TEST_BTC: SimpleWalletSchema
   },
   {
-    _id: false,
-  },
+    _id: false
+  }
 );
 
 export const bankAccountChild = new Schema({
   id: String,
   name: String,
   logo: String,
-  type: String,
+  type: String
 });
 
 export const bankAccount = new Schema({
   accessToken: String,
-  accounts: [bankAccountChild],
+  accounts: [bankAccountChild]
 });
 
 export const balanceRecordsSchema = new Schema({
   balance: {
     type: Number,
-    default: 0,
+    default: 0
   },
   timestamp: {
     type: Number,
-    required: true,
-  },
+    required: true
+  }
 });
 
 export const UserSchema = new Schema(
   {
     firstName: {
       type: String,
-      required: false,
+      required: false
     },
     lastName: {
       type: String,
-      required: false,
+      required: false
     },
     email: {
       type: String,
-      required: true,
+      required: true
     },
     phone: {
       type: String,
-      required: false,
+      required: false
     },
     wallets: {
       type: TokenWalletSchema,
-      required: true,
+      required: true
     },
     wallet: {
       type: SimpleWalletSchema,
-      required: false,
+      required: false
     },
     contribution: {
       type: Number,
-      default: 0,
+      default: 0
     },
     pending_balance: {
       type: Number,
-      default: 0,
+      default: 0
     },
     balance: {
       type: Number,
-      default: 0,
+      default: 0
     },
     accountBalance: {
       type: Number,
-      default: 0,
+      default: 0
     },
     level: {
       type: Number,
       required: true,
-      index: true,
+      index: true
     },
     verification: {
       type: Boolean,
-      default: false,
+      default: false
     },
     token: {
       type: String,
-      required: false,
+      required: false
     },
     accountStatus: {
       type: String,
-      required: true,
+      required: true
     },
     deposited: {
       type: Number,
-      default: 0,
+      default: 0
     },
     withdrawn: {
       type: Number,
-      default: 0,
+      default: 0
     },
     hasPendingTxs: {
       type: Boolean,
-      default: false,
+      default: false
     },
     balanceRecords: {
       type: [balanceRecordsSchema],
-      default: [],
+      default: []
     },
     birthPlace: {
       type: String,
-      required: false,
+      required: false
     },
     title: {
       type: String,
-      required: false,
+      required: false
     },
     address: {
       type: String,
-      required: false,
+      required: false
     },
     nearestLandmark: {
       type: String,
-      required: false,
+      required: false
     },
     state: {
       type: String,
-      required: false,
+      required: false
     },
     marriedStatus: {
       type: String,
-      required: false,
+      required: false
     },
     occupation: {
       type: String,
-      required: false,
+      required: false
     },
     identityIDType: {
       type: String,
-      required: false,
+      required: false
     },
     identityIDNumber: {
       type: String,
-      required: false,
+      required: false
     },
     issuance: {
       type: String,
-      required: false,
+      required: false
     },
     issuancePlace: {
       type: String,
-      required: false,
+      required: false
     },
     issuanceDate: {
       type: String,
-      required: false,
+      required: false
     },
     issuanceStatus: {
       type: String,
-      required: false,
+      required: false
     },
     expiringDate: {
       type: String,
-      required: false,
+      required: false
     },
     bankAccounts: {
       type: [bankAccount],
-      default: [],
+      default: []
     },
     portfolio: {
       type: String,
       enum: UsersPortfolios,
-      default: UsersPortfolios.PASSIVE,
+      default: UsersPortfolios.PASSIVE
     },
     waitlistToken: {
       type: String,
-      required: true,
+      required: true
     },
     referralCode: {
       type: String,
-      required: true,
+      required: true
     },
     referralId: {
       type: String,
-      required: false,
+      required: false
     },
     mxId: {
       type: String,
-      required: false,
+      required: false
     },
     discordId: {
       type: String,
-      required: false,
+      required: false
     },
+    invitationCode: {
+      type: String,
+      required: false
+    },
+    invitationAccepted: {
+      type: Boolean,
+      required: false
+    }
   },
   {
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
-    },
-  },
+      updatedAt: 'updated_at'
+    }
+  }
 );

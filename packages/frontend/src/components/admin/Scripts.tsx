@@ -11,11 +11,13 @@ const Scripts: NextPage = () => {
   const [users, setUsers] = useState<[] | Users[]>([]);
   const [status, setStatus] = useState<'invited' | 'accepted'>('invited');
 
+  console.log(email);
+
   useEffect(() => {
     (async () => {
       try {
         const { data } = await api.getAllUsers(
-          getCookie('admin_token') as string
+          getCookie('admin_token') as string,
         );
         setUsers(data.data.users);
       } catch (error) {
@@ -40,11 +42,26 @@ const Scripts: NextPage = () => {
             .updateUserStatusScript(
               getCookie('admin_token') as String,
               email,
-              status
+              status,
             )
             .then((res) => {
               alert(res.data.data.updateUserStatus.message);
-            });
+            })
+            .catch((err) => alert(err));
+        })();
+        break;
+
+      case 'inviteUser':
+        (async () => {
+          await api
+            .inviteUser(
+              getCookie('admin_token') as String,
+              email,
+            )
+            .then((res) => {
+              alert(res.data.data.inviteUser.message);
+            })
+            .catch((err) => alert(err));
         })();
         break;
 
@@ -76,6 +93,7 @@ const Scripts: NextPage = () => {
             Update Wallets Strategy Pattern
           </option>
           <option value="updateUserStatus">Update User Status</option>
+          <option value="inviteUser">Invite User</option>
         </select>
         <input
           type="submit"
@@ -102,13 +120,15 @@ const Scripts: NextPage = () => {
             .filter(
               (user) =>
                 user.accountStatus === 'pending' ||
-                    user.accountStatus === 'invited'
+                    user.accountStatus === 'invited',
             )
             .map((user) => (
               <option value={user.email} key={user._id}>
                 {user.accountStatus}
                 {' '}
                 -
+                {' '}
+
                 {user.email}
               </option>
             ))}
@@ -126,6 +146,16 @@ const Scripts: NextPage = () => {
           <option value="accepted">Accepted</option>
         </select>
       </>
+      )}
+      {script === 'inviteUser' && (
+      <input
+        type="text"
+        name="email"
+        id="email"
+        placeholder="Email"
+        className="mt-6 flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
+        onChange={(e) => setEmail(e.target.value)}
+      />
       )}
     </div>
   );

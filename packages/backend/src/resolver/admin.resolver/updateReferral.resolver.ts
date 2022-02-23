@@ -7,7 +7,7 @@ import { Request } from 'express';
 import { Attachment } from 'nodemailer/lib/mailer';
 import { Admin, User } from '@/database';
 import { sendMail } from '@/apis/sendgrid';
-import getAuthorizationToken from '../getAuthorizationToken';
+import getAuthorizationToken from '../share/getAuthorizationToken';
 
 const { SERVICE_EMAIL, TOKEN_SECURITY_KEY } = process.env;
 
@@ -28,7 +28,10 @@ interface UpdatedUsers {
   referralCode: string;
 }
 
-export const updateReferral = async (_: void, req: Request): Promise<UpdateReferral> => {
+export const updateReferral = async (
+  _: void,
+  req: Request
+): Promise<UpdateReferral> => {
   console.debug('[Resolve] admin called');
   const auth = getAuthorizationToken(req.headers.authorization);
   if (!auth.success) return { message: auth.message, success: auth.success };
@@ -38,13 +41,15 @@ export const updateReferral = async (_: void, req: Request): Promise<UpdateRefer
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'invalid admin token' };
 
-    const updatedUsers: UpdatedUsers[] = await updateReferralScript(req.headers.origin);
+    const updatedUsers: UpdatedUsers[] = await updateReferralScript(
+      req.headers.origin
+    );
 
     return {
       success: true,
       message: 'users referrals updated sucessfully',
       updatedUsers,
-      amount: updatedUsers.length,
+      amount: updatedUsers.length
     };
   } catch (err) {
     return { message: err.message, success: false };
@@ -61,8 +66,8 @@ const updateReferralScript = async (origin): Promise<UpdatedUsers[]> => {
       await user.updateOne({
         $set: {
           waitlistToken,
-          referralCode,
-        },
+          referralCode
+        }
       });
       await sendMail({
         from: `redxam.com <${SERVICE_EMAIL}>`,
@@ -74,8 +79,8 @@ const updateReferralScript = async (origin): Promise<UpdatedUsers[]> => {
           email: user.email,
           waitlistToken,
           referralCode,
-          randomText: `Ref #: ${Date.now()}`,
-        }),
+          randomText: `Ref #: ${Date.now()}`
+        })
       });
       updatedUsers.push({ userId: user._id, waitlistToken, referralCode });
     }
@@ -88,35 +93,45 @@ const templateData = readFileSync(templatePath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString(
+    'base64'
+  ),
   content_id: 'facebook@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const twitterIcon: Readonly<Attachment> = Object.freeze({
   filename: 'twitter.png',
-  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString(
+    'base64'
+  ),
   content_id: 'twitter@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const linkedInIcon: Readonly<Attachment> = Object.freeze({
   filename: 'linkedin.png',
-  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString(
+    'base64'
+  ),
   content_id: 'linkedin@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const telegramIcon: Readonly<Attachment> = Object.freeze({
   filename: 'telegram.png',
-  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString(
+    'base64'
+  ),
   content_id: 'telegram@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const discordIcon: Readonly<Attachment> = Object.freeze({
   filename: 'discord.png',
-  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString(
+    'base64'
+  ),
   content_id: 'discord@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });

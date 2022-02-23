@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken';
 import { Admin } from '@/database';
 import { Request } from 'express';
-import getAuthorizationToken from '../getAuthorizationToken';
+import getAuthorizationToken from '../share/getAuthorizationToken';
 
 const key = process.env.TOKEN_SECURITY_KEY;
 

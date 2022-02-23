@@ -249,6 +249,12 @@ input TellerPaymentVerifiedInput {
   userId: String!
 }
 
+type InvitationCode {
+  success: Boolean
+  message: String
+  token: String
+}
+
 type GetPayee {
   success: Boolean
   message: String
@@ -289,6 +295,8 @@ type Mutation {
   sendReferral(arg: SendReferInput): Response
   goUpQueue: Response
   createWaitlist(arg: NewUser): Response
+  inviteUser(arg: NewUser): Response
+  invitationCode(code: String): InvitationCode
   emailValidateToken: Response
   createManualUser(arg: NewManualUser): Response
   createAdmin(arg: newAdmin): Response
