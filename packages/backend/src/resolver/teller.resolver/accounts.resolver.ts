@@ -24,11 +24,20 @@ export const tellerAccounts = async (
       }
     });
 
-    const accounts = accountsRes.data.map(acc => ({
-      id: acc.id,
-      name: acc.institution.name,
-      type: acc.subtype
-    }));
+    const accounts = accountsRes.data
+      .filter(acc => acc.subtype === 'checking')
+      .map(acc => ({
+        id: acc.id,
+        name: acc.institution.name,
+        type: acc.subtype
+      }));
+
+    if (accounts.length < 1) {
+      return {
+        success: false,
+        message: 'no checking account'
+      };
+    }
 
     const user = await User.findOne({ _id: userId });
 
@@ -47,12 +56,6 @@ export const tellerAccounts = async (
     const checkingAccount = accountsRes.data.find(
       acc => acc.subtype === 'checking'
     );
-
-    if (!checkingAccount)
-      return {
-        success: false,
-        message: 'no checking account'
-      };
 
     const accountId = checkingAccount.id;
     const bankName = checkingAccount.institution.name;

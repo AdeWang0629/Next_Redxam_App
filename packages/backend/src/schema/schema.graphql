@@ -238,7 +238,6 @@ input TellerPaymentInput {
   accountId: String!
   amount: String!
   memo: String
-  payee_id: String!
   bankName: String!
   userId: String!
 }
@@ -248,6 +247,12 @@ input TellerPaymentVerifiedInput {
   paymentId: String!
   bankName: String!
   userId: String!
+}
+
+type GetPayee {
+  success: Boolean
+  message: String
+  payeeId: String
 }
 
 type Query {
@@ -274,6 +279,7 @@ type Query {
   tellerPayee(accountId: String): TellerPayee
   tellerPayment(arg: TellerPaymentInput): TellerPayment
   tellerPaymentVerified(arg: TellerPaymentVerifiedInput): Response
+  getPayee(accountId: String): GetPayee
 }
 
 type Mutation {

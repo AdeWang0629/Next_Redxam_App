@@ -34,7 +34,7 @@ interface Teller {
 }
 
 const BanksView: NextPage = () => {
-  const { user, loading, noUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   let userId = '';
   if (user) {
     userId = user._id;
@@ -174,7 +174,6 @@ const BanksView: NextPage = () => {
         onSuccess: function ({ payee: { id } }: { payee: { id: string } }) {
           setTeller(state => ({
             ...state,
-            paymentModel: true,
             payeeId: id
           }));
         }
@@ -183,7 +182,6 @@ const BanksView: NextPage = () => {
     } else {
       setTeller(state => ({
         ...state,
-        paymentModel: true,
         payeeId: tellerPayee.payeeId
       }));
     }
@@ -206,8 +204,6 @@ const BanksView: NextPage = () => {
     } = await api.tellerPayment(
       accountId,
       depositValue,
-      payeeId,
-      accessToken,
       bankName,
       userId,
       memo
@@ -221,7 +217,7 @@ const BanksView: NextPage = () => {
         connectToken: tellerPayment.connect_token,
         applicationId: 'app_nu123i0nvg249720i8000',
         onSuccess: async function ({ payment: { id } }: any) {
-          setTeller(state => ({ ...state, paymentModel: false }));
+          setTeller(state => ({ ...state }));
           const { depositValue, bankName, userId } = teller;
           const res = await api.tellerPaymentVerified(
             id,
@@ -232,7 +228,7 @@ const BanksView: NextPage = () => {
         }
       });
       setup.open();
-    } else setTeller(state => ({ ...state, paymentModel: false }));
+    } else setTeller(state => ({ ...state }));
   };
 
   return (
@@ -381,6 +377,7 @@ const BanksView: NextPage = () => {
                   <button
                     className="font-secondary font-medium underline cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                     disabled={!plaidToken.length}
+                    onClick={handleAddBankAccount}
                   >
                     Add Bank Account
                   </button>

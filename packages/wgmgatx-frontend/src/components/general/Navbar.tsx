@@ -23,10 +23,10 @@ const Navbar = ({ title }: { title?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const routes = [
     { name: 'Home', path: '/#', icon: BiHomeAlt },
-    { name: 'About', path: '/about', icon: BiMapAlt },
+    { name: 'About', path: '/#about', icon: BiMapAlt },
     { name: 'Gallery', path: '/#gallery', icon: BiPhotoAlbum },
     { name: 'Artists', path: '/#artists', icon: BiGroup },
-    { name: 'Contact', path: '/contact', icon: BiMessageRoundedDetail },
+    { name: 'Contact', path: '/#contact', icon: BiMessageRoundedDetail },
   ];
   const [hoverStatus, setHoverStatus] = useState({
     Gallery: false,
