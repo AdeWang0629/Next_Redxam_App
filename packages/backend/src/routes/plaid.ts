@@ -239,7 +239,6 @@ router.post('/accounts/unlink', async (req, res) => {
 
     const filteredAccounts = bankAccounts.map(bank => {
       const accounts = bank.accounts.filter(account => {
-        console.log(account);
         return !IDs.includes(account.id);
       });
 

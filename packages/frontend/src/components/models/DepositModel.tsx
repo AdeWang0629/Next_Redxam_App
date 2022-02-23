@@ -65,7 +65,6 @@ const DepositModel: NextPage<DepositModelProps> = ({
 
     if (isOpened) {
       window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-      console.log('hi');
       document.body.style.overflow = 'hidden';
     } else document.body.style.overflow = 'auto';
   }, [isOpened]);
@@ -86,7 +85,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
-  async function deposit() {
+  const deposit = async () => {
     let confirmation = confirm(
       `Are you sure you want to deposit $${value} from ${selectedAccount.name}?`
     );
@@ -107,7 +106,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
     );
 
     if (tellerPayment.connect_token) {
-      //@ts-ignore
+      //@ts-ignore typescript does not recognize CDN script types
       const setup = window.TellerConnect.setup({
         environment:
           currentEnvironment === 'production' ? 'production' : 'sandbox',
@@ -141,7 +140,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
     //     alert(error?.response?.data?.message || 'An error occurred!');
     //   })
     //   .finally(() => setDepositLoading(false));
-  }
+  };
 
   return (
     <>
