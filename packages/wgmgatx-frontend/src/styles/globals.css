@@ -18,6 +18,7 @@ body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   color: #fff;
+  scroll-behavior: smooth;
 }
 
 @tailwind utilities;
@@ -71,8 +72,8 @@ a {
   outline: none;
   border: 1px solid #1e1e1e;
   padding: 15px 20px;
-  border-radius: 18px;
-  position: relative;
+  border-radius: 12px;
+  padding-right: 20vw;
 }
 
 .input-wrapper input[value=''] + label {
@@ -81,7 +82,7 @@ a {
 
 .input-wrapper input:focus {
   border-color: #fff;
-  border-radius: 20px;
+  border-radius: 16px;
 }
 
 .input-wrapper input:focus + label {

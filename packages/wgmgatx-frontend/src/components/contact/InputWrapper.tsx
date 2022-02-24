@@ -9,7 +9,7 @@ interface Props {
 
 const InputWrapper = ({ value, setValue, label, id }: Props) => {
   return (
-    <div className="md:mr-2 input-wrapper">
+    <div className="input-wrapper">
       <input
         type="text"
         className="font-secondary"

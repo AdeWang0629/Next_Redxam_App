@@ -5,6 +5,7 @@ import { overview } from './overview.resolver';
 import { updateReferral } from './updateReferral.resolver';
 import { updateUserStatus } from './updateUserStatus.resolver';
 import { updateWallets } from './updateWallets.resolver';
+import { inviteUser } from './inviteUser.resolver';
 
 export const AdminResolver = {
   adminLogin,
@@ -14,4 +15,5 @@ export const AdminResolver = {
   updateReferral,
   updateUserStatus,
   updateWallets,
+  inviteUser
 };

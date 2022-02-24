@@ -1,62 +1,50 @@
-import { NextPage } from 'next';
 import Image from 'next/image';
-import { google } from 'googleapis';
-import Navbar from '@components/general/Navbar';
-import wgmgArtistsImg from '@public/images/artists/artists-wgmg.jpeg';
+import Masonry from 'react-masonry-css';
 
-let data = {};
-
-async function getStaticProps() {
-  const auth = await google.auth.getClient({
-    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-  });
-  const sheets = google.sheets({ version: 'v4', auth });
-
-  const range = `Sheet1!A:E`;
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: '1IAkfsKQ0CpMJoV0vNJONAykNLDPvQNXN8pN_BQyLvi0',
-    range,
-  });
-
-  let artists: {
-    id: String;
-    name: String;
-    description: String;
-    social: String;
-    image: String;
-  }[] = [];
-  response?.data?.values?.map((artist) => {
-    if (artist[0] !== null) {
-      artists[artist[0]] = {
-        id: artist[0],
-        name: artist[1],
-        description: artist[2],
-        social: artist[3],
-        image: artist[4],
-      };
-    }
-  });
-  data = artists;
-  
-  return {
-    props: {
-      artists,
-    },
+const ArtistList = (artists: { artists: any[] }, all?: boolean) => {
+  // console.log(gallery);
+  const Columns = {
+    default: 3,
+    1440: 3,
+    1000: 2,
+    700: 1
   };
-}
+  // let to = 0;
+  // if (all) to = artists.artists.length;
+  // else to = 9;
 
-interface Props {
-  artists: {
-    id: String;
-    name: String;
-    description: String;
-    social: String;
-    image: String;
-  }[];
-}
+  return (
+    <div id="artists" className="bg-[#171717] p-8 rounded-[18px]">
+      <div className="flex justify-center md:justify-start mb-4 md:mx-10">
+        <h2 className="text-4xl pt-6 font-bold ml-[3%]">Artists</h2>
+      </div>
+      <div className="lg:mx-5 mx-0">
+        {/* <div className="relative grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-6 col-span-3 pb-6"> */}
+        <Masonry
+          breakpointCols={Columns}
+          className="flex max-w-[100%] w-auto"
+          columnClassName="sm:mx-5 bg-clip-padding"
+        >
+          {artists.artists
+            .slice(0, artists.artists.length)
+            .map((item, index) => {
+              return (
+                <div
+                  className="relative flex justify-center pt-[25px] w-full"
+                  key={item.id}
+                  // onClick={() => createCheckOutSession(item)}
+                >
+                  <img className="rounded-[18px]" src={item.image} alt="" />
+                  {/* <div className='absolute bg-[#1e1e1e] inset-x-0 bottom-[25px] h-[40%] rounded-b-[18px]'>
+                    asdasd
+                   </div> */}
+                </div>
+              );
+            })}
+        </Masonry>
+      </div>
+    </div>
+  );
+};
 
-
-
-export default {
-  data
-}
+export default ArtistList;
