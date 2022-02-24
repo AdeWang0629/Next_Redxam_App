@@ -46,7 +46,7 @@ export const Admin = () => {
             { divider: true },
             { name: 'Settings', icon: faCogs }
           ].map((section) => {
-            let id = section.name
+            const id = section.name
               ? section.name.split(' ').join('_').toLowerCase()
               : `divider_${Math.floor(Math.random() * 1000)}`;
 
@@ -79,7 +79,7 @@ export const Admin = () => {
           <div className="flex-1 ml-4">
             <h1 className="text-2xl dark:text-white">
               {activeSection[0].toUpperCase() +
-                activeSection.replace(/\_/gm, ' ').slice(1)}
+                activeSection.replace(/_/gm, ' ').slice(1)}
             </h1>
           </div>
           <div className="flex-1 flex items-center justify-end">
@@ -113,20 +113,27 @@ export const Admin = () => {
             New deposit
           </button>
         </div>
-        {activeSection === 'overview' ? (
-          <Overview />
-        ) : activeSection === 'users' ? (
-          <Users />
-        ) : activeSection === 'create_user' ? (
-          <CreateUser setActiveSection={setActiveSection} />
-        ) : activeSection === 'emails' ? (
-          <Emails />
-        ) : activeSection === 'scripts' ? (
-          <Scripts />
-        ) : null}
+        <AdminView activeSection={activeSection} setActiveSection={setActiveSection} />
       </div>
     </div>
   );
 };
+
+function AdminView({ activeSection, setActiveSection }: any) {
+  switch (activeSection) {
+    case 'overview':
+      return <Overview />;
+    case 'users':
+      return <Users />;
+    case 'create_user':
+      return <CreateUser setActiveSection={setActiveSection} />;
+    case 'emails':
+      return <Emails />;
+    case 'scripts':
+      return <Scripts />;
+    default:
+      return null;
+  }
+}
 
 export default Admin;

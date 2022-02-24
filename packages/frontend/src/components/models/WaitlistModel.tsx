@@ -13,7 +13,7 @@ interface WaitlistModelProps {
 const WaitlistModel: NextPage<WaitlistModelProps> = ({
   isOpened,
   setOpened,
-  referralCode = '',
+  referralCode = ''
 }) => {
   const { t } = useTranslation('waitlist');
   const [firstName, setFirstName] = useState('');
@@ -37,7 +37,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
   }, [isOpened]);
 
   function handleOutsideClick(event: any) {
-    if (outsideContainerRef.current == event.target) {
+    if (outsideContainerRef.current === event.target) {
       setOpened(false);
       document.body.style.overflow = 'auto';
     }
@@ -59,14 +59,16 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    if (referralCodeString.length < 8 && referralCodeString.length > 0)
-      return setReferralCodeInvalid(true);
+    if (
+      referralCodeString.length < 8 &&
+      referralCodeString.length > 0
+    ) return setReferralCodeInvalid(true);
 
     setLoading(true);
 
     const res = await api
       .validateEmail(email, firstName, lastName, referralCodeString)
-      .catch((err) => {
+      .catch(() => {
         setError(true);
       })
       .finally(() => {
@@ -74,6 +76,8 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
       });
 
     if (res?.data.data.emailValidation.success) setWaitlistSuccess(true);
+
+    return null;
   };
 
   return (
@@ -81,6 +85,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
       className="flex flex-col justify-center items-center bg-black bg-opacity-75 absolute top-0 left-0 h-full w-full z-50"
       ref={outsideContainerRef}
       onClick={handleOutsideClick}
+      role="dialog"
     >
       <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3  px-6 py-16 relative overflow-hidden">
         <div

@@ -24,7 +24,13 @@
     "jsx-a11y/label-has-associated-control": "off",
     "import/extensions": "off",
     "@typescript-eslint/no-use-before-define": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-noninteractive-element-interactions": "warn",
+    "react/no-array-index-key": "warn",
+    "no-restricted-globals": "warn",
+    "comma-dangle": ["error", "never"],
+    "@typescript-eslint/comma-dangle": ["error", "never"]
   },
   "parserOptions": {
     "project": "tsconfig.json"

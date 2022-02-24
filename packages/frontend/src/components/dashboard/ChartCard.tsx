@@ -2,9 +2,9 @@ import { NextPage } from 'next';
 import { useState, useContext } from 'react';
 import ReactPlaceholder from 'react-placeholder';
 import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
-import Card from './Card';
 import { HomeContext } from '@providers/Home';
 import { BalanceRecordsContext } from '@providers/BalanceRecords';
+import Card from './Card';
 
 interface ChartProps {
   data: {
@@ -13,7 +13,9 @@ interface ChartProps {
   }[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Chart: NextPage<ChartProps> = ({ data }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [value, setValue] = useState(0);
   const { home, loading } = useContext(HomeContext);
   const { balanceRecords } = useContext(BalanceRecordsContext);
@@ -24,7 +26,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
   ];
 
   if (balanceRecords) {
-    performanceData = balanceRecords.map(balanceRecord => ({
+    performanceData = balanceRecords.map((balanceRecord) => ({
       time: balanceRecord.timestamp,
       value: balanceRecord.balance
     }));
@@ -39,7 +41,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
               Performance
             </span>
             <ReactPlaceholder
-              showLoadingAnimation={true}
+              showLoadingAnimation
               type="textRow"
               ready={!loading}
               style={{ height: 32, marginTop: 0, width: '80%' }}
@@ -63,7 +65,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
           width="99%"
           height="99%"
           aspect={3}
-          className={'mt-7'}
+          className="mt-7"
         >
           <LineChart
             data={performanceData}
@@ -73,10 +75,9 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
             onMouseMove={(e: any) =>
               setValue(e?.activePayload?.[0]?.payload?.value || 0)
             }
-            onMouseLeave={(e: any) => setValue(0)}
+            onMouseLeave={() => setValue(0)}
           >
-            {/* @ts-ignore */}
-            <Line type="monotone" dataKey="value" stroke="#61D404" dot={null} />
+            <Line type="monotone" dataKey="value" stroke="#61D404" dot={undefined} />
             <Tooltip content={<CustomTooltip />} position={{ y: 50 }} />
           </LineChart>
         </ResponsiveContainer>

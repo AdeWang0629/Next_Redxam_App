@@ -7,7 +7,7 @@ import { Attachment } from 'nodemailer/lib/mailer';
 import { Admin, User, UserProps } from '@/database';
 import { sendMail } from '@/apis/sendgrid';
 import { generateCode } from '@/utils/helpers';
-import getAuthorizationToken from '../getAuthorizationToken';
+import getAuthorizationToken from '../share/getAuthorizationToken';
 
 const { SERVICE_EMAIL, TOKEN_SECURITY_KEY } = process.env;
 

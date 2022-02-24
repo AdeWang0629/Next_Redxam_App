@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '@providers/User';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import api from '@utils/api';
 import InternalLayout from '@components/dashboard/InternalLayout';
 import IconButton from '@components/dashboard/IconButton';
@@ -26,7 +25,9 @@ const Deposit: NextPage = () => {
   // @ts-ignore
   useEffect(() => {
     if (noUser) return router.push('/login');
-  }, [noUser]);
+
+    return null;
+  }, [noUser, router]);
 
   useEffect(() => {
     if (
@@ -37,11 +38,11 @@ const Deposit: NextPage = () => {
     ) {
       router.push('/invite');
     }
-  }, [user?.accountStatus]);
+  }, [user?.accountStatus, router, loading, noUser]);
 
   useEffect(() => {
     (async () => {
-      let { data } = await api.getApplicantData();
+      const { data } = await api.getApplicantData();
 
       if (data.status !== 200) return;
 
@@ -50,8 +51,7 @@ const Deposit: NextPage = () => {
 
       setIsInit(data.review.reviewStatus === 'init');
 
-      if (data.review.reviewResult)
-        setIsValidApplicant(data.review.reviewResult.reviewAnswer === 'GREEN');
+      if (data.review.reviewResult) setIsValidApplicant(data.review.reviewResult.reviewAnswer === 'GREEN');
     })();
   });
 
@@ -92,7 +92,7 @@ const Deposit: NextPage = () => {
       <div className="max-w-[900px] my-0 mx-auto px-3 lg:px-0">
         <div className="flex flex-col lg:flex-row justify-between items-center mb-10">
           <IconButton
-            buttonText={'Deposits'}
+            buttonText="Deposits"
             buttonIcon={BackIcon}
             buttonHref="/home"
           />

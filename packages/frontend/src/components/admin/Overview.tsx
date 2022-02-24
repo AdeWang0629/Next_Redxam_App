@@ -1,26 +1,26 @@
-import type { NextPage } from "next";
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { getCookie } from "cookies-next";
-import api from "@utils/api";
+import type { NextPage } from 'next';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { getCookie } from 'cookies-next';
+import api from '@utils/api';
 // import { Line } from "@reactchartjs/react-chart.js";
 
 const Overview: NextPage = () => {
-  let [data, setData] = useState({
+  const [data, setData] = useState({
     totalUsers: 0,
     invitedUsers: 0,
     acceptedUsers: 0,
-    usersWithBalance: 0,
+    usersWithBalance: 0
   });
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api.getOverview(
-          getCookie("admin_token") as string
+        const { data: overviewData } = await api.getOverview(
+          getCookie('admin_token') as string
         );
-        console.log(data);
-        setData(data.data.overview);
+        console.log(overviewData);
+        setData(overviewData.data.overview);
       } catch (error) {
         console.error(error);
       }
@@ -32,12 +32,12 @@ const Overview: NextPage = () => {
       <div className="flex flex-col mt-4">
         <div className="flex flex-wrap justify-around items-center">
           {[
-            { title: "Total Users", value: data?.totalUsers || 0 },
-            { title: "Invited Users", value: data?.invitedUsers || 0 },
-            { title: "Accepted Users", value: data?.acceptedUsers || 0 },
-            { title: "Users with balance", value: data?.usersWithBalance || 0 },
+            { title: 'Total Users', value: data?.totalUsers || 0 },
+            { title: 'Invited Users', value: data?.invitedUsers || 0 },
+            { title: 'Accepted Users', value: data?.acceptedUsers || 0 },
+            { title: 'Users with balance', value: data?.usersWithBalance || 0 }
           ].map((item) => {
-            let id = item.title.split(" ").join("_").toLowerCase();
+            const id = item.title.split(' ').join('_').toLowerCase();
 
             return (
               <div
@@ -95,21 +95,21 @@ const Overview: NextPage = () => {
           </div>
           <div className="flex flex-col justify-center border-l border-black dark:border-white border-opacity-30">
             {[
-              { title: "Resolved", value: 449 },
-              { title: "Received", value: 426 },
-              { title: "Average first response time", value: "33m" },
-              { title: "Average response time", value: "3h 8m" },
-              { title: "Resolution within SLA", value: "64%" },
+              { title: 'Resolved', value: 449 },
+              { title: 'Received', value: 426 },
+              { title: 'Average first response time', value: '33m' },
+              { title: 'Average response time', value: '3h 8m' },
+              { title: 'Resolution within SLA', value: '64%' }
             ].map((item, idx) => {
-              let id = item.title.split(" ").join("_").toLowerCase();
+              const id = item.title.split(' ').join('_').toLowerCase();
 
               return (
                 <div
                   className={
-                    "flex flex-col items-center px-6 py-4 w-48 text-center" +
-                    (idx !== 4
-                      ? " border-b border-black dark:border-white border-opacity-30"
-                      : "")
+                    `flex flex-col items-center px-6 py-4 w-48 text-center${
+                      idx !== 4
+                        ? ' border-b border-black dark:border-white border-opacity-30'
+                        : ''}`
                   }
                   key={id}
                 >
@@ -131,7 +131,9 @@ const Overview: NextPage = () => {
             <div className="flex-1 flex flex-col">
               <h2 className="text-2xl dark:text-white">Unresolved Issues</h2>
               <span className="opacity-70 text-sm dark:text-white">
-                Group: <span className="font-bold">Support</span>
+                Group:
+                {' '}
+                <span className="font-bold">Support</span>
               </span>
             </div>
             <div className="flex-1 flex justify-end">
@@ -142,21 +144,21 @@ const Overview: NextPage = () => {
           </div>
 
           {[
-            { title: "Waiting on Feature Request", value: 4238 },
-            { title: "Awaiting Customer Response", value: 1005 },
-            { title: "Awaiting Developer Fix", value: 914 },
-            { title: "Pending", value: 281 },
+            { title: 'Waiting on Feature Request', value: 4238 },
+            { title: 'Awaiting Customer Response', value: 1005 },
+            { title: 'Awaiting Developer Fix', value: 914 },
+            { title: 'Pending', value: 281 }
           ].map((item, idx) => {
-            let id = item.title.split(" ").join("_").toLowerCase();
+            const id = item.title.split(' ').join('_').toLowerCase();
 
             return (
               <div
                 key={id}
                 className={
-                  "flex items-center px-10" +
-                  (idx !== 3
-                    ? " border-b border-black dark:border-white border-opacity-30 py-6"
-                    : " pt-6")
+                  `flex items-center px-10${
+                    idx !== 3
+                      ? ' border-b border-black dark:border-white border-opacity-30 py-6'
+                      : ' pt-6'}`
                 }
               >
                 <span className="flex-1 dark:text-white">{item.title}</span>
@@ -166,7 +168,7 @@ const Overview: NextPage = () => {
           })}
         </div>
 
-        <div className="flex-1 mr-2"></div>
+        <div className="flex-1 mr-2" />
       </div>
     </>
   );
