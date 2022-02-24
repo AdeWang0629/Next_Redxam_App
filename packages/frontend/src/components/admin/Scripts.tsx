@@ -11,17 +11,15 @@ const Scripts: NextPage = () => {
   const [users, setUsers] = useState<[] | Users[]>([]);
   const [status, setStatus] = useState<'invited' | 'accepted'>('invited');
 
-  console.log(email);
-
   useEffect(() => {
     (async () => {
       try {
         const { data } = await api.getAllUsers(
-          getCookie('admin_token') as string,
+          getCookie('admin_token') as string
         );
         setUsers(data.data.users);
       } catch (error) {
-        console.error(error);
+        alert(error);
       }
     })();
   }, []);
@@ -42,7 +40,7 @@ const Scripts: NextPage = () => {
             .updateUserStatusScript(
               getCookie('admin_token') as String,
               email,
-              status,
+              status
             )
             .then((res) => {
               alert(res.data.data.updateUserStatus.message);
@@ -56,7 +54,7 @@ const Scripts: NextPage = () => {
           await api
             .inviteUser(
               getCookie('admin_token') as String,
-              email,
+              email
             )
             .then((res) => {
               alert(res.data.data.inviteUser.message);
@@ -120,7 +118,7 @@ const Scripts: NextPage = () => {
             .filter(
               (user) =>
                 user.accountStatus === 'pending' ||
-                    user.accountStatus === 'invited',
+                    user.accountStatus === 'invited'
             )
             .map((user) => (
               <option value={user.email} key={user._id}>
