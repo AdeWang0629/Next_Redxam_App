@@ -22,8 +22,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 
 const Invest: NextPage = () => {
-  let goal = '1,500,000';
-  let previousInvestors = [
+  const goal = '1,500,000';
+  const previousInvestors = [
     {
       name: 'Salem',
       value: '60k'
@@ -34,16 +34,14 @@ const Invest: NextPage = () => {
     }
   ];
 
-  let raised = previousInvestors.reduce((acc, curr) => {
-    return (
-      acc +
+  const raised = previousInvestors.reduce((acc, curr) => (
+    acc +
       (curr.value.includes('k')
         ? +curr.value.replace('k', '') * 1000
         : +curr.value)
-    );
-  }, 0);
+  ), 0);
 
-  let progress = (raised / +goal.replace(/\,/gm, '')) * 100;
+  const progress = (raised / +goal.replace(/,/gm, '')) * 100;
 
   return (
     <>
@@ -63,7 +61,7 @@ const Invest: NextPage = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="rounded-2xl w-full lg:w-[593px] h-[215px] lg:h-[334px] mx-auto"
-          ></iframe>
+          />
         </div>
         <div className="flex flex-col px-4 lg:px-0">
           <h1 className="text-[2rem] tracking-[-0.05em] font-secondary font-bold text-lighter-black dark:text-gray-200 leading-[3rem] w-full lg:max-w-[28.125rem]">
@@ -74,8 +72,8 @@ const Invest: NextPage = () => {
           <div className="w-full h-5 bg-[#E5FEE1] rounded-[2rem] mt-8">
             <div
               className="h-5 bg-[#ACE96B] rounded-l-[2rem]"
-              style={{ width: progress + '%' }}
-            ></div>
+              style={{ width: `${progress}%` }}
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-x-14 mt-14">
@@ -84,7 +82,8 @@ const Invest: NextPage = () => {
                 FUNDS RAISED
               </span>
               <span className="font-secondary font-bold text-lighter-black text-[2rem] leading-[3rem]">
-                ${numberWithCommas(raised)}
+                $
+                {numberWithCommas(raised)}
               </span>
             </div>
 
@@ -93,14 +92,15 @@ const Invest: NextPage = () => {
                 FUNDS GOAL
               </span>
               <span className="font-secondary font-bold text-lighter-black text-[2rem] leading-[3rem]">
-                ${goal}
+                $
+                {goal}
               </span>
             </div>
           </div>
 
           <a
             className="primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green mt-12"
-            href={`mailto:investments@redxam.com?subject=Hi%20I%20would%20like%20to%20invest%20in%20redxam!&body=Hi%20redxam%20team%20%F0%9F%91%8B%2C%0D%0A%0D%0AMy%20name%20is%20________%20!I'm%20really%20interested%20in%20the%20project%20and%20I%20would%20like%20to%20be%20part%20of%20the%20seed%20investment%20round%20and%20get%20early%20into%20the%20token%20sale%20at%20%240.01%20per%20token!%0D%0A%0D%0AI%20would%20like%20to%20invest%20%24____%20towards%20your%20round%20and%20get%20the%20correspondent%20tokens%20to%20my%20cash%20amount.%0D%0A%0D%0A%23%23%23%20Please%20select%20the%20one%20that%20doesn't%20apply%20to%20you%20%23%23%23%0D%0A%5B%20%5D%20I%20have%20invested%20in%20a%20startup%20before%20and%20I'm%20ready%20to%20sign%0D%0A%5B%20%5D%20This%20will%20be%20my%20first%20time%20investing%20and%20I%20would%20like%20to%20learn%20about%20the%20process.%0D%0A%0D%0AThanks%20for%20your%20interest%20in%20us%2C%20a%20warm%20welcome!%0D%0A-%20the%20redxam.com%20family`}
+            href={'mailto:investments@redxam.com?subject=Hi%20I%20would%20like%20to%20invest%20in%20redxam!&body=Hi%20redxam%20team%20%F0%9F%91%8B%2C%0D%0A%0D%0AMy%20name%20is%20________%20!I\'m%20really%20interested%20in%20the%20project%20and%20I%20would%20like%20to%20be%20part%20of%20the%20seed%20investment%20round%20and%20get%20early%20into%20the%20token%20sale%20at%20%240.01%20per%20token!%0D%0A%0D%0AI%20would%20like%20to%20invest%20%24____%20towards%20your%20round%20and%20get%20the%20correspondent%20tokens%20to%20my%20cash%20amount.%0D%0A%0D%0A%23%23%23%20Please%20select%20the%20one%20that%20doesn\'t%20apply%20to%20you%20%23%23%23%0D%0A%5B%20%5D%20I%20have%20invested%20in%20a%20startup%20before%20and%20I\'m%20ready%20to%20sign%0D%0A%5B%20%5D%20This%20will%20be%20my%20first%20time%20investing%20and%20I%20would%20like%20to%20learn%20about%20the%20process.%0D%0A%0D%0AThanks%20for%20your%20interest%20in%20us%2C%20a%20warm%20welcome!%0D%0A-%20the%20redxam.com%20family'}
           >
             Invest in the redxam project!
           </a>
@@ -123,7 +123,8 @@ const Invest: NextPage = () => {
                 {investor.name}
               </span>
               <span className="font-secondary font-bold text-2xl leading-9 text-lighter-black">
-                ${investor.value}
+                $
+                {investor.value}
               </span>
             </div>
           ))}

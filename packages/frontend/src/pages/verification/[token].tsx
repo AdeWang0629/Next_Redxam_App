@@ -30,8 +30,8 @@ const Token: NextPage = () => {
       {loading ? (
         <Image
           src={AnimatedLogo}
-          width={'50px'}
-          height={'45,5px'}
+          width="50px"
+          height="45,5px"
           alt="redxam Animated Logo"
         />
       ) : (

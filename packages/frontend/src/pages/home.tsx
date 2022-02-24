@@ -18,7 +18,8 @@ const Home: NextPage = () => {
   // @ts-ignore
   useEffect(() => {
     if (noUser) return router.push('/login');
-  }, [noUser]);
+    return null;
+  }, [noUser, router]);
 
   useEffect(() => {
     if (
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
     ) {
       router.push('/invite');
     }
-  }, [user?.accountStatus]);
+  }, [user?.accountStatus, noUser, loading, router]);
 
   if (loading) return <span>loading</span>;
 
@@ -37,21 +38,19 @@ const Home: NextPage = () => {
     <InternalLayout>
       <div className="px-3 lg:px-0 max-w-[900px] my-0 mx-auto">
         <div className="flex justify-between items-center mb-10">
-          <IconButton buttonText={'Settings'} buttonIcon={settings} />
+          <IconButton buttonText="Settings" buttonIcon={settings} />
         </div>
         <div className="lg:grid lg:grid-cols-2 lg:gap-5">
           <BalanceCard />
           <ReferCard />
           <RecentActivity />
           <Chart
-            data={new Array(100).fill(0).map((_, i) => {
-              return {
-                time: new Date().getTime() + 60000 * 60 * 24 * i,
-                value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1)
-              };
-            })}
+            data={new Array(100).fill(0).map((_, i) => ({
+              time: new Date().getTime() + 60000 * 60 * 24 * i,
+              value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1)
+            }))}
           />
-          <div></div>
+          <div />
         </div>
       </div>
     </InternalLayout>

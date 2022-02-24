@@ -1,7 +1,7 @@
 import { sign, verify } from 'jsonwebtoken';
 import { Admin } from '@/database';
 import { Request } from 'express';
-import getAuthorizationToken from '../getAuthorizationToken';
+import getAuthorizationToken from '../share/getAuthorizationToken';
 
 const key = process.env.TOKEN_SECURITY_KEY;
 
@@ -28,10 +28,13 @@ export const createAdmin = async ({ arg }, req: Request) => {
 
     const adminToken = sign({ adminId: currentAdmin._id }, key);
 
-    await Admin.updateOne({ _id: currentAdmin._id }, { $set: { token: adminToken } });
+    await Admin.updateOne(
+      { _id: currentAdmin._id },
+      { $set: { token: adminToken } }
+    );
     return {
       success: true,
-      message: 'admin created',
+      message: 'admin created'
     };
   } catch (error) {
     return { success: false, message: error.message };

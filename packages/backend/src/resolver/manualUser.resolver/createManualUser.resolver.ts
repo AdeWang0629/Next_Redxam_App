@@ -1,6 +1,5 @@
 import { messages } from '@/config/messages';
 import { ManualUser } from '@/database';
-import { SimpleWallet } from '@/database/types';
 import { generateWallets } from '@/service/wallets';
 import { Argument, NewManualUser } from '../types';
 
