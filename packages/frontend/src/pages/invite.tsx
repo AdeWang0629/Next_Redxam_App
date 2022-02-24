@@ -9,7 +9,7 @@ import Logo from '@public/logo.svg';
 
 const Invite: NextPage = () => {
   const { user, loading, noUser, setUser, setLoading, setNoUser } = useContext(
-    UserContext,
+    UserContext
   );
   const router = useRouter();
   const [code, setCode] = useState('');
@@ -45,7 +45,7 @@ const Invite: NextPage = () => {
               console.log(accountData);
               setNoUser(false);
               setUser(accountData.data.user[0]);
-              router.push(`/verify?token=${data.data.invitationCode.token}`)
+              router.push(`/verify?token=${data.data.invitationCode.token}`);
             })
             .catch(() => setNoUser(true))
             .finally(() => setLoading(false));
