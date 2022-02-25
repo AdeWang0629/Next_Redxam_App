@@ -1,4 +1,5 @@
 import type { GetStaticProps, NextPage } from 'next';
+import Head from 'next/head'
 import Navbar from '@components/global/Navbar';
 import Footer from '@components/global/Footer';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -46,6 +47,9 @@ const Invest: NextPage = () => {
   return (
     <>
       <Navbar title="Your Personal Crypto Investment Assistant" />
+      <Head>
+        <title>redxam - Invest</title>
+      </Head>
       <div
         className="flex flex-col lg:flex-row justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-10 pt-44 lg:pt-44 pb-20 border-b border-b-white"
         style={{

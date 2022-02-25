@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { NextPage } from 'next';
+import Head from 'next/head'
 import Image from 'next/image';
 import Navbar from '@components/global/Navbar';
 import Footer from '@components/global/Footer';
@@ -62,8 +63,11 @@ const Cards: NextPage = () => {
   return (
     <>
       <Navbar />
+      <Head>
+        <title>redxam - Cards</title>
+      </Head>
       <div className="max-w-[87rem] mx-auto my-0">
-        <section className="px-16 md:px-0 mx-auto flex flex-col-reverse justify-between items-center mt-40">
+        <section className="px-16 md:px-0 mx-auto flex flex-col-reverse md:flex-row justify-between items-center mt-40">
           <div>
             <p className="text-[#95989B] font-bold text-base mb-8">
               Magic Card
@@ -86,7 +90,7 @@ const Cards: NextPage = () => {
               Get Your Card
             </button>
           </div>
-          <div className="w-full">
+          <div className="w-full md:flex md:justify-end">
             <Image src={cards} alt="redxam Cards" />
           </div>
         </section>
