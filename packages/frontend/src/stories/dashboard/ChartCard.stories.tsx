@@ -1,15 +1,15 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps } from 'react';
 
-import { Story, Meta } from "@storybook/react";
+import { Story, Meta } from '@storybook/react';
 
-import Chart from "@components/dashboard/ChartCard";
+import Chart from '@components/dashboard/ChartCard';
 
 export default {
-  title: "Dashboard/ChartCard",
-  component: Chart,
+  title: 'Dashboard/ChartCard',
+  component: Chart
 } as Meta;
 
-const Template: Story<ComponentProps<typeof Chart>> = (args) => {
+const Template: Story<ComponentProps<typeof Chart>> = args => {
   return (
     <>
       <div className="h-[fit-content] bg-blue-400">
@@ -18,7 +18,7 @@ const Template: Story<ComponentProps<typeof Chart>> = (args) => {
           data={new Array(100).fill(0).map((_, i) => {
             return {
               time: new Date().getTime() + 60000 * 60 * 24 * i,
-              value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1),
+              value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1)
             };
           })}
         />

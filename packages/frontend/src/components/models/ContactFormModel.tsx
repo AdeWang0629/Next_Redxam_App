@@ -30,15 +30,13 @@ const ContactFormModel: NextPage<ContactFormProps> = ({
 }) => {
   const { t } = useTranslation('contact');
 
-  const [
-    contactInformation,
-    setContactInformation
-  ] = useState<ContactInformation>({
-    firstName: '',
-    lastName: '',
-    emailAddress: '',
-    question: ''
-  });
+  const [contactInformation, setContactInformation] =
+    useState<ContactInformation>({
+      firstName: '',
+      lastName: '',
+      emailAddress: '',
+      question: ''
+    });
 
   const [errors, setErrors] = useState<Error>({
     firstName: '',
@@ -102,14 +100,14 @@ const ContactFormModel: NextPage<ContactFormProps> = ({
       }
     }
 
-    setErrors((prevError) => ({ ...prevError, [fieldName]: errorMessage }));
+    setErrors(prevError => ({ ...prevError, [fieldName]: errorMessage }));
   };
 
   const onInputChange = (e: any) => {
     const contactFiled = e.target.id;
     const { value } = e.target;
 
-    setContactInformation((prevContactInformation) => ({
+    setContactInformation(prevContactInformation => ({
       ...prevContactInformation,
       [contactFiled]: value
     }));
@@ -126,11 +124,11 @@ const ContactFormModel: NextPage<ContactFormProps> = ({
   };
 
   const checkIsFormValid = () => {
-    const isEmpty = Object.values(contactInformation).some((value) =>
-      isStringEmpty(value));
+    const isEmpty = Object.values(contactInformation).some(value =>
+      isStringEmpty(value)
+    );
 
-    const isValid = Object.values(errors).every((value) =>
-      isStringEmpty(value));
+    const isValid = Object.values(errors).every(value => isStringEmpty(value));
 
     setIsFormValid(!isEmpty && isValid);
   };
@@ -165,18 +163,14 @@ const ContactFormModel: NextPage<ContactFormProps> = ({
 
   const submittedResult = (
     <>
-      <div
-        className="bg-buttons-green w-full py-3 absolute top-0 rounded-t-[30px] transition-transform duration-500"
-      />
+      <div className="bg-buttons-green w-full py-3 absolute top-0 rounded-t-[30px] transition-transform duration-500" />
       <p>{t('success-message')}</p>
     </>
   );
 
   const form = (
     <>
-      <div
-        className="bg-buttons-green w-full py-3 absolute top-0 rounded-t-[30px] transition-transform duration-500"
-      />
+      <div className="bg-buttons-green w-full py-3 absolute top-0 rounded-t-[30px] transition-transform duration-500" />
       <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
         {t('contact-title')}
       </h3>

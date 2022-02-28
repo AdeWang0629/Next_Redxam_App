@@ -44,7 +44,9 @@ function Max() {
         />
         <h5 className="my-1 text-2xl text-black dark:text-white">Max Awad</h5>
         <p className="dark:text-white">CEO, Co-Founder</p>
-        <p className="dark:text-white">Max is an Google, Apple, Meta Engineer from the United States</p>
+        <p className="dark:text-white">
+          Max is an Google, Apple, Meta Engineer from the United States
+        </p>
         <br />
         <Link href="mailto:max@redxam.com" passHref>
           <button

@@ -8,9 +8,8 @@ import { UserContext } from '@providers/User';
 import Logo from '@public/logo.svg';
 
 const Invite: NextPage = () => {
-  const { user, loading, noUser, setUser, setLoading, setNoUser } = useContext(
-    UserContext
-  );
+  const { user, loading, noUser, setUser, setLoading, setNoUser } =
+    useContext(UserContext);
   const router = useRouter();
   const [code, setCode] = useState('');
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -78,7 +77,7 @@ const Invite: NextPage = () => {
           type="text"
           placeholder="Enter invite code"
           className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
-          onChange={(e) => setCode(e.target.value)}
+          onChange={e => setCode(e.target.value)}
         />
 
         <button

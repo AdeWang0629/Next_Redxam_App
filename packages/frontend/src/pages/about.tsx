@@ -54,7 +54,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const About: NextPage = () => {
   const teamMembers = [
-    { name: 'Max Awad', picture: MaxProfileImage, role: 'CEO, Co-Founder', modal: '/max' },
+    {
+      name: 'Max Awad',
+      picture: MaxProfileImage,
+      role: 'CEO, Co-Founder',
+      modal: '/max'
+    },
     {
       name: 'Salem Al Qassimi',
       picture: SalemProfileImage,
@@ -108,7 +113,7 @@ const About: NextPage = () => {
       <section className="max-w-7xl mx-auto pt-32 px-4 md:px-0">
         <div>
           <h2 className="text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 mb-[6.25rem]">
-            We are changing the Way of Investing
+            We are changing the way of investing
           </h2>
           <div className="md:flex items-center justify-center mb-12 text-center md:text-left">
             <Image src={InvestImage1} alt="" />
@@ -175,8 +180,7 @@ const About: NextPage = () => {
           Our Team
         </h2>
         <div className="md:grid grid-cols-4 gap-y-14 gap-x-14">
-
-          {teamMembers.map((member) => (
+          {teamMembers.map(member => (
             <TeamMember
               key={member.name.toLowerCase().split(' ').join('_')}
               picture={member.picture}
@@ -239,10 +243,17 @@ interface TeamMemberProps {
   modal: string;
 }
 
-const TeamMember: NextPage<TeamMemberProps> = ({ picture, name, role, modal }) => (
+const TeamMember: NextPage<TeamMemberProps> = ({
+  picture,
+  name,
+  role,
+  modal
+}) => (
   <Link href={modal}>
     <div
-      className={`flex flex-row my-[1.875rem] py-8 pl-11 pr-11 rounded-3xl items-start transition-all duration-500 bg-[#fcfcfc] shadow-2xl ${modal ? 'cursor-pointer' : ''}`}
+      className={`flex flex-row my-[1.875rem] py-8 pl-11 pr-11 rounded-3xl items-start transition-all duration-500 bg-[#fcfcfc] shadow-2xl ${
+        modal ? 'cursor-pointer' : ''
+      }`}
       style={{
         boxShadow: '0 5px 40px rgb(0 0 0 / 8%)'
       }}
@@ -261,7 +272,6 @@ const TeamMember: NextPage<TeamMemberProps> = ({ picture, name, role, modal }) =
         <h5 className="my-1 text-2xl text-black dark:text-white">{name}</h5>
         <p className="dark:text-white">{role}</p>
       </div>
-
     </div>
   </Link>
 );

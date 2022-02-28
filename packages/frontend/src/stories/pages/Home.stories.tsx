@@ -1,12 +1,12 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps } from 'react';
 
-import { Story, Meta } from "@storybook/react";
+import { Story, Meta } from '@storybook/react';
 
-import Home from "@pages/home";
+import Home from '@pages/home';
 
 export default {
-  title: "Pages/dashboard/Home",
-  component: Home,
+  title: 'Pages/dashboard/Home',
+  component: Home
 } as Meta;
 
 const Template: Story<ComponentProps<typeof Home>> = () => <Home />;

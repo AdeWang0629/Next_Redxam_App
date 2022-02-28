@@ -82,7 +82,7 @@ const Calculate: NextPage = () => {
             {t('plan')}
           </h4>
           <div className="flex space-8">
-            {rates.map((rate) => (
+            {rates.map(rate => (
               <CalculateAsset
                 image={rate.icon}
                 name={rate.name}
@@ -135,8 +135,7 @@ const Calculate: NextPage = () => {
           <span className="text-5xl font-bold text-darker-primary">
             {`$${Number(total).toFixed(2)}`}
           </span>
-          /
-          {t('year')}
+          /{t('year')}
         </p>
       </div>
     </section>

@@ -42,9 +42,13 @@ function Salem() {
           objectFit="cover"
           placeholder="blur"
         />
-        <h5 className="my-1 text-2xl text-black dark:text-white">Salem Al Qassimi</h5>
+        <h5 className="my-1 text-2xl text-black dark:text-white">
+          Salem Al Qassimi
+        </h5>
         <p className="dark:text-white">CIO, Co-Founder</p>
-        <p className="dark:text-white">Salem is a royal from family of Ras Al-Khaimah</p>
+        <p className="dark:text-white">
+          Salem is a royal from family of Ras Al-Khaimah
+        </p>
         <br />
         <Link href="mailto:salem@redxam.com" passHref>
           <button

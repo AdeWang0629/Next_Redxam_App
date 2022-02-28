@@ -128,43 +128,43 @@ const Crypto: NextPage = () => {
 
           {/* Token Modal */}
           {tokenModal && (
-          <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
-            <Card
-              width="w-[622px]"
-              height="h-[170px]"
-              py="py-7"
-              otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
-            >
-              <div className="w-full flex justify-between items-center px-7 pb-7 border-b border-[#E7EAEB]">
-                <p className="text-lg font-secondary">Select Token</p>
-                <button
-                  className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px]"
-                  onClick={() => setTokenModal(false)}
-                >
-                  <Image
-                    src={closeIcon || ''}
-                    alt="Close Icon"
-                    width="14px"
-                    height="14px"
-                  />
-                </button>
-              </div>
-              <div className="px-7 mt-5">
-                <button
-                  className="flex"
-                  onClick={() => handleToken('BTC', btcLogo)}
-                >
-                  <Image
-                    src={btcLogo || ''}
-                    alt="BTC Logo"
-                    width="28px"
-                    height="28px"
-                  />
-                  <p className="font-secondary text-lg ml-6">BTC</p>
-                </button>
-              </div>
-            </Card>
-          </div>
+            <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
+              <Card
+                width="w-[622px]"
+                height="h-[170px]"
+                py="py-7"
+                otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
+              >
+                <div className="w-full flex justify-between items-center px-7 pb-7 border-b border-[#E7EAEB]">
+                  <p className="text-lg font-secondary">Select Token</p>
+                  <button
+                    className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px]"
+                    onClick={() => setTokenModal(false)}
+                  >
+                    <Image
+                      src={closeIcon || ''}
+                      alt="Close Icon"
+                      width="14px"
+                      height="14px"
+                    />
+                  </button>
+                </div>
+                <div className="px-7 mt-5">
+                  <button
+                    className="flex"
+                    onClick={() => handleToken('BTC', btcLogo)}
+                  >
+                    <Image
+                      src={btcLogo || ''}
+                      alt="BTC Logo"
+                      width="28px"
+                      height="28px"
+                    />
+                    <p className="font-secondary text-lg ml-6">BTC</p>
+                  </button>
+                </div>
+              </Card>
+            </div>
           )}
           <div className="flex flex-col px-8 pb-6">
             <label
@@ -197,110 +197,106 @@ const Crypto: NextPage = () => {
 
           {/* Network Modal */}
           {networkModal && (
-          <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
-            <Card
-              width="w-[622px]"
-              height="h-[200px]"
-              py="py-7"
-              otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
-            >
-              <div className="w-full flex justify-between items-center px-7 pb-7 border-b border-[#E7EAEB]">
-                <p className="text-lg font-secondary">Select Network</p>
-                <button
-                  className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px]"
-                  onClick={() => setNetworkModal(false)}
-                >
-                  <Image
-                    src={closeIcon || ''}
-                    alt="Close Icon"
-                    width="14px"
-                    height="14px"
-                  />
-                </button>
-              </div>
-              <div className="px-7 mt-5">
-                <button
-                  className="flex flex-col"
-                  onClick={() => handleNetwork('BTC')}
-                >
-                  <p className="font-secondary text-base font-medium">
-                    BTC
-                  </p>
-                  <p className="font-secondary text-base text-[#95989B] mt-1.5">
-                    Bitcoin
-                  </p>
-                </button>
-              </div>
-            </Card>
-          </div>
+            <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
+              <Card
+                width="w-[622px]"
+                height="h-[200px]"
+                py="py-7"
+                otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
+              >
+                <div className="w-full flex justify-between items-center px-7 pb-7 border-b border-[#E7EAEB]">
+                  <p className="text-lg font-secondary">Select Network</p>
+                  <button
+                    className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px]"
+                    onClick={() => setNetworkModal(false)}
+                  >
+                    <Image
+                      src={closeIcon || ''}
+                      alt="Close Icon"
+                      width="14px"
+                      height="14px"
+                    />
+                  </button>
+                </div>
+                <div className="px-7 mt-5">
+                  <button
+                    className="flex flex-col"
+                    onClick={() => handleNetwork('BTC')}
+                  >
+                    <p className="font-secondary text-base font-medium">BTC</p>
+                    <p className="font-secondary text-base text-[#95989B] mt-1.5">
+                      Bitcoin
+                    </p>
+                  </button>
+                </div>
+              </Card>
+            </div>
           )}
           {token && network && (
-          <>
-            <div className="px-8 lg:px-20 mt-4">
-              <p className="font-medium text-xs text-[#2A3037] mb-2 font-secondary">
-                Copy Address
-              </p>
-              <div className="flex justify-between items-center">
-                <p className="font-secondary text-xs text-[#95989B]">
-                  {user?.wallet?.address}
+            <>
+              <div className="px-8 lg:px-20 mt-4">
+                <p className="font-medium text-xs text-[#2A3037] mb-2 font-secondary">
+                  Copy Address
                 </p>
-                <button
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      user?.wallet?.address || ''
-                    )
-                      }
-                >
-                  <Image
-                    src={copyIcon || ''}
-                    alt="Copy Button"
-                    width="22px"
-                    height="22px"
-                  />
-                </button>
-              </div>
-              <div className="flex justify-center items-center my-6 relative">
-                <button
-                  className="bg-light-gray bg-black w-[96px] h-[96px] p-6 rounded-full"
-                  onMouseEnter={() => setQrCodeModal(true)}
-                  onMouseLeave={() => setQrCodeModal(false)}
-                >
-                  {qrCode && (
-                  <Image
-                    src={qrCode || ''}
-                    alt="QR Code"
-                    width="40px"
-                    height="40px"
-                  />
-                  )}
-                </button>
-                {qrCodeModal && (
-                <div className="w-[150px] h-[150px] absolute left-[195px] top-[12px] shadow-card rounded-[10px] before:absolute before:content-[''] before:w-[0] before:h-[0] before:left-[-11px] before:top-[18px] before:border-b-[15px] before:border-b-transparent before:border-t-[15px] before:border-t-transparent before:border-r-[12px] before:border-r-white">
-                  {qrCode && (
-                  <Image
-                    src={qrCode || ''}
-                    alt="QR Code"
-                    width="200px"
-                    height="200px"
-                    className="rounded-[10px]"
-                  />
+                <div className="flex justify-between items-center">
+                  <p className="font-secondary text-xs text-[#95989B]">
+                    {user?.wallet?.address}
+                  </p>
+                  <button
+                    onClick={() =>
+                      navigator.clipboard.writeText(user?.wallet?.address || '')
+                    }
+                  >
+                    <Image
+                      src={copyIcon || ''}
+                      alt="Copy Button"
+                      width="22px"
+                      height="22px"
+                    />
+                  </button>
+                </div>
+                <div className="flex justify-center items-center my-6 relative">
+                  <button
+                    className="bg-light-gray bg-black w-[96px] h-[96px] p-6 rounded-full"
+                    onMouseEnter={() => setQrCodeModal(true)}
+                    onMouseLeave={() => setQrCodeModal(false)}
+                  >
+                    {qrCode && (
+                      <Image
+                        src={qrCode || ''}
+                        alt="QR Code"
+                        width="40px"
+                        height="40px"
+                      />
+                    )}
+                  </button>
+                  {qrCodeModal && (
+                    <div className="w-[150px] h-[150px] absolute left-[195px] top-[12px] shadow-card rounded-[10px] before:absolute before:content-[''] before:w-[0] before:h-[0] before:left-[-11px] before:top-[18px] before:border-b-[15px] before:border-b-transparent before:border-t-[15px] before:border-t-transparent before:border-r-[12px] before:border-r-white">
+                      {qrCode && (
+                        <Image
+                          src={qrCode || ''}
+                          alt="QR Code"
+                          width="200px"
+                          height="200px"
+                          className="rounded-[10px]"
+                        />
+                      )}
+                    </div>
                   )}
                 </div>
-                )}
               </div>
-            </div>
 
-            <div className="pb-6 px-8">
-              <ul>
-                <li className="before:content-['•'] before:text-[#67CE0C] before:font-bold before:inline-block before:w-[4px] before:pr-3.5 text-xs font-secondary text-[#95989B] mb-2">
-                  Send only BTC to this deposit address
-                </li>
-                <li className="before:content-['•'] before:text-[#67CE0C] before:font-bold before:inline-block before:w-[4px] before:pr-3.5 text-xs font-secondary text-[#95989B]">
-                  Make sure the network is bitcoin
-                </li>
-              </ul>
-            </div>
-          </>
+              <div className="pb-6 px-8">
+                <ul>
+                  <li className="before:content-['•'] before:text-[#67CE0C] before:font-bold before:inline-block before:w-[4px] before:pr-3.5 text-xs font-secondary text-[#95989B] mb-2">
+                    Send only BTC to this deposit address
+                  </li>
+                  <li className="before:content-['•'] before:text-[#67CE0C] before:font-bold before:inline-block before:w-[4px] before:pr-3.5 text-xs font-secondary text-[#95989B]">
+                    Make sure the network is bitcoin
+                  </li>
+                </ul>
+              </div>
+            </>
           )}
         </Card>
       </div>

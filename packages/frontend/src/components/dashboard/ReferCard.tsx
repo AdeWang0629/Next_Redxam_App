@@ -14,13 +14,8 @@ const ReferCard = () => (
           Get rewarded when a friend adds money to redxam. Your earnings are:
         </p>
         <p className="font-secondary text-sm text-[#6A6E73] mt-2 mb-6">
-          <span className="text-[#61D404] font-bold text-xl ">$70</span>
-          {' '}
-          from
-          {' '}
-          <span className="text-[#2A3037] font-bold">7</span>
-          {' '}
-          referrals.
+          <span className="text-[#61D404] font-bold text-xl ">$70</span> from{' '}
+          <span className="text-[#2A3037] font-bold">7</span> referrals.
         </p>
         <IconButton buttonText="Refer & Earn Now" buttonIcon={shareIcon} />
       </div>

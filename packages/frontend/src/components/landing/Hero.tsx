@@ -30,8 +30,7 @@ const Hero: NextComponentType = () => {
           {`${t('title-first')} `}
           <span className="relative before:transform before:scale-x-0 before:origin-bottom-right before:block before:absolute before:inset-0 before:bg-[#38f53b] before:z-[-1] before:transition-transform before:duration-300 before:ease-linear hover:before:scale-x-100 hover:before:origin-bottom-left">
             {t('title-second-span')}
-          </span>
-          {' '}
+          </span>{' '}
           {t('title-third')}
         </h1>
         <p className="font-primary text-[1.0625rem] max-w-[43.0625rem] mb-[1.875rem] text-center text-black dark:text-white text-opacity-80">

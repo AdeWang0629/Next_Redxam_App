@@ -12,16 +12,16 @@ interface UnlinkModelProps {
   isOpened: boolean;
   setOpened: (isOpened: boolean) => void;
   accounts:
-  | []
-  | [
-    {
-      _id: string;
-      id: string;
-      name: string;
-      logo?: string | undefined;
-      type: string;
-    }
-  ];
+    | []
+    | [
+        {
+          _id: string;
+          id: string;
+          name: string;
+          logo?: string | undefined;
+          type: string;
+        }
+      ];
   IDs: [] | [string];
   fetchAccounts: () => void;
 }
@@ -54,8 +54,8 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
   function unlinkAccounts() {
     const bankAccountsToDeleteIDs = accounts
       // @ts-ignore
-      .filter((acc) => IDs.includes(acc._id))
-      .map((acc) => acc.id) as [string];
+      .filter(acc => IDs.includes(acc._id))
+      .map(acc => acc.id) as [string];
 
     api.deleteBankAccounts(bankAccountsToDeleteIDs).then(() => {
       alert('Account(s) unlinked successfully!');
@@ -90,16 +90,14 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
         <div className="flex flex-col items-center py-10 px-32">
           <Image src={UnlinkImage} alt="Unlink" width="324px" />
           <p className="font-secondary text-sm text-lighter-black text-center mt-6">
-            Are you sure you want to remove
-            {' '}
+            Are you sure you want to remove{' '}
             <b>
               {accounts
                 // @ts-ignore
-                .filter((acc) => IDs.includes(acc._id))
-                .map((acc) => acc.name)
+                .filter(acc => IDs.includes(acc._id))
+                .map(acc => acc.name)
                 .join(', ')}
-            </b>
-            {' '}
+            </b>{' '}
             from your list of added banks?
           </p>
           <button

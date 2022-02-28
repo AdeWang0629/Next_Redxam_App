@@ -12,9 +12,29 @@ const IconButton: NextPage<IconButtonProps> = ({
   buttonText,
   buttonIcon,
   buttonHref
-}) => (buttonHref ? (
-  <Link href={buttonHref}>
-    <div className="flex justify-center items-center cursor-pointer self-start">
+}) =>
+  buttonHref ? (
+    <Link href={buttonHref}>
+      <div className="flex justify-center items-center cursor-pointer self-start">
+        <div className="flex justify-center items-center mr-2 rounded-full bg-lighter-black p-2.5">
+          <Image
+            src={buttonIcon || ''}
+            alt="Settings Icon"
+            width="24px"
+            height="24px"
+          />
+        </div>
+        {buttonText && (
+          <div>
+            <p className="text-white font-secondary text-lighter-black font-medium">
+              {buttonText}
+            </p>
+          </div>
+        )}
+      </div>
+    </Link>
+  ) : (
+    <div className="flex justify-center items-center self-start">
       <div className="flex justify-center items-center mr-2 rounded-full bg-lighter-black p-2.5">
         <Image
           src={buttonIcon || ''}
@@ -24,32 +44,13 @@ const IconButton: NextPage<IconButtonProps> = ({
         />
       </div>
       {buttonText && (
-      <div>
-        <p className="text-white font-secondary text-lighter-black font-medium">
-          {buttonText}
-        </p>
-      </div>
+        <div>
+          <p className="text-white font-secondary text-lighter-black font-medium">
+            {buttonText}
+          </p>
+        </div>
       )}
     </div>
-  </Link>
-) : (
-  <div className="flex justify-center items-center self-start">
-    <div className="flex justify-center items-center mr-2 rounded-full bg-lighter-black p-2.5">
-      <Image
-        src={buttonIcon || ''}
-        alt="Settings Icon"
-        width="24px"
-        height="24px"
-      />
-    </div>
-    {buttonText && (
-    <div>
-      <p className="text-white font-secondary text-lighter-black font-medium">
-        {buttonText}
-      </p>
-    </div>
-    )}
-  </div>
-));
+  );
 
 export default IconButton;
