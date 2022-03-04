@@ -53,7 +53,7 @@ const Login: NextPage = () => {
 
   if (!submitted) {
     buttonText = 'Log in';
-  } else if (submitted == true) {
+  } else if (submitted === true) {
     buttonText = 'Check your email';
   } else {
     buttonText = 'Logging in';
