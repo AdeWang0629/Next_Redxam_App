@@ -8,8 +8,7 @@ import { validateEmail } from '@utils/helpers';
 import Logo from '@public/logo.svg';
 
 const Login: NextPage = () => {
-  const { user, loading, noUser, setUser, setLoading, setNoUser } =
-    useContext(UserContext);
+  const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
 
   const [email, setEmail] = useState('');
@@ -50,6 +49,16 @@ const Login: NextPage = () => {
 
   if (loading) return <span>loading</span>;
 
+  let buttonText;
+
+  if (!submitted) {
+    buttonText = 'Log in';
+  } else if (submitted == true) {
+    buttonText = 'Check your email';
+  } else {
+    buttonText = 'Logging in';
+  }
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center">
       <section className="flex items-center">
@@ -83,15 +92,11 @@ const Login: NextPage = () => {
           </span>
         )}
         <button
-          className={`bg-buttons-green rounded-[30px] text-black w-2/3 mt-6 py-4 px-16 transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed`}
+          className="bg-buttons-green rounded-[30px] text-black w-2/3 mt-6 py-4 px-16 transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
           onClick={submitEmail}
           disabled={submitLoading || submitted}
         >
-          {!submitted
-            ? 'Log in'
-            : submitted
-            ? 'Check your email'
-            : 'Logging in'}
+          {buttonText}
         </button>
       </section>
     </main>

@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import { useState, BaseSyntheticEvent, Dispatch, SetStateAction } from 'react';
 import { getCookie } from 'cookies-next';
 import api from '@utils/api';
+import Image from 'next/image';
 
 interface CreateUserProps {
   setActiveSection: Dispatch<SetStateAction<string>>;
@@ -130,7 +131,7 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
       {activeTab === 0 ? (
         <div className="flex flex-col">
           <div className="flex-1 flex flex-col md:flex-row">
-            <img
+            <Image
               src="https://i.pravatar.cc/48"
               alt="John Doe"
               width="48"
