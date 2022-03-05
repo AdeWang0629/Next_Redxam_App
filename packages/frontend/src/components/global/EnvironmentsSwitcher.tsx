@@ -13,7 +13,8 @@ const EnvironmentsSwitcher: NextPage = () => {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') setCookies('environment', currentEnvironment);
+    if (typeof window !== 'undefined')
+      setCookies('environment', currentEnvironment);
   }, [currentEnvironment]);
 
   return (
@@ -39,7 +40,7 @@ const EnvironmentsSwitcher: NextPage = () => {
           value="production"
           id="production"
           checked={currentEnvironment === 'production'}
-          onChange={(e) => setCurrentEnvironment(e.target.value)}
+          onChange={e => setCurrentEnvironment(e.target.value)}
         />
         <label htmlFor="production" className="font-primary ml-1">
           Production
@@ -52,17 +53,15 @@ const EnvironmentsSwitcher: NextPage = () => {
           value="development"
           id="development"
           checked={currentEnvironment === 'development'}
-          onChange={(e) => setCurrentEnvironment(e.target.value)}
+          onChange={e => setCurrentEnvironment(e.target.value)}
         />
         <label htmlFor="development" className="font-primary ml-1">
           Development
         </label>
       </div>
       <span className="mt-2 font-primary">
-        <span className="font-medium">Display size:</span>
-        {' '}
-        {typeof window !== 'undefined' ? window.screen.width : 0}
-        x
+        <span className="font-medium">Display size:</span>{' '}
+        {typeof window !== 'undefined' ? window.screen.width : 0}x
         {typeof window !== 'undefined' ? window.screen.height : 0}
       </span>
     </div>

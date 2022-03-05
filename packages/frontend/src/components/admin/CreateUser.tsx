@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import { useState, BaseSyntheticEvent, Dispatch, SetStateAction } from 'react';
 import { getCookie } from 'cookies-next';
 import api from '@utils/api';
+import Image from 'next/image';
 
 interface CreateUserProps {
   setActiveSection: Dispatch<SetStateAction<string>>;
@@ -40,16 +41,16 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
 
     const emptyFields: string[] = [];
 
-    Object.keys(userData).forEach((key) => {
+    Object.keys(userData).forEach(key => {
       if (userData[key as keyof typeof userData] === '') {
         emptyFields.push(key);
       }
     });
 
-    if (emptyFields.some((field) => requiredFields.includes(field))) {
+    if (emptyFields.some(field => requiredFields.includes(field))) {
       return setError(
         `${emptyFields
-          .filter((field) => requiredFields.includes(field))
+          .filter(field => requiredFields.includes(field))
           .join(', ')} field(s) are required!`
       );
     }
@@ -59,19 +60,20 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
 
     const query = `mutation { createUser(arg: {
       ${Object.keys(userData)
-    .filter((key) => userData[key as keyof typeof userData])
-    .map(
-      (key, idx) =>
-        `${key}: "${userData[key as keyof typeof userData]}"${
-          idx ===
-            Object.keys(userData)
-              .filter((key2) => userData[key2 as keyof typeof userData])
-              .length - 1
-            ? ''
-            : ', '
-        }`
-    )
-    .join('\n')}
+        .filter(key => userData[key as keyof typeof userData])
+        .map(
+          (key, idx) =>
+            `${key}: "${userData[key as keyof typeof userData]}"${
+              idx ===
+              Object.keys(userData).filter(
+                key2 => userData[key2 as keyof typeof userData]
+              ).length -
+                1
+                ? ''
+                : ', '
+            }`
+        )
+        .join('\n')}
      }) { success, message } }`;
 
     api.axios
@@ -129,7 +131,7 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
       {activeTab === 0 ? (
         <div className="flex flex-col">
           <div className="flex-1 flex flex-col md:flex-row">
-            <img
+            <Image
               src="https://i.pravatar.cc/48"
               alt="John Doe"
               width="48"
@@ -143,9 +145,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="First name"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.firstName}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, firstName: e.target.value })
-                }
+              }
             />
             <input
               type="text"
@@ -154,9 +156,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Last name"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.lastName}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, lastName: e.target.value })
-                }
+              }
             />
           </div>
           <hr className="my-4" />
@@ -168,9 +170,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Email"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.email}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, email: e.target.value })
-                }
+              }
             />
             <input
               type="tel"
@@ -179,9 +181,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Phone number"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.phone}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, phone: e.target.value })
-                }
+              }
             />
             <input
               type="text"
@@ -190,9 +192,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Place of birth"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.birthPlace}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, birthPlace: e.target.value })
-                }
+              }
             />
             <select
               name="title"
@@ -200,9 +202,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               placeholder="Title"
               defaultValue={userData.title}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, title: e.target.value })
-                }
+              }
             >
               <option hidden selected>
                 Title
@@ -221,9 +223,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Residential Address (Street)"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.address}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, address: e.target.value })
-                }
+              }
             />
             <input
               type="text"
@@ -232,9 +234,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Nearest landmark"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.nearestLandmark}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, nearestLandmark: e.target.value })
-                }
+              }
             />
           </div>
           <div className="flex-1 flex flex-col md:flex-row mt-4 ">
@@ -244,9 +246,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="State"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.state}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, state: e.target.value })
-                }
+              }
             >
               <option hidden selected>
                 State
@@ -260,9 +262,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Married status"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.marriedStatus}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, marriedStatus: e.target.value })
-                }
+              }
             >
               <option hidden selected>
                 Married status
@@ -277,9 +279,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Occupation"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.occupation}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, occupation: e.target.value })
-                }
+              }
             />
           </div>
         </div>
@@ -292,9 +294,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Type of ID"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.identityIDType}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, identityIDType: e.target.value })
-                }
+              }
             >
               <option hidden selected>
                 Type of ID
@@ -308,9 +310,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="ID number"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.identityIDNumber}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, identityIDNumber: e.target.value })
-                }
+              }
             />
           </div>
           <div className="flex-1 flex flex-col md:flex-row mt-4">
@@ -320,9 +322,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Issuance"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.issuance}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, issuance: e.target.value })
-                }
+              }
             >
               <option hidden selected>
                 Issuance
@@ -336,9 +338,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Place of issuance"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.issuancePlace}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, issuancePlace: e.target.value })
-                }
+              }
             />
             <select
               name="status"
@@ -346,9 +348,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
               placeholder="Status"
               className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
               defaultValue={userData.issuanceStatus}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, issuanceStatus: e.target.value })
-                }
+              }
             >
               <option hidden selected>
                 Status
@@ -372,9 +374,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
                 placeholder="Issuing Date"
                 className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight"
                 defaultValue={userData.issuanceDate}
-                onChange={(e) =>
+                onChange={e =>
                   setUserData({ ...userData, issuanceDate: e.target.value })
-                  }
+                }
               />
             </div>
             <div className="flex flex-col flex-1 mx-2">
@@ -391,9 +393,9 @@ const CreateUser: NextPage<CreateUserProps> = ({ setActiveSection }) => {
                 placeholder="Expiring Date"
                 className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight"
                 defaultValue={userData.expiringDate}
-                onChange={(e) =>
+                onChange={e =>
                   setUserData({ ...userData, expiringDate: e.target.value })
-                  }
+                }
               />
             </div>
           </div>

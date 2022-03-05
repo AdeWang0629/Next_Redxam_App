@@ -4,10 +4,10 @@ import {
   useEffect,
   Dispatch,
   SetStateAction,
-  ReactNode,
-} from "react";
-import { getCookie } from "cookies-next";
-import api from "@utils/api";
+  ReactNode
+} from 'react';
+import { getCookie } from 'cookies-next';
+import api from '@utils/api';
 
 export type Context = {
   user: null | { email: string };
@@ -24,7 +24,7 @@ export const AdminContext = createContext<Context>({
   loading: false,
   setLoading: () => {},
   noUser: false,
-  setNoUser: () => {},
+  setNoUser: () => {}
 });
 
 export default function AdminProvider({ children }: { children: ReactNode }) {
@@ -33,11 +33,11 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
   const [noUser, setNoUser] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (getCookie("admin_token")) {
+    if (typeof window !== 'undefined') {
+      if (getCookie('admin_token')) {
         setLoading(true);
         api
-          .getAdminDetails(getCookie("admin_token") as string)
+          .getAdminDetails(getCookie('admin_token') as string)
           .then(({ data }) => {
             setNoUser(false);
             setUser(data.data.admin);

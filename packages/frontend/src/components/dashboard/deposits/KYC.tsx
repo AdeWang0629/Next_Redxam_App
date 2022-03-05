@@ -38,19 +38,20 @@ const KYCView: NextPage = () => {
   const [showKYC, setShowKYC] = useState(false);
   const [accessToken, setAccessToken] = useState(null);
   const [isApplicant, setIsApplicant] = useState(false);
-  const [applicantData, setApplicantData] = useState<null | {
-    deleted: boolean;
-    review: {
-      reviewStatus:
-      | 'init'
-      | 'pending'
-      | 'prechecked'
-      | 'queued'
-      | 'completed'
-      | 'onHold';
-      reviewResult: { reviewAnswer: string };
-    };
-  }>(null);
+  const [applicantData, setApplicantData] =
+    useState<null | {
+      deleted: boolean;
+      review: {
+        reviewStatus:
+          | 'init'
+          | 'pending'
+          | 'prechecked'
+          | 'queued'
+          | 'completed'
+          | 'onHold';
+        reviewResult: { reviewAnswer: string };
+      };
+    }>(null);
 
   useEffect(() => {
     (async () => {
@@ -91,35 +92,32 @@ const KYCView: NextPage = () => {
 
   if (!showKYC && !isApplicant) return <StartKYC setShowKYC={setShowKYC} />;
 
-  if (
-    !showKYC &&
-    applicantData &&
-    applicantData.deleted
-  ) return <FailedKYC setShowKYC={setShowKYC} />;
+  if (!showKYC && applicantData && applicantData.deleted)
+    return <FailedKYC setShowKYC={setShowKYC} />;
 
   if (
     !showKYC &&
     applicantData &&
     applicantData.review.reviewStatus === 'pending'
-  ) return <PendingKYC setShowKYC={setShowKYC} />;
+  )
+    return <PendingKYC setShowKYC={setShowKYC} />;
 
-  if (
-    !showKYC &&
-    applicantData &&
-    !applicantData.review.reviewResult
-  ) return <ContinueKYC setShowKYC={setShowKYC} />;
+  if (!showKYC && applicantData && !applicantData.review.reviewResult)
+    return <ContinueKYC setShowKYC={setShowKYC} />;
 
   if (
     !showKYC &&
     applicantData &&
     applicantData.review.reviewResult.reviewAnswer === 'GREEN'
-  ) return <CompletedKYC setShowKYC={setShowKYC} />;
+  )
+    return <CompletedKYC setShowKYC={setShowKYC} />;
 
   if (
     !showKYC &&
     applicantData &&
     applicantData.review.reviewResult.reviewAnswer === 'RED'
-  ) return <FailedKYC setShowKYC={setShowKYC} />;
+  )
+    return <FailedKYC setShowKYC={setShowKYC} />;
 
   return null;
 };

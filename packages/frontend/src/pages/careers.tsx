@@ -185,7 +185,7 @@ const Careers: NextPage = () => {
         </p>
 
         <div className="flex flex-col md:flex-row space-x-0 md:space-x-6 space-y-6 md:space-y-0 mt-16">
-          {greenBoxes.map((greenBox) => (
+          {greenBoxes.map(greenBox => (
             <div
               key={`greenBox${greenBox.id}`}
               className="flex flex-col group hover:scale-110 justify-center bg-white hover:bg-darker-primary border border-[#333333] hover:border-darker-primary rounded-[30px] py-10 px-8 opacity-50 hover:opacity-100 h-full md:h-[21.0625rem] transition-all duration-500"
@@ -227,9 +227,7 @@ const Careers: NextPage = () => {
             >
               <div
                 className="flex flex-row justify-between items-center cursor-pointer transition-all duration-500"
-                onClick={() =>
-                  setActiveJob((prev) => (prev === idx ? -1 : idx))
-                }
+                onClick={() => setActiveJob(prev => (prev === idx ? -1 : idx))}
                 role="article"
               >
                 <span className="text-2xl leading-10 w-auto font-primary font-medium text-black text-opacity-50 tracking-[-0.04em]">

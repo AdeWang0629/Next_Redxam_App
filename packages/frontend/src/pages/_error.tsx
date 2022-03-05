@@ -15,7 +15,7 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   return <NextErrorComponent statusCode={statusCode} />;
 };
 
-MyError.getInitialProps = async (context) => {
+MyError.getInitialProps = async context => {
   const errorInitialProps = await NextErrorComponent.getInitialProps(context);
 
   const { res, err, asPath } = context;

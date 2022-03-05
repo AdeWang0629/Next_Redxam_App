@@ -36,7 +36,7 @@ const Overview: NextPage = () => {
             { title: 'Invited Users', value: data?.invitedUsers || 0 },
             { title: 'Accepted Users', value: data?.acceptedUsers || 0 },
             { title: 'Users with balance', value: data?.usersWithBalance || 0 }
-          ].map((item) => {
+          ].map(item => {
             const id = item.title.split(' ').join('_').toLowerCase();
 
             return (
@@ -105,12 +105,11 @@ const Overview: NextPage = () => {
 
               return (
                 <div
-                  className={
-                    `flex flex-col items-center px-6 py-4 w-48 text-center${
-                      idx !== 4
-                        ? ' border-b border-black dark:border-white border-opacity-30'
-                        : ''}`
-                  }
+                  className={`flex flex-col items-center px-6 py-4 w-48 text-center${
+                    idx !== 4
+                      ? ' border-b border-black dark:border-white border-opacity-30'
+                      : ''
+                  }`}
                   key={id}
                 >
                   <span className="opacity-70 dark:text-white">
@@ -131,9 +130,7 @@ const Overview: NextPage = () => {
             <div className="flex-1 flex flex-col">
               <h2 className="text-2xl dark:text-white">Unresolved Issues</h2>
               <span className="opacity-70 text-sm dark:text-white">
-                Group:
-                {' '}
-                <span className="font-bold">Support</span>
+                Group: <span className="font-bold">Support</span>
               </span>
             </div>
             <div className="flex-1 flex justify-end">
@@ -154,12 +151,11 @@ const Overview: NextPage = () => {
             return (
               <div
                 key={id}
-                className={
-                  `flex items-center px-10${
-                    idx !== 3
-                      ? ' border-b border-black dark:border-white border-opacity-30 py-6'
-                      : ' pt-6'}`
-                }
+                className={`flex items-center px-10${
+                  idx !== 3
+                    ? ' border-b border-black dark:border-white border-opacity-30 py-6'
+                    : ' pt-6'
+                }`}
               >
                 <span className="flex-1 dark:text-white">{item.title}</span>
                 <span className="opacity-70 dark:text-white">{item.value}</span>

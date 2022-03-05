@@ -28,7 +28,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
   ];
 
   if (balanceRecords) {
-    performanceData = balanceRecords.map((balanceRecord) => ({
+    performanceData = balanceRecords.map(balanceRecord => ({
       time: balanceRecord.timestamp,
       value: balanceRecord.balance
     }));
@@ -79,7 +79,12 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
             }
             onMouseLeave={() => setValue(0)}
           >
-            <Line type="monotone" dataKey="value" stroke="#61D404" dot={undefined} />
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke="#61D404"
+              dot={undefined}
+            />
             <Tooltip content={<CustomTooltip />} position={{ y: 50 }} />
           </LineChart>
         </ResponsiveContainer>
