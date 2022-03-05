@@ -23,6 +23,8 @@ import bankIcon from '@public/icons/bank.svg';
 import TsxsTable from './TransactionsTable';
 import Card from '../Card';
 
+const { TELLER_APPLICATION_ID } = process.env;
+
 interface Teller {
   accessToken: string;
   invalidAccessToken: boolean;
@@ -108,7 +110,7 @@ const BanksView: NextPage = () => {
       }),
     token: plaidToken,
     countryCodes: ['US', 'CA', 'GB', 'IE', 'FR', 'ES', 'NL'],
-    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development'
+    env: process.env.NODE_ENV === 'development' ? 'development' : 'development'
   });
 
   const handleAddBankAccount = async () => {
@@ -179,9 +181,9 @@ const BanksView: NextPage = () => {
       // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'sandbox',
+          currentEnvironment === 'production' ? 'production' : 'development',
         connectToken: tellerPayee.connect_token,
-        applicationId: 'app_nu123i0nvg249720i8000',
+        applicationId: TELLER_APPLICATION_ID,
         onSuccess({ payee: { id } }: { payee: { id: string } }) {
           setTeller(state => ({
             ...state,
@@ -222,9 +224,9 @@ const BanksView: NextPage = () => {
       // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'sandbox',
+          currentEnvironment === 'production' ? 'production' : 'development',
         connectToken: tellerPayment.connect_token,
-        applicationId: 'app_nu123i0nvg249720i8000',
+        applicationId: TELLER_APPLICATION_ID,
         async onSuccess({ payment: { id } }: any) {
           setTeller(state => ({ ...state }));
           const {
@@ -273,8 +275,8 @@ const BanksView: NextPage = () => {
                 environment:
                   currentEnvironment === 'production'
                     ? 'production'
-                    : 'sandbox',
-                applicationId: 'app_nu123i0nvg249720i8000',
+                    : 'development',
+                applicationId: TELLER_APPLICATION_ID,
 
                 async onSuccess({ accessToken }: any) {
                   setTeller(state => ({
