@@ -2,7 +2,7 @@ import { JWT } from '@/config/jwt';
 import { Request } from 'express';
 import { FeatureBlock } from '@/database';
 
-export const featureFlag = async (_: void, req: Request) => {
+export const featureCheck = async (_: void, req: Request) => {
   console.debug('[Resolve] feature check called');
   const payload = await new JWT().authorize(req.headers.authorization);
 
@@ -16,7 +16,7 @@ export const featureFlag = async (_: void, req: Request) => {
   try {
     let isFeatureEnabled = await FeatureBlock.findOne({
       name: featureName as string,
-      users: payload.userId
+      users: payload.userId,
     });
     if (!isFeatureEnabled) return { status: false };
     return { status: true };

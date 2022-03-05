@@ -69,8 +69,7 @@ const Deposit: NextPage = () => {
 
       setIsInit(data.review.reviewStatus === 'init');
 
-      if (data.review.reviewResult)
-        setIsValidApplicant(data.review.reviewResult.reviewAnswer === 'GREEN');
+      if (data.review.reviewResult) setIsValidApplicant(data.review.reviewResult.reviewAnswer === 'GREEN');
     })();
   });
 

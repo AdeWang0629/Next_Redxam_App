@@ -1,5 +1,5 @@
 {
-  "name": "wgmgatxgallery",
+  "name": "wgmgatx",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -30,12 +30,12 @@ const TransactionsTable = ({
   useEffect(() => {
     setPendingDeposits(
       // @ts-ignore
-      deposits.filter(deposit => deposit.status === 'pending')
+      deposits.filter((deposit) => deposit.status === 'pending')
     );
 
     setAcceptedDeposits(
       // @ts-ignore
-      deposits.filter(deposit => deposit.status !== 'pending')
+      deposits.filter((deposit) => deposit.status !== 'pending')
     );
   }, [deposits]);
 
@@ -84,18 +84,18 @@ const TransactionsTable = ({
                       pendingDeposits.length !== 1 && index === 0
                         ? 'pb-5'
                         : pendingDeposits.filter(
-                            pendingDepositDetails =>
-                              pendingDepositDetails.status === 'pending'
-                          ).length !== 1
-                        ? 'py-5'
-                        : ''
+                          (pendingDepositDetails) =>
+                            pendingDepositDetails.status === 'pending'
+                        ).length !== 1
+                          ? 'py-5'
+                          : ''
                     } ${
                       pendingDeposits.length !== 1 &&
                       index === pendingDeposits.length - 1
                         ? 'pt-5 pb-0'
                         : pendingDeposits.length !== 1
-                        ? 'border-b'
-                        : ''
+                          ? 'border-b'
+                          : ''
                     }`}
                     key={`pendingDeposit${pendingDeposit.timestamp}`}
                   >
@@ -104,8 +104,8 @@ const TransactionsTable = ({
                         pendingDeposit.bankIcon
                           ? `data:image/png;base64,${pendingDeposit.bankIcon}`
                           : pendingDeposit.type === 'FIAT'
-                          ? bankIcon
-                          : btcLogo
+                            ? bankIcon
+                            : btcLogo
                       }
                       width="40px"
                       height="40px"
@@ -126,7 +126,8 @@ const TransactionsTable = ({
                       <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
                         {pendingDeposit.currency === 'USD'
                           ? '$'
-                          : pendingDeposit.currency}{' '}
+                          : pendingDeposit.currency}
+                        {' '}
                         {pendingDeposit.type === 'FIAT'
                           ? pendingDeposit.amount
                           : pendingDeposit.amount * 0.00000001}
@@ -159,7 +160,7 @@ const TransactionsTable = ({
           )}
 
           {acceptedDeposits.length > 0 &&
-            acceptedDeposits.map(deposit => {
+            acceptedDeposits.map((deposit) => {
               if (
                 new Date(deposit.timestamp).getFullYear() <= year &&
                 new Date(deposit.timestamp).getMonth() + 1 !== month
@@ -176,12 +177,10 @@ const TransactionsTable = ({
                       </p>
                     </div>
 
-                    {acceptedDeposits.map(depositDetails => {
+                    {acceptedDeposits.map((depositDetails) => {
                       if (
-                        new Date(depositDetails.timestamp).getFullYear() ===
-                          year &&
-                        new Date(depositDetails.timestamp).getMonth() + 1 ===
-                          month
+                        new Date(depositDetails.timestamp).getFullYear() === year &&
+                        new Date(depositDetails.timestamp).getMonth() + 1 === month
                       ) {
                         return (
                           <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
@@ -194,8 +193,8 @@ const TransactionsTable = ({
                                   depositDetails.bankIcon
                                     ? `data:image/png;base64,${depositDetails.bankIcon}`
                                     : depositDetails.type === 'FIAT'
-                                    ? bankIcon
-                                    : btcLogo
+                                      ? bankIcon
+                                      : btcLogo
                                 }
                                 width="40px"
                                 height="40px"
@@ -218,7 +217,8 @@ const TransactionsTable = ({
                                 <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
                                   {depositDetails.currency === 'USD'
                                     ? '$'
-                                    : depositDetails.currency}{' '}
+                                    : depositDetails.currency}
+                                  {' '}
                                   {depositDetails.type === 'FIAT'
                                     ? depositDetails.amount
                                     : depositDetails.amount * 0.00000001}

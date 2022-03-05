@@ -58,35 +58,26 @@ const About: NextPage = () => {
   const { t } = useTranslation('about');
 
   const teamMembers = [
-    {
-      name: 'Max Awad',
-      picture: MaxProfileImage,
-      role: 'CEO, Co-Founder',
-      modal: '/max'
-    },
+    { name: 'Max Awad', picture: MaxProfileImage, role: 'CEO, Co-Founder' },
     {
       name: 'Salem Al Qassimi',
       picture: SalemProfileImage,
-      role: 'CIO, Co-Founder',
-      modal: '/salem'
+      role: 'CIO, Co-Founder'
     },
     {
       name: 'Jacob Fattakhov',
       picture: JakeProfileImage,
-      role: 'COO, Co-Founder',
-      modal: '/about'
+      role: 'COO, Co-Founder'
     },
     {
       name: 'Alejandro Gonzalez',
       picture: AlexProfileImage,
-      role: 'Engineering',
-      modal: '/about'
+      role: 'Engineering'
     },
     {
       name: 'Jhoseph Guerrero',
       picture: JhosephProfileImage,
-      role: 'Engineering',
-      modal: '/about'
+      role: 'Engineering'
     }
   ];
 
@@ -174,13 +165,12 @@ const About: NextPage = () => {
           {t('ourteam')}
         </h2>
         <div className="md:grid grid-cols-4 gap-y-14 gap-x-14">
-          {teamMembers.map(member => (
+          {teamMembers.map((member) => (
             <TeamMember
               key={member.name.toLowerCase().split(' ').join('_')}
               picture={member.picture}
               name={member.name}
               role={member.role}
-              modal={member.modal}
             />
           ))}
         </div>
@@ -232,40 +222,23 @@ interface TeamMemberProps {
   picture: StaticImageData;
   name: string;
   role: string;
-  modal: string;
 }
 
-const TeamMember: NextPage<TeamMemberProps> = ({
-  picture,
-  name,
-  role,
-  modal
-}) => (
-  <Link href={modal}>
-    <div
-      className={`flex flex-row my-[1.875rem] py-8 pl-11 pr-11 rounded-3xl items-start transition-all duration-500 bg-[#fcfcfc] shadow-2xl ${
-        modal ? 'cursor-pointer' : ''
-      }`}
-      style={{
-        boxShadow: '0 5px 40px rgb(0 0 0 / 8%)'
-      }}
-    >
-      <div className="mb-16 md:mb-0 font-secondary font-medium">
-        <Image
-          width="232px"
-          height="214px"
-          className="rounded-2xl"
-          src={picture}
-          alt={name}
-          objectPosition="center"
-          objectFit="cover"
-          placeholder="blur"
-        />
-        <h5 className="my-1 text-2xl text-black dark:text-white">{name}</h5>
-        <p className="dark:text-white">{role}</p>
-      </div>
-    </div>
-  </Link>
+const TeamMember: NextPage<TeamMemberProps> = ({ picture, name, role }) => (
+  <div className="mb-16 md:mb-0 font-secondary font-medium">
+    <Image
+      width="232px"
+      height="214px"
+      className="rounded-2xl"
+      src={picture}
+      alt={name}
+      objectPosition="center"
+      objectFit="cover"
+      placeholder="blur"
+    />
+    <h5 className="my-1 text-2xl text-black dark:text-white">{name}</h5>
+    <p className="dark:text-white">{role}</p>
+  </div>
 );
 
 export default About;

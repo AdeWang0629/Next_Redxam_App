@@ -34,7 +34,7 @@ const BalanceCard = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setBalance(e => e + (e * 0.05) / 365 / 24 / 60 / 60);
+      setBalance((e) => e + (e * 0.05) / 365 / 24 / 60 / 60);
     }, 1000);
     return () => {
       clearInterval(interval);
@@ -53,7 +53,8 @@ const BalanceCard = () => {
         style={{ height: 36, marginTop: 0, width: '80%' }}
       >
         <p className="font-secondary font-bold text-3xl text-black w-[80%]">
-          ${balanceNumber}
+          $
+          {balanceNumber}
         </p>
       </ReactPlaceholder>
     ) : (
@@ -64,7 +65,9 @@ const BalanceCard = () => {
         style={{ height: 36, marginTop: 0, width: '80%' }}
       >
         <p className="font-secondary font-bold text-3xl text-black w-[80%]">
-          AED {balanceNumber}
+          AED
+          {' '}
+          {balanceNumber}
         </p>
       </ReactPlaceholder>
     );
@@ -89,7 +92,8 @@ const BalanceCard = () => {
         {t('pendingBalance')}
         {' '}
         <span className="text-lighter-black font-medium ml-1.5">
-          ${user?.pending_balance}
+          $
+          {user?.pending_balance}
         </span>
       </p>
       <div className="w-full">

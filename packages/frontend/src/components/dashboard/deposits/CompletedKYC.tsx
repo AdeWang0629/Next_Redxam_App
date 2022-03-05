@@ -16,14 +16,15 @@ const CompletedKYC: NextPage<CompletedKYCProps> = ({ setShowKYC }) => (
   >
     <Image src={StartKYCImage} alt="" />
     <p className="mt-6 text-lighter-black text-sm text-center max-w-sm">
-      Your KYC verification is done, click the button below to check the status.
+      Your KYC verification is done, click the button below to check the
+      status.
     </p>
     <button
       className="bg-card-button rounded-[50px] py-4 px-16 mt-14 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70"
       onClick={() => setShowKYC(true)}
       style={{
         boxShadow:
-          '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
+            '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
       }}
     >
       Check KYC status

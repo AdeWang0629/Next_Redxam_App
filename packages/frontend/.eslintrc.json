@@ -30,15 +30,7 @@
     "react/no-array-index-key": "warn",
     "no-restricted-globals": "warn",
     "comma-dangle": ["error", "never"],
-    "@typescript-eslint/comma-dangle": ["error", "never"],
-    "typescript-eslint/indent": "off",
-    "arrow-parens": "off",
-    "react/jsx-one-expression-per-line": "off",
-    "function-paren-newline": "off",
-    "curly": "off",
-    "nonblock-statement-body-position": "off",
-    "@typescript-eslint/indent": "off",
-    "no-confusing-arrow": "off"
+    "@typescript-eslint/comma-dangle": ["error", "never"]
   },
   "parserOptions": {
     "project": "tsconfig.json"

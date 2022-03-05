@@ -69,9 +69,13 @@ const Cards: NextPage = () => {
               Magic Card
             </p>
             <h1 className="text-5xl md:text-7xl leading-tight font-bold text-lighter-black mb-16">
-              Easy <br />
+              Easy
+              {' '}
+              <br />
               <span className="text-[#ACE96B]">rewards</span>
-              <br /> on purchase
+              <br />
+              {' '}
+              on purchase
             </h1>
             <p className="font-primary text-sm text-[#6A6E73] max-w-sm leading-6 mb-8">
               Earn unlimited 1.5% back in crypto on every purchase with the
@@ -90,7 +94,11 @@ const Cards: NextPage = () => {
           <Image src={phone} alt="Phone With redxam Card" />
           <div className="md:w-[26rem]">
             <h2 className="text-3xl md:text-[2.8125rem] leading-normal text-lighter-black font-secondary font-bold mb-10">
-              One Card. <br /> More Crypto.
+              One Card.
+              {' '}
+              <br />
+              {' '}
+              More Crypto.
             </h2>
             <ul className="mb-8 relative">
               <li className="flex items-center mb-2">
@@ -178,7 +186,7 @@ const Cards: NextPage = () => {
                 <div
                   className="flex flex-row justify-between items-center cursor-pointer transition-all duration-500"
                   onClick={() =>
-                    setActiveQuestion(prev => (prev === idx ? -1 : idx))
+                    setActiveQuestion((prev) => (prev === idx ? -1 : idx))
                   }
                   role="article"
                 >

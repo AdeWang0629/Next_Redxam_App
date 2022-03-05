@@ -196,7 +196,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
               <input
                 type="text"
                 className="font-secondary"
-                onChange={e => setMemo(e.target.value)}
+                onChange={(e) => setMemo(e.target.value)}
                 value={memo}
                 id="tellerMemo"
               />

@@ -30,8 +30,8 @@ const Starting: NextPage = () => {
               step === 0
                 ? FirstStartImage
                 : step === 1
-                ? SecondStartImage
-                : ThirdStartImage
+                  ? SecondStartImage
+                  : ThirdStartImage
             }
             alt={`step $${step + 1}`}
             layout="fixed"

@@ -173,7 +173,7 @@ type home {
   dolarChange: Float
 }
 
-type FeatureFlag {
+type FeatureCheck {
   status: Boolean
 }
 
@@ -271,7 +271,7 @@ type Query {
   adminLogin: adminToken
   admin: admin
   home: home
-  featureFlag: FeatureFlag
+  featureCheck: FeatureCheck
   startTwilioVerify: Response
   checkTwilioVerify(arg: check): Response
   overview: overview

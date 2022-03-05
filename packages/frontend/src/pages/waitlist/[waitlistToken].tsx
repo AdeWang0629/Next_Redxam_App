@@ -82,7 +82,9 @@ const WaitlistToken: NextPage = () => {
               </p>
               <h3 className="font-secondary text-lg text-center">
                 Invite your friends to get higher on the waitlist by sharing
-                this link. <br />
+                this link.
+                {' '}
+                <br />
               </h3>
               <p className="font-bold text-md mt-4 text-center text-[#38B000]">
                 <a href={`${baseUrl}?referral=${waitlistLevel.referralCode}`}>

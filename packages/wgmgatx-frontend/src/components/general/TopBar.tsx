@@ -34,6 +34,8 @@ const TopBar = () => {
     //   setHidden(!hidden);
     // }, 0);
   };
+  console.log('menu:' + menu);
+  console.log('hidden:' + hidden);
   return (
     <div id="#" className="flex items-center">
       <div className="hidden flex bg-[#171717] rounded-[18px] pl-[8px] h-[50px] w-[330px] sm:w-100px">

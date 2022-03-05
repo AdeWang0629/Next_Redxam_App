@@ -29,7 +29,7 @@ const Navbar: NextPage<NavbarProps> = ({
 
   useEffect(() => {
     // @ts-ignore
-    const onScroll = e => {
+    const onScroll = (e) => {
       setScrollTop(e.target.documentElement.scrollTop);
     };
 
@@ -98,7 +98,7 @@ const Navbar: NextPage<NavbarProps> = ({
                     : ''
                 }`}
                 aria-label="Toggle navigation"
-                onClick={() => setNavMobile(prev => !prev)}
+                onClick={() => setNavMobile((prev) => !prev)}
               />
             </div>
           </div>

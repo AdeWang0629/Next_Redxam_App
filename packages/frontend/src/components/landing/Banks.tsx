@@ -68,7 +68,8 @@ const Bank: NextPage<BankProps> = ({ image, name, rate }) => (
         {name}
       </span>
       <span className="text-4xl leading-10 text-lighter-black dark:text-gray-200 tracking-[-0.04em] text-opacity-60 font-secondary font-medium">
-        {rate}%
+        {rate}
+        %
       </span>
     </div>
   </div>

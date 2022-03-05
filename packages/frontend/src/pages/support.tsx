@@ -92,7 +92,7 @@ const Support: NextPage = () => {
     updateInputSearch(event.target.value);
 
     const suggestedFAQ = [
-      ...(questions?.filter(question => {
+      ...(questions?.filter((question) => {
         const faqContents =
           // eslint-disable-next-line no-unsafe-optional-chaining
           question?.title?.toLowerCase() +

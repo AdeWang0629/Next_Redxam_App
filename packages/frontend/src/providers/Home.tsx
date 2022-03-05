@@ -4,10 +4,10 @@ import {
   useEffect,
   Dispatch,
   SetStateAction,
-  ReactNode
-} from 'react';
-import { getCookie } from 'cookies-next';
-import api from '@utils/api';
+  ReactNode,
+} from "react";
+import { getCookie } from "cookies-next";
+import api from "@utils/api";
 
 export type Context = {
   home: null | {
@@ -28,7 +28,7 @@ export const HomeContext = createContext<Context>({
   loading: false,
   setLoading: () => {},
   noHome: false,
-  setNoHome: () => {}
+  setNoHome: () => {},
 });
 
 export default function HomeProvider({ children }: { children: ReactNode }) {
@@ -39,8 +39,8 @@ export default function HomeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      if (typeof window !== 'undefined') {
-        if (getCookie('token')) {
+      if (typeof window !== "undefined") {
+        if (getCookie("token")) {
           api
             .getHomeData()
             .then(({ data }) => {

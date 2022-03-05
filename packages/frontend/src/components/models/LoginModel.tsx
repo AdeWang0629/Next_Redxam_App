@@ -47,7 +47,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
 
     api
       .login(email)
-      .then(res => {
+      .then((res) => {
         setResponse(res.data.data.updateToken.success);
       })
       .catch(() => {
@@ -83,7 +83,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
                   <input
                     type="email"
                     className="font-secondary w-full"
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     value={email}
                     required
                     id="email"

@@ -50,8 +50,8 @@ const BanksView: NextPage = () => {
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
 
   const [accounts, setAccounts] = useState<
-    | []
-    | [{ _id: string; id: string; name: string; logo?: string; type: string }]
+  | []
+  | [{ _id: string; id: string; name: string; logo?: string; type: string }]
   >([]);
   const [selectedToUnlink, setSelectedToUnlink] = useState<[] | [string]>([]);
   const [unlinkMode, setUnlinkMode] = useState(false);
@@ -150,14 +150,14 @@ const BanksView: NextPage = () => {
     } = await api.tellerAccounts(accessToken, userId);
 
     if (tellerAccounts.message === 'invalid access token provided') {
-      setTeller(state => ({
+      setTeller((state) => ({
         ...state,
         invalidAccessToken: true
       }));
     }
 
     if (tellerAccounts.success) {
-      setTeller(state => ({
+      setTeller((state) => ({
         ...state,
         accountId: tellerAccounts.accountId,
         balance: tellerAccounts.balance,
@@ -183,7 +183,7 @@ const BanksView: NextPage = () => {
         connectToken: tellerPayee.connect_token,
         applicationId: 'app_nu123i0nvg249720i8000',
         onSuccess({ payee: { id } }: { payee: { id: string } }) {
-          setTeller(state => ({
+          setTeller((state) => ({
             ...state,
             payeeId: id
           }));
@@ -191,7 +191,7 @@ const BanksView: NextPage = () => {
       });
       setup.open();
     } else {
-      setTeller(state => ({
+      setTeller((state) => ({
         ...state,
         payeeId: tellerPayee.payeeId
       }));
@@ -226,7 +226,7 @@ const BanksView: NextPage = () => {
         connectToken: tellerPayment.connect_token,
         applicationId: 'app_nu123i0nvg249720i8000',
         async onSuccess({ payment: { id } }: any) {
-          setTeller(state => ({ ...state }));
+          setTeller((state) => ({ ...state }));
           const {
             depositValue: newDepositValue,
             bankName: newBankName,
@@ -242,7 +242,7 @@ const BanksView: NextPage = () => {
         }
       });
       setup.open();
-    } else setTeller(state => ({ ...state }));
+    } else setTeller((state) => ({ ...state }));
   };
 
   return (
@@ -277,7 +277,7 @@ const BanksView: NextPage = () => {
                 applicationId: 'app_nu123i0nvg249720i8000',
 
                 async onSuccess({ accessToken }: any) {
-                  setTeller(state => ({
+                  setTeller((state) => ({
                     ...state,
                     accessToken
                   }));
@@ -337,7 +337,7 @@ const BanksView: NextPage = () => {
             <hr />
             {accounts.length > 0 ? (
               <div className="flex flex-col">
-                {accounts.map(account => (
+                {accounts.map((account) => (
                   <div
                     className="flex items-center px-8 py-5 border-b"
                     key={account._id}
@@ -373,14 +373,13 @@ const BanksView: NextPage = () => {
                             // @ts-ignore
                             selectedToUnlink.includes(account._id)
                               ? // @ts-ignore
-                                setSelectedToUnlink(prev =>
-                                  prev.filter(id => id !== account._id)
-                                )
+                              setSelectedToUnlink((prev) =>
+                                prev.filter((id) => id !== account._id))
                               : // @ts-ignore
-                                setSelectedToUnlink(prev => [
-                                  ...prev,
-                                  account._id
-                                ]);
+                              setSelectedToUnlink((prev) => [
+                                ...prev,
+                                account._id
+                              ]);
                           }}
                         />
                       </div>
@@ -430,7 +429,7 @@ const BanksView: NextPage = () => {
                     <button
                       className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px] mb-4"
                       onClick={() =>
-                        setTeller(state => ({
+                        setTeller((state) => ({
                           ...state,
                           invalidAccessToken: false
                         }))
@@ -465,8 +464,8 @@ const BanksView: NextPage = () => {
                       <input
                         type="text"
                         className="font-secondary"
-                        onChange={e =>
-                          setTeller(state => ({
+                        onChange={(e) =>
+                          setTeller((state) => ({
                             ...state,
                             memo: e.target.value
                           }))
@@ -490,7 +489,7 @@ const BanksView: NextPage = () => {
                         autoFocus
                         onChange={({ target }) => {
                           const value = target.value.replace(/[^0-9]/g, '');
-                          setTeller(state => ({
+                          setTeller((state) => ({
                             ...state,
                             depositValue: parseFloat(value)
                           }));

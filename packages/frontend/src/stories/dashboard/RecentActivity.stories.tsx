@@ -1,12 +1,12 @@
-import React, { ComponentProps } from 'react';
+import React, { ComponentProps } from "react";
 
-import { Story, Meta } from '@storybook/react';
+import { Story, Meta } from "@storybook/react";
 
-import RecentActivity from '@components/dashboard/RecentActivity';
+import RecentActivity from "@components/dashboard/RecentActivity";
 
 export default {
-  title: 'Dashboard/RecentActivity',
-  component: RecentActivity
+  title: "Dashboard/RecentActivity",
+  component: RecentActivity,
 } as Meta;
 
 const Template: Story<ComponentProps<typeof RecentActivity>> = () => (

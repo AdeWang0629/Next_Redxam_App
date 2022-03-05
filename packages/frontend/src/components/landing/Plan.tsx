@@ -25,19 +25,22 @@ const Plan: NextPage = () => {
             </span>
             <ul className="list-none">
               <li className="mb-6 font-secondary font-medium tracking-[-0.531474px] text-[#696871]">
-                USDC -{' '}
+                USDC -
+                {' '}
                 <span className="font-bold leading-[-0.02em] text-lighter-black">
                   33%
                 </span>
               </li>
               <li className="mb-6 font-secondary font-medium tracking-[-0.531474px] text-[#696871]">
-                USDT -{' '}
+                USDT -
+                {' '}
                 <span className="font-bold leading-[-0.02em] text-lighter-black">
                   33%
                 </span>
               </li>
               <li className="mb-6 font-secondary font-medium tracking-[-0.531474px] text-[#696871]">
-                DAI -{' '}
+                DAI -
+                {' '}
                 <span className="font-bold leading-[-0.02em] text-lighter-black">
                   33%
                 </span>

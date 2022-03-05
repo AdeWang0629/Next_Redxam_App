@@ -24,11 +24,11 @@ const IconButton: NextPage<IconButtonProps> = ({
         />
       </div>
       {buttonText && (
-        <div>
-          <p className="text-white font-secondary text-lighter-black font-medium">
-            {buttonText}
-          </p>
-        </div>
+      <div>
+        <p className="text-white font-secondary text-lighter-black font-medium">
+          {buttonText}
+        </p>
+      </div>
       )}
     </div>
   </Link>
