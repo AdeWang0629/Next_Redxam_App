@@ -150,20 +150,16 @@ export const updateToken = async (
 ) => {
   console.debug('[Resolver] updateToken called');
   const form = sanitize(arg);
-  console.log(1);
   if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
-  console.log(2);
 
   if (!form.email && form.phone) {
     return messages.failed.general;
   }
-  console.log(3);
   const user = await fetchUser(form.email || form.phone);
   if (!user) {
     console.warn('[Resolver] updateToken no user');
     return messages.failed.general;
   }
-  console.log(4);
 
   if (!['accepted', 'invited'].includes(user.accountStatus)) {
     console.warn(
@@ -171,16 +167,12 @@ export const updateToken = async (
     );
     return messages.failed.general;
   }
-  console.log(5);
 
   try {
-    console.log(8);
     let result: Message;
     if (form.email) {
-      console.log(9);
       result = await updateByEmail(user._id, form.email, req.headers.origin);
     } else if (form.phone) {
-      console.log(10);
       result = await updateByPhone(user._id, form.phone);
     }
 
