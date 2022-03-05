@@ -97,7 +97,10 @@ const CardsView: NextPage = () => {
           </div>
           <hr />
           <div className="p-8 flex flex-col items-center w-full">
-            <div dir="ltr" className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
+            <div
+              dir="ltr"
+              className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto"
+            >
               <span className="text-card-button">$</span>
               <input
                 className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
@@ -216,20 +219,19 @@ const CardsView: NextPage = () => {
           </>
         ) : null}
         {filteredDeposits.length &&
-          filteredDeposits.filter(
-            (filteredDeposit) => filteredDeposit.deposits.length
-          )?.length ? (
-            filteredDeposits
-              .filter((filteredDeposit) => filteredDeposit.deposits.length)
-              .map((filteredDeposit) => (
-                <div key={`deposits${filteredDeposit.month}`}>
-                  <div className="bg-[#FAFAFA] py-1.5">
-                    <p className="font-secondary text-lighter-black font-bold text-xs ltr:pl-7 rtl:pr-7">
-                      {getMonthName(filteredDeposit.month)}
-                      {' '}
-                      {new Date().getFullYear()}
-                    </p>
-                  </div>
+        filteredDeposits.filter(
+          filteredDeposit => filteredDeposit.deposits.length
+        )?.length ? (
+          filteredDeposits
+            .filter(filteredDeposit => filteredDeposit.deposits.length)
+            .map(filteredDeposit => (
+              <div key={`deposits${filteredDeposit.month}`}>
+                <div className="bg-[#FAFAFA] py-1.5">
+                  <p className="font-secondary text-lighter-black font-bold text-xs ltr:pl-7 rtl:pr-7">
+                    {getMonthName(filteredDeposit.month)}{' '}
+                    {new Date().getFullYear()}
+                  </p>
+                </div>
 
                 <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
                   {filteredDeposit.deposits.map((depositDetails, index) => (
@@ -249,66 +251,57 @@ const CardsView: NextPage = () => {
                             ? `data:image/png;base64,${depositDetails.bankIcon}`
                             : BankIcon
                         }
-                      >
-                        <Image
-                          src={
-                            depositDetails.bankIcon
-                              ? `data:image/png;base64,${depositDetails.bankIcon}`
-                              : BankIcon
-                          }
-                          width="40px"
-                          height="40px"
-                          alt="Card Image"
-                        />
-                        <div className="flex flex-col justify-center ltr:ml-4 rtl:mr-4">
-                          <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                            {depositDetails.bankName || 'Unknown card'}
-                          </p>
-                          <p className="font-secondary text-xs text-[#95989B] capitalize">
-                            {depositDetails.bankType || 'Unknown card type'}
-                          </p>
-                        </div>
-                        <div className="flex flex-col justify-center items-end ltr:ml-auto rtl:mr-auto">
-                          <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
-                            {depositDetails.currency === 'USD'
-                              ? '$'
-                              : depositDetails.currency}
-                            {depositDetails.amount}
-                          </p>
+                        width="40px"
+                        height="40px"
+                        alt="Card Image"
+                      />
+                      <div className="flex flex-col justify-center ltr:ml-4 rtl:mr-4">
+                        <p className="font-secondary text-sm text-lighter-black mb-1.5">
+                          {depositDetails.bankName || 'Unknown card'}
+                        </p>
+                        <p className="font-secondary text-xs text-[#95989B] capitalize">
+                          {depositDetails.bankType || 'Unknown card type'}
+                        </p>
+                      </div>
+                      <div className="flex flex-col justify-center items-end ltr:ml-auto rtl:mr-auto">
+                        <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
+                          {depositDetails.currency === 'USD'
+                            ? '$'
+                            : depositDetails.currency}
+                          {depositDetails.amount}
+                        </p>
 
-                          <div className="flex justify-center items-center">
-                            <p className="font-secondary text-xs text-[#95989B] ltr:mr-1 rtl:ml-1">
-                              {new Date(depositDetails.timestamp).toLocaleDateString(
-                                undefined,
-                                {
-                                  day: '2-digit',
-                                  month: 'short'
-                                }
-                              )}
-                              {', '}
-                              {new Date(depositDetails.timestamp).toLocaleTimeString(
-                                undefined,
-                                {
-                                  minute: '2-digit',
-                                  hour: '2-digit'
-                                }
-                              )}
-                            </p>
-                          </div>
+                        <div className="flex justify-center items-center">
+                          <p className="font-secondary text-xs text-[#95989B] ltr:mr-1 rtl:ml-1">
+                            {new Date(
+                              depositDetails.timestamp
+                            ).toLocaleDateString(undefined, {
+                              day: '2-digit',
+                              month: 'short'
+                            })}
+                            {', '}
+                            {new Date(
+                              depositDetails.timestamp
+                            ).toLocaleTimeString(undefined, {
+                              minute: '2-digit',
+                              hour: '2-digit'
+                            })}
+                          </p>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
-              ))
-          ) : (
-            <div className="mt-16 flex flex-col items-center px-8 pb-10">
-              <Image src={EmptyImage} />
-              <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
-                {t('noTransactions')}
-              </p>
-            </div>
-          )}
+              </div>
+            ))
+        ) : (
+          <div className="mt-16 flex flex-col items-center px-8 pb-10">
+            <Image src={EmptyImage} />
+            <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
+              {t('noTransactions')}
+            </p>
+          </div>
+        )}
       </Card>
     </div>
   );
