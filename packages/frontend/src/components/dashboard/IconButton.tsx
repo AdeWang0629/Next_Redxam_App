@@ -15,7 +15,7 @@ const IconButton: NextPage<IconButtonProps> = ({
 }) => (buttonHref ? (
   <Link href={buttonHref}>
     <div className="flex justify-center items-center cursor-pointer self-start">
-      <div className="flex justify-center items-center mr-2 rounded-full bg-lighter-black p-2.5">
+      <div className="flex justify-center items-center ltr:mr-2 rtl:ml-2 rounded-full bg-lighter-black p-2.5">
         <Image
           src={buttonIcon || ''}
           alt="Settings Icon"
@@ -34,7 +34,7 @@ const IconButton: NextPage<IconButtonProps> = ({
   </Link>
 ) : (
   <div className="flex justify-center items-center self-start">
-    <div className="flex justify-center items-center mr-2 rounded-full bg-lighter-black p-2.5">
+    <div className="flex justify-center items-center ltr:mr-2 rtl:ml-2 rounded-full bg-lighter-black p-2.5">
       <Image
         src={buttonIcon || ''}
         alt="Settings Icon"

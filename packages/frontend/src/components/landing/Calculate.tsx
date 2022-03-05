@@ -78,7 +78,7 @@ const Calculate: NextPage = () => {
         }}
       >
         <div className="py-5 flex-[2]">
-          <h4 className="mb-8 text-[15px] font-medium tracking-[0.3em] uppercase text-[#828282] dark:text-black">
+          <h4 className="mb-8 text-[15px] font-medium ltr:tracking-[0.3em] uppercase text-[#828282] dark:text-black">
             {t('plan')}
           </h4>
           <div className="flex space-8">
@@ -93,8 +93,8 @@ const Calculate: NextPage = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col border-t md:border-t-0 md:border-l border-white md:pl-7 flex-1 pt-5">
-          <h4 className="mb-12 text-[15px] font-medium tracking-[0.3em] uppercase text-[#828282] dark:text-black">
+        <div className="flex flex-col border-t md:border-t-0 ltr:md:border-l rtl:md:border-r border-white ltr:md:pl-7 rtl:md:pr-7 flex-1 pt-5">
+          <h4 className="mb-12 text-[15px] font-medium ltr:tracking-[0.3em] uppercase text-[#828282] dark:text-black">
             {t('amount')}
           </h4>
           <input
@@ -128,7 +128,7 @@ const Calculate: NextPage = () => {
           boxShadow: '0 4px 30px 0 rgb(0 0 0 / 5%)'
         }}
       >
-        <h4 className="font-medium font-secondary tracking-[0.3em] uppercase text-[#828282] dark:text-black mb-4">
+        <h4 className="font-medium font-secondary ltr:tracking-[0.3em] uppercase text-[#828282] dark:text-black mb-4">
           {t('paid')}
         </h4>
         <p className="text-4xl text-[#BDBDBD] dark:text-black tracking-[-0.04em] font-secondary font-medium">

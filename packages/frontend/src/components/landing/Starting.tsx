@@ -13,10 +13,10 @@ const Starting: NextPage = () => {
 
   return (
     <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48 p-4 md:p-0">
-      <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
+      <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] ltr:tracking-[0.3em]">
         {t('how-to-start')}
       </h4>
-      <h2 className="w-full md:w-[600px] self-start text-left text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-3.5">
+      <h2 className="w-full md:w-[600px] self-start text-left rtl:text-right text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-3.5">
         {t('how-to-start-title')}
       </h2>
       <p className="font-primary text-lg text-black dark:text-white text-opacity-80 leading-[1.8] ">

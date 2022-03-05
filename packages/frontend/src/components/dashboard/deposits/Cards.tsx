@@ -7,9 +7,11 @@ import { useRouter } from 'next/router';
 import BankIcon from '@public/icons/bank.svg';
 import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
 import { Deposit } from '@utils/types';
+import { useTranslation } from 'next-i18next';
 import Card from '../Card';
 
 const CardsView: NextPage = () => {
+  const { t } = useTranslation('dashboard');
   const router = useRouter();
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
   const [filteredDeposits, setFilteredDeposits] = useState<
@@ -84,17 +86,17 @@ const CardsView: NextPage = () => {
   }, [deposits]);
 
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse">
       <div className="flex-1 flex flex-col">
         <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
           <div className="flex items-center justify-between px-8">
             <h1 className="font-secondary font-medium text-lg py-6">
-              Deposit
+              {t('deposit')}
             </h1>
           </div>
           <hr />
           <div className="p-8 flex flex-col items-center w-full">
-            <div className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
+            <div dir="ltr" className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
               <span className="text-card-button">$</span>
               <input
                 className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
@@ -110,7 +112,7 @@ const CardsView: NextPage = () => {
               <span>.00</span>
             </div>
             <span className="font-secondary text-sm text-[#95989B]">
-              Enter amount you want to deposit
+              {t('enterAmountToDeposit')}
             </span>
             <button
               className="w-full mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
@@ -121,7 +123,7 @@ const CardsView: NextPage = () => {
               disabled={value < 10 || depositLoading}
               onClick={deposit}
             >
-              Deposit to Wallet
+              {t('depositToWallet')}
             </button>
           </div>
         </Card>
@@ -129,14 +131,14 @@ const CardsView: NextPage = () => {
 
       <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0 lg:ml-3">
         <h1 className="px-8 py-6 font-secondary font-medium text-lg">
-          Recent deposits from Card
+          {t('recentDepositsCard')}
         </h1>
         <hr />
         {pendingDeposits.length ? (
           <>
             <div className="bg-yellow-100 py-1.5">
-              <p className="font-secondary text-yellow-400 font-bold text-xs pl-7">
-                Pending
+              <p className="font-secondary text-yellow-400 font-bold text-xs ltr:pl-7 rtl:pr-7">
+                {t('pending')}
               </p>
             </div>
             <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
@@ -170,7 +172,7 @@ const CardsView: NextPage = () => {
                     height="40px"
                     alt="Card Image"
                   />
-                  <div className="flex flex-col justify-center ml-4">
+                  <div className="flex flex-col justify-center ltr:ml-4 rtl:mr-4">
                     <p className="font-secondary text-sm text-lighter-black mb-1.5">
                       {depositDetails.bankName || 'Unknown card'}
                     </p>
@@ -185,8 +187,8 @@ const CardsView: NextPage = () => {
                     </p>
                     <div className="flex justify-center items-center">
                       <p className="font-secondary text-xs text-[#95989B] mr-1">
-                        Pending •
-                        {' '}
+                        {t('pending')}
+                        {' • '}
                         {new Date(depositDetails.timestamp).toLocaleDateString(
                           undefined,
                           {
@@ -219,7 +221,7 @@ const CardsView: NextPage = () => {
               .map((filteredDeposit) => (
                 <div key={`deposits${filteredDeposit.month}`}>
                   <div className="bg-[#FAFAFA] py-1.5">
-                    <p className="font-secondary text-lighter-black font-bold text-xs pl-7">
+                    <p className="font-secondary text-lighter-black font-bold text-xs ltr:pl-7 rtl:pr-7">
                       {getMonthName(filteredDeposit.month)}
                       {' '}
                       {new Date().getFullYear()}
@@ -250,7 +252,7 @@ const CardsView: NextPage = () => {
                           height="40px"
                           alt="Card Image"
                         />
-                        <div className="flex flex-col justify-center ml-4">
+                        <div className="flex flex-col justify-center ltr:ml-4 rtl:mr-4">
                           <p className="font-secondary text-sm text-lighter-black mb-1.5">
                             {depositDetails.bankName || 'Unknown card'}
                           </p>
@@ -258,7 +260,7 @@ const CardsView: NextPage = () => {
                             {depositDetails.bankType || 'Unknown card type'}
                           </p>
                         </div>
-                        <div className="flex flex-col justify-center items-end ml-auto">
+                        <div className="flex flex-col justify-center items-end ltr:ml-auto rtl:mr-auto">
                           <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
                             {depositDetails.currency === 'USD'
                               ? '$'
@@ -267,7 +269,7 @@ const CardsView: NextPage = () => {
                           </p>
 
                           <div className="flex justify-center items-center">
-                            <p className="font-secondary text-xs text-[#95989B] mr-1">
+                            <p className="font-secondary text-xs text-[#95989B] ltr:mr-1 rtl:ml-1">
                               {new Date(depositDetails.timestamp).toLocaleDateString(
                                 undefined,
                                 {
@@ -295,7 +297,7 @@ const CardsView: NextPage = () => {
             <div className="mt-16 flex flex-col items-center px-8 pb-10">
               <Image src={EmptyImage} />
               <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
-                No transactions has been made from any of the cards.
+                {t('noTransactions')}
               </p>
             </div>
           )}
