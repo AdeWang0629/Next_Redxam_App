@@ -59,10 +59,8 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    if (
-      referralCodeString.length < 8 &&
-      referralCodeString.length > 0
-    ) return setReferralCodeInvalid(true);
+    if (referralCodeString.length < 8 && referralCodeString.length > 0)
+      return setReferralCodeInvalid(true);
 
     setLoading(true);
 
@@ -131,7 +129,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               <input
                 type="text"
                 className="font-secondary"
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={e => setFirstName(e.target.value)}
                 value={firstName}
                 id="firstName"
                 disabled={waitlistSuccess}
@@ -144,7 +142,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               <input
                 type="text"
                 className="font-secondary"
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={e => setLastName(e.target.value)}
                 id="lastName"
                 value={lastName}
                 disabled={waitlistSuccess}
@@ -160,7 +158,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
             <input
               type="text"
               className="font-secondary w-full"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               onBlur={() => checkEmail()}
               value={email}
               id="email"
@@ -178,7 +176,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
             <input
               type="text"
               className="font-secondary w-full disabled:opacity-30"
-              onChange={(e) => handleReferralCode(e)}
+              onChange={e => handleReferralCode(e)}
               value={referralCodeString}
               id="referralCode"
               disabled={waitlistSuccess}

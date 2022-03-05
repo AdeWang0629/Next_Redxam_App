@@ -3,15 +3,20 @@ import { getCookie } from 'cookies-next';
 import api from '@utils/api';
 
 export default function Users() {
-  const [users, setUsers] = useState<[] | [{
-    created_at: number;
-    _id: string;
-    firstName: string;
-    lastName: string;
-    accountStatus: string;
-    referralId: string;
-    email: string;
-  }]>([]);
+  const [users, setUsers] = useState<
+    | []
+    | [
+        {
+          created_at: number;
+          _id: string;
+          firstName: string;
+          lastName: string;
+          accountStatus: string;
+          referralId: string;
+          email: string;
+        }
+      ]
+  >([]);
 
   useEffect(() => {
     (async () => {
@@ -49,14 +54,13 @@ export default function Users() {
       </thead>
       <tbody>
         {users
-          .sort(
-            (a, b) =>
-              Number(
-                new Date(b.created_at).getTime() <
+          .sort((a, b) =>
+            Number(
+              new Date(b.created_at).getTime() <
                 new Date(a.created_at).getTime()
-              )
+            )
           )
-          .map((user) => (
+          .map(user => (
             <tr key={user._id}>
               <td className="bg-black dark:bg-gray-300 bg-opacity-5 p-4 text-left border border-black dark:border-white border-opacity-20">
                 {!user.firstName ? (
@@ -79,14 +83,14 @@ export default function Users() {
                 }}
               >
                 {user.accountStatus || (
-                <span className="underline font-bold">
-                  N/A (need to be migrated)
-                </span>
+                  <span className="underline font-bold">
+                    N/A (need to be migrated)
+                  </span>
                 )}
               </td>
               <td className="bg-black dark:bg-gray-300 bg-opacity-5 p-4 text-left border border-black dark:border-white border-opacity-20">
                 {user.referralId || (
-                <span className="underline font-bold">No code used</span>
+                  <span className="underline font-bold">No code used</span>
                 )}
               </td>
               <td className="bg-black dark:bg-gray-300 bg-opacity-5 p-4 text-left border border-black dark:border-white border-opacity-20">

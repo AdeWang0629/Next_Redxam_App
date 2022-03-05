@@ -246,51 +246,53 @@ const Crypto: NextPage = () => {
                 <p className="font-secondary text-xs text-[#95989B]">
                   {user?.wallet?.address}
                 </p>
-                <button
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      user?.wallet?.address || ''
-                    )
-                      }
-                >
-                  <Image
-                    src={copyIcon || ''}
-                    alt="Copy Button"
-                    width="22px"
-                    height="22px"
-                  />
-                </button>
-              </div>
-              <div className="flex justify-center items-center my-6 relative">
-                <button
-                  className="bg-light-gray bg-black w-[96px] h-[96px] p-6 rounded-full"
-                  onMouseEnter={() => setQrCodeModal(true)}
-                  onMouseLeave={() => setQrCodeModal(false)}
-                >
-                  {qrCode && (
-                  <Image
-                    src={qrCode || ''}
-                    alt="QR Code"
-                    width="40px"
-                    height="40px"
-                  />
-                  )}
-                </button>
-                {qrCodeModal && (
-                <div className="w-[150px] h-[150px] absolute left-[195px] top-[12px] shadow-card rounded-[10px] before:absolute before:content-[''] before:w-[0] before:h-[0] before:left-[-11px] before:top-[18px] before:border-b-[15px] before:border-b-transparent before:border-t-[15px] before:border-t-transparent before:border-r-[12px] before:border-r-white">
-                  {qrCode && (
-                  <Image
-                    src={qrCode || ''}
-                    alt="QR Code"
-                    width="200px"
-                    height="200px"
-                    className="rounded-[10px]"
-                  />
+                <div className="flex justify-between items-center">
+                  <p className="font-secondary text-xs text-[#95989B]">
+                    {user?.wallet?.address}
+                  </p>
+                  <button
+                    onClick={() =>
+                      navigator.clipboard.writeText(user?.wallet?.address || '')
+                    }
+                  >
+                    <Image
+                      src={copyIcon || ''}
+                      alt="Copy Button"
+                      width="22px"
+                      height="22px"
+                    />
+                  </button>
+                </div>
+                <div className="flex justify-center items-center my-6 relative">
+                  <button
+                    className="bg-light-gray bg-black w-[96px] h-[96px] p-6 rounded-full"
+                    onMouseEnter={() => setQrCodeModal(true)}
+                    onMouseLeave={() => setQrCodeModal(false)}
+                  >
+                    {qrCode && (
+                      <Image
+                        src={qrCode || ''}
+                        alt="QR Code"
+                        width="40px"
+                        height="40px"
+                      />
+                    )}
+                  </button>
+                  {qrCodeModal && (
+                    <div className="w-[150px] h-[150px] absolute left-[195px] top-[12px] shadow-card rounded-[10px] before:absolute before:content-[''] before:w-[0] before:h-[0] before:left-[-11px] before:top-[18px] before:border-b-[15px] before:border-b-transparent before:border-t-[15px] before:border-t-transparent before:border-r-[12px] before:border-r-white">
+                      {qrCode && (
+                        <Image
+                          src={qrCode || ''}
+                          alt="QR Code"
+                          width="200px"
+                          height="200px"
+                          className="rounded-[10px]"
+                        />
+                      )}
+                    </div>
                   )}
                 </div>
-                )}
               </div>
-            </div>
 
             <div className="pb-6 px-8">
               <ul>

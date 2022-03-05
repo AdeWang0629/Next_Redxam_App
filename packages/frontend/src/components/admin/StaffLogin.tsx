@@ -79,7 +79,7 @@ const StaffLogin: NextPage = () => {
             placeholder="Email or username"
             className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight dark:text-black"
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
           <input
             type="password"
@@ -87,7 +87,7 @@ const StaffLogin: NextPage = () => {
             placeholder="Password"
             className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight dark:text-black mt-4"
             required
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
           <div className="flex px-3 mt-8">
             <div className="flex-1 flex items-center">

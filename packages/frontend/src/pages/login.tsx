@@ -4,14 +4,36 @@ import Image from 'next/image';
 import api from '@utils/api';
 import { useRouter } from 'next/router';
 import { UserContext } from '@providers/User';
-
+import { validateEmail } from '@utils/helpers';
 import Logo from '@public/logo.svg';
 
-const Invite: NextPage = () => {
-  const { user, loading, noUser, setUser, setLoading, setNoUser } =
-    useContext(UserContext);
+const Login: NextPage = () => {
+  const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
-  const [code, setCode] = useState('');
+
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [error, showError] = useState('');
+
+  function submitEmail() {
+    setSubmitLoading(true);
+    if (validateEmail(email)) {
+      api
+        .login(email)
+        .then(res => {
+          if (res.data.data.updateToken.success) {
+            setSubmitted(true);
+          } else {
+            showError('Email not found!');
+            setSubmitted(false);
+          }
+        })
+        .catch(() => setSubmitted(false));
+    } else {
+      showError('Enter a valid email!');
+    }
+    setSubmitLoading(false);
+  }
   const [submitLoading, setSubmitLoading] = useState(false);
 
   useEffect(() => {
@@ -27,32 +49,16 @@ const Invite: NextPage = () => {
 
   if (loading) return <span>loading</span>;
 
-  const handleSubmit = () => {
-    setSubmitLoading(true);
-    api
-      .invite(code)
-      .then(({ data }) => {
-        if (
-          !data.data.invitationCode.success &&
-          data.data.invitationCode.message === 'no invitation code found'
-        ) {
-          alert('Invalid code!');
-        } else if (data.data.invitationCode.success) {
-          api
-            .getUserData()
-            .then(({ data: accountData }) => {
-              console.log(accountData);
-              setNoUser(false);
-              setUser(accountData.data.user[0]);
-              router.push(`/verify?token=${data.data.invitationCode.token}`);
-            })
-            .catch(() => setNoUser(true))
-            .finally(() => setLoading(false));
-        }
-      })
-      .catch(() => alert('An error occurred!'))
-      .finally(() => setSubmitLoading(false));
-  };
+  let buttonText;
+
+  if (!submitted) {
+    buttonText = 'Log in';
+  } else if (submitted === true) {
+    buttonText = 'Check your email';
+  } else {
+    buttonText = 'Logging in';
+  }
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center">
       <section className="flex items-center">
@@ -64,32 +70,37 @@ const Invite: NextPage = () => {
 
       <section className="flex flex-col mt-16">
         <h1 className="font-secondary font-bold text-lighter-black text-6xl">
-          Enter your invite code
+          Enter your email
         </h1>
         <p className="font-primary text-center text-lighter-black mt-3">
-          As part of the alpha/beta list enter the code sent to you so you start
-          onboarding.
+          We will send you an email which will validate your request!
         </p>
       </section>
 
       <section className="flex flex-col items-center mt-12 w-full max-w-xs">
         <input
           type="text"
-          placeholder="Enter invite code"
+          placeholder="example@redxam.com"
           className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
-          onChange={e => setCode(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
+          onKeyPress={e => e.key === 'Enter' && submitEmail()}
+          disabled={submitted}
         />
-
+        {error && (
+          <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+            {error}
+          </span>
+        )}
         <button
           className="bg-buttons-green rounded-[30px] text-black w-2/3 mt-6 py-4 px-16 transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
-          onClick={handleSubmit}
-          disabled={submitLoading}
+          onClick={submitEmail}
+          disabled={submitLoading || submitted}
         >
-          Submit
+          {buttonText}
         </button>
       </section>
     </main>
   );
 };
 
-export default Invite;
+export default Login;
