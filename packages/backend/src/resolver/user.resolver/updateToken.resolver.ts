@@ -17,7 +17,8 @@ const IS_PRODUCTION = NODE_ENV === 'production';
 const ADMIN_USERS = Object.freeze(['max@redxam.com']);
 const isAdmin = (email: string) => ADMIN_USERS.includes(email);
 
-const getLoginUrl = (token: string, origin: string) => origin + `/verify?token=${token}`;
+const getLoginUrl = (token: string, origin: string) =>
+  origin + `/verify?token=${token}`;
 
 const templatePath = resolve(__dirname, '../../emails/simplelogin.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');
@@ -25,54 +26,64 @@ const templateData = readFileSync(templatePath, 'utf-8');
 const renderTemplate = (loginURL: string) =>
   render(templateData, {
     loginURL,
-    randomText: `Ref #: ${Date.now()}`,
+    randomText: `Ref #: ${Date.now()}`
   });
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString(
+    'base64'
+  ),
   content_id: 'facebook@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const twitterIcon: Readonly<Attachment> = Object.freeze({
   filename: 'twitter.png',
-  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString(
+    'base64'
+  ),
   content_id: 'twitter@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const linkedInIcon: Readonly<Attachment> = Object.freeze({
   filename: 'linkedin.png',
-  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString(
+    'base64'
+  ),
   content_id: 'linkedin@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const telegramIcon: Readonly<Attachment> = Object.freeze({
   filename: 'telegram.png',
-  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString(
+    'base64'
+  ),
   content_id: 'telegram@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const discordIcon: Readonly<Attachment> = Object.freeze({
   filename: 'discord.png',
-  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString(
+    'base64'
+  ),
   content_id: 'discord@login',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const updateUserToken = async (
   userId: string,
   token: string,
-  updateVerification?: { value: boolean },
+  updateVerification?: { value: boolean }
 ) => {
   await User.updateOne(
     { _id: userId },
     updateVerification
       ? { $set: { token, verification: updateVerification.value } }
-      : { $set: { token } },
+      : { $set: { token } }
   ).exec();
 };
 
@@ -90,7 +101,13 @@ const sendMail = async (targetEmail: string, loginUrl: string) => {
       to: targetEmail,
       subject: 'Login Email',
       html: renderTemplate(loginUrl),
-      attachments: [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon],
+      attachments: [
+        facebookIcon,
+        twitterIcon,
+        linkedInIcon,
+        telegramIcon,
+        discordIcon
+      ]
     });
   } catch (e) {
     console.log(e);
@@ -98,20 +115,20 @@ const sendMail = async (targetEmail: string, loginUrl: string) => {
 };
 
 const fetchUser = async (
-  data: string,
+  data: string
 ): Promise<Pick<UserProps, '_id' | 'accountStatus'>> => {
   return User.findOne(
     { $or: [{ email: data }, { phone: data }] },
-    { _id: 1, accountStatus: 1 },
+    { _id: 1, accountStatus: 1 }
   )
     .lean()
     .exec();
 };
 
 const updateByEmail = async (userId: string, email: string, origin: string) => {
-  if (!IS_PRODUCTION && isAdmin(email)) {
-    return loginAdmin(userId);
-  }
+  // if (!IS_PRODUCTION && isAdmin(email)) {
+  //   return loginAdmin(userId);
+  // }
   const loginToken = await new JWT({ userId, type: 'login' }).sign();
   const loginUrl = getLoginUrl(loginToken, origin);
   console.log(loginToken);
@@ -127,31 +144,43 @@ const updateByPhone = async (userId: string, phone: string) => {
   return messages.success.loginByPhone;
 };
 
-export const updateToken = async ({ arg }: Argument<LoginInput>, req: Request) => {
+export const updateToken = async (
+  { arg }: Argument<LoginInput>,
+  req: Request
+) => {
   console.debug('[Resolver] updateToken called');
   const form = sanitize(arg);
+  console.log(1);
   if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
+  console.log(2);
 
   if (!form.email && form.phone) {
     return messages.failed.general;
   }
+  console.log(3);
   const user = await fetchUser(form.email || form.phone);
   if (!user) {
     console.warn('[Resolver] updateToken no user');
     return messages.failed.general;
   }
+  console.log(4);
 
   if (!['accepted', 'invited'].includes(user.accountStatus)) {
-    console.warn('[Resolver] updateToken user account is not accepted and not invited');
+    console.warn(
+      '[Resolver] updateToken user account is not accepted and not invited'
+    );
     return messages.failed.general;
   }
+  console.log(5);
 
   try {
-    0;
+    console.log(8);
     let result: Message;
     if (form.email) {
+      console.log(9);
       result = await updateByEmail(user._id, form.email, req.headers.origin);
     } else if (form.phone) {
+      console.log(10);
       result = await updateByPhone(user._id, form.phone);
     }
 
