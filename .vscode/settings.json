@@ -1,1 +1,4 @@
-{ "eslint.workingDirectories": ["packages/frontend"] }
+{
+  "eslint.workingDirectories": ["packages/frontend"],
+  "css.customData": [".vscode/css_custom_data.json"]
+}
