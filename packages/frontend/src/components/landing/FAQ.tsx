@@ -62,7 +62,7 @@ const FAQ: FC<InterfaceFAQ> = ({
    */
   const FaqHeading = (
     <>
-      <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
+      <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] ltr:tracking-[0.3em]">
         {t('subtitle')}
       </h4>
       <h2 className="w-full md:w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-36">

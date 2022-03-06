@@ -13,6 +13,7 @@ import UnlinkModel from '@components/models/UnlinkModel';
 import DepositModel from '@components/models/DepositModel';
 import { UserContext } from '@providers/User';
 import { getCookie } from 'cookies-next';
+import { useTranslation } from 'next-i18next';
 
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import BankImage from '@public/images/dashboard/deposits/bank.svg';
@@ -36,6 +37,7 @@ interface Teller {
 }
 
 const BanksView: NextPage = () => {
+  const { t } = useTranslation('dashboard');
   const { user } = useContext(UserContext);
   let userId = '';
   if (user) {
@@ -291,12 +293,12 @@ const BanksView: NextPage = () => {
         paymentApi === 'PLAID' && ''
       )}
 
-      <div className="flex flex-col lg:flex-row lg:gap-x-3">
+      <div className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse lg:gap-x-3">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
             <div className="flex items-center justify-between px-8">
               <h1 className="font-secondary font-medium text-lg py-6">
-                Added banks
+                {t('addedBanks')}
               </h1>
               {accounts.length ? (
                 unlinkMode ? (
@@ -309,14 +311,14 @@ const BanksView: NextPage = () => {
                       }}
                       onClick={() => setShowUnlinkModel(true)}
                     >
-                      Unlink
+                      {t('unlink')}
                     </button>
                   ) : (
                     <button
                       className="py-2 px-8 rounded-[25px] border font-secondary text-sm font-medium"
                       onClick={() => setUnlinkMode(false)}
                     >
-                      Cancel
+                      {t('cancel')}
                     </button>
                   )
                 ) : (
@@ -351,7 +353,7 @@ const BanksView: NextPage = () => {
                         height="40"
                         alt="account logo"
                       />
-                      <div className="flex flex-col justify-center ml-5">
+                      <div className="flex flex-col justify-center ltr:ml-5 rtl:mr-5">
                         <h2 className="font-secondary text-sm font-medium">
                           {account.name}
                         </h2>
@@ -391,7 +393,7 @@ const BanksView: NextPage = () => {
                     disabled={!plaidToken.length}
                     onClick={handleAddBankAccount}
                   >
-                    Add Bank Account
+                    {t('addBankAccount')}
                   </button>
                 </div>
               </div>
@@ -399,8 +401,7 @@ const BanksView: NextPage = () => {
               <div className="mt-16 flex flex-col items-center px-8 pb-10">
                 <Image src={BankImage} alt="Bank Ilustration" />
                 <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
-                  Your KYC is complete, now you can add multiple bank accounts
-                  to your redxam.
+                  {t('addMultipleAccounts')}
                 </p>
 
                 <button
@@ -412,7 +413,7 @@ const BanksView: NextPage = () => {
                   onClick={handleAddBankAccount}
                   // disabled={!plaidToken.length}
                 >
-                  Add Bank Account
+                  {t('addBankAccount')}
                 </button>
               </div>
             )}
@@ -443,7 +444,7 @@ const BanksView: NextPage = () => {
                       />
                     </button>
                     <p className="text-lg font-secondary">
-                      Invalid Access Token
+                      {t('invalidAccessToken')}
                     </p>
                   </div>
                 </Card>
@@ -474,10 +475,10 @@ const BanksView: NextPage = () => {
                         id="tellerMemo"
                       />
                       <label className="font-primary" htmlFor="firstName">
-                        Enter a description
+                        {t('enterADescription')}
                       </label>
                     </div>
-                    <div className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
+                    <div dir="ltr" className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
                       <span className="text-card-button">$</span>
                       <input
                         className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
@@ -498,7 +499,7 @@ const BanksView: NextPage = () => {
                       <span>.00</span>
                     </div>
                     <span className="font-secondary text-sm text-[#95989B]">
-                      Enter amount you want to deposit
+                      {t('enterAmountToDeposit')}
                     </span>
                     <button
                       className="w-full mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
@@ -509,7 +510,7 @@ const BanksView: NextPage = () => {
                       disabled={teller.depositValue < 10}
                       onClick={() => handleBankDeposit()}
                     >
-                      Deposit to Wallet
+                      {t('depositToWallet')}
                     </button>
                   </div>
                 </Card>
@@ -525,7 +526,7 @@ const BanksView: NextPage = () => {
               }}
               onClick={() => setShowDepositModel(true)}
             >
-              Deposit to Wallet
+              {t('depositToWallet')}
             </button>
           ) : null}
         </div>

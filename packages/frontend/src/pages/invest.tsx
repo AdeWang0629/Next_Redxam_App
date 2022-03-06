@@ -3,6 +3,7 @@ import Navbar from '@components/global/Navbar';
 import Footer from '@components/global/Footer';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { numberWithCommas } from '@utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -13,6 +14,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       ...(await serverSideTranslations(locale, [
         'navbar',
+        'invest',
         'waitlist',
         'login',
         'footer'
@@ -22,6 +24,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 
 const Invest: NextPage = () => {
+  const { t } = useTranslation('invest');
+
   const goal = '1,500,000';
   const previousInvestors = [
     {
@@ -49,7 +53,7 @@ const Invest: NextPage = () => {
     <>
       <Navbar title="Your Personal Crypto Investment Assistant" />
       <div
-        className="flex flex-col lg:flex-row justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-10 pt-44 lg:pt-44 pb-20 border-b border-b-white"
+        className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse justify-center items-center space-y-10 lg:space-y-0 space-x-0 lg:space-x-10 pt-44 lg:pt-44 pb-20 border-b border-b-white"
         style={{
           boxShadow:
             '0px 6px 6px -6px rgba(0, 0, 0, 0.08), 0px 0px 1px rgba(0, 0, 0, 0.2)'
@@ -67,13 +71,12 @@ const Invest: NextPage = () => {
         </div>
         <div className="flex flex-col px-4 lg:px-0">
           <h1 className="text-[2rem] tracking-[-0.05em] font-secondary font-bold text-lighter-black dark:text-gray-200 leading-[3rem] w-full lg:max-w-[28.125rem]">
-            Redxam: Your Personal Crypto Investment Assistant. Worry-Free Crypto
-            Holdings!
+            {t('title')}
           </h1>
 
           <div className="w-full h-5 bg-[#E5FEE1] rounded-[2rem] mt-8">
             <div
-              className="h-5 bg-[#ACE96B] rounded-l-[2rem]"
+              className="h-5 bg-[#ACE96B] ltr:rounded-l-[2rem] rtl:rounded-r-[2rem]"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -81,7 +84,7 @@ const Invest: NextPage = () => {
           <div className="grid grid-cols-2 gap-x-14 mt-14">
             <div className="flex flex-col">
               <span className="font-secondary font-medium text-lighter-black text-opacity-50 text-sm leading-5 mb-2">
-                FUNDS RAISED
+                {t('fundsRaised')}
               </span>
               <span className="font-secondary font-bold text-lighter-black text-[2rem] leading-[3rem]">
                 ${numberWithCommas(raised)}
@@ -90,7 +93,7 @@ const Invest: NextPage = () => {
 
             <div className="flex flex-col">
               <span className="font-secondary font-medium text-lighter-black text-opacity-50 text-sm leading-5 mb-2">
-                FUNDS GOAL
+                {t('fundsGoal')}
               </span>
               <span className="font-secondary font-bold text-lighter-black text-[2rem] leading-[3rem]">
                 ${goal}
@@ -104,18 +107,18 @@ const Invest: NextPage = () => {
               "mailto:investments@redxam.com?subject=Hi%20I%20would%20like%20to%20invest%20in%20redxam!&body=Hi%20redxam%20team%20%F0%9F%91%8B%2C%0D%0A%0D%0AMy%20name%20is%20________%20!I'm%20really%20interested%20in%20the%20project%20and%20I%20would%20like%20to%20be%20part%20of%20the%20seed%20investment%20round%20and%20get%20early%20into%20the%20token%20sale%20at%20%240.01%20per%20token!%0D%0A%0D%0AI%20would%20like%20to%20invest%20%24____%20towards%20your%20round%20and%20get%20the%20correspondent%20tokens%20to%20my%20cash%20amount.%0D%0A%0D%0A%23%23%23%20Please%20select%20the%20one%20that%20doesn't%20apply%20to%20you%20%23%23%23%0D%0A%5B%20%5D%20I%20have%20invested%20in%20a%20startup%20before%20and%20I'm%20ready%20to%20sign%0D%0A%5B%20%5D%20This%20will%20be%20my%20first%20time%20investing%20and%20I%20would%20like%20to%20learn%20about%20the%20process.%0D%0A%0D%0AThanks%20for%20your%20interest%20in%20us%2C%20a%20warm%20welcome!%0D%0A-%20the%20redxam.com%20family"
             }
           >
-            Invest in the redxam project!
+            {t('invest')}
           </a>
         </div>
       </div>
       <div className="flex flex-col mt-[2.875rem] max-w-7xl mx-auto pb-20 px-4 lg:px-0">
         <h2 className="font-secondary font-medium text-lighter-black text-opacity-50 text-sm leading-5 mb-2">
-          PREVIOUS INVESTORS
+          {t('previousInvestors')}
         </h2>
         <div className="flex flex-col mt-7 space-y-2">
           {previousInvestors.map((investor, index) => (
             <div
-              className="bg-[#f5f5f5] px-8 py-4 flex items-center space-x-12 rounded-2xl"
+              className="bg-[#f5f5f5] px-8 py-4 flex ltr:flex-row rtl:flex-row-reverse items-center space-x-12 rounded-2xl"
               key={`previous-investor-${index}`}
             >
               <span

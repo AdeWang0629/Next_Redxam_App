@@ -47,7 +47,7 @@ const Newsletter: NextPage = () => {
             <input
               type="email"
               placeholder={t('email-placeholder')}
-              className="w-full md:w-[35.1875rem] mt-12 mb-8 bg-white border border-black border-opacity-10 rounded-[30px] pl-[2.625rem] h-[3.75rem] font-primary text-lg tracking-[-0.02em] text-black outline-none"
+              className="w-full md:w-[35.1875rem] mt-12 mb-8 bg-white border border-black border-opacity-10 rounded-[30px] ltr:pl-[2.625rem] rtl:pr-[2.625rem] h-[3.75rem] font-primary text-lg tracking-[-0.02em] text-black outline-none"
               style={{ boxShadow: '0px 10px 50px rgb(7 45 1 / 10%)' }}
               onChange={e => setEmail(e.target.value)}
             />

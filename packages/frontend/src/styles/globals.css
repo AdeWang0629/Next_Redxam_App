@@ -4,11 +4,11 @@
 
 @layer utilities {
   .font-primary {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'DM Sans', 'Tajawal', sans-serif;
   }
 
   .font-secondary {
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Rubik', 'Tajawal', sans-serif;
   }
 }
 

@@ -10,10 +10,28 @@ import KYC from '@components/dashboard/deposits/KYC';
 import Banks from '@components/dashboard/deposits/Banks';
 import Cards from '@components/dashboard/deposits/Cards';
 import Crypto from '@components/dashboard/deposits/Crypto';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 import BackIcon from '@public/icons/back.svg';
 
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  if (!locale) {
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        'dashboard'
+      ]))
+    }
+  };
+};
+
 const Deposit: NextPage = () => {
+  const { t } = useTranslation('dashboard');
   const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
 
@@ -93,7 +111,7 @@ const Deposit: NextPage = () => {
       <div className="max-w-[900px] my-0 mx-auto px-3 lg:px-0">
         <div className="flex flex-col lg:flex-row justify-between items-center mb-10">
           <IconButton
-            buttonText="Deposits"
+            buttonText={t('deposits')}
             buttonIcon={BackIcon}
             buttonHref="/home"
           />
