@@ -23,7 +23,7 @@ import bankIcon from '@public/icons/bank.svg';
 import TsxsTable from './TransactionsTable';
 import Card from '../Card';
 
-const { TELLER_APPLICATION_ID } = process.env;
+const TELLER_APPLICATION_ID = 'app_nu123i0nvg249720i8000';
 
 interface Teller {
   accessToken: string;
