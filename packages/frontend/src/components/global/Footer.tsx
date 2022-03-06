@@ -72,12 +72,8 @@ const Footer = ({ card = false }) => {
                 </Link>
               </li>
               <li className="mb-4">
-                <Link href="/static/media/privacy_policy.txt">
-                  <a
-                    className="font-medium font-primary text-lg leading-[-0.03em] text-black underline"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                <Link href="/privacy">
+                  <a className="font-medium font-primary text-lg leading-[-0.03em] text-black underline">
                     {t('policy')}
                   </a>
                 </Link>
