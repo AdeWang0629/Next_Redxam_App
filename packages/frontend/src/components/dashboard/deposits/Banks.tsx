@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useState, useEffect, useContext } from 'react';
 import { NextPage } from 'next';
 import * as Sentry from '@sentry/nextjs';
@@ -5,20 +7,23 @@ import Script from 'next/script';
 import { usePlaidLink } from 'react-plaid-link';
 import Image from 'next/image';
 import api from '@utils/api';
-import Card from '../Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import UnlinkModel from '@components/models/UnlinkModel';
 import DepositModel from '@components/models/DepositModel';
-import TsxsTable from './TransactionsTable';
 import { UserContext } from '@providers/User';
 import { getCookie } from 'cookies-next';
+import { useTranslation } from 'next-i18next';
 
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import BankImage from '@public/images/dashboard/deposits/bank.svg';
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
+import TsxsTable from './TransactionsTable';
+import Card from '../Card';
+
+const TELLER_APPLICATION_ID = 'app_nu123i0nvg249720i8000';
 
 interface Teller {
   accessToken: string;
@@ -34,12 +39,13 @@ interface Teller {
 }
 
 const BanksView: NextPage = () => {
-  const { user, loading, noUser } = useContext(UserContext);
+  const { t } = useTranslation('dashboard');
+  const { user } = useContext(UserContext);
   let userId = '';
   if (user) {
     userId = user._id;
   }
-  const [paymentApi, setPaymentApi] = useState('TELLER');
+  const [paymentApi] = useState('TELLER');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
@@ -68,20 +74,20 @@ const BanksView: NextPage = () => {
     bankName: ''
   });
 
-  let currentEnvironment =
+  const currentEnvironment =
     typeof window !== 'undefined'
       ? (getCookie('environment') as string) || 'production'
       : 'production';
 
   useEffect(() => {
     (async () => {
-      let { data: plaidTokenData } = await api.getPlaidToken();
+      const { data: plaidTokenData } = await api.getPlaidToken();
       setPlaidToken(plaidTokenData.token);
 
-      let { data: accountsData } = await api.getBankAccounts();
+      const { data: accountsData } = await api.getBankAccounts();
       setAccounts(accountsData.accounts);
 
-      let { data: userDepositsData } = await api.getUserDeposits();
+      const { data: userDepositsData } = await api.getUserDeposits();
       setDeposits(
         userDepositsData.data.userDeposits
           .filter((deposit: { type: string }) => deposit.type === 'FIAT')
@@ -95,21 +101,23 @@ const BanksView: NextPage = () => {
     })();
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { open, exit, ready } = usePlaidLink({
     onSuccess: (public_token, metadata) =>
       api.linkPlaidAccount(public_token, metadata).then(async () => {
-        let { data: accountsData } = await api.getBankAccounts();
+        const { data: accountsData } = await api.getBankAccounts();
         setAccounts(accountsData.accounts);
       }),
     token: plaidToken,
     countryCodes: ['US', 'CA', 'GB', 'IE', 'FR', 'ES', 'NL'],
-    env: process.env.NODE_ENV === 'development' ? 'sandbox' : 'development'
+    env: process.env.NODE_ENV === 'development' ? 'development' : 'development'
   });
 
   const handleAddBankAccount = async () => {
     switch (paymentApi) {
       case 'MX':
-        let { data: widgetUrl } = await api.getMXWidgetUrl();
+        // eslint-disable-next-line no-case-declarations
+        const { data: widgetUrl } = await api.getMXWidgetUrl();
         if (widgetUrl.errors) {
           Sentry.captureEvent(widgetUrl.errors);
           return setMxWidgetError(true);
@@ -128,7 +136,12 @@ const BanksView: NextPage = () => {
 
       case 'PLAID':
         break;
+
+      default:
+        break;
     }
+
+    return null;
   };
 
   const handleTellerAccount = async (accessToken: string): Promise<string> => {
@@ -165,16 +178,15 @@ const BanksView: NextPage = () => {
     } = await api.tellerPayee(accountId, accessToken);
 
     if (tellerPayee.connect_token) {
-      //@ts-ignore
+      // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'sandbox',
+          currentEnvironment === 'production' ? 'production' : 'development',
         connectToken: tellerPayee.connect_token,
-        applicationId: 'app_nu123i0nvg249720i8000',
-        onSuccess: function ({ payee: { id } }: { payee: { id: string } }) {
+        applicationId: TELLER_APPLICATION_ID,
+        onSuccess({ payee: { id } }: { payee: { id: string } }) {
           setTeller(state => ({
             ...state,
-            paymentModel: true,
             payeeId: id
           }));
         }
@@ -183,7 +195,6 @@ const BanksView: NextPage = () => {
     } else {
       setTeller(state => ({
         ...state,
-        paymentModel: true,
         payeeId: tellerPayee.payeeId
       }));
     }
@@ -193,11 +204,9 @@ const BanksView: NextPage = () => {
     const {
       accountId,
       depositValue,
-      payeeId,
-      accessToken,
       memo,
       bankName,
-      userId
+      userId: tellerUserId
     } = teller;
     const {
       data: {
@@ -206,33 +215,36 @@ const BanksView: NextPage = () => {
     } = await api.tellerPayment(
       accountId,
       depositValue,
-      payeeId,
-      accessToken,
       bankName,
-      userId,
+      tellerUserId,
       memo
     );
 
     if (tellerPayment.connect_token) {
-      //@ts-ignore
+      // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'sandbox',
+          currentEnvironment === 'production' ? 'production' : 'development',
         connectToken: tellerPayment.connect_token,
-        applicationId: 'app_nu123i0nvg249720i8000',
-        onSuccess: async function ({ payment: { id } }: any) {
-          setTeller(state => ({ ...state, paymentModel: false }));
-          const { depositValue, bankName, userId } = teller;
-          const res = await api.tellerPaymentVerified(
+        applicationId: TELLER_APPLICATION_ID,
+        async onSuccess({ payment: { id } }: any) {
+          setTeller(state => ({ ...state }));
+          const {
+            depositValue: newDepositValue,
+            bankName: newBankName,
+            userId: newUserId
+          } = teller;
+
+          await api.tellerPaymentVerified(
             id,
-            depositValue,
-            bankName,
-            userId
+            newDepositValue,
+            newBankName,
+            newUserId
           );
         }
       });
       setup.open();
-    } else setTeller(state => ({ ...state, paymentModel: false }));
+    } else setTeller(state => ({ ...state }));
   };
 
   return (
@@ -263,13 +275,13 @@ const BanksView: NextPage = () => {
                 environment:
                   currentEnvironment === 'production'
                     ? 'production'
-                    : 'sandbox',
-                applicationId: 'app_nu123i0nvg249720i8000',
+                    : 'development',
+                applicationId: TELLER_APPLICATION_ID,
 
-                onSuccess: async function ({ accessToken }: any) {
+                async onSuccess({ accessToken }: any) {
                   setTeller(state => ({
                     ...state,
-                    accessToken: accessToken
+                    accessToken
                   }));
 
                   const accountId = await handleTellerAccount(accessToken);
@@ -283,12 +295,12 @@ const BanksView: NextPage = () => {
         paymentApi === 'PLAID' && ''
       )}
 
-      <div className="flex flex-col lg:flex-row lg:gap-x-3">
+      <div className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse lg:gap-x-3">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
             <div className="flex items-center justify-between px-8">
               <h1 className="font-secondary font-medium text-lg py-6">
-                Added banks
+                {t('addedBanks')}
               </h1>
               {accounts.length ? (
                 unlinkMode ? (
@@ -301,14 +313,14 @@ const BanksView: NextPage = () => {
                       }}
                       onClick={() => setShowUnlinkModel(true)}
                     >
-                      Unlink
+                      {t('unlink')}
                     </button>
                   ) : (
                     <button
                       className="py-2 px-8 rounded-[25px] border font-secondary text-sm font-medium"
                       onClick={() => setUnlinkMode(false)}
                     >
-                      Cancel
+                      {t('cancel')}
                     </button>
                   )
                 ) : (
@@ -343,7 +355,7 @@ const BanksView: NextPage = () => {
                         height="40"
                         alt="account logo"
                       />
-                      <div className="flex flex-col justify-center ml-5">
+                      <div className="flex flex-col justify-center ltr:ml-5 rtl:mr-5">
                         <h2 className="font-secondary text-sm font-medium">
                           {account.name}
                         </h2>
@@ -381,8 +393,9 @@ const BanksView: NextPage = () => {
                   <button
                     className="font-secondary font-medium underline cursor-pointer transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                     disabled={!plaidToken.length}
+                    onClick={handleAddBankAccount}
                   >
-                    Add Bank Account
+                    {t('addBankAccount')}
                   </button>
                 </div>
               </div>
@@ -390,8 +403,7 @@ const BanksView: NextPage = () => {
               <div className="mt-16 flex flex-col items-center px-8 pb-10">
                 <Image src={BankImage} alt="Bank Ilustration" />
                 <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
-                  Your KYC is complete, now you can add multiple bank accounts
-                  to your redxam.
+                  {t('addMultipleAccounts')}
                 </p>
 
                 <button
@@ -403,7 +415,7 @@ const BanksView: NextPage = () => {
                   onClick={handleAddBankAccount}
                   // disabled={!plaidToken.length}
                 >
-                  Add Bank Account
+                  {t('addBankAccount')}
                 </button>
               </div>
             )}
@@ -434,7 +446,7 @@ const BanksView: NextPage = () => {
                       />
                     </button>
                     <p className="text-lg font-secondary">
-                      Invalid Access Token
+                      {t('invalidAccessToken')}
                     </p>
                   </div>
                 </Card>
@@ -465,17 +477,18 @@ const BanksView: NextPage = () => {
                         id="tellerMemo"
                       />
                       <label className="font-primary" htmlFor="firstName">
-                        Enter a description
+                        {t('enterADescription')}
                       </label>
                     </div>
-                    <div className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
+                    <div dir="ltr" className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
                       <span className="text-card-button">$</span>
                       <input
                         className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
                         value={`${teller.depositValue}`}
                         style={{
-                          width: teller.depositValue.toString().length + 'ch'
+                          width: `${teller.depositValue.toString().length}ch`
                         }}
+                        // eslint-disable-next-line jsx-a11y/no-autofocus
                         autoFocus
                         onChange={({ target }) => {
                           const value = target.value.replace(/[^0-9]/g, '');
@@ -488,7 +501,7 @@ const BanksView: NextPage = () => {
                       <span>.00</span>
                     </div>
                     <span className="font-secondary text-sm text-[#95989B]">
-                      Enter amount you want to deposit
+                      {t('enterAmountToDeposit')}
                     </span>
                     <button
                       className="w-full mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
@@ -499,7 +512,7 @@ const BanksView: NextPage = () => {
                       disabled={teller.depositValue < 10}
                       onClick={() => handleBankDeposit()}
                     >
-                      Deposit to Wallet
+                      {t('depositToWallet')}
                     </button>
                   </div>
                 </Card>
@@ -515,7 +528,7 @@ const BanksView: NextPage = () => {
               }}
               onClick={() => setShowDepositModel(true)}
             >
-              Deposit to Wallet
+              {t('depositToWallet')}
             </button>
           ) : null}
         </div>
@@ -543,7 +556,7 @@ const BanksView: NextPage = () => {
                   />
                 </button>
               </div>
-              <div id="widget" className="z-10"></div>
+              <div id="widget" className="z-10" />
             </Card>
           </div>
         )}
@@ -582,7 +595,7 @@ const BanksView: NextPage = () => {
           accounts={accounts}
           IDs={selectedToUnlink}
           fetchAccounts={async () => {
-            let { data: accountsData } = await api.getBankAccounts();
+            const { data: accountsData } = await api.getBankAccounts();
             setAccounts(accountsData.accounts);
             setUnlinkMode(false);
             setSelectedToUnlink([]);

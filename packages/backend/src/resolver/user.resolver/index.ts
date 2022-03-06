@@ -8,9 +8,13 @@ import { balanceRecords } from './balanceRecords.resolver';
 import { changeAccountStatus } from './changeAccountStatus.resolver';
 import { waitlistLevel } from './waitlist.resolver';
 import { mxWidgetConnect } from './mxWidgetConnect.resolver';
-import { emailValidation, emailValidateToken } from './emailValidation.resolver';
+import {
+  emailValidation,
+  emailValidateToken
+} from './emailValidation.resolver';
 import { addDiscord } from './addDiscord.resolver';
 import { contactForm } from './contactForm.resolver';
+import { invitationCode } from './invitationCode.resolver';
 
 export const UserResolver = {
   checkRole,
@@ -27,4 +31,5 @@ export const UserResolver = {
   emailValidateToken,
   addDiscord,
   contactForm,
+  invitationCode
 };

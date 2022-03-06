@@ -19,9 +19,9 @@ const EventBanner: NextComponentType = () => {
   }, [timestamp]);
 
   const updateRemainingTime = (
-    timestamp: string | number | Date | dayjs.Dayjs | null | undefined
+    newTimestamp: string | number | Date | dayjs.Dayjs | null | undefined
   ) => {
-    const timestampDayJs = dayjs(timestamp);
+    const timestampDayJs = dayjs(newTimestamp);
     const nowDayJs = dayjs();
     const seconds = timestampDayJs.diff(nowDayJs, 'seconds') % 60;
     const minutes = timestampDayJs.diff(nowDayJs, 'minutes') % 60;

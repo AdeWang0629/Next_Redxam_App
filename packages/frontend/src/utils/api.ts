@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { getCookie, setCookies } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 
 class API {
   axios: AxiosInstance;
@@ -49,7 +49,7 @@ class API {
   }
 
   validateEmailToken(token: string) {
-    let mutation = `mutation {
+    const mutation = `mutation {
       emailValidateToken {
           message
           success
@@ -71,7 +71,7 @@ class API {
     emailAddress: string;
     question: string;
   }) {
-    let query = `{
+    const query = `{
       contactForm (arg: {
         email: "${form.emailAddress}",
         firstName: "${form.firstName}",
@@ -92,7 +92,7 @@ class API {
     lastName?: string,
     referralCode?: string
   ) {
-    let mutation = `mutation {
+    const mutation = `mutation {
         createWaitlist(arg: {
           email: "${email}"
           ${firstName?.length ? `, firstName: "${firstName}"` : ''}
@@ -123,7 +123,7 @@ class API {
   }
 
   login(email: string) {
-    let mutation = `mutation {
+    const mutation = `mutation {
         updateToken(arg: {
             email: "${email}"
           }) {
@@ -136,7 +136,7 @@ class API {
   }
 
   verify(token: string) {
-    let mutation = `mutation {
+    const mutation = `mutation {
         verifyToken(arg: {token: "${token}"}) {
             message
             success
@@ -147,21 +147,16 @@ class API {
     return this.axios.post(`${this.baseURL}/api/v1`, { query: mutation });
   }
 
-  invite(code: string) {
-    let mutation = `mutation {
-      changeAccountStatus(arg: "${code}") {
-        success,
-        message
+  invite(invitationCode: string) {
+    const mutation = `mutation {
+      invitationCode(code: "${invitationCode}"){
+          message
+          success
+          token
       }
-    }`;
+  }`;
 
-    return this.axios.post(
-      `${this.baseURL}/api/v1`,
-      { query: mutation },
-      {
-        headers: { ...this.getAuthorizationHeader() }
-      }
-    );
+    return this.axios.post(`${this.baseURL}/api/v1`, { query: mutation });
   }
 
   getUserData() {
@@ -214,7 +209,7 @@ class API {
   }
 
   getAdminDetails(token: string) {
-    const query = `query { admin { email } }`;
+    const query = 'query { admin { email } }';
 
     return this.axios.post(
       `${this.baseURL}/api/v1`,
@@ -226,7 +221,7 @@ class API {
   }
 
   adminLogin(email: string, password: string) {
-    const query = `query { adminLogin { token } }`;
+    const query = 'query { adminLogin { token } }';
 
     return this.axios.post(`${this.baseURL}/api/v1`, {
       query,
@@ -361,14 +356,30 @@ class API {
   }
 
   deposit(accountId: string, amount: number) {
-    return this.axios.post(
-      `${this.baseURL}/api/v2/plaid/deposit`,
-      {
-        account_id: accountId,
-        amount
-      },
-      { headers: { ...this.getAuthorizationHeader() } }
-    );
+    switch ('TELLER' as string) {
+      case 'PLAID':
+        return this.axios.post(
+          `${this.baseURL}/api/v2/plaid/deposit`,
+          {
+            account_id: accountId,
+            amount
+          },
+          { headers: { ...this.getAuthorizationHeader() } }
+        );
+
+      case 'TELLER':
+        return this.axios.post(
+          `${this.baseURL}/api/v2/teller/deposit`,
+          {
+            account_id: accountId,
+            amount
+          },
+          { headers: { ...this.getAuthorizationHeader() } }
+        );
+
+      default:
+        break;
+    }
   }
 
   stripeDeposit(amount: number) {
@@ -434,7 +445,7 @@ class API {
     email: String,
     status: 'invited' | 'accepted'
   ) {
-    const query = `mutation {
+    const mutation = `mutation {
       updateUserStatus (arg: {email: "${email}", status: "${status}"}) {
         message
         success
@@ -442,10 +453,40 @@ class API {
     }`;
     return this.axios.post(
       `${this.baseURL}/api/v1`,
-      { query },
+      { query: mutation },
       {
         headers: { Authorization: `Bearer ${adminToken}` }
       }
+    );
+  }
+
+  inviteUser(adminToken: String, email: String) {
+    const mutation = `mutation {
+      inviteUser(arg:{email: "${email}"}){
+          message
+          success
+      }
+  }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
+  invitationCode(invitationCode: string) {
+    const mutation = `mutation {
+      invitationCode(code: "${invitationCode}"){
+          message
+          success
+      }
+  }}`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      { headers: { ...this.getAuthorizationHeader() } }
     );
   }
 
@@ -512,8 +553,6 @@ class API {
   tellerPayment(
     accountId: string,
     amount: number,
-    payee_id: string,
-    tellerAccessToken: string,
     bankName: string,
     userId: string,
     memo?: string
@@ -523,7 +562,6 @@ class API {
       tellerPayment (arg: {
         accountId: "${accountId}", 
         amount: "${amount}", 
-        payee_id: "${payee_id}", 
         bankName: "${bankName}", 
         userId: "${userId}",
         memo: "${memo}" }
@@ -539,7 +577,7 @@ class API {
       `${this.baseURL}/api/v1`,
       { query },
       {
-        headers: { Authorization: tellerAccessToken }
+        headers: { ...this.getAuthorizationHeader() }
       }
     );
   }
@@ -569,6 +607,25 @@ class API {
       { query },
       {
         headers: { ...this.getAuthorizationHeader() }
+      }
+    );
+  }
+
+  getPayee(accountId: string, tellerAccessToken: string) {
+    const query = `
+    query {
+      getPayee (accountId: "${accountId}") {
+          message
+          success
+          payeeId
+      }
+  }
+  `;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: tellerAccessToken }
       }
     );
   }

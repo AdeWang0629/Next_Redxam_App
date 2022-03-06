@@ -7,16 +7,8 @@ import UserProvider from '@providers/User';
 import BalanceRecordsProvider from '@providers/BalanceRecords';
 import Head from 'next/head';
 import { appWithTranslation } from 'next-i18next';
-import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  /* useEffect(() => {
-    if (typeof window !== "undefined") {
-      let theme = localStorage.getItem("theme");
-      if (theme === "dark") document.body.classList.add("dark");
-    }
-  }, []); */
-
   return (
     <>
       <Head>
@@ -95,6 +87,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <HomeProvider>
           <UserProvider>
             <BalanceRecordsProvider>
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
               <Component {...pageProps} />
             </BalanceRecordsProvider>
           </UserProvider>

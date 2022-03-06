@@ -173,7 +173,7 @@ type home {
   dolarChange: Float
 }
 
-type FeatureCheck {
+type FeatureFlag {
   status: Boolean
 }
 
@@ -238,7 +238,6 @@ input TellerPaymentInput {
   accountId: String!
   amount: String!
   memo: String
-  payee_id: String!
   bankName: String!
   userId: String!
 }
@@ -248,6 +247,18 @@ input TellerPaymentVerifiedInput {
   paymentId: String!
   bankName: String!
   userId: String!
+}
+
+type InvitationCode {
+  success: Boolean
+  message: String
+  token: String
+}
+
+type GetPayee {
+  success: Boolean
+  message: String
+  payeeId: String
 }
 
 type Query {
@@ -260,7 +271,7 @@ type Query {
   adminLogin: adminToken
   admin: admin
   home: home
-  featureCheck: FeatureCheck
+  featureFlag: FeatureFlag
   startTwilioVerify: Response
   checkTwilioVerify(arg: check): Response
   overview: overview
@@ -274,6 +285,7 @@ type Query {
   tellerPayee(accountId: String): TellerPayee
   tellerPayment(arg: TellerPaymentInput): TellerPayment
   tellerPaymentVerified(arg: TellerPaymentVerifiedInput): Response
+  getPayee(accountId: String): GetPayee
 }
 
 type Mutation {
@@ -283,6 +295,8 @@ type Mutation {
   sendReferral(arg: SendReferInput): Response
   goUpQueue: Response
   createWaitlist(arg: NewUser): Response
+  inviteUser(arg: NewUser): Response
+  invitationCode(code: String): InvitationCode
   emailValidateToken: Response
   createManualUser(arg: NewManualUser): Response
   createAdmin(arg: newAdmin): Response

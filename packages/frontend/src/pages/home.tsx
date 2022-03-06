@@ -10,15 +10,34 @@ import BalanceCard from '@components/dashboard/BalanceCard';
 import ReferCard from '@components/dashboard/ReferCard';
 import RecentActivity from '@components/dashboard/RecentActivity';
 import Chart from '@components/dashboard/ChartCard';
+import { useTranslation } from 'next-i18next';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  if (!locale) {
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        'dashboard'
+      ]))
+    }
+  };
+};
 
 const Home: NextPage = () => {
+  const { t } = useTranslation('dashboard');
   const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
 
   // @ts-ignore
   useEffect(() => {
     if (noUser) return router.push('/login');
-  }, [noUser]);
+    return null;
+  }, [noUser, router]);
 
   useEffect(() => {
     if (
@@ -29,7 +48,7 @@ const Home: NextPage = () => {
     ) {
       router.push('/invite');
     }
-  }, [user?.accountStatus]);
+  }, [user?.accountStatus, noUser, loading, router]);
 
   if (loading) return <span>loading</span>;
 
@@ -37,21 +56,19 @@ const Home: NextPage = () => {
     <InternalLayout>
       <div className="px-3 lg:px-0 max-w-[900px] my-0 mx-auto">
         <div className="flex justify-between items-center mb-10">
-          <IconButton buttonText={'Settings'} buttonIcon={settings} />
+          <IconButton buttonText={t('settings')} buttonIcon={settings} />
         </div>
         <div className="lg:grid lg:grid-cols-2 lg:gap-5">
           <BalanceCard />
           <ReferCard />
           <RecentActivity />
           <Chart
-            data={new Array(100).fill(0).map((_, i) => {
-              return {
-                time: new Date().getTime() + 60000 * 60 * 24 * i,
-                value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1)
-              };
-            })}
+            data={new Array(100).fill(0).map((_, i) => ({
+              time: new Date().getTime() + 60000 * 60 * 24 * i,
+              value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1)
+            }))}
           />
-          <div></div>
+          <div />
         </div>
       </div>
     </InternalLayout>

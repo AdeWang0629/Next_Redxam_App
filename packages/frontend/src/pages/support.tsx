@@ -1,15 +1,15 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from 'react';
 
-import type { NextPage } from "next";
-import { GetStaticProps } from "next";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import type { NextPage } from 'next';
+import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import FAQ from "@components/landing/FAQ";
-import Navbar from "@components/global/Navbar";
-import Footer from "@components/global/Footer";
+import FAQ from '@components/landing/FAQ';
+import Navbar from '@components/global/Navbar';
+import Footer from '@components/global/Footer';
 
-import ContactFormModel from "@components/models/ContactFormModel";
+import ContactFormModel from '@components/models/ContactFormModel';
 
 interface InterfaceTQuestions {
   title: string;
@@ -25,59 +25,59 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, [
-        "navbar",
-        "waitlist",
-        "login",
-        "hero",
-        "whyus",
-        "starting",
-        "relax",
-        "calculate",
-        "banks",
-        "plan",
-        "faq",
-        "newsletter",
-        "footer",
-        "contact",
-      ])),
-    },
+        'navbar',
+        'waitlist',
+        'login',
+        'hero',
+        'whyus',
+        'starting',
+        'relax',
+        'calculate',
+        'banks',
+        'plan',
+        'faq',
+        'newsletter',
+        'footer',
+        'contact'
+      ]))
+    }
   };
 };
 
 const Support: NextPage = () => {
-  const { t } = useTranslation("faq");
+  const { t } = useTranslation('faq');
 
-  let questions: InterfaceTQuestions[] = [
+  const questions: InterfaceTQuestions[] = [
     {
-      title: t("first-question-title"),
-      body: t("first-question-body"),
-      keywords: t("first-question-keyword"),
+      title: t('first-question-title'),
+      body: t('first-question-body'),
+      keywords: t('first-question-keyword')
     },
     {
-      title: t("second-question-title"),
-      body: t("second-question-body"),
-      keywords: t("second-question-keyword"),
+      title: t('second-question-title'),
+      body: t('second-question-body'),
+      keywords: t('second-question-keyword')
     },
     {
-      title: t("third-question-title"),
-      body: t("third-question-body"),
-      keywords: t("third-question-keyword"),
+      title: t('third-question-title'),
+      body: t('third-question-body'),
+      keywords: t('third-question-keyword')
     },
     {
-      title: t("fourth-question-title"),
-      body: t("fourth-question-body"),
-      keywords: t("fourth-question-keyword"),
+      title: t('fourth-question-title'),
+      body: t('fourth-question-body'),
+      keywords: t('fourth-question-keyword')
     },
     {
-      title: t("fifth-question-title"),
-      body: t("fifth-question-body"),
-      keywords: t("fifth-question-keyword"),
-    },
+      title: t('fifth-question-title'),
+      body: t('fifth-question-body'),
+      keywords: t('fifth-question-keyword')
+    }
   ];
 
   const [filteredQuestionsList, applyFilterInQuestionList] =
     useState(questions);
-  const [inputSearch, updateInputSearch] = useState("");
+  const [inputSearch, updateInputSearch] = useState('');
 
   const isInputSearchEmpty = !inputSearch || inputSearch?.length === 0;
 
@@ -92,15 +92,18 @@ const Support: NextPage = () => {
     updateInputSearch(event.target.value);
 
     const suggestedFAQ = [
-      ...(questions?.filter((question) => {
+      ...(questions?.filter(question => {
         const faqContents =
+          // eslint-disable-next-line no-unsafe-optional-chaining
           question?.title?.toLowerCase() +
+          // eslint-disable-next-line no-unsafe-optional-chaining
           question?.body?.toLowerCase() +
+          // eslint-disable-next-line no-unsafe-optional-chaining
           question?.keywords?.toLowerCase();
         const searchName = event.target.value?.toLowerCase()?.trim();
 
         return faqContents.includes(searchName);
-      }) || []),
+      }) || [])
     ];
 
     applyFilterInQuestionList(suggestedFAQ);
@@ -129,7 +132,7 @@ const Support: NextPage = () => {
         <div>
           <div className="faq-wrapper">
             <FAQ
-              isSearchFilterRequired={true}
+              isSearchFilterRequired
               filteredQuestionsList={filteredQuestionsList}
               isInputSearchEmpty={isInputSearchEmpty}
             />

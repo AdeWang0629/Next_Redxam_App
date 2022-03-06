@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import axios from 'axios';
-import { Deposits, DepositsCurrencyType, DepositsType } from '@/database';
+import { User, Deposits, DepositsCurrencyType, DepositsType } from '@/database';
+import { getPayee } from './getPayee.resolver';
 
 const baseUrl = 'https://api.teller.io';
 
@@ -12,7 +13,6 @@ export const tellerPayment = async (
       accountId: string;
       amount: string;
       memo: string;
-      payee_id: string;
       bankName: string;
       userId: string;
     };
@@ -20,22 +20,27 @@ export const tellerPayment = async (
   req: Request
 ) => {
   try {
-    const accessToken = req.headers.authorization;
+    const user = await User.findOne({ _id: arg.userId });
 
-    if (!accessToken)
-      return {
-        success: false,
-        message: 'invalid access token provided'
-      };
+    const bankAccount = user.bankAccounts.find(bank =>
+      bank.accounts.find(acc => acc.id === arg.accountId)
+    );
+
+    const { accessToken } = bankAccount;
+
+    const payee_id = (
+      await getPayee({ accountId: arg.accountId, accessToken }, null)
+    ).payeeId;
 
     const payeeRes = await axios.post(
       `${baseUrl}/accounts/${arg.accountId}/payments/zelle`,
       {
-        ...arg
+        ...arg,
+        payee_id
       },
       {
         auth: {
-          username: accessToken,
+          username: accessToken as string,
           password: ''
         }
       }

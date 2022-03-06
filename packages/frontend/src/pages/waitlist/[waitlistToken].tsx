@@ -19,7 +19,7 @@ const WaitlistToken: NextPage = () => {
     message: '',
     success: true,
     level: '',
-    referralCode: '',
+    referralCode: ''
   });
   const [loading, setLoading] = useState(true);
   const [baseUrl, setBaseUrl] = useState('');
@@ -43,8 +43,8 @@ const WaitlistToken: NextPage = () => {
       {loading ? (
         <Image
           src={AnimatedLogo}
-          width={'50px'}
-          height={'45,5px'}
+          width="50px"
+          height="45,5px"
           alt="redxam Animated Logo"
         />
       ) : (

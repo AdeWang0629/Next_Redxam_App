@@ -8,27 +8,38 @@ import { User } from '@/database';
 import { sendMail } from '@/apis/sendgrid/index';
 import { messages } from '@/config/messages';
 import { createWaitlist } from '../referral.resolver/createWaitlist.resolver';
-import getAuthorizationToken from '../getAuthorizationToken';
+import getAuthorizationToken from '../share/getAuthorizationToken';
 import { Argument, NewUser } from '../types';
 
 const { TOKEN_SECURITY_KEY, SERVICE_EMAIL } = process.env;
 
-export const emailValidation = async ({ arg }: Argument<NewUser>, req: Request) => {
+export const emailValidation = async (
+  { arg }: Argument<NewUser>,
+  req: Request
+) => {
   console.log(req.headers.origin);
   try {
     if (await isUser(arg.email)) {
       return await createWaitlist({ arg }, req);
     }
-    const verificationToken = sign({ ...arg }, TOKEN_SECURITY_KEY, { expiresIn: '1h' });
+    const verificationToken = sign({ ...arg }, TOKEN_SECURITY_KEY, {
+      expiresIn: '1h'
+    });
     await sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
       to: arg.email,
       subject: 'Verification email from redxam',
-      attachments: [facebookIcon, twitterIcon, linkedInIcon, telegramIcon, discordIcon],
+      attachments: [
+        facebookIcon,
+        twitterIcon,
+        linkedInIcon,
+        telegramIcon,
+        discordIcon
+      ],
       html: render(templateData, {
         verificationToken,
-        origin: req.headers.origin,
-      }),
+        origin: req.headers.origin
+      })
     });
     return { success: true, message: 'verification email sent succesfully' };
   } catch (error) {
@@ -56,35 +67,45 @@ const templateData = readFileSync(templatePath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',
-  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString(
+    'base64'
+  ),
   content_id: 'facebook@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const twitterIcon: Readonly<Attachment> = Object.freeze({
   filename: 'twitter.png',
-  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString(
+    'base64'
+  ),
   content_id: 'twitter@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const linkedInIcon: Readonly<Attachment> = Object.freeze({
   filename: 'linkedin.png',
-  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString(
+    'base64'
+  ),
   content_id: 'linkedin@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const telegramIcon: Readonly<Attachment> = Object.freeze({
   filename: 'telegram.png',
-  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString(
+    'base64'
+  ),
   content_id: 'telegram@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });
 
 const discordIcon: Readonly<Attachment> = Object.freeze({
   filename: 'discord.png',
-  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString('base64'),
+  content: readFileSync(`${__dirname}/../../emails/discord.png`).toString(
+    'base64'
+  ),
   content_id: 'discord@waitlist',
-  disposition: 'inline',
+  disposition: 'inline'
 });

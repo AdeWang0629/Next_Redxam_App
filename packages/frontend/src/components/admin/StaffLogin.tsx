@@ -1,19 +1,19 @@
-import type { NextPage } from "next";
-import { useState, useContext, BaseSyntheticEvent } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import api from "@utils/api";
-import Image from "next/image";
-import Link from "next/link";
-import { AdminContext } from "@providers/Admin";
-import { setCookies } from "cookies-next";
+import type { NextPage } from 'next';
+import { useState, useContext, BaseSyntheticEvent } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import api from '@utils/api';
+import Image from 'next/image';
+import Link from 'next/link';
+import { AdminContext } from '@providers/Admin';
+import { setCookies } from 'cookies-next';
 
-import logo from "@public/logo.svg";
+import logo from '@public/logo.svg';
 
 const StaffLogin: NextPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { setUser, setNoUser } = useContext(AdminContext);
@@ -21,16 +21,16 @@ const StaffLogin: NextPage = () => {
   const handleSubmit = async (e: BaseSyntheticEvent) => {
     e.preventDefault();
 
-    if (!email) return alert("Email is required!");
-    if (!password) return alert("Password is required!");
+    if (!email) return alert('Email is required!');
+    if (!password) return alert('Password is required!');
 
-    setError("");
+    setError('');
     setLoading(true);
 
     try {
-      let { data } = await api.adminLogin(email, password);
+      const { data } = await api.adminLogin(email, password);
 
-      setCookies("admin_token", data.data.adminLogin.token);
+      setCookies('admin_token', data.data.adminLogin.token);
 
       api
         .getAdminDetails(data.data.adminLogin.token)
@@ -38,12 +38,14 @@ const StaffLogin: NextPage = () => {
           setUser(data2.data.admin);
           setNoUser(false);
         });
-    } catch (error) {
-      console.error(error);
-      setError("Invalid Email or Password");
+    } catch (error2) {
+      console.error(error2);
+      setError('Invalid Email or Password');
     } finally {
       setLoading(false);
     }
+
+    return null;
   };
 
   return (
@@ -56,15 +58,15 @@ const StaffLogin: NextPage = () => {
         {error && (
           <span
             style={{
-              backgroundColor: "rgba(255,0,0,0.2)",
-              borderLeft: "2px solid red",
+              backgroundColor: 'rgba(255,0,0,0.2)',
+              borderLeft: '2px solid red'
             }}
             className="mt-12 flex items-center justify-between text-lg text-black dark:text-white py-4 px-6 rounded-lg"
           >
             <span>{error}</span>
             <button
               className="border border-red-900 rounded-full p-1 flex items-center justify-center cursor-pointer w-8 h-8"
-              onClick={() => setError("")}
+              onClick={() => setError('')}
             >
               <FontAwesomeIcon icon={faTimes} className="text-red-900" />
             </button>
@@ -77,7 +79,7 @@ const StaffLogin: NextPage = () => {
             placeholder="Email or username"
             className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight dark:text-black"
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
           <input
             type="password"
@@ -85,7 +87,7 @@ const StaffLogin: NextPage = () => {
             placeholder="Password"
             className="px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight dark:text-black mt-4"
             required
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
           <div className="flex px-3 mt-8">
             <div className="flex-1 flex items-center">
@@ -96,7 +98,7 @@ const StaffLogin: NextPage = () => {
             </div>
             <div className="flex-1 flex justify-end">
               <Link href="/">
-                <a style={{ color: "rgba(62,180,2,1)" }}>Reset password</a>
+                <a style={{ color: 'rgba(62,180,2,1)' }}>Reset password</a>
               </Link>
             </div>
           </div>
@@ -104,9 +106,9 @@ const StaffLogin: NextPage = () => {
             type="submit"
             value="Submit"
             className={`text-white rounded-full px-12 py-3 mt-32 self-center transition-opacity duration-300 hover:opacity-70 cursor-pointer ${
-              loading ? "opacity-30 pointer-events-none" : ""
+              loading ? 'opacity-30 pointer-events-none' : ''
             }`}
-            style={{ backgroundColor: "rgba(62,180,2,1)" }}
+            style={{ backgroundColor: 'rgba(62,180,2,1)' }}
           />
         </form>
       </div>
