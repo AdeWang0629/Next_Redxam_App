@@ -9,7 +9,7 @@ export default {
   component: BalanceCard
 } as Meta;
 
-const Template: Story<ComponentProps<typeof BalanceCard>> = (args) => (
+const Template: Story<ComponentProps<typeof BalanceCard>> = args => (
   <BalanceCard />
 );
 

@@ -11,7 +11,7 @@ export default {
   component: Card
 } as Meta;
 
-const Template: Story<ComponentProps<typeof Card>> = (args) => (
+const Template: Story<ComponentProps<typeof Card>> = args => (
   <Card {...args}>{args.children}</Card>
 );
 

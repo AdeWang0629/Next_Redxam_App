@@ -5,9 +5,9 @@ module.exports = withSentryConfig(
   /** @type {import('next').NextConfig} */
   {
     i18n,
-    reactStrictMode: true,
+    reactStrictMode: true
   },
   {
-    silent: true,
+    silent: true
   }
 );

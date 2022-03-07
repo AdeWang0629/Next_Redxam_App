@@ -10,6 +10,7 @@ export default {
 } as Meta;
 
 const Template: Story<ComponentProps<typeof Chart>> = (args) => (
+=======
   <div className="h-[fit-content] bg-blue-400">
     <Chart
       {...args}

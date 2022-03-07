@@ -45,7 +45,7 @@ export const Admin = () => {
             { name: 'Scripts', icon: faPlayCircle },
             { divider: true },
             { name: 'Settings', icon: faCogs }
-          ].map((section) => {
+          ].map(section => {
             const id = section.name
               ? section.name.split(' ').join('_').toLowerCase()
               : `divider_${Math.floor(Math.random() * 1000)}`;
@@ -113,7 +113,10 @@ export const Admin = () => {
             New deposit
           </button>
         </div>
-        <AdminView activeSection={activeSection} setActiveSection={setActiveSection} />
+        <AdminView
+          activeSection={activeSection}
+          setActiveSection={setActiveSection}
+        />
       </div>
     </div>
   );

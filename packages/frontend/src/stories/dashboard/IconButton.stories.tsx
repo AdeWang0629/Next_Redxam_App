@@ -9,7 +9,7 @@ export default {
   component: IconButton
 } as Meta;
 
-const Template: Story = (args) => (
+const Template: Story = args => (
   <div className="bg-black min-h-screen">
     <IconButton {...args} />
   </div>

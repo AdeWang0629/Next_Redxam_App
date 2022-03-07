@@ -9,7 +9,7 @@ export default {
   component: Footer
 } as Meta;
 
-const Template: Story<ComponentProps<typeof Footer>> = (args) => (
+const Template: Story<ComponentProps<typeof Footer>> = args => (
   <Footer {...args} />
 );
 

@@ -7,19 +7,21 @@ import { useRouter } from 'next/router';
 import BankIcon from '@public/icons/bank.svg';
 import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
 import { Deposit } from '@utils/types';
+import { useTranslation } from 'next-i18next';
 import Card from '../Card';
 
 const CardsView: NextPage = () => {
+  const { t } = useTranslation('dashboard');
   const router = useRouter();
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
   const [filteredDeposits, setFilteredDeposits] = useState<
-  | []
-  | [
-    {
-      month: number;
-      deposits: Deposit[];
-    }
-  ]
+    | []
+    | [
+        {
+          month: number;
+          deposits: Deposit[];
+        }
+      ]
   >([]);
   const [pendingDeposits, setPendingDeposits] = useState<[] | Deposit[]>([]);
 
@@ -38,10 +40,10 @@ const CardsView: NextPage = () => {
 
     api
       .stripeDeposit(value)
-      .then((res) => {
+      .then(res => {
         router.push(res.data.url);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
         alert(error?.message || 'An error occurred!');
       })
@@ -65,15 +67,16 @@ const CardsView: NextPage = () => {
 
     setFilteredDeposits(
       // @ts-ignore
-      months.map((month) => {
+      months.map(month => {
         const filtered = deposits
-          .filter((depositDetails) => depositDetails.status !== 'pending')
-          .filter((depositDetails) => (
-            depositDetails.type === 'FIAT' &&
+          .filter(depositDetails => depositDetails.status !== 'pending')
+          .filter(
+            depositDetails =>
+              depositDetails.type === 'FIAT' &&
               new Date(depositDetails.timestamp).getMonth() + 1 === month &&
               new Date(depositDetails.timestamp).getFullYear() ===
                 new Date().getFullYear()
-          ));
+          );
 
         return {
           month,
@@ -84,17 +87,20 @@ const CardsView: NextPage = () => {
   }, [deposits]);
 
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse">
       <div className="flex-1 flex flex-col">
         <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
           <div className="flex items-center justify-between px-8">
             <h1 className="font-secondary font-medium text-lg py-6">
-              Deposit
+              {t('deposit')}
             </h1>
           </div>
           <hr />
           <div className="p-8 flex flex-col items-center w-full">
-            <div className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
+            <div
+              dir="ltr"
+              className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto"
+            >
               <span className="text-card-button">$</span>
               <input
                 className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
@@ -110,18 +116,18 @@ const CardsView: NextPage = () => {
               <span>.00</span>
             </div>
             <span className="font-secondary text-sm text-[#95989B]">
-              Enter amount you want to deposit
+              {t('enterAmountToDeposit')}
             </span>
             <button
               className="w-full mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 boxShadow:
-                    '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
+                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
               }}
               disabled={value < 10 || depositLoading}
               onClick={deposit}
             >
-              Deposit to Wallet
+              {t('depositToWallet')}
             </button>
           </div>
         </Card>
@@ -129,14 +135,14 @@ const CardsView: NextPage = () => {
 
       <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0 lg:ml-3">
         <h1 className="px-8 py-6 font-secondary font-medium text-lg">
-          Recent deposits from Card
+          {t('recentDepositsCard')}
         </h1>
         <hr />
         {pendingDeposits.length ? (
           <>
             <div className="bg-yellow-100 py-1.5">
-              <p className="font-secondary text-yellow-400 font-bold text-xs pl-7">
-                Pending
+              <p className="font-secondary text-yellow-400 font-bold text-xs ltr:pl-7 rtl:pr-7">
+                {t('pending')}
               </p>
             </div>
             <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
@@ -147,30 +153,30 @@ const CardsView: NextPage = () => {
                     pendingDeposits.length !== 1 && index === 0
                       ? 'pb-5'
                       : pendingDeposits.length !== 1
-                        ? 'py-5'
-                        : ''
+                      ? 'py-5'
+                      : ''
                   } ${
                     // eslint-disable-next-line no-nested-ternary
                     pendingDeposits.length !== 1 &&
-                      index === pendingDeposits.length - 1
+                    index === pendingDeposits.length - 1
                       ? 'pt-5 pb-0'
                       : pendingDeposits.length !== 1
-                        ? 'border-b'
-                        : ''
+                      ? 'border-b'
+                      : ''
                   }`}
                   key={`deposit${depositDetails.timestamp}`}
                 >
                   <Image
                     src={
-                        depositDetails.bankIcon
-                          ? `data:image/png;base64,${depositDetails.bankIcon}`
-                          : BankIcon
-                      }
+                      depositDetails.bankIcon
+                        ? `data:image/png;base64,${depositDetails.bankIcon}`
+                        : BankIcon
+                    }
                     width="40px"
                     height="40px"
                     alt="Card Image"
                   />
-                  <div className="flex flex-col justify-center ml-4">
+                  <div className="flex flex-col justify-center ltr:ml-4 rtl:mr-4">
                     <p className="font-secondary text-sm text-lighter-black mb-1.5">
                       {depositDetails.bankName || 'Unknown card'}
                     </p>
@@ -180,13 +186,15 @@ const CardsView: NextPage = () => {
                   </div>
                   <div className="flex flex-col justify-center items-end ml-auto">
                     <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
-                      {depositDetails.currency === 'USD' ? '$' : depositDetails.currency}
+                      {depositDetails.currency === 'USD'
+                        ? '$'
+                        : depositDetails.currency}
                       {depositDetails.amount}
                     </p>
                     <div className="flex justify-center items-center">
                       <p className="font-secondary text-xs text-[#95989B] mr-1">
-                        Pending •
-                        {' '}
+                        {t('pending')}
+                        {' • '}
                         {new Date(depositDetails.timestamp).toLocaleDateString(
                           undefined,
                           {
@@ -211,94 +219,89 @@ const CardsView: NextPage = () => {
           </>
         ) : null}
         {filteredDeposits.length &&
-          filteredDeposits.filter(
-            (filteredDeposit) => filteredDeposit.deposits.length
-          )?.length ? (
-            filteredDeposits
-              .filter((filteredDeposit) => filteredDeposit.deposits.length)
-              .map((filteredDeposit) => (
-                <div key={`deposits${filteredDeposit.month}`}>
-                  <div className="bg-[#FAFAFA] py-1.5">
-                    <p className="font-secondary text-lighter-black font-bold text-xs pl-7">
-                      {getMonthName(filteredDeposit.month)}
-                      {' '}
-                      {new Date().getFullYear()}
-                    </p>
-                  </div>
+        filteredDeposits.filter(
+          filteredDeposit => filteredDeposit.deposits.length
+        )?.length ? (
+          filteredDeposits
+            .filter(filteredDeposit => filteredDeposit.deposits.length)
+            .map(filteredDeposit => (
+              <div key={`deposits${filteredDeposit.month}`}>
+                <div className="bg-[#FAFAFA] py-1.5">
+                  <p className="font-secondary text-lighter-black font-bold text-xs ltr:pl-7 rtl:pr-7">
+                    {getMonthName(filteredDeposit.month)}{' '}
+                    {new Date().getFullYear()}
+                  </p>
+                </div>
 
-                  <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
-                    {filteredDeposit.deposits.map((depositDetails, index) => (
-                      <div
-                        className={`flex items-center ${
-                          index === 0 ? 'pb-5' : 'py-5'
-                        } ${
-                          index === filteredDeposit.deposits.length - 1
-                            ? 'pt-5 pb-0'
-                            : 'border-b'
-                        }`}
-                        key={
-                          `deposit${filteredDeposit.month}${depositDetails.timestamp}`
+                <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
+                  {filteredDeposit.deposits.map((depositDetails, index) => (
+                    <div
+                      className={`flex items-center ${
+                        index === 0 ? 'pb-5' : 'py-5'
+                      } ${
+                        index === filteredDeposit.deposits.length - 1
+                          ? 'pt-5 pb-0'
+                          : 'border-b'
+                      }`}
+                      key={`deposit${filteredDeposit.month}${depositDetails.timestamp}`}
+                    >
+                      <Image
+                        src={
+                          depositDetails.bankIcon
+                            ? `data:image/png;base64,${depositDetails.bankIcon}`
+                            : BankIcon
                         }
-                      >
-                        <Image
-                          src={
-                            depositDetails.bankIcon
-                              ? `data:image/png;base64,${depositDetails.bankIcon}`
-                              : BankIcon
-                          }
-                          width="40px"
-                          height="40px"
-                          alt="Card Image"
-                        />
-                        <div className="flex flex-col justify-center ml-4">
-                          <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                            {depositDetails.bankName || 'Unknown card'}
-                          </p>
-                          <p className="font-secondary text-xs text-[#95989B] capitalize">
-                            {depositDetails.bankType || 'Unknown card type'}
-                          </p>
-                        </div>
-                        <div className="flex flex-col justify-center items-end ml-auto">
-                          <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
-                            {depositDetails.currency === 'USD'
-                              ? '$'
-                              : depositDetails.currency}
-                            {depositDetails.amount}
-                          </p>
+                        width="40px"
+                        height="40px"
+                        alt="Card Image"
+                      />
+                      <div className="flex flex-col justify-center ltr:ml-4 rtl:mr-4">
+                        <p className="font-secondary text-sm text-lighter-black mb-1.5">
+                          {depositDetails.bankName || 'Unknown card'}
+                        </p>
+                        <p className="font-secondary text-xs text-[#95989B] capitalize">
+                          {depositDetails.bankType || 'Unknown card type'}
+                        </p>
+                      </div>
+                      <div className="flex flex-col justify-center items-end ltr:ml-auto rtl:mr-auto">
+                        <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
+                          {depositDetails.currency === 'USD'
+                            ? '$'
+                            : depositDetails.currency}
+                          {depositDetails.amount}
+                        </p>
 
-                          <div className="flex justify-center items-center">
-                            <p className="font-secondary text-xs text-[#95989B] mr-1">
-                              {new Date(depositDetails.timestamp).toLocaleDateString(
-                                undefined,
-                                {
-                                  day: '2-digit',
-                                  month: 'short'
-                                }
-                              )}
-                              {', '}
-                              {new Date(depositDetails.timestamp).toLocaleTimeString(
-                                undefined,
-                                {
-                                  minute: '2-digit',
-                                  hour: '2-digit'
-                                }
-                              )}
-                            </p>
-                          </div>
+                        <div className="flex justify-center items-center">
+                          <p className="font-secondary text-xs text-[#95989B] ltr:mr-1 rtl:ml-1">
+                            {new Date(
+                              depositDetails.timestamp
+                            ).toLocaleDateString(undefined, {
+                              day: '2-digit',
+                              month: 'short'
+                            })}
+                            {', '}
+                            {new Date(
+                              depositDetails.timestamp
+                            ).toLocaleTimeString(undefined, {
+                              minute: '2-digit',
+                              hour: '2-digit'
+                            })}
+                          </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              ))
-          ) : (
-            <div className="mt-16 flex flex-col items-center px-8 pb-10">
-              <Image src={EmptyImage} />
-              <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
-                No transactions has been made from any of the cards.
-              </p>
-            </div>
-          )}
+              </div>
+            ))
+        ) : (
+          <div className="mt-16 flex flex-col items-center px-8 pb-10">
+            <Image src={EmptyImage} />
+            <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
+              {t('noTransactions')}
+            </p>
+          </div>
+        )}
       </Card>
     </div>
   );

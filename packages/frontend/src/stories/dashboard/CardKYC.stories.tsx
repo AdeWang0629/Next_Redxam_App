@@ -11,7 +11,7 @@ export default {
   component: CardKYC
 } as Meta;
 
-const Template: Story<ComponentProps<typeof CardKYC>> = (args) => (
+const Template: Story<ComponentProps<typeof CardKYC>> = args => (
   <div className="bg-black min-h-screen">
     <CardKYC {...args} />
   </div>

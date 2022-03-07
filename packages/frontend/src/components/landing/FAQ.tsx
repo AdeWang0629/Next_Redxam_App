@@ -62,14 +62,12 @@ const FAQ: FC<InterfaceFAQ> = ({
    */
   const FaqHeading = (
     <>
-      <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
+      <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] ltr:tracking-[0.3em]">
         {t('subtitle')}
       </h4>
       <h2 className="w-full md:w-[600px] self-start text-left text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-36">
         {t('first-title')}
-        <br />
-        {' '}
-        {t('second-title')}
+        <br /> {t('second-title')}
       </h2>
     </>
   );
@@ -90,7 +88,7 @@ const FAQ: FC<InterfaceFAQ> = ({
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
       <div
         className="flex flex-row justify-between items-center cursor-pointer transition-all duration-500"
-        onClick={() => setActiveQuestion((prev) => (prev === idx ? -1 : idx))}
+        onClick={() => setActiveQuestion(prev => (prev === idx ? -1 : idx))}
         role="list"
       >
         <span className="text-2xl md:text-4xl leading-10 w-auto font-primary font-medium text-black text-opacity-50 tracking-[-0.04em]">
@@ -132,21 +130,22 @@ const FAQ: FC<InterfaceFAQ> = ({
    *
    * @returns {JSX}
    */
-  const faqForSupportPage = ({ filteredQuestionsList: filteredQuestionsList2 = [] }) => (
+  const faqForSupportPage = ({
+    filteredQuestionsList: filteredQuestionsList2 = []
+  }) =>
     !filteredQuestionsList2?.length
       ? faqSearchNotFound
       : filteredQuestionsList2?.map((question, idx) =>
-        FaqWrapper(question, idx)) || []
-  );
+          FaqWrapper(question, idx)
+        ) || [];
 
   /**
    * Method to render FAQs for index page.
    *
    * @returns {JSX}
    */
-  const faqForIndexPage = () => (
-    questions?.map((question, idx) => FaqWrapper(question, idx)) || []
-  );
+  const faqForIndexPage = () =>
+    questions?.map((question, idx) => FaqWrapper(question, idx)) || [];
 
   /**
    * Method to render faq background image.
@@ -165,15 +164,9 @@ const FAQ: FC<InterfaceFAQ> = ({
   return (
     <section className="flex flex-col-reverse md:flex-row mt-24 relative">
       <div className="max-w-4xl mx-auto flex flex-col p-4 md:p-0">
-        {isInputSearchEmpty || !isSearchFilterRequired ? (
-          FaqHeading
-        ) : (
-          null
-        )}
+        {isInputSearchEmpty || !isSearchFilterRequired ? FaqHeading : null}
         <div className="flex flex-col">
-          {isSearchFilterRequired
-            ? faqForSupportPage({})
-            : faqForIndexPage()}
+          {isSearchFilterRequired ? faqForSupportPage({}) : faqForIndexPage()}
         </div>
       </div>
 

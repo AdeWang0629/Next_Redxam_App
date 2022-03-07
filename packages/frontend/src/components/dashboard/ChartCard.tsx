@@ -4,6 +4,7 @@ import ReactPlaceholder from 'react-placeholder';
 import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
 import { HomeContext } from '@providers/Home';
 import { BalanceRecordsContext } from '@providers/BalanceRecords';
+import { useTranslation } from 'next-i18next';
 import Card from './Card';
 
 interface ChartProps {
@@ -15,6 +16,7 @@ interface ChartProps {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Chart: NextPage<ChartProps> = ({ data }) => {
+  const { t } = useTranslation('dashboard');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [value, setValue] = useState(0);
   const { home, loading } = useContext(HomeContext);
@@ -26,7 +28,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
   ];
 
   if (balanceRecords) {
-    performanceData = balanceRecords.map((balanceRecord) => ({
+    performanceData = balanceRecords.map(balanceRecord => ({
       time: balanceRecord.timestamp,
       value: balanceRecord.balance
     }));
@@ -38,7 +40,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
         <div className="flex">
           <div className="flex flex-col flex-1">
             <span className="font-secondary text-xs text-lighter-black">
-              Performance
+              {t('performance')}
             </span>
             <ReactPlaceholder
               showLoadingAnimation
@@ -56,9 +58,9 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
           </div>
           <div className="flex flex-col">
             <span className="font-secondary text-xs text-lighter-black">
-              Portfolio
+              {t('portfolio')}
             </span>
-            <span className="font-secondary text-2xl font-bold">Passive</span>
+            <span className="font-secondary text-2xl font-bold">{t('passive')}</span>
           </div>
         </div>
         <ResponsiveContainer
@@ -77,14 +79,19 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
             }
             onMouseLeave={() => setValue(0)}
           >
-            <Line type="monotone" dataKey="value" stroke="#61D404" dot={undefined} />
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke="#61D404"
+              dot={undefined}
+            />
             <Tooltip content={<CustomTooltip />} position={{ y: 50 }} />
           </LineChart>
         </ResponsiveContainer>
       </div>
 
       <button className="w-full text-center font-medium font-secondary text-base underline py-4 border-t">
-        View Portfolio
+        {t('viewPortfolio')}
       </button>
     </Card>
   );

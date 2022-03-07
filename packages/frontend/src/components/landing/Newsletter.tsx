@@ -18,7 +18,7 @@ const Newsletter: NextPage = () => {
     if (validateEmail(email)) {
       api
         .createWaitlist(email)
-        .then((res) => {
+        .then(res => {
           if (res.data.data.createWaitlist.success) {
             setSubmitted(true);
           } else {
@@ -39,9 +39,7 @@ const Newsletter: NextPage = () => {
       </div>
       <div className="max-w-4xl self-center md:self-end md:mb-48 flex flex-col items-center flex-1 p-4 md:p-0">
         <h2 className="text-black dark:text-white font-bold text-[2.8125rem] tracking-[-0.03em] font-secondary">
-          {t('title-top')}
-          {' '}
-          <br />
+          {t('title-top')} <br />
           {t('title-bot')}
         </h2>
         {!submitted ? (
@@ -49,9 +47,9 @@ const Newsletter: NextPage = () => {
             <input
               type="email"
               placeholder={t('email-placeholder')}
-              className="w-full md:w-[35.1875rem] mt-12 mb-8 bg-white border border-black border-opacity-10 rounded-[30px] pl-[2.625rem] h-[3.75rem] font-primary text-lg tracking-[-0.02em] text-black outline-none"
+              className="w-full md:w-[35.1875rem] mt-12 mb-8 bg-white border border-black border-opacity-10 rounded-[30px] ltr:pl-[2.625rem] rtl:pr-[2.625rem] h-[3.75rem] font-primary text-lg tracking-[-0.02em] text-black outline-none"
               style={{ boxShadow: '0px 10px 50px rgb(7 45 1 / 10%)' }}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
             />
             <button
               className="text-white font-primary font-bold text-lg leading-[22px] tracking-[-0.02em] bg-[#27AE60] rounded-[30px] py-5 px-8 outline-none cursor-pointer"

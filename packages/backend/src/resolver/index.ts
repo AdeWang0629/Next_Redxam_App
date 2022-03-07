@@ -8,7 +8,7 @@ import { vaultsResolver } from './vault.resolver';
 import { AdminResolver } from './admin.resolver';
 import { changeRequestResolver } from './changeRequest.resolver';
 import { HomeResolver } from './home.resolver';
-import { featureCheckResolver } from './featureCheck.resolver';
+import { featureFlagResolver } from './featureFlag.resolver';
 import { twilioResolver } from './twilio.resolver';
 import { tellerResolver } from './teller.resolver';
 
@@ -23,7 +23,7 @@ export const resolver = {
   ...AdminResolver,
   ...changeRequestResolver,
   ...HomeResolver,
-  ...featureCheckResolver,
+  ...featureFlagResolver,
   ...twilioResolver,
   ...tellerResolver
 };

@@ -16,7 +16,7 @@ const Relax: NextPage = () => {
     >
       <div className="flex flex-col md:flex-row items-center">
         <div className="flex flex-col flex-1">
-          <h2 className="w-full md:w-[600px] self-start text-left tracking-[-0.03em] text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-[3.125rem]">
+          <h2 className="w-full md:w-[600px] self-start text-left rtl:text-right tracking-[-0.03em] text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-[3.125rem]">
             {t('first-title')}
             <br />
             {t('second-title')}

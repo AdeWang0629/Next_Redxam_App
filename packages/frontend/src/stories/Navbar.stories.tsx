@@ -9,7 +9,7 @@ export default {
   component: Navbar
 } as Meta;
 
-const Template: Story<ComponentProps<typeof Navbar>> = (args) => (
+const Template: Story<ComponentProps<typeof Navbar>> = args => (
   <div className="bg-black min-h-screen">
     <Navbar {...args} />
   </div>
