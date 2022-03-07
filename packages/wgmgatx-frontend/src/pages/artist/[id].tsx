@@ -6,14 +6,14 @@ import { google } from 'googleapis';
 
 export async function getServerSideProps() {
   const auth = await google.auth.getClient({
-    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']
   });
   const sheets = google.sheets({ version: 'v4', auth });
 
   const range = `Sheet1!A:H`;
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.GALLERY_SHEET_ID,
-    range,
+    range
   });
 
   let gallery: {
@@ -28,7 +28,7 @@ export async function getServerSideProps() {
   }[] = [];
 
   console.log(response.data.values);
-  response?.data?.values?.map((picture) => {
+  response?.data?.values?.map(picture => {
     if (picture[0] !== null && picture !== null) {
       gallery[picture[0]] = {
         id: picture[0],
@@ -38,15 +38,15 @@ export async function getServerSideProps() {
         description: picture[4],
         size: picture[5],
         price: picture[6],
-        image: picture[7],
+        image: picture[7]
       };
     }
   });
 
   return {
     props: {
-      gallery,
-    },
+      gallery
+    }
   };
 }
 
@@ -82,11 +82,11 @@ const Gallery = (props: Props) => {
         name: item.name,
         price: parseFloat(item.price as string),
         description: item.description,
-        image: item.image,
-      },
+        image: item.image
+      }
     });
     const result = await stripe?.redirectToCheckout({
-      sessionId: checkoutSession.data.id,
+      sessionId: checkoutSession.data.id
     });
     if (result?.error) {
       alert(result.error.message);

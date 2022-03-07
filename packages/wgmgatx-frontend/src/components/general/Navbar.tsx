@@ -8,7 +8,7 @@ import {
   BiLandscape,
   BiPhotoAlbum,
   BiGroup,
-  BiMessageRoundedDetail,
+  BiMessageRoundedDetail
 } from 'react-icons/bi';
 // Home = BiHomeAlt
 // About = BiMapAlt
@@ -26,14 +26,12 @@ const Navbar = ({ title }: { title?: string }) => {
     { name: 'About', path: '/#about', icon: BiMapAlt },
     { name: 'Gallery', path: '/#gallery', icon: BiPhotoAlbum },
     { name: 'Artists', path: '/#artists', icon: BiGroup },
-    { name: 'Contact', path: '/#contact', icon: BiMessageRoundedDetail },
+    { name: 'Contact', path: '/#contact', icon: BiMessageRoundedDetail }
   ];
   const [hoverStatus, setHoverStatus] = useState({
     Gallery: false,
     Artists: false
   });
-
-
 
   return (
     <>
@@ -52,12 +50,14 @@ const Navbar = ({ title }: { title?: string }) => {
             />
           </div>
           <ul>
-            {routes.map((route) => (
-
+            {routes.map(route => (
               <li key={route.name} className="mb-8 text-center">
-
                 <Link href={route.path}>
-                  <route.icon className='hover:fill-white ease-in-out duration-150 cursor-pointer' size={'30px'} color={'#817F8A'} />
+                  <route.icon
+                    className="hover:fill-white ease-in-out duration-150 cursor-pointer"
+                    size={'30px'}
+                    color={'#817F8A'}
+                  />
                 </Link>
               </li>
             ))}

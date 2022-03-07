@@ -1,5 +1,5 @@
-import Navbar from "@components/general/Navbar";
-import { NextPage } from "next";
+import Navbar from '@components/general/Navbar';
+import { NextPage } from 'next';
 
 const Press: NextPage = () => {
   return (

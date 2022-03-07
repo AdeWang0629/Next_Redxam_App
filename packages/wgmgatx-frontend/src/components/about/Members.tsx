@@ -1,4 +1,4 @@
-import ProfileCard from "@components/cards/ProfileCard";
+import ProfileCard from '@components/cards/ProfileCard';
 
 const Members = () => {
   return (

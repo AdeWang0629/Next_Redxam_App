@@ -1,12 +1,12 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps } from 'react';
 
-import { Story, Meta } from "@storybook/react";
+import { Story, Meta } from '@storybook/react';
 
-import Navbar from "@components/global/Navbar";
+import Navbar from '@components/global/Navbar';
 
 export default {
-  title: "Global/Navbar",
-  component: Navbar,
+  title: 'Global/Navbar',
+  component: Navbar
 } as Meta;
 
 const Template: Story<ComponentProps<typeof Navbar>> = (args) => (
@@ -18,5 +18,5 @@ const Template: Story<ComponentProps<typeof Navbar>> = (args) => (
 export const Default = Template.bind({});
 export const WithTransparentBackground = Template.bind({});
 WithTransparentBackground.args = {
-  transparentBackground: true,
+  transparentBackground: true
 };

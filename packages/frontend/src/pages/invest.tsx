@@ -1,5 +1,5 @@
 import type { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head'
+import Head from 'next/head';
 import Navbar from '@components/global/Navbar';
 import Footer from '@components/global/Footer';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';

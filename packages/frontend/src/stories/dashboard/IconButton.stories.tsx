@@ -1,12 +1,12 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps } from 'react';
 
-import { Story, Meta } from "@storybook/react";
+import { Story, Meta } from '@storybook/react';
 
-import IconButton from "@components/dashboard/IconButton";
+import IconButton from '@components/dashboard/IconButton';
 
 export default {
-  title: "Global/IconButton",
-  component: IconButton,
+  title: 'Global/IconButton',
+  component: IconButton
 } as Meta;
 
 const Template: Story = (args) => (

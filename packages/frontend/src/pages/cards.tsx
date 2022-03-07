@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { NextPage } from 'next';
-import Head from 'next/head'
+import Head from 'next/head';
 import Image from 'next/image';
 import Navbar from '@components/global/Navbar';
 import Footer from '@components/global/Footer';
