@@ -11,15 +11,19 @@ const About: NextPage = () => {
     <>
       {/* <Navbar title="About" /> */}
       <div className="flex flex-col items-center pt-14 p-10 md:p-10">
-          <h1 className="text-6xl font-bold text-center md:text-left mt-16">
-            About WGMGART 
-          </h1>
-          <div className="md:flex items-center">
-            <p className="max-w-lg text-sm px-3 my-10 opacity-80 text-grayscale-400 text-justify">
-            WGMGART is an Agency to protect artists 
-            And to be given opportunities to have their work curated at other venues around the world. We offer a secure way to sell your work, help with creating merch, access to prints and connecting with other artists to learn new skills. We are working on launching a blockchain and will have animators to make your art animation dreams come true.
-            </p>
-          </div>
+        <h1 className="text-6xl font-bold text-center md:text-left mt-16">
+          About WGMGART
+        </h1>
+        <div className="md:flex items-center">
+          <p className="max-w-lg text-sm px-3 my-10 opacity-80 text-grayscale-400 text-justify">
+            WGMGART is an Agency to protect artists And to be given
+            opportunities to have their work curated at other venues around the
+            world. We offer a secure way to sell your work, help with creating
+            merch, access to prints and connecting with other artists to learn
+            new skills. We are working on launching a blockchain and will have
+            animators to make your art animation dreams come true.
+          </p>
+        </div>
         <h1 className="text-6xl font-bold text-center md:text-left">
           Learn About Founder
         </h1>

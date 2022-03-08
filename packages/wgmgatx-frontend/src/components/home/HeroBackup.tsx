@@ -20,23 +20,24 @@ const Hero = () => {
     //   </div>
     // </div>
     <div className="grid md:grid-cols-2 bg-[#171717] h-[40vh] md:px-[5%] md:h-[50vh] md:h-[45vh] w-full image-container md:rounded-[18px] overflow-visible">
-      <div className=' md:flex flex-col items-center justify-center w-[100%] px-5 md:pr-5 p-0'>
-        <h1 className='text-xl md:text-2xl xl:text-3xl 2xl:text-5xl font-black md:text-right p-0'>
+      <div className=" md:flex flex-col items-center justify-center w-[100%] px-5 md:pr-5 p-0">
+        <h1 className="text-xl md:text-2xl xl:text-3xl 2xl:text-5xl font-black md:text-right p-0">
           The Best Place to get your Physical and Digital Assets
         </h1>
-        <h4 className='text-md md:text-right mt-5 p-0'>
-          <i>We want to provide you a good oportunity to get art easy and secure</i>
+        <h4 className="text-md md:text-right mt-5 p-0">
+          <i>
+            We want to provide you a good oportunity to get art easy and secure
+          </i>
         </h4>
       </div>
-      <div className='absolute top-0 w-full'>
-        <div className='relative w-full h-full flex md:hidden'>
+      <div className="absolute top-0 w-full">
+        <div className="relative w-full h-full flex md:hidden">
           <Image
-              src={heroMobile}
-              alt="WGMG Hero Image"
-              layout="fill"
-              className="object-cover"
-              />
-              
+            src={heroMobile}
+            alt="WGMG Hero Image"
+            layout="fill"
+            className="object-cover"
+          />
         </div>
         {/* <div className='relative w-full h-full hidden md:flex' >
           <Image
@@ -46,13 +47,13 @@ const Hero = () => {
             className="image ml-0"
             />
         </div> */}
-        <div className='relative w-full h-full hidden md:flex' >
+        <div className="relative w-full h-full hidden md:flex">
           <Image
             src={heroWGMG}
             alt="WGMG Hero Image"
             layout="fill"
             className="image ml-0"
-            />
+          />
         </div>
       </div>
       {/* <div className='flex bg-[#fff] text-center max-w-full' >

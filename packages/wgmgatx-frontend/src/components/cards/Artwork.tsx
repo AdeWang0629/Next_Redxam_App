@@ -1,14 +1,20 @@
-import { BadgeCheckIcon, ShareIcon } from "@heroicons/react/solid";
-import { Artwork } from "@types";
-import Image from "next/image";
-import Link from "next/link";
+import { BadgeCheckIcon, ShareIcon } from '@heroicons/react/solid';
+import { Artwork } from '@types';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Artwork = ({ artwork }: { artwork: Artwork }) => {
   return (
     <div className="flex justify-between items-start flex-col md:flex-row w-full h-full gap-5 md:gap-10">
       <div className="flex justify-center md:justify-start items-center max-w-full">
         <div className="relative w-80 md:w-[24rem] cursor-pointer transition-[border-color,transform] hover:scale-105 border-[1px] border-grayscale-200 hover:border-grayscale-100 rounded-2xl">
-          <Image src={artwork.image} alt="artwork picture" layout="responsive" objectFit="cover" className="rounded-2xl !p-1" />
+          <Image
+            src={artwork.image}
+            alt="artwork picture"
+            layout="responsive"
+            objectFit="cover"
+            className="rounded-2xl !p-1"
+          />
         </div>
       </div>
       <div className="flex flex-col gap-12 h-full w-80">
@@ -22,7 +28,9 @@ const Artwork = ({ artwork }: { artwork: Artwork }) => {
               </a>
             </Link>
           </div>
-          <div className="font-prata text-3xl md:text-5xl text-primary-100 max-w-full">{artwork.title}</div>
+          <div className="font-prata text-3xl md:text-5xl text-primary-100 max-w-full">
+            {artwork.title}
+          </div>
           <div className="font-prata text-grayscale-400 w-1/2 flex justify-center items-center border-[1px] border-grayscale-100 py-3 px-4 rounded-full">
             ${artwork.price}
             <span className="text-xs">.00</span>

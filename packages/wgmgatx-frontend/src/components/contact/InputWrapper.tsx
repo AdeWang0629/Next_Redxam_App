@@ -13,7 +13,7 @@ const InputWrapper = ({ value, setValue, label, id }: Props) => {
       <input
         type="text"
         className="font-secondary"
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
         value={value}
         id={id}
       />

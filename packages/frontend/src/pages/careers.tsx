@@ -7,6 +7,8 @@ import Footer from '@components/global/Footer';
 import Switcher from '@components/global/Switcher';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import MouseIcon from '@public/icons/mouse.svg';
 
@@ -15,6 +17,23 @@ import HeroImage2 from '@public/images/careers/hero-img2.png';
 import HeroImage3 from '@public/images/careers/hero-img3.png';
 import HeroImage4 from '@public/images/careers/hero-img4.png';
 import MissionImage from '@public/images/careers/mission-img.png';
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  if (!locale) {
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        'navbar',
+        'footer',
+        'waitlist',
+        'login'
+      ]))
+    }
+  };
+};
 
 const Careers: NextPage = () => {
   const [activeGreenBox, setActiveGreenBox] = useState(0);
