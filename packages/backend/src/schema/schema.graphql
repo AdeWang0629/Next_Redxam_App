@@ -4,6 +4,7 @@ type SimpleWallet {
   txsCount: Int
 }
 type Deposits {
+  _id: String
   userId: String
   type: String
   amount: Float
@@ -126,6 +127,11 @@ input ContactForm {
 
 input UpdateStatus {
   email: String!
+  status: String!
+}
+
+input UpdateDeposit {
+  depositId: String!
   status: String!
 }
 
@@ -324,4 +330,5 @@ type Mutation {
   addDiscord(arg: String): Response
   updateWallets: Response
   updateUserStatus(arg: UpdateStatus): Response
+  updateDepositStatus(arg: UpdateDeposit): Response
 }
