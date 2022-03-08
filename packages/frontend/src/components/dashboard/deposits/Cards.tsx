@@ -1,32 +1,34 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
 import api from '@utils/api';
-import { getMonthName } from '@utils/helpers';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import BankIcon from '@public/icons/bank.svg';
-import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
 import { Deposit } from '@utils/types';
 import { useTranslation } from 'next-i18next';
 import Card from '../Card';
+import TsxsTable from './TransactionsTable';
 
 const CardsView: NextPage = () => {
   const { t } = useTranslation('dashboard');
   const router = useRouter();
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
-  const [filteredDeposits, setFilteredDeposits] = useState<
-    | []
-    | [
-        {
-          month: number;
-          deposits: Deposit[];
-        }
-      ]
-  >([]);
-  const [pendingDeposits, setPendingDeposits] = useState<[] | Deposit[]>([]);
-
   const [value, setValue] = useState<number>(0);
   const [depositLoading, setDepositLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    (async () => {
+      const { data: userDepositsData } = await api.getUserDeposits();
+      setDeposits(
+        userDepositsData.data.userDeposits
+          .filter((deposit: { type: string }) => deposit.type === 'FIAT')
+          .sort(
+            (
+              firstTimestamp: { timestamp: number },
+              secondTimeStamp: { timestamp: number }
+            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
+          )
+      );
+    })();
+  }, []);
 
   function numberWithCommas(x: number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -50,45 +52,9 @@ const CardsView: NextPage = () => {
       .finally(() => setDepositLoading(false));
   }
 
-  useEffect(() => {
-    (async () => {
-      const { data: userDepositsData } = await api.getUserDeposits();
-      setDeposits(userDepositsData.data.userDeposits);
-      setPendingDeposits(
-        userDepositsData.data.userDeposits.filter(
-          (depositDetails: Deposit) => depositDetails.status === 'pending'
-        )
-      );
-    })();
-  }, []);
-
-  useEffect(() => {
-    const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-    setFilteredDeposits(
-      // @ts-ignore
-      months.map(month => {
-        const filtered = deposits
-          .filter(depositDetails => depositDetails.status !== 'pending')
-          .filter(
-            depositDetails =>
-              depositDetails.type === 'FIAT' &&
-              new Date(depositDetails.timestamp).getMonth() + 1 === month &&
-              new Date(depositDetails.timestamp).getFullYear() ===
-                new Date().getFullYear()
-          );
-
-        return {
-          month,
-          deposits: filtered.sort((a, b) => b.timestamp - a.timestamp)
-        };
-      })
-    );
-  }, [deposits]);
-
   return (
     <div className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse">
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col mr-3">
         <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
           <div className="flex items-center justify-between px-8">
             <h1 className="font-secondary font-medium text-lg py-6">
@@ -132,177 +98,7 @@ const CardsView: NextPage = () => {
           </div>
         </Card>
       </div>
-
-      <Card otherClasses="flex-1 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mt-8 lg:mt-0 lg:ml-3">
-        <h1 className="px-8 py-6 font-secondary font-medium text-lg">
-          {t('recentDepositsCard')}
-        </h1>
-        <hr />
-        {pendingDeposits.length ? (
-          <>
-            <div className="bg-yellow-100 py-1.5">
-              <p className="font-secondary text-yellow-400 font-bold text-xs ltr:pl-7 rtl:pr-7">
-                {t('pending')}
-              </p>
-            </div>
-            <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
-              {pendingDeposits.map((depositDetails, index) => (
-                <div
-                  className={`flex items-center ${
-                    // eslint-disable-next-line no-nested-ternary
-                    pendingDeposits.length !== 1 && index === 0
-                      ? 'pb-5'
-                      : pendingDeposits.length !== 1
-                      ? 'py-5'
-                      : ''
-                  } ${
-                    // eslint-disable-next-line no-nested-ternary
-                    pendingDeposits.length !== 1 &&
-                    index === pendingDeposits.length - 1
-                      ? 'pt-5 pb-0'
-                      : pendingDeposits.length !== 1
-                      ? 'border-b'
-                      : ''
-                  }`}
-                  key={`deposit${depositDetails.timestamp}`}
-                >
-                  <Image
-                    src={
-                      depositDetails.bankIcon
-                        ? `data:image/png;base64,${depositDetails.bankIcon}`
-                        : BankIcon
-                    }
-                    width="40px"
-                    height="40px"
-                    alt="Card Image"
-                  />
-                  <div className="flex flex-col justify-center ltr:ml-4 rtl:mr-4">
-                    <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                      {depositDetails.bankName || 'Unknown card'}
-                    </p>
-                    <p className="font-secondary text-xs text-[#95989B] capitalize">
-                      {depositDetails.bankType || 'Unknown card type'}
-                    </p>
-                  </div>
-                  <div className="flex flex-col justify-center items-end ml-auto">
-                    <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
-                      {depositDetails.currency === 'USD'
-                        ? '$'
-                        : depositDetails.currency}
-                      {depositDetails.amount}
-                    </p>
-                    <div className="flex justify-center items-center">
-                      <p className="font-secondary text-xs text-[#95989B] mr-1">
-                        {t('pending')}
-                        {' • '}
-                        {new Date(depositDetails.timestamp).toLocaleDateString(
-                          undefined,
-                          {
-                            day: '2-digit',
-                            month: 'short'
-                          }
-                        )}
-                        {', '}
-                        {new Date(depositDetails.timestamp).toLocaleTimeString(
-                          undefined,
-                          {
-                            minute: '2-digit',
-                            hour: '2-digit'
-                          }
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        ) : null}
-        {filteredDeposits.length &&
-        filteredDeposits.filter(
-          filteredDeposit => filteredDeposit.deposits.length
-        )?.length ? (
-          filteredDeposits
-            .filter(filteredDeposit => filteredDeposit.deposits.length)
-            .map(filteredDeposit => (
-              <div key={`deposits${filteredDeposit.month}`}>
-                <div className="bg-[#FAFAFA] py-1.5">
-                  <p className="font-secondary text-lighter-black font-bold text-xs ltr:pl-7 rtl:pr-7">
-                    {getMonthName(filteredDeposit.month)}{' '}
-                    {new Date().getFullYear()}
-                  </p>
-                </div>
-
-                <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
-                  {filteredDeposit.deposits.map((depositDetails, index) => (
-                    <div
-                      className={`flex items-center ${
-                        index === 0 ? 'pb-5' : 'py-5'
-                      } ${
-                        index === filteredDeposit.deposits.length - 1
-                          ? 'pt-5 pb-0'
-                          : 'border-b'
-                      }`}
-                      key={`deposit${filteredDeposit.month}${depositDetails.timestamp}`}
-                    >
-                      <Image
-                        src={
-                          depositDetails.bankIcon
-                            ? `data:image/png;base64,${depositDetails.bankIcon}`
-                            : BankIcon
-                        }
-                        width="40px"
-                        height="40px"
-                        alt="Card Image"
-                      />
-                      <div className="flex flex-col justify-center ltr:ml-4 rtl:mr-4">
-                        <p className="font-secondary text-sm text-lighter-black mb-1.5">
-                          {depositDetails.bankName || 'Unknown card'}
-                        </p>
-                        <p className="font-secondary text-xs text-[#95989B] capitalize">
-                          {depositDetails.bankType || 'Unknown card type'}
-                        </p>
-                      </div>
-                      <div className="flex flex-col justify-center items-end ltr:ml-auto rtl:mr-auto">
-                        <p className="font-secondary font-bold text-sm text-lighter-black mb-1.5">
-                          {depositDetails.currency === 'USD'
-                            ? '$'
-                            : depositDetails.currency}
-                          {depositDetails.amount}
-                        </p>
-
-                        <div className="flex justify-center items-center">
-                          <p className="font-secondary text-xs text-[#95989B] ltr:mr-1 rtl:ml-1">
-                            {new Date(
-                              depositDetails.timestamp
-                            ).toLocaleDateString(undefined, {
-                              day: '2-digit',
-                              month: 'short'
-                            })}
-                            {', '}
-                            {new Date(
-                              depositDetails.timestamp
-                            ).toLocaleTimeString(undefined, {
-                              minute: '2-digit',
-                              hour: '2-digit'
-                            })}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))
-        ) : (
-          <div className="mt-16 flex flex-col items-center px-8 pb-10">
-            <Image src={EmptyImage} />
-            <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
-              {t('noTransactions')}
-            </p>
-          </div>
-        )}
-      </Card>
+      <TsxsTable deposits={deposits} depositsType="fiat" />
     </div>
   );
 };

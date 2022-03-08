@@ -170,9 +170,7 @@ const TransactionsTable = ({
                   <div key={`deposits${month}${year}`}>
                     <div className="bg-[#FAFAFA] py-1.5">
                       <p className="font-secondary text-lighter-black font-bold text-xs ltr:pl-7 rtl:pr-7">
-                        {getMonthName(month)}
-                        {' '}
-                        {year}
+                        {getMonthName(month)} {year}
                       </p>
                     </div>
 
