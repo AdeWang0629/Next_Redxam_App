@@ -24,6 +24,7 @@ import TsxsTable from './TransactionsTable';
 import Card from '../Card';
 
 const TELLER_APPLICATION_ID = 'app_nu123i0nvg249720i8000';
+const LEAN_APPLICATION_ID = '94e54b49-973c-47c8-8b11-f0d9bba2c6d5';
 
 interface Teller {
   accessToken: string;
@@ -48,6 +49,7 @@ const BanksView: NextPage = () => {
   const [paymentApi] = useState('TELLER');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
+  const [leanConnect, setLeanConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
 
@@ -134,7 +136,16 @@ const BanksView: NextPage = () => {
         tellerConnect.open();
         break;
 
-      case 'PLAID':
+      case 'LEAN':
+        const customer_id = (await api.getLeanCustomerId(user?._id as string))
+          .data.getLeanCustomerId.customerId;
+        console.log(customer_id);
+        // @ts-ignore
+        leanConnect?.createPaymentSource({
+          app_token: LEAN_APPLICATION_ID,
+          customer_id,
+          sandbox: 'true'
+        });
         break;
 
       default:
@@ -291,8 +302,19 @@ const BanksView: NextPage = () => {
             );
           }}
         />
+      ) : paymentApi === 'PLAID' ? (
+        ''
+      ) : paymentApi === 'LEAN' ? (
+        <Script
+          id="lean"
+          src="https://cdn.leantech.me/link/sdk/web/latest/Lean.min.js"
+          onLoad={() => {
+            // @ts-ignore
+            setLeanConnect(Lean);
+          }}
+        />
       ) : (
-        paymentApi === 'PLAID' && ''
+        ''
       )}
 
       <div className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse lg:gap-x-3">
@@ -480,7 +502,10 @@ const BanksView: NextPage = () => {
                         {t('enterADescription')}
                       </label>
                     </div>
-                    <div dir="ltr" className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
+                    <div
+                      dir="ltr"
+                      className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto"
+                    >
                       <span className="text-card-button">$</span>
                       <input
                         className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"

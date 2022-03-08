@@ -629,6 +629,18 @@ class API {
       }
     );
   }
+  getLeanCustomerId(userId: string) {
+    const query = `
+    query {
+      getLeanCustomerId (userId: "${userId}") {
+          message
+          success
+          customerId
+      }
+  }
+  `;
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
+  }
 }
 
 export default new API();
