@@ -12,7 +12,7 @@ const Starting: NextPage = () => {
   const [step, setStep] = useState(0);
 
   return (
-    <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48 p-4 md:p-0">
+    <section className="max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto flex flex-col mt-24 mb-48 p-4 md:p-0">
       <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] ltr:tracking-[0.3em]">
         {t('how-to-start')}
       </h4>

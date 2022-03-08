@@ -14,7 +14,7 @@ const Footer = ({ card = false }) => {
   const { t } = useTranslation('footer');
   return (
     <footer className="pt-16 bg-footer-bg px-4 md:px-0">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between">
+      <div className="max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between">
         <div className="flex flex-col flex-1">
           <div className="flex flex-row items-center mb-4">
             <Image src={RedxamLogo} alt="redxam" width="50" height="43.75" />

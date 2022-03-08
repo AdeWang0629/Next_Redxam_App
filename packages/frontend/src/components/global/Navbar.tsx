@@ -56,7 +56,7 @@ const Navbar: NextPage<NavbarProps> = ({
           boxShadow: '0 2px 2px -2px rgb(0 0 0 / 20%)'
         }}
       >
-        <div className="flex flex-col md:flex-row max-w-7xl mx-auto items-center">
+        <div className="flex flex-col md:flex-row max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto items-center">
           <div className="flex items-center justify-between flex-1 w-full px-8 md:px-0">
             <div
               className={`flex items-center md:flex-1 ${

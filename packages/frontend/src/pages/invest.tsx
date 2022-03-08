@@ -115,7 +115,7 @@ const Invest: NextPage = () => {
           </a>
         </div>
       </div>
-      <div className="flex flex-col mt-[2.875rem] max-w-7xl mx-auto pb-20 px-4 lg:px-0">
+      <div className="flex flex-col mt-[2.875rem] max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto pb-20 px-4 lg:px-0">
         <h2 className="font-secondary font-medium text-lighter-black text-opacity-50 text-sm leading-5 mb-2">
           {t('previousInvestors')}
         </h2>

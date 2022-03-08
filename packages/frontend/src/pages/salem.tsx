@@ -28,7 +28,7 @@ function Salem() {
   return (
     <>
       <Navbar title="Your Personal Crypto Investment Assistant" />
-      <section className="max-w-7xl px-16 md:px-0 mx-auto flex flex-col items-center mt-40 mb-72">
+      <section className="max-w-3xl lg:max-w-4xl xl:max-w-7xl px-16 md:px-0 mx-auto flex flex-col items-center mt-40 mb-72">
         <h1 className="text-5xl md:text-7xl leading-tight mb-10 text-center font-bold text-lighter-black dark:text-gray-200 capitalize">
           Meet our Co-Founder
         </h1>

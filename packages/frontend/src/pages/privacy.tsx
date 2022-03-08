@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 const Privacy: NextPage = () => (
   <>
     <Navbar title="Privacy Policy" />
-    <main className="flex flex-col space-y-6 pt-44 pb-20 max-w-7xl mx-auto leading-[1.8] font-primary text-black dark:text-white text-opacity-80 text-[1.0625rem]">
+    <main className="flex flex-col space-y-6 pt-44 pb-20 max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto leading-[1.8] font-primary text-black dark:text-white text-opacity-80 text-[1.0625rem]">
       <div className="flex flex-col space-y-2">
         <h1 className="tracking-[-0.03em] text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold -mb-2">
           Privacy Policy

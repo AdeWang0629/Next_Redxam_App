@@ -42,7 +42,7 @@ const Banks: NextPage = () => {
   );
 
   return (
-    <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48">
+    <section className="max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto flex flex-col mt-24 mb-48">
       <h2 className="text-4xl w-full md:w-[39rem] mx-auto mb-24 text-center text-black dark:text-gray-200 font-bold leading-[-0.03em]">
         {t('banks-title')}
       </h2>
