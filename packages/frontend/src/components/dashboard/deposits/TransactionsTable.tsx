@@ -97,7 +97,7 @@ const TransactionsTable = ({
                         ? 'border-b'
                         : ''
                     }`}
-                    key={`pendingDeposit${pendingDeposit.timestamp}`}
+                    key={pendingDeposit._id}
                   >
                     <Image
                       src={
@@ -187,7 +187,7 @@ const TransactionsTable = ({
                           <div className="flex flex-col justify-center py-5 px-7 border-b border-[#EAEAEB]">
                             <div
                               className="flex items-center"
-                              key={`deposit${month}${depositDetails.timestamp}`}
+                              key={deposit._id}
                             >
                               <Image
                                 src={
