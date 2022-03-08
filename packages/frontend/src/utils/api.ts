@@ -172,8 +172,17 @@ class API {
           balance
           accountStatus
           withdrawn
-          wallet {
-            address
+          wallets {
+            BTC {
+              address
+              wif
+              txsCount
+            }
+            TEST_BTC {
+              address
+              wif
+              txsCount
+            }
           }
           pending_balance
         }
