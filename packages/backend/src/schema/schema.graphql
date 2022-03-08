@@ -261,6 +261,12 @@ type GetPayee {
   payeeId: String
 }
 
+type GetLeanCustomerId {
+  success: Boolean
+  message: String
+  customerId: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -286,6 +292,7 @@ type Query {
   tellerPayment(arg: TellerPaymentInput): TellerPayment
   tellerPaymentVerified(arg: TellerPaymentVerifiedInput): Response
   getPayee(accountId: String): GetPayee
+  getLeanCustomerId(userId: String): GetLeanCustomerId
 }
 
 type Mutation {
