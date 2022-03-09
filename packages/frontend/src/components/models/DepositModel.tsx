@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import type { NextPage } from 'next';
 import {
   useRef,
