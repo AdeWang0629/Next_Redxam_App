@@ -1,26 +1,13 @@
 import { useState, useEffect } from 'react';
 import api from '@utils/api';
 import TsxsTable from './deposits/TransactionsTable';
+import { Deposit } from '@utils/types';
+
 
 const RecentActivity = () => {
   const [deposits, setDeposits] = useState<
     | []
-    | [
-        {
-          type: string;
-          amount: number;
-          index: null;
-          currency: string;
-          timestamp: number;
-          processedByRedxam: true | false;
-          status: string;
-          hash: null;
-          address: null;
-          bankIcon: string | null;
-          bankName: string | null;
-          bankType: string | null;
-        }
-      ]
+    | [Deposit]
   >([]);
 
   useEffect(() => {
