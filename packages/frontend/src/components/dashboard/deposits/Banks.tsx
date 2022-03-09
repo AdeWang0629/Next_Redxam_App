@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-case-declarations */
+/* eslint-disable @typescript-eslint/naming-convention */
 
 import { useState, useEffect, useContext } from 'react';
 import { NextPage } from 'next';
