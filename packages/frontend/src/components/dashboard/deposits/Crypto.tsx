@@ -244,12 +244,13 @@ const Crypto: NextPage = () => {
                 {getCookie('environment') !== 'production' && (
                   <button
                     className="flex flex-col"
-                    onClick={() =>
+                    onClick={() => {
+                      // @ts-ignore
                       handleNetwork({
                         name: 'Tesnet BTC',
                         ...user?.wallets?.TEST_BTC
-                      })
-                    }
+                      });
+                    }}
                   >
                     <p className="font-secondary text-base font-medium">
                       Test BTC
