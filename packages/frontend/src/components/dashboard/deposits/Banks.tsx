@@ -46,7 +46,7 @@ const BanksView: NextPage = () => {
   if (user) {
     userId = user._id;
   }
-  const [paymentApi] = useState('TELLER');
+  const [paymentApi] = useState('LEAN');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
   const [leanConnect, setLeanConnect] = useState(null);
@@ -137,9 +137,8 @@ const BanksView: NextPage = () => {
         break;
 
       case 'LEAN':
-        const customer_id = (await api.getLeanCustomerId(user?._id as string))
-          .data.getLeanCustomerId.customerId;
-        console.log(customer_id);
+        const res = await api.getLeanCustomerId(user?._id as string);
+        const customer_id = res.data.data.getLeanCustomerId.customerId;
         // @ts-ignore
         leanConnect?.createPaymentSource({
           app_token: LEAN_APPLICATION_ID,
@@ -305,14 +304,17 @@ const BanksView: NextPage = () => {
       ) : paymentApi === 'PLAID' ? (
         ''
       ) : paymentApi === 'LEAN' ? (
-        <Script
-          id="lean"
-          src="https://cdn.leantech.me/link/sdk/web/latest/Lean.min.js"
-          onLoad={() => {
-            // @ts-ignore
-            setLeanConnect(Lean);
-          }}
-        />
+        <>
+          <Script
+            id="lean"
+            src="https://cdn.leantech.me/link/sdk/web/latest/Lean.min.js"
+            onLoad={() => {
+              // @ts-ignore
+              setLeanConnect(window.Lean);
+            }}
+          />
+          <div id="lean-link" />
+        </>
       ) : (
         ''
       )}
@@ -633,6 +635,7 @@ const BanksView: NextPage = () => {
           isOpened={showDepositModel}
           setOpened={setShowDepositModel}
           accounts={accounts as any}
+          paymentApi={paymentApi}
         />
       ) : null}
     </>

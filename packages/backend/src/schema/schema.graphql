@@ -267,6 +267,17 @@ type GetLeanCustomerId {
   customerId: String
 }
 
+input CreatePaymentIntentInput {
+  userId: String
+  amount: Float
+}
+
+type CreatePaymentIntent {
+  success: Boolean
+  message: String
+  paymentIntentId: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -293,6 +304,7 @@ type Query {
   tellerPaymentVerified(arg: TellerPaymentVerifiedInput): Response
   getPayee(accountId: String): GetPayee
   getLeanCustomerId(userId: String): GetLeanCustomerId
+  createPaymentIntent(arg: CreatePaymentIntentInput): CreatePaymentIntent
 }
 
 type Mutation {

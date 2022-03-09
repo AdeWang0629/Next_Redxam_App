@@ -641,6 +641,18 @@ class API {
   `;
     return this.axios.post(`${this.baseURL}/api/v1`, { query });
   }
+  createPaymentIntent(userId: string, amount: number) {
+    const query = `
+    query {
+      createPaymentIntent (arg: {amount: ${amount}, userId: "${userId}"}) {
+          message
+          success
+          paymentIntentId
+      }
+  }
+  `;
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
+  }
 }
 
 export default new API();
