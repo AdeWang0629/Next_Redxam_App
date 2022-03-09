@@ -1,3 +1,5 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable @typescript-eslint/naming-convention */
 import type { NextPage } from 'next';
 import {
   useRef,

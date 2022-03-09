@@ -231,9 +231,10 @@ const Crypto: NextPage = () => {
               <div className="px-7 mt-5">
                 <button
                   className="flex flex-col mb-6"
-                  onClick={() =>
-                    handleNetwork({ name: 'BTC', ...user?.wallets?.BTC })
-                  }
+                  onClick={() => {
+                    // @ts-ignore
+                    handleNetwork({ name: 'BTC', ...user?.wallets?.BTC });
+                  }}
                 >
                   <p className="font-secondary text-base font-medium">BTC</p>
                   <p className="font-secondary text-base text-[#95989B] mt-1.5">
@@ -243,12 +244,13 @@ const Crypto: NextPage = () => {
                 {getCookie('environment') !== 'production' && (
                   <button
                     className="flex flex-col"
-                    onClick={() =>
+                    onClick={() => {
+                      // @ts-ignore
                       handleNetwork({
                         name: 'Tesnet BTC',
                         ...user?.wallets?.TEST_BTC
-                      })
-                    }
+                      });
+                    }}
                   >
                     <p className="font-secondary text-base font-medium">
                       Test BTC
