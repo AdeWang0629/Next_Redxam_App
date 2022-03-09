@@ -110,7 +110,7 @@ const Navbar: NextPage<NavbarProps> = ({
             }`}
           >
             <ul
-              className={`flex flex-col md:flex-row text-center font-primary ${
+              className={`flex flex-col items-center md:flex-row text-center font-primary ${
                 transparentBackground && scrollTop <= 0 && !navMobile
                   ? 'text-white'
                   : 'text-black'
@@ -141,7 +141,7 @@ const Navbar: NextPage<NavbarProps> = ({
                     transparentBackground && scrollTop <= 0 && !navMobile
                       ? 'text-white'
                       : 'text-black'
-                  }`}
+                  } bg-buttons-green px-16 py-4 text-[15px] font-bold text-center rounded-[30px]`}
                   onClick={() => setLoginModelOpened(true)}
                 >
                   {t('login')}
@@ -149,7 +149,7 @@ const Navbar: NextPage<NavbarProps> = ({
               </li>
             </ul>
             <button
-              className="font-primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green order-first md:order-none mt-[25px] md:mt-0"
+              className="hidden font-primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green order-first md:order-none mt-[25px] md:mt-0"
               onClick={() => setWaitlistModelOpened(true)}
             >
               {t('waitlist')}
