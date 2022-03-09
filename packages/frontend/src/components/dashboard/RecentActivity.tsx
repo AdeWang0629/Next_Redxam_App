@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '@utils/api';
-import TsxsTable from './deposits/TransactionsTable';
 import { Deposit } from '@utils/types';
-
+import TsxsTable from './deposits/TransactionsTable';
 
 const RecentActivity = () => {
   const [deposits, setDeposits] = useState<

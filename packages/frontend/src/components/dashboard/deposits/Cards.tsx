@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { NextPage } from 'next';
 import api from '@utils/api';
 import { useEffect, useState } from 'react';
