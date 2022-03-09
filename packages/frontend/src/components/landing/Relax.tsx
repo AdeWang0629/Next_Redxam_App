@@ -11,7 +11,7 @@ const Relax: NextPage = () => {
 
   return (
     <section
-      className="max-w-7xl mx-auto flex flex-col pt-24 pb-48 px-4 md:px-0"
+      className="max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto flex flex-col pt-24 pb-48 px-4 md:px-0"
       id="security"
     >
       <div className="flex flex-col md:flex-row items-center">

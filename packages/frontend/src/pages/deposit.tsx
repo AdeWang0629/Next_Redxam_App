@@ -24,9 +24,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        'dashboard'
-      ]))
+      ...(await serverSideTranslations(locale, ['dashboard']))
     }
   };
 };
@@ -81,11 +79,7 @@ const Deposit: NextPage = () => {
 
   switch (activeSection) {
     case 'crypto':
-      depositContent = (
-        <div>
-          <Crypto />
-        </div>
-      );
+      depositContent = <Crypto />;
       break;
 
     case 'card':

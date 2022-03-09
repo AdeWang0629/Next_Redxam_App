@@ -7,8 +7,11 @@ import UserProvider from '@providers/User';
 import BalanceRecordsProvider from '@providers/BalanceRecords';
 import Head from 'next/head';
 import { appWithTranslation } from 'next-i18next';
+import { useLocale } from '@utils/hooks';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const locale = useLocale();
+
   return (
     <>
       <Head>
@@ -16,21 +19,53 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <link rel="apple-touch-icon" href="/logo.svg" />
-        <meta
-          name="title"
-          content="redxam | Your Personal Crypto Investment Assistant."
-        />
-        <meta
-          name="description"
-          content="Your Personal Crypto Investment Assistant."
-        />
+
+        {locale === 'ar' ? (
+          <>
+            <meta
+              name="title"
+              content="ردزام | مساعدك الشخصي للأستثمار بالعملات الرقمية."
+            />
+            <meta
+              name="description"
+              content="مساعدك الشخصي للأستثمار بالعملات الرقمية."
+            />
+            <meta
+              property="og:title"
+              content="ردزام | مساعدك الشخصي للأستثمار بالعملات الرقمية."
+            />
+            <meta property="og:site_name" content="ردزام" />
+            <meta property="twitter:title" content="ردزام" />
+            <meta
+              property="twitter:description"
+              content="مساعدك الشخصي للأستثمار بالعملات الرقمية."
+            />
+          </>
+        ) : (
+          <>
+            <meta
+              name="title"
+              content="redxam | Your Personal Crypto Investment Assistant."
+            />
+            <meta
+              name="description"
+              content="Your Personal Crypto Investment Assistant."
+            />
+            <meta
+              property="og:title"
+              content="redxam | Your Personal Crypto Investment Assistant."
+            />
+            <meta property="og:site_name" content="redxam" />
+            <meta property="twitter:title" content="redxam" />
+            <meta
+              property="twitter:description"
+              content="Your Personal Crypto Investment Assistant."
+            />
+          </>
+        )}
+
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://redxam.com/" />
-        <meta
-          property="og:title"
-          content="redxam | Your Personal Crypto Investment Assistant."
-        />
-        <meta property="og:site_name" content="redxam" />
         <meta property="og:description" content="" />
         <meta
           property="og:image"
@@ -38,11 +73,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://redxam.com/" />
-        <meta property="twitter:title" content="redxam" />
-        <meta
-          property="twitter:description"
-          content="Your Personal Crypto Investment Assistant."
-        />
         <meta
           property="twitter:image"
           content="https://res.cloudinary.com/chopstix/image/upload/w_1200,c_scale/v1619918507/staticRedxam/LinkFork_1.jpg"

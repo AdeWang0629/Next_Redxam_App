@@ -1,9 +1,14 @@
+type TokenWallet {
+  BTC: SimpleWallet
+  TEST_BTC: SimpleWallet
+}
 type SimpleWallet {
   address: String
   wif: String
   txsCount: Int
 }
 type Deposits {
+  _id: String
   userId: String
   type: String
   amount: Float
@@ -40,6 +45,7 @@ type User {
   lastName: String
   email: String!
   phone: String
+  wallets: TokenWallet
   wallet: SimpleWallet
   contribution: Float
   level: Int
@@ -126,6 +132,11 @@ input ContactForm {
 
 input UpdateStatus {
   email: String!
+  status: String!
+}
+
+input UpdateDeposit {
+  depositId: String!
   status: String!
 }
 
@@ -324,4 +335,5 @@ type Mutation {
   addDiscord(arg: String): Response
   updateWallets: Response
   updateUserStatus(arg: UpdateStatus): Response
+  updateDepositStatus(arg: UpdateDeposit): Response
 }

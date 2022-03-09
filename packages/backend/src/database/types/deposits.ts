@@ -1,4 +1,5 @@
 export interface Deposits {
+  _id: string;
   type: string;
   amount: number;
   currency: string;
