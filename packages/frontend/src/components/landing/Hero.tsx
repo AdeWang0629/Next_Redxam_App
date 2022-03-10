@@ -2,7 +2,8 @@ import type { NextComponentType } from 'next';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import WaitlistModel from '@components/models/WaitlistModel';
+import LoginModel from '@components/models/LoginModel';
+
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
@@ -11,15 +12,13 @@ import HeroImage from '@public/images/hero.svg';
 
 const Hero: NextComponentType = () => {
   const { t } = useTranslation('hero');
-  const [waitlistModelOpened, setWaitlistModelOpened] = useState(false);
-  const [referralCodeString, setReferralCodeString] = useState('');
+  const [loginModelOpened, setLoginModelOpened] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     // eslint-disable-next-line no-prototype-builtins
     if (router.query.hasOwnProperty('referral')) {
-      setWaitlistModelOpened(true);
-      setReferralCodeString(router.query.referral as string);
+      setLoginModelOpened(true);
     }
   }, [router.query]);
 
@@ -38,21 +37,20 @@ const Hero: NextComponentType = () => {
         </p>
         <button
           className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green"
-          onClick={() => setWaitlistModelOpened(true)}
+          onClick={() => setLoginModelOpened(true)}
           id="join-waiting"
         >
-          {t('join-button')}
+          {t('login-button')}
         </button>
-        <Link href="/#benefits" shallow scroll>
+        <Link href="/#benefits" passHref shallow scroll>
           <Image src={MouseIcon} alt="scroll" />
         </Link>
         <Image src={HeroImage} alt="screenshots from the app" />
       </section>
-      {waitlistModelOpened && (
-        <WaitlistModel
-          isOpened={waitlistModelOpened}
-          setOpened={setWaitlistModelOpened}
-          referralCode={referralCodeString}
+      {loginModelOpened && (
+        <LoginModel
+          isOpened={loginModelOpened}
+          setOpened={setLoginModelOpened}
         />
       )}
     </>
