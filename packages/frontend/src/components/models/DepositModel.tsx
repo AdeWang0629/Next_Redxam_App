@@ -115,7 +115,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
           // @ts-ignore typescript does not recognize CDN script types
           const setup = window.TellerConnect.setup({
             environment:
-              currentEnvironment === 'production' ? 'production' : 'sandbox',
+              currentEnvironment === 'production' ? 'production' : 'production',
             connectToken: tellerPayment.connect_token,
             applicationId: 'app_nu123i0nvg249720i8000',
             async onSuccess({ payment: { id } }: any) {

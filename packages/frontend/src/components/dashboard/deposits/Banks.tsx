@@ -49,7 +49,7 @@ const BanksView: NextPage = () => {
   if (user) {
     userId = user._id;
   }
-  const [paymentApi] = useState('LEAN');
+  const [paymentApi] = useState('TELLER');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
   const [leanConnect, setLeanConnect] = useState(null);
@@ -194,7 +194,7 @@ const BanksView: NextPage = () => {
       // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'development',
+          currentEnvironment === 'production' ? 'production' : 'production',
         connectToken: tellerPayee.connect_token,
         applicationId: TELLER_APPLICATION_ID,
         onSuccess({ payee: { id } }: { payee: { id: string } }) {
@@ -237,7 +237,7 @@ const BanksView: NextPage = () => {
       // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'development',
+          currentEnvironment === 'production' ? 'production' : 'production',
         connectToken: tellerPayment.connect_token,
         applicationId: TELLER_APPLICATION_ID,
         async onSuccess({ payment: { id } }: any) {
@@ -288,7 +288,7 @@ const BanksView: NextPage = () => {
                 environment:
                   currentEnvironment === 'production'
                     ? 'production'
-                    : 'development',
+                    : 'production',
                 applicationId: TELLER_APPLICATION_ID,
 
                 async onSuccess({ accessToken }: any) {
