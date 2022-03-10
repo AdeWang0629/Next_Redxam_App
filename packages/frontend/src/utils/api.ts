@@ -655,6 +655,7 @@ class API {
       }
     );
   }
+
   getLeanCustomerId(userId: string) {
     const query = `
     query {
@@ -667,6 +668,7 @@ class API {
   `;
     return this.axios.post(`${this.baseURL}/api/v1`, { query });
   }
+
   createPaymentIntent(userId: string, amount: number) {
     const query = `
     query {
