@@ -99,7 +99,7 @@ const saveDeposit = async (
     amount,
     processedByRedxam: false,
     userId,
-    status: 'completed',
+    status: 'pending',
     bankName,
     timestamp: new Date().getTime(),
     stripeChargeId: paymentId
