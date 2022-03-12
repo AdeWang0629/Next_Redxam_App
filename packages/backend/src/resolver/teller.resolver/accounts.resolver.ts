@@ -1,8 +1,14 @@
 import { Request } from 'express';
 import { User } from '@/database';
 import axios from 'axios';
+import https from 'https';
+import fs from 'fs';
 
 const baseUrl = 'https://api.teller.io';
+const httpsAgent = new https.Agent({
+  cert: fs.readFileSync(__dirname + '/certificates/certificate.pem'),
+  key: fs.readFileSync(__dirname + '/certificates/private_key.pem')
+});
 
 export const tellerAccounts = async (
   { userId }: { userId: string },
@@ -21,9 +27,10 @@ export const tellerAccounts = async (
       auth: {
         username: accessToken,
         password: ''
-      }
+      },
+      httpsAgent
     });
-
+    // TODO: Add multiple accounts
     const accounts = accountsRes.data
       .filter(acc => acc.subtype === 'checking')
       .map(acc => ({
@@ -66,10 +73,24 @@ export const tellerAccounts = async (
         auth: {
           username: accessToken,
           password: ''
-        }
+        },
+        httpsAgent
       }
     );
     const balance = balanceRes.data.available;
+
+    await user.updateOne({
+      $set: {
+        bankAccounts: [
+          ...user.bankAccounts,
+          {
+            accessToken,
+            accounts
+          }
+        ]
+      }
+    });
+
     return {
       success: true,
       accountId,
@@ -77,6 +98,7 @@ export const tellerAccounts = async (
       bankName
     };
   } catch (err) {
+    console.error(err);
     return { message: err.response.data.error.message };
   }
 };

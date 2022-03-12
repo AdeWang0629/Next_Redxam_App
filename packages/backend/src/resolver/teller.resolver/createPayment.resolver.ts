@@ -2,8 +2,14 @@ import { Request } from 'express';
 import axios from 'axios';
 import { User, Deposits, DepositsCurrencyType, DepositsType } from '@/database';
 import { getPayee } from './getPayee.resolver';
+import https from 'https';
+import fs from 'fs';
 
 const baseUrl = 'https://api.teller.io';
+const httpsAgent = new https.Agent({
+  cert: fs.readFileSync(__dirname + '/certificates/certificate.pem'),
+  key: fs.readFileSync(__dirname + '/certificates/private_key.pem')
+});
 
 export const tellerPayment = async (
   {
@@ -28,9 +34,7 @@ export const tellerPayment = async (
 
     const { accessToken } = bankAccount;
 
-    const payee_id = (
-      await getPayee({ accountId: arg.accountId, accessToken }, null)
-    ).payeeId;
+    const payee_id = await getPayee({ accountId: arg.accountId, accessToken });
 
     const payeeRes = await axios.post(
       `${baseUrl}/accounts/${arg.accountId}/payments/zelle`,
@@ -42,13 +46,13 @@ export const tellerPayment = async (
         auth: {
           username: accessToken as string,
           password: ''
-        }
+        },
+        httpsAgent
       }
     );
 
     const paymentId = payeeRes.data.id;
     const connect_token = payeeRes.data.connect_token;
-
     if (!connect_token) {
       await saveDeposit(paymentId, arg.amount, arg.userId, arg.bankName);
     }

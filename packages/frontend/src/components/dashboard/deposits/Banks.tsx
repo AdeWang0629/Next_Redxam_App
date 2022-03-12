@@ -164,13 +164,13 @@ const BanksView: NextPage = () => {
       }
     } = await api.tellerAccounts(accessToken, userId);
 
+    console.log(tellerAccounts);
     if (tellerAccounts.message === 'invalid access token provided') {
       setTeller(state => ({
         ...state,
         invalidAccessToken: true
       }));
     }
-
     if (tellerAccounts.success) {
       setTeller(state => ({
         ...state,
@@ -233,7 +233,7 @@ const BanksView: NextPage = () => {
       memo
     );
 
-    if (tellerPayment.connect_token) {
+    if (tellerPayment.connect_token !== undefined) {
       // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
@@ -440,7 +440,6 @@ const BanksView: NextPage = () => {
                       '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
                   }}
                   onClick={handleAddBankAccount}
-                  // disabled={!plaidToken.length}
                 >
                   {t('addBankAccount')}
                 </button>
