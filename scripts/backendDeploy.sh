@@ -33,7 +33,7 @@ yarn install
 rm -rf dist
 npm run build
 
-# Manually copy files
+## Manually copy files
 cp -R src/resolver/teller.resolver/certificates dist/resolver/teller.resolver/certificates
 
 pm2 delete all
