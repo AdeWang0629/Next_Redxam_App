@@ -19,7 +19,13 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['newsletter']))
+      ...(await serverSideTranslations(locale, [
+        'newsletter',
+        'navbar',
+        'footer',
+        'waitlist',
+        'login'
+      ]))
     }
   };
 };
@@ -48,7 +54,7 @@ const Blog: NextPage = () => {
     <>
       <Navbar title="Blog" />
       <Switcher activePage="blog" />
-      <section className="flex flex-col items-center justify-center max-w-7xl mx-auto h-full px-4 md:px-0 mb-8">
+      <section className="flex flex-col items-center justify-center max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto h-full px-4 md:px-0 mb-8">
         <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-lighter-black dark:text-gray-200 mt-16 leading-[1.2] text-center w-full md:max-w-[62.5rem]">
           Get the latest update and Gist on investment from the redxam Blog
         </h1>
@@ -66,7 +72,7 @@ const Blog: NextPage = () => {
       </section>
 
       <section
-        className="pt-24 pb-0 md:grid grid-cols-3 gap-x-12 gap-y-24 max-w-7xl mx-auto px-4 md:px-0"
+        className="pt-24 pb-0 md:grid grid-cols-3 gap-x-12 gap-y-24 max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto px-4 md:px-0"
         id="posts"
       >
         {blogPosts.map((post, idx) => (

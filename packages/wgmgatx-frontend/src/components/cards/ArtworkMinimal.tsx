@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Artwork } from "@types";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Artwork } from '@types';
 
 const ArtworkMinimal = ({ artwork }: { artwork: Artwork }) => {
   return (
@@ -18,11 +18,15 @@ const ArtworkMinimal = ({ artwork }: { artwork: Artwork }) => {
       </Link>
       <div className="w-full flex justify-end items-center gap-[1ch] font-prata">
         <Link href={`/artworks/${artwork.id}`}>
-          <a className="text-primary-100 transition-colors hover:text-primary-200 cursor-pointer">{artwork.title}</a>
+          <a className="text-primary-100 transition-colors hover:text-primary-200 cursor-pointer">
+            {artwork.title}
+          </a>
         </Link>
         <span className="h-5 bg-grayscale-200 w-1">&nbsp;</span>
         <Link href={`/artists/${artwork.artist.id}`}>
-          <a className="text-grayscale-400 transition-colors hover:text-grayscale-500 cursor-pointer">{artwork.artist.name}</a>
+          <a className="text-grayscale-400 transition-colors hover:text-grayscale-500 cursor-pointer">
+            {artwork.artist.name}
+          </a>
         </Link>
       </div>
     </div>

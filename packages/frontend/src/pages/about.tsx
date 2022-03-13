@@ -98,7 +98,7 @@ const About: NextPage = () => {
       >
         <Navbar transparentBackground title="About Us" />
         <Switcher activePage="about" />
-        <div className="flex flex-col items-center justify-center max-w-7xl mx-auto h-full px-4 md:px-0 mt-8">
+        <div className="flex flex-col items-center justify-center max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto h-full px-4 md:px-0 mt-8">
           <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-white mt-20 text-center md:w-3/5">
             {t('title')}
           </h1>
@@ -111,7 +111,7 @@ const About: NextPage = () => {
           </Link>
         </div>
       </section>
-      <section className="max-w-7xl mx-auto pt-32 px-4 md:px-0">
+      <section className="max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto pt-32 px-4 md:px-0">
         <div>
           <h2 className="text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 mb-[6.25rem]">
             {t('subtitle')}
@@ -151,7 +151,7 @@ const About: NextPage = () => {
           </div>
         </div>
       </section>
-      <section className="py-12 max-w-7xl mx-auto px-4 md:px-0">
+      <section className="py-12 max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto px-4 md:px-0">
         <h2 className="text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 mb-[6.25rem]">
           {t('trusted')}
         </h2>
@@ -169,7 +169,7 @@ const About: NextPage = () => {
         </div>
       </section>
 
-      <section className="flex flex-col max-w-7xl mx-auto items-center mt-16">
+      <section className="flex flex-col max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto items-center mt-16">
         <h2 className="text-left text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 mb-[6.25rem]">
           {t('ourteam')}
         </h2>
@@ -186,7 +186,7 @@ const About: NextPage = () => {
         </div>
       </section>
 
-      <section className="md:flex justify-between max-w-7xl mx-auto my-56 md:pr-16 px-4 md:px-0">
+      <section className="md:flex justify-between max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto my-56 md:pr-16 px-4 md:px-0">
         <div className="md:w-2/5 md:mr-14 text-center ltr:md:text-left rtl:md:text-right mb-16 md:mb-0">
           <h2 className="mb-9 text-center ltr:md:text-left rtl:md:text-right text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 self-start font-secondary">
             {t('interestedworking')}

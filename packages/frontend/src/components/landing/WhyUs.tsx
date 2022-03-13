@@ -11,7 +11,7 @@ const WhyUs: NextPage = () => {
   const { t } = useTranslation('whyus');
   return (
     <section
-      className="max-w-7xl mx-auto flex flex-col pt-24 pb-48"
+      className="max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto flex flex-col pt-24 pb-48"
       id="benefits"
     >
       <h2 className="w-full md:w-[600px] self-start text-left rtl:text-right text-3xl md:text-[2.8125rem] leading-normal text-lighter-black dark:text-gray-200 font-secondary font-bold mb-24">

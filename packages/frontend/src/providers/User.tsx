@@ -17,8 +17,17 @@ export type Context = {
     phone: string;
     accountStatus: string;
     pending_balance: number;
-    wallet: null | {
-      address: string;
+    wallets: {
+      BTC: {
+        address: string;
+        tsxCount: number;
+        wif: string;
+      };
+      TEST_BTC: {
+        address: string;
+        tsxCount: number;
+        wif: string;
+      };
     };
   };
   setUser: Dispatch<SetStateAction<null>>;

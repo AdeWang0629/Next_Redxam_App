@@ -1,7 +1,7 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Artwork } from "@types";
-import ArtworkCard from "@components/cards/ArtworkMinimal";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { Artwork } from '@types';
+import ArtworkCard from '@components/cards/ArtworkMinimal';
 
 const Carousel = ({ artworks }: { artworks: Artwork[] }) => {
   return (

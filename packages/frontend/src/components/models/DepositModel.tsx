@@ -1,3 +1,5 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable @typescript-eslint/naming-convention */
 import type { NextPage } from 'next';
 import {
   useRef,
@@ -33,12 +35,14 @@ interface DepositModelProps {
       type: string;
     }
   ];
+  paymentApi: string;
 }
 
 const DepositModel: NextPage<DepositModelProps> = ({
   isOpened,
   setOpened,
-  accounts
+  accounts,
+  paymentApi
 }) => {
   const { user } = useContext(UserContext);
 
@@ -93,36 +97,55 @@ const DepositModel: NextPage<DepositModelProps> = ({
 
     setDepositLoading(true);
 
-    const {
-      data: {
-        data: { tellerPayment }
-      }
-    } = await api.tellerPayment(
-      selectedAccount.id,
-      value,
-      selectedAccount.name,
-      userId,
-      memo
-    );
+    switch (paymentApi) {
+      case 'TELLER':
+        const {
+          data: {
+            data: { tellerPayment }
+          }
+        } = await api.tellerPayment(
+          selectedAccount.id,
+          value,
+          selectedAccount.name,
+          userId,
+          memo
+        );
 
-    if (tellerPayment.connect_token) {
-      // @ts-ignore typescript does not recognize CDN script types
-      const setup = window.TellerConnect.setup({
-        environment:
-          currentEnvironment === 'production' ? 'production' : 'sandbox',
-        connectToken: tellerPayment.connect_token,
-        applicationId: 'app_nu123i0nvg249720i8000',
-        async onSuccess({ payment: { id } }: any) {
-          await api.tellerPaymentVerified(
-            id,
-            value,
-            selectedAccount.name,
-            userId
-          );
+        if (tellerPayment.connect_token) {
+          // @ts-ignore typescript does not recognize CDN script types
+          const setup = window.TellerConnect.setup({
+            environment:
+              currentEnvironment === 'production' ? 'production' : 'production',
+            connectToken: tellerPayment.connect_token,
+            applicationId: 'app_nu123i0nvg249720i8000',
+            async onSuccess({ payment: { id } }: any) {
+              await api.tellerPaymentVerified(
+                id,
+                value,
+                selectedAccount.name,
+                userId
+              );
+            }
+          });
+          setup.open();
         }
-      });
-      setup.open();
+        break;
+      case 'LEAN':
+        const res = await api.createPaymentIntent(user?._id as string, value);
+        console.log(res);
+        const payment_intent_id =
+          res.data.data.createPaymentIntent.paymentIntentId;
+        // @ts-ignore typescript does not recognize CDN script types
+        window.Lean.pay({
+          app_token: '94e54b49-973c-47c8-8b11-f0d9bba2c6d5',
+          payment_intent_id,
+          sandbox: 'true'
+        });
+        break;
+      default:
+        break;
     }
+
     setOpened(false);
   };
 
@@ -152,12 +175,17 @@ const DepositModel: NextPage<DepositModelProps> = ({
 
           <div className="flex flex-col items-center pt-10 px-32">
             <div className="flex items-center">
-              <CustomSelect
-                accounts={accounts}
-                value={selectedAccount}
-                setValue={setSelectedAccount}
-              />
-              <FontAwesomeIcon icon={faArrowRight} className="mx-8" />
+              {paymentApi !== 'LEAN' && (
+                <>
+                  <CustomSelect
+                    accounts={accounts}
+                    value={selectedAccount}
+                    setValue={setSelectedAccount}
+                  />
+                  <FontAwesomeIcon icon={faArrowRight} className="mx-8" />
+                </>
+              )}
+
               <div className="flex rounded-3xl border p-6 min-w-[15.0625rem]">
                 <Image
                   src={RedxamLogo}
@@ -182,6 +210,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
                   style={{ width: `${value.toString().length}ch` }}
                   onChange={({ target }) => {
                     const newValue = +target.value.replace(/[^0-9]/g, '');
+                    console.log(newValue);
                     setValue(newValue);
                   }}
                 />

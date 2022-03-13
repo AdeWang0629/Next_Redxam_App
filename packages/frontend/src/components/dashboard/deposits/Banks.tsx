@@ -1,5 +1,8 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable no-case-declarations */
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import { useState, useEffect, useContext } from 'react';
 import { NextPage } from 'next';
 import * as Sentry from '@sentry/nextjs';
@@ -24,6 +27,7 @@ import TsxsTable from './TransactionsTable';
 import Card from '../Card';
 
 const TELLER_APPLICATION_ID = 'app_nu123i0nvg249720i8000';
+const LEAN_APPLICATION_ID = '94e54b49-973c-47c8-8b11-f0d9bba2c6d5';
 
 interface Teller {
   accessToken: string;
@@ -48,6 +52,7 @@ const BanksView: NextPage = () => {
   const [paymentApi] = useState('TELLER');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
+  const [leanConnect, setLeanConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
 
@@ -134,7 +139,15 @@ const BanksView: NextPage = () => {
         tellerConnect.open();
         break;
 
-      case 'PLAID':
+      case 'LEAN':
+        const res = await api.getLeanCustomerId(user?._id as string);
+        const customer_id = res.data.data.getLeanCustomerId.customerId;
+        // @ts-ignore
+        leanConnect?.createPaymentSource({
+          app_token: LEAN_APPLICATION_ID,
+          customer_id,
+          sandbox: 'true'
+        });
         break;
 
       default:
@@ -151,13 +164,13 @@ const BanksView: NextPage = () => {
       }
     } = await api.tellerAccounts(accessToken, userId);
 
+    console.log(tellerAccounts);
     if (tellerAccounts.message === 'invalid access token provided') {
       setTeller(state => ({
         ...state,
         invalidAccessToken: true
       }));
     }
-
     if (tellerAccounts.success) {
       setTeller(state => ({
         ...state,
@@ -181,7 +194,7 @@ const BanksView: NextPage = () => {
       // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'development',
+          currentEnvironment === 'production' ? 'production' : 'production',
         connectToken: tellerPayee.connect_token,
         applicationId: TELLER_APPLICATION_ID,
         onSuccess({ payee: { id } }: { payee: { id: string } }) {
@@ -220,11 +233,11 @@ const BanksView: NextPage = () => {
       memo
     );
 
-    if (tellerPayment.connect_token) {
+    if (tellerPayment.connect_token !== undefined) {
       // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'development',
+          currentEnvironment === 'production' ? 'production' : 'production',
         connectToken: tellerPayment.connect_token,
         applicationId: TELLER_APPLICATION_ID,
         async onSuccess({ payment: { id } }: any) {
@@ -275,7 +288,7 @@ const BanksView: NextPage = () => {
                 environment:
                   currentEnvironment === 'production'
                     ? 'production'
-                    : 'development',
+                    : 'production',
                 applicationId: TELLER_APPLICATION_ID,
 
                 async onSuccess({ accessToken }: any) {
@@ -291,8 +304,22 @@ const BanksView: NextPage = () => {
             );
           }}
         />
+      ) : paymentApi === 'PLAID' ? (
+        ''
+      ) : paymentApi === 'LEAN' ? (
+        <>
+          <Script
+            id="lean"
+            src="https://cdn.leantech.me/link/sdk/web/latest/Lean.min.js"
+            onLoad={() => {
+              // @ts-ignore
+              setLeanConnect(window.Lean);
+            }}
+          />
+          <div id="lean-link" />
+        </>
       ) : (
-        paymentApi === 'PLAID' && ''
+        ''
       )}
 
       <div className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse lg:gap-x-3">
@@ -413,7 +440,6 @@ const BanksView: NextPage = () => {
                       '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
                   }}
                   onClick={handleAddBankAccount}
-                  // disabled={!plaidToken.length}
                 >
                   {t('addBankAccount')}
                 </button>
@@ -480,7 +506,10 @@ const BanksView: NextPage = () => {
                         {t('enterADescription')}
                       </label>
                     </div>
-                    <div dir="ltr" className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
+                    <div
+                      dir="ltr"
+                      className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto"
+                    >
                       <span className="text-card-button">$</span>
                       <input
                         className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
@@ -608,6 +637,7 @@ const BanksView: NextPage = () => {
           isOpened={showDepositModel}
           setOpened={setShowDepositModel}
           accounts={accounts as any}
+          paymentApi={paymentApi}
         />
       ) : null}
     </>

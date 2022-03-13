@@ -11,13 +11,13 @@ import api from '@utils/api';
 
 export type Context = {
   balanceRecords:
-    | null
-    | [
-        {
-          balance: number;
-          timestamp: number;
-        }
-      ];
+  | null
+  | [
+    {
+      balance: number;
+      timestamp: number;
+    }
+  ];
   setBalanceRecords: Dispatch<SetStateAction<null>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;

@@ -7,6 +7,8 @@ import Footer from '@components/global/Footer';
 import Switcher from '@components/global/Switcher';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import MouseIcon from '@public/icons/mouse.svg';
 
@@ -15,6 +17,23 @@ import HeroImage2 from '@public/images/careers/hero-img2.png';
 import HeroImage3 from '@public/images/careers/hero-img3.png';
 import HeroImage4 from '@public/images/careers/hero-img4.png';
 import MissionImage from '@public/images/careers/mission-img.png';
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  if (!locale) {
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        'navbar',
+        'footer',
+        'waitlist',
+        'login'
+      ]))
+    }
+  };
+};
 
 const Careers: NextPage = () => {
   const [activeGreenBox, setActiveGreenBox] = useState(0);
@@ -74,7 +93,7 @@ const Careers: NextPage = () => {
     <>
       <Navbar title="Careers" />
       <Switcher activePage="careers" />
-      <section className="flex flex-col items-center justify-center max-w-7xl mx-auto h-full px-4 md:px-0 mb-8">
+      <section className="flex flex-col items-center justify-center max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto h-full px-4 md:px-0 mb-8">
         <h1 className="text-5xl md:text-7xl tracking-[-0.05em] font-secondary mb-10 font-bold text-lighter-black dark:text-gray-200 mt-16 leading-[1.2] text-center w-full md:max-w-[62.5rem]">
           We&apos;re on a mission to make Investing comfortable for everyone.
         </h1>
@@ -131,7 +150,7 @@ const Careers: NextPage = () => {
         />
       </section>
       <section
-        className="pt-48 pb-72 flex flex-col md:flex-row justify-center items-start max-w-7xl mx-auto px-4 md:px-0"
+        className="pt-48 pb-72 flex flex-col md:flex-row justify-center items-start max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto px-4 md:px-0"
         id="mission"
       >
         <div className="mr-24 w-full">
@@ -164,7 +183,7 @@ const Careers: NextPage = () => {
           </p>
         </div>
       </section>
-      <section className="flex flex-col max-w-7xl mx-auto px-4 md:px-0">
+      <section className="flex flex-col max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto px-4 md:px-0">
         <h4 className="mb-7 text-[1.0625rem] font-medium uppercase text-[#828282] tracking-[0.3em]">
           MISSION AND VISION
         </h4>
@@ -212,7 +231,7 @@ const Careers: NextPage = () => {
         </div>
       </section>
       <section
-        className="flex flex-col items-center px-4 md:px-0 max-w-7xl mx-auto pt-24 pb-48"
+        className="flex flex-col items-center px-4 md:px-0 max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto pt-24 pb-48"
         id="jobs"
       >
         <h2 className="mb-[6.25rem] text-center text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black dark:text-gray-200 font-secondary">

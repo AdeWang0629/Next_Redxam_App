@@ -67,7 +67,7 @@ const Calculate: NextPage = () => {
   };
 
   return (
-    <section className="max-w-7xl mx-auto flex flex-col items-center justify-center mt-24 mb-48 p-4 md:p-0">
+    <section className="max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto flex flex-col items-center justify-center mt-24 mb-48 p-4 md:p-0">
       <h2 className="mb-[6.25rem] text-3xl md:text-[2.8125rem] leading-[1.5] font-bold font-secondary text-lighter-black dark:text-gray-200">
         {t('title')}
       </h2>

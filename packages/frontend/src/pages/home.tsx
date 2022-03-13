@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useContext, useEffect } from 'react';
 import { UserContext } from '@providers/User';
 import { useRouter } from 'next/router';
@@ -54,6 +55,9 @@ const Home: NextPage = () => {
 
   return (
     <InternalLayout>
+      <Head>
+        <title>redxam - Home</title>
+      </Head>
       <div className="px-3 lg:px-0 max-w-[900px] my-0 mx-auto">
         <div className="flex justify-between items-center mb-10">
           <IconButton buttonText={t('settings')} buttonIcon={settings} />

@@ -5,6 +5,7 @@ import Users from '@components/admin/Users';
 import Emails from '@components/admin/Emails';
 import Scripts from '@components/admin/Scripts';
 import CreateUser from '@components/admin/CreateUser';
+import Deposits from '@components/admin/Deposits';
 import { AdminContext } from '@providers/Admin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -15,7 +16,8 @@ import {
   faUsers,
   faEnvelope,
   faCogs,
-  faPlayCircle
+  faPlayCircle,
+  faHandHoldingDollar
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Admin = () => {
@@ -42,6 +44,7 @@ export const Admin = () => {
             { name: 'Overview', icon: faColumns },
             { name: 'Users', icon: faUsers },
             { name: 'Emails', icon: faEnvelope },
+            { name: 'Deposits', icon: faHandHoldingDollar },
             { name: 'Scripts', icon: faPlayCircle },
             { divider: true },
             { name: 'Settings', icon: faCogs }
@@ -134,6 +137,8 @@ function AdminView({ activeSection, setActiveSection }: any) {
       return <Emails />;
     case 'scripts':
       return <Scripts />;
+    case 'deposits':
+      return <Deposits />;
     default:
       return null;
   }

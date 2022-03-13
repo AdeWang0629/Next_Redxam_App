@@ -5,7 +5,7 @@ const Plan: NextPage = () => {
   const { t } = useTranslation('plan');
 
   return (
-    <section className="max-w-7xl mx-auto flex flex-col mt-24 mb-48 p-6 md:p-0">
+    <section className="max-w-3xl lg:max-w-4xl xl:max-w-7xl mx-auto flex flex-col mt-24 mb-48 p-6 md:p-0">
       <div className="flex flex-col bg-calculator-bg px-8 md:px-40 py-8 md:py-[7.5rem] rounded-[30px]">
         <h2 className="text-3xl md:text-5xl leading-normal font-bold tracking-[-0.03em] text-lighter-black capitalize">
           {t('first-title')}

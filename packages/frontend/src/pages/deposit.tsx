@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '@providers/User';
 import { useRouter } from 'next/router';
@@ -23,9 +24,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        'dashboard'
-      ]))
+      ...(await serverSideTranslations(locale, ['dashboard']))
     }
   };
 };
@@ -35,7 +34,7 @@ const Deposit: NextPage = () => {
   const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
 
-  const [activeSection, setActiveSection] = useState('card');
+  const [activeSection, setActiveSection] = useState('crypto');
   const [isApplicant, setIsApplicant] = useState(false);
   const [isValidApplicant, setIsValidApplicant] = useState(false);
   const [isInit, setIsInit] = useState(false);
@@ -80,11 +79,7 @@ const Deposit: NextPage = () => {
 
   switch (activeSection) {
     case 'crypto':
-      depositContent = (
-        <div>
-          <Crypto />
-        </div>
-      );
+      depositContent = <Crypto />;
       break;
 
     case 'card':
@@ -108,6 +103,9 @@ const Deposit: NextPage = () => {
 
   return (
     <InternalLayout>
+      <Head>
+        <title>redxam - Deposit</title>
+      </Head>
       <div className="max-w-[900px] my-0 mx-auto px-3 lg:px-0">
         <div className="flex flex-col lg:flex-row justify-between items-center mb-10">
           <IconButton

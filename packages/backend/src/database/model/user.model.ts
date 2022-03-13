@@ -47,6 +47,7 @@ export interface User {
   referralCode: string;
   referralId?: string;
   mxId?: string;
+  leanCustomerId?: string;
   discordId?: string;
   invitationCode?: string;
   invitationAccepted?: false;

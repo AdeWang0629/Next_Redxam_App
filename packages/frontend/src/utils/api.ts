@@ -172,8 +172,17 @@ class API {
           balance
           accountStatus
           withdrawn
-          wallet {
-            address
+          wallets {
+            BTC {
+              address
+              wif
+              txsCount
+            }
+            TEST_BTC {
+              address
+              wif
+              txsCount
+            }
           }
           pending_balance
         }
@@ -276,6 +285,22 @@ class API {
     );
   }
 
+  updateDepositStatus(adminToken: string, depositId: string, status: string) {
+    const mutation = `mutation {
+      updateDepositStatus (arg: {depositId: "${depositId}", status: "${status}"}) {
+        message
+        success
+      }
+    }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
   getApplicantData() {
     return this.axios.post(`${this.baseURL}/api/v2/applicantData`, {
       userToken: this.getToken()
@@ -331,6 +356,7 @@ class API {
     const query = `
       query {
         userDeposits {
+          _id
           type
           amount
           index
@@ -628,6 +654,32 @@ class API {
         headers: { Authorization: tellerAccessToken }
       }
     );
+  }
+
+  getLeanCustomerId(userId: string) {
+    const query = `
+    query {
+      getLeanCustomerId (userId: "${userId}") {
+          message
+          success
+          customerId
+      }
+  }
+  `;
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
+  }
+
+  createPaymentIntent(userId: string, amount: number) {
+    const query = `
+    query {
+      createPaymentIntent (arg: {amount: ${amount}, userId: "${userId}"}) {
+          message
+          success
+          paymentIntentId
+      }
+  }
+  `;
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
   }
 }
 
