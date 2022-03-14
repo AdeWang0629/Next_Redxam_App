@@ -1,6 +1,4 @@
 import type { NextPage } from 'next';
-import Navbar from '@components/global/Navbar';
-import Footer from '@components/global/Footer';
 
 const DubaiExpo: NextPage = () => (
   <section
