@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Script from 'next/script';
 import Particles from 'react-tsparticles';
 import Navbar from '@components/global/Navbar';
-import Hero from '@components/landing/Hero';
+// import Hero from '@components/landing/Hero';
 import WhyUs from '@components/landing/WhyUs';
 import Starting from '@components/landing/Starting';
 import Relax from '@components/landing/Relax';
