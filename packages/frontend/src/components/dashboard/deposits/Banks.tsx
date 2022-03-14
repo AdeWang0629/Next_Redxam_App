@@ -90,20 +90,23 @@ const BanksView: NextPage = () => {
       setPlaidToken(plaidTokenData.token);
 
       await getBankAccounts();
-
-      const { data: userDepositsData } = await api.getUserDeposits();
-      setDeposits(
-        userDepositsData.data.userDeposits
-          .filter((deposit: { type: string }) => deposit.type === 'FIAT')
-          .sort(
-            (
-              firstTimestamp: { timestamp: number },
-              secondTimeStamp: { timestamp: number }
-            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
-          )
-      );
+      await getUserDeposits();
     })();
   }, []);
+
+  const getUserDeposits = async () => {
+    const { data: userDepositsData } = await api.getUserDeposits();
+    setDeposits(
+      userDepositsData.data.userDeposits
+        .filter((deposit: { type: string }) => deposit.type === 'FIAT')
+        .sort(
+          (
+            firstTimestamp: { timestamp: number },
+            secondTimeStamp: { timestamp: number }
+          ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
+        )
+    );
+  };
 
   const getBankAccounts = async () => {
     const { data: accountsData } = await api.getBankAccounts();
@@ -645,6 +648,7 @@ const BanksView: NextPage = () => {
           setOpened={setShowDepositModel}
           accounts={accounts as any}
           paymentApi={paymentApi}
+          reloadDeposits={getUserDeposits}
         />
       ) : null}
     </>
