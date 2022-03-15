@@ -36,13 +36,15 @@ interface DepositModelProps {
     }
   ];
   paymentApi: string;
+  reloadDeposits: () => Promise<void>;
 }
 
 const DepositModel: NextPage<DepositModelProps> = ({
   isOpened,
   setOpened,
   accounts,
-  paymentApi
+  paymentApi,
+  reloadDeposits
 }) => {
   const { user } = useContext(UserContext);
 
@@ -115,7 +117,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
           // @ts-ignore typescript does not recognize CDN script types
           const setup = window.TellerConnect.setup({
             environment:
-              currentEnvironment === 'production' ? 'production' : 'production',
+              currentEnvironment === 'production' ? 'production' : 'sandbox',
             connectToken: tellerPayment.connect_token,
             applicationId: 'app_nu123i0nvg249720i8000',
             async onSuccess({ payment: { id } }: any) {
@@ -125,9 +127,12 @@ const DepositModel: NextPage<DepositModelProps> = ({
                 selectedAccount.name,
                 userId
               );
+              await reloadDeposits();
             }
           });
           setup.open();
+        } else {
+          await reloadDeposits();
         }
         break;
       case 'LEAN':
