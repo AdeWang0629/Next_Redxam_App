@@ -1,0 +1,11 @@
+{
+  "success": "¡Has sido agregado a nuestra base de datos!",
+  "error": "Algo salió mal, inténtalo de nuevo más tarde",
+  "inbox": "¡Revisa tu correo!",
+  "join": "Únete",
+  "signup": "Regístrese para la versión beta",
+  "invalid-email": "Introduzca un correo electrónico válida",
+  "first-name": "Primer Nombre",
+  "second-name": "Segundo Nombre",
+  "email": "Correo Electrónico"
+}
