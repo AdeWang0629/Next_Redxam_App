@@ -289,6 +289,12 @@ type CreatePaymentIntent {
   paymentIntentId: String
 }
 
+type AdminDeposit {
+  deposits: [Deposits]
+  success: Boolean
+  message: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -316,6 +322,7 @@ type Query {
   getPayee(accountId: String): GetPayee
   getLeanCustomerId(userId: String): GetLeanCustomerId
   createPaymentIntent(arg: CreatePaymentIntentInput): CreatePaymentIntent
+  getDeposits: AdminDeposit
 }
 
 type Mutation {
