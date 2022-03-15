@@ -17,9 +17,9 @@ const DubaiExpo: NextPage = () => (
         className="bg-no-repeat bg-cover min-h-screen w-full h-full"
         style={{ backgroundImage: 'url(/images/dubaiexpo/dots-bg.png)' }}
       >
-        <div className="flex flex-col items-center justify-center mx-auto h-screen text-white pt-28 h-full w-full">
+        <div className="flex flex-col items-center justify-center mx-auto h-screen text-white pt-28 h-full w-full md:h-[1000px]">
           <div
-            className="w-full h-[600px] max-h-[600px] max-w-[600px] rounded-full mb-[49px] bg-no-repeat bg-cover flex justify-center items-center"
+            className="w-[320px] h-[320px] md:w-[600px] md:h-[600px] rounded-full mb-[49px] bg-no-repeat bg-cover flex justify-center items-center"
             style={{
               backgroundImage: 'url(/images/dubaiexpo/hero-circle.svg)'
             }}
