@@ -22,9 +22,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        'dashboard'
-      ]))
+      ...(await serverSideTranslations(locale, ['dashboard']))
     }
   };
 };

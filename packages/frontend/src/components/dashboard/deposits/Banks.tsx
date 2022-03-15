@@ -89,22 +89,29 @@ const BanksView: NextPage = () => {
       const { data: plaidTokenData } = await api.getPlaidToken();
       setPlaidToken(plaidTokenData.token);
 
-      const { data: accountsData } = await api.getBankAccounts();
-      setAccounts(accountsData.accounts);
-
-      const { data: userDepositsData } = await api.getUserDeposits();
-      setDeposits(
-        userDepositsData.data.userDeposits
-          .filter((deposit: { type: string }) => deposit.type === 'FIAT')
-          .sort(
-            (
-              firstTimestamp: { timestamp: number },
-              secondTimeStamp: { timestamp: number }
-            ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
-          )
-      );
+      await getBankAccounts();
+      await getUserDeposits();
     })();
   }, []);
+
+  const getUserDeposits = async () => {
+    const { data: userDepositsData } = await api.getUserDeposits();
+    setDeposits(
+      userDepositsData.data.userDeposits
+        .filter((deposit: { type: string }) => deposit.type === 'FIAT')
+        .sort(
+          (
+            firstTimestamp: { timestamp: number },
+            secondTimeStamp: { timestamp: number }
+          ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
+        )
+    );
+  };
+
+  const getBankAccounts = async () => {
+    const { data: accountsData } = await api.getBankAccounts();
+    setAccounts(accountsData.accounts);
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { open, exit, ready } = usePlaidLink({
@@ -179,6 +186,9 @@ const BanksView: NextPage = () => {
         bankName: tellerAccounts.bankName,
         userId
       }));
+
+      // reload teller accounts
+      await getBankAccounts();
     }
     return tellerAccounts.accountId;
   };
@@ -194,7 +204,7 @@ const BanksView: NextPage = () => {
       // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'production',
+          currentEnvironment === 'production' ? 'production' : 'sandbox',
         connectToken: tellerPayee.connect_token,
         applicationId: TELLER_APPLICATION_ID,
         onSuccess({ payee: { id } }: { payee: { id: string } }) {
@@ -237,7 +247,7 @@ const BanksView: NextPage = () => {
       // @ts-ignore
       const setup = window.TellerConnect.setup({
         environment:
-          currentEnvironment === 'production' ? 'production' : 'production',
+          currentEnvironment === 'production' ? 'production' : 'sandbox',
         connectToken: tellerPayment.connect_token,
         applicationId: TELLER_APPLICATION_ID,
         async onSuccess({ payment: { id } }: any) {
@@ -288,7 +298,7 @@ const BanksView: NextPage = () => {
                 environment:
                   currentEnvironment === 'production'
                     ? 'production'
-                    : 'production',
+                    : 'sandbox',
                 applicationId: TELLER_APPLICATION_ID,
 
                 async onSuccess({ accessToken }: any) {
@@ -638,6 +648,7 @@ const BanksView: NextPage = () => {
           setOpened={setShowDepositModel}
           accounts={accounts as any}
           paymentApi={paymentApi}
+          reloadDeposits={getUserDeposits}
         />
       ) : null}
     </>

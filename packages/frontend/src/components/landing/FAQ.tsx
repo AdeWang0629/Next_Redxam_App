@@ -86,10 +86,10 @@ const FAQ: FC<InterfaceFAQ> = ({
       key={`question${idx}`}
     >
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-      <div
+      <button
         className="flex flex-row justify-between items-center cursor-pointer transition-all duration-500"
         onClick={() => setActiveQuestion(prev => (prev === idx ? -1 : idx))}
-        role="list"
+        type="button"
       >
         <span className="text-2xl md:text-4xl leading-10 w-auto font-primary font-medium text-black text-opacity-50 tracking-[-0.04em]">
           {title}
@@ -100,7 +100,7 @@ const FAQ: FC<InterfaceFAQ> = ({
           }`}
           icon={faAngleDown}
         />
-      </div>
+      </button>
       <p
         className={`leading-[1.8] font-primary text-black text-opacity-80 pt-7 ${
           activeQuestion === idx ? 'animate-fade-in-down' : 'hidden'
@@ -130,12 +130,10 @@ const FAQ: FC<InterfaceFAQ> = ({
    *
    * @returns {JSX}
    */
-  const faqForSupportPage = ({
-    filteredQuestionsList: filteredQuestionsList2 = []
-  }) =>
-    !filteredQuestionsList2?.length
+  const faqForSupportPage = (filteredQuestionsListFaq: InterfaceFAQList[]) =>
+    !filteredQuestionsListFaq?.length
       ? faqSearchNotFound
-      : filteredQuestionsList2?.map((question, idx) =>
+      : filteredQuestionsListFaq?.map((question, idx) =>
           FaqWrapper(question, idx)
         ) || [];
 
@@ -166,7 +164,9 @@ const FAQ: FC<InterfaceFAQ> = ({
       <div className="max-w-4xl mx-auto flex flex-col p-4 md:p-0">
         {isInputSearchEmpty || !isSearchFilterRequired ? FaqHeading : null}
         <div className="flex flex-col">
-          {isSearchFilterRequired ? faqForSupportPage({}) : faqForIndexPage()}
+          {isSearchFilterRequired
+            ? faqForSupportPage(filteredQuestionsList)
+            : faqForIndexPage()}
         </div>
       </div>
 
