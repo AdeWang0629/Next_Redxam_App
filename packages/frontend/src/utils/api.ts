@@ -229,6 +229,41 @@ class API {
     );
   }
 
+  getDeposits(adminToken: string) {
+    const query = `
+    query { 
+      getDeposits {
+        deposits {
+          _id
+          userId
+          type
+          amount
+          index
+          currency
+          timestamp
+          processedByRedxam
+          status
+          hash
+          address
+          bankIcon
+          bankName
+          bankType
+          userEmail
+        }
+        success
+        message
+      }
+    }`;
+
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
   adminLogin(email: string, password: string) {
     const query = 'query { adminLogin { token } }';
 
@@ -404,7 +439,7 @@ class API {
         );
 
       default:
-        break;
+        return '';
     }
   }
 

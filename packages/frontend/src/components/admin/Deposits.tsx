@@ -9,9 +9,12 @@ export default function Deposits() {
 
   useEffect(() => {
     (async () => {
-      const { data: userDepositsData } = await api.getUserDeposits();
+      const { data } = await api.getDeposits(
+        getCookie('admin_token') as string
+      );
+      console.log(data);
       setDeposits(
-        userDepositsData.data.userDeposits.sort(
+        data.data.getDeposits.deposits.sort(
           (
             firstTimestamp: { timestamp: number },
             secondTimeStamp: { timestamp: number }
@@ -52,9 +55,9 @@ export default function Deposits() {
           <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
             Currency:
           </th>
-          <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20 ">
+          {/* <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20 ">
             Status:
-          </th>
+          </th> */}
           <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
             Processed:
           </th>
@@ -102,13 +105,13 @@ export default function Deposits() {
                 deposit.currency
               )}
             </td>
-            <td className="bg-black dark:bg-gray-300 bg-opacity-5 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
+            {/* <td className="bg-black dark:bg-gray-300 bg-opacity-5 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
               {!deposit.status ? (
                 <span className="underline font-bold">N/A</span>
               ) : (
                 deposit.status
               )}
-            </td>
+            </td> */}
             <td className="bg-black dark:bg-gray-300 bg-opacity-5 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
               {deposit.processedByRedxam ? <span>Yes</span> : <span>No</span>}
             </td>
