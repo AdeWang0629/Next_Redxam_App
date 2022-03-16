@@ -439,7 +439,7 @@ class API {
         );
 
       default:
-        return '';
+        return null;
     }
   }
 

@@ -20,8 +20,6 @@ export const getDeposits = async (_: void, req: Request) => {
   try {
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'admin not found' };
-    // const deposits = await Deposits.find({ status: 'pending' });
-    console.log('alejandro el admin');
     const deposits = await Deposits.aggregate([
       {
         $match: {
