@@ -58,7 +58,7 @@ const BanksView: NextPage = () => {
 
   const [accounts, setAccounts] = useState<
     | []
-    | [{ _id: string; id: string; name: string; logo?: string; type: string }]
+    | { _id: string; id: string; name: string; logo?: string; type: string }[]
   >([]);
   const [selectedToUnlink, setSelectedToUnlink] = useState<[] | [string]>([]);
   const [unlinkMode, setUnlinkMode] = useState(false);
@@ -171,7 +171,6 @@ const BanksView: NextPage = () => {
       }
     } = await api.tellerAccounts(accessToken, userId);
 
-    console.log(tellerAccounts);
     if (tellerAccounts.message === 'invalid access token provided') {
       setTeller(state => ({
         ...state,
@@ -186,10 +185,9 @@ const BanksView: NextPage = () => {
         bankName: tellerAccounts.bankName,
         userId
       }));
-
-      // reload teller accounts
-      await getBankAccounts();
     }
+
+    await getBankAccounts();
     return tellerAccounts.accountId;
   };
 
@@ -301,11 +299,21 @@ const BanksView: NextPage = () => {
                     : 'sandbox',
                 applicationId: TELLER_APPLICATION_ID,
 
-                async onSuccess({ accessToken }: any) {
+                async onSuccess({ accessToken, enrollment }: any) {
                   setTeller(state => ({
                     ...state,
                     accessToken
                   }));
+
+                  setAccounts(e => [
+                    ...e,
+                    {
+                      type: 'Checking',
+                      name: enrollment.institution.name as string,
+                      _id: '',
+                      id: ''
+                    }
+                  ]);
 
                   const accountId = await handleTellerAccount(accessToken);
                   await handleTellerPayee(accountId, accessToken);
