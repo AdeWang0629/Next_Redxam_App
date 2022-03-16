@@ -7,7 +7,7 @@ import { sign, verify } from 'jsonwebtoken';
 import { User } from '@/database';
 import { sendMail } from '@/apis/sendgrid/index';
 import { messages } from '@/config/messages';
-import { createWaitlist } from '../referral.resolver/createWaitlist.resolver';
+import { createUser } from './createUser.resolver';
 import getAuthorizationToken from '../share/getAuthorizationToken';
 import { Argument, NewUser } from '../types';
 
@@ -17,7 +17,7 @@ export const signup = async ({ arg }: Argument<NewUser>, req: Request) => {
   console.log(req.headers.origin);
   try {
     if (await isUser(arg.email)) {
-      return await createWaitlist({ arg }, req);
+      return await createUser({ arg }, req);
     }
     const verificationToken = sign({ ...arg }, TOKEN_SECURITY_KEY, {
       expiresIn: '1h'
@@ -50,7 +50,7 @@ export const emailValidateToken = async (_: void, req: Request) => {
   try {
     const payload: NewUser = verify(auth.token, TOKEN_SECURITY_KEY) as NewUser;
 
-    return await createWaitlist({ arg: payload }, req);
+    return await signup({ arg: payload }, req);
   } catch (error) {
     return { message: error.message, success: false };
   }
