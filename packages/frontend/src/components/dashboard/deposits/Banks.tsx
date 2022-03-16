@@ -185,6 +185,9 @@ const BanksView: NextPage = () => {
         bankName: tellerAccounts.bankName,
         userId
       }));
+
+      // reload teller accounts
+      await getBankAccounts();
     }
 
     await getBankAccounts();
