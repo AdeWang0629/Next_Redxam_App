@@ -13,15 +13,13 @@ interface UnlinkModelProps {
   setOpened: (isOpened: boolean) => void;
   accounts:
     | []
-    | [
-        {
-          _id: string;
-          id: string;
-          name: string;
-          logo?: string | undefined;
-          type: string;
-        }
-      ];
+    | {
+        _id: string;
+        id: string;
+        name: string;
+        logo?: string | undefined;
+        type: string;
+      }[];
   IDs: [] | [string];
   fetchAccounts: () => void;
 }
