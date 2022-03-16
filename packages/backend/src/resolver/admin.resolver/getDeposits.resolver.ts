@@ -24,22 +24,23 @@ export const getDeposits = async (_: void, req: Request) => {
     console.log('alejandro el admin');
     const deposits = await Deposits.aggregate([
       {
-        $lookup: {
-          from: 'Users',
-          localField: 'userId',
-          foreignField: '_id',
-          as: 'userEmail'
+        $match: {
+          status: 'pending'
         }
-      }
-      // { $unwind: 'userEmail' }
-      // {
-      //   $project: {
-      //     email: '$userEmail.email'
-      //   }
-      // }
+      },
+      { $addFields: { ObjectUserId: { $toObjectId: '$userId' } } },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'ObjectUserId',
+          foreignField: '_id',
+          pipeline: [{ $project: { email: 1, _id: 0 } }],
+          as: 'user'
+        }
+      },
+      { $unwind: '$user' },
+      { $addFields: { email: '$user.email' } }
     ]);
-    console.log(deposits);
-
     console.log(deposits);
     return { deposits, success: true, message: '' };
   } catch (err) {
