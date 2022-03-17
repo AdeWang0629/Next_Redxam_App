@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale } from '@utils/hooks';
 import { useTranslation } from 'next-i18next';
+import Tippy from '@tippyjs/react';
 
 // Imgs
 import leafsBg from '@public/images/dashboard/leafs-bg.svg';
@@ -86,8 +87,7 @@ const BalanceCard = () => {
         {balanceInfo}
       </div>
       <p className="text-center bg-light-gray py-1 font-secondary text-sm text-[#95989B]">
-        {t('pendingBalance')}
-        {' '}
+        {t('pendingBalance')}{' '}
         <span className="text-lighter-black font-medium ml-1.5">
           ${user?.pending_balance}
         </span>
@@ -98,9 +98,11 @@ const BalanceCard = () => {
             {t('deposit')}
           </a>
         </Link>
-        <button className="w-1/2 font-medium font-secondary text-base underline py-4">
-          {t('withdraw')}
-        </button>
+        <Tippy content="Coming soon. Email us!">
+          <button className="w-1/2 font-medium font-secondary text-base underline py-4">
+            {t('withdraw')}
+          </button>
+        </Tippy>
       </div>
     </Card>
   );
