@@ -12,7 +12,7 @@ export default function Deposits() {
       const { data } = await api.getDeposits(
         getCookie('admin_token') as string
       );
-      console.log(data);
+
       setDeposits(
         data.data.getDeposits.deposits.sort(
           (
@@ -55,9 +55,6 @@ export default function Deposits() {
           <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
             Currency:
           </th>
-          {/* <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20 ">
-            Status:
-          </th> */}
           <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
             Processed:
           </th>
@@ -105,13 +102,7 @@ export default function Deposits() {
                 deposit.currency
               )}
             </td>
-            {/* <td className="bg-black dark:bg-gray-300 bg-opacity-5 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
-              {!deposit.status ? (
-                <span className="underline font-bold">N/A</span>
-              ) : (
-                deposit.status
-              )}
-            </td> */}
+
             <td className="bg-black dark:bg-gray-300 bg-opacity-5 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
               {deposit.processedByRedxam ? <span>Yes</span> : <span>No</span>}
             </td>
