@@ -38,7 +38,8 @@
     "curly": "off",
     "nonblock-statement-body-position": "off",
     "@typescript-eslint/indent": "off",
-    "no-confusing-arrow": "off"
+    "no-confusing-arrow": "off",
+    "jsx-a11y/interactive-supports-focus": "off"
   },
   "parserOptions": {
     "project": "tsconfig.json"

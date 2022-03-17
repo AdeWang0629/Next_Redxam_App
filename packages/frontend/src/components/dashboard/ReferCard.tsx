@@ -3,14 +3,16 @@ import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import referBg from '@public/images/dashboard/refer-bg.svg';
 import shareIcon from '@public/icons/share.svg';
+import Tippy from '@tippyjs/react';
 import IconButton from './IconButton';
 import Card from './Card';
-import Tippy from '@tippyjs/react';
 
 // Imgs
 
 const ReferCard = (props: { referralURL: string }) => {
   const { t } = useTranslation('dashboard');
+  const { referralURL } = props;
+  const referralURLlocal = referralURL;
   return (
     <Card width="lg:w-[440px]" height="h-[197px]" my="my-6 lg:my-0">
       <div className="flex h-full">
@@ -27,12 +29,14 @@ const ReferCard = (props: { referralURL: string }) => {
             Try sharing your referral code!
           </p>
           <Tippy content="Click to copy link">
+            {/* @ts-ignore */}
             <div
+              role="button"
               style={{ marginLeft: '-50px' }}
               className="cursor-pointer"
-              onClick={() =>
-                navigator.clipboard.writeText(props.referralURL || '')
-              }
+              onClick={() => {
+                navigator.clipboard.writeText(referralURLlocal || '');
+              }}
             >
               <IconButton
                 buttonText={t('referAndEarn')}

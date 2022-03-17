@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface CustomSelectProps {
   accounts: [
@@ -67,7 +68,7 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
               Click to select source bank
             </span>
             <FontAwesomeIcon
-              icon={faChevronDown}
+              icon={faChevronDown as IconProp}
               className="ml-2 text-[#98A3AA] text-xs"
             />
           </div>

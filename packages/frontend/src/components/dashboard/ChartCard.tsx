@@ -5,8 +5,8 @@ import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
 import { HomeContext } from '@providers/Home';
 import { BalanceRecordsContext } from '@providers/BalanceRecords';
 import { useTranslation } from 'next-i18next';
-import Card from './Card';
 import Tippy from '@tippyjs/react';
+import Card from './Card';
 
 interface ChartProps {
   data: {

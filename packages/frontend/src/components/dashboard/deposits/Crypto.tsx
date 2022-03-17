@@ -160,7 +160,9 @@ const Crypto: NextPage = () => {
                 </button>
               </div>
               <div
-                className="px-7 mt-5 w-full"
+                role="button"
+                tabIndex={0}
+                className="px-7 mt-5 w-full cursor-pointer"
                 onClick={() => handleToken('BTC', btcLogo)}
               >
                 <button
