@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
 import { useEffect, useState } from 'react';
 import api from '@utils/api';
 import { getCookie } from 'cookies-next';

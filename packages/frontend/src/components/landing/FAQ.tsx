@@ -3,7 +3,7 @@ import { useState, FC } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -98,7 +98,7 @@ const FAQ: FC<InterfaceFAQ> = ({
           className={`text-4xl text-black text-opacity-50 ml-1 ${
             activeQuestion === idx ? 'animate-flip transform rotate-180' : ''
           }`}
-          icon={faAngleDown}
+          icon={faAngleDown as IconProp}
         />
       </button>
       <p

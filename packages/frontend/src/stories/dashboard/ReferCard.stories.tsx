@@ -9,6 +9,12 @@ export default {
   component: ReferCard
 } as Meta;
 
-const Template: Story<ComponentProps<typeof ReferCard>> = args => <ReferCard />;
+const Template: Story<ComponentProps<typeof ReferCard>> = args => (
+  <ReferCard {...args} />
+);
 
 export const Default = Template.bind({});
+
+Default.args = {
+  referralURL: ''
+};

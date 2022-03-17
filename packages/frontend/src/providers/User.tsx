@@ -16,6 +16,7 @@ export type Context = {
     email: string;
     phone: string;
     accountStatus: string;
+    referralCode: string;
     pending_balance: number;
     wallets: {
       BTC: {

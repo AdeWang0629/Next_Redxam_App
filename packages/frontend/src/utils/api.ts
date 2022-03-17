@@ -171,6 +171,7 @@ class API {
           deposited
           balance
           accountStatus
+          referralCode
           withdrawn
           wallets {
             BTC {

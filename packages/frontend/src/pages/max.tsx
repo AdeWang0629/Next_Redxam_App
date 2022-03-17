@@ -50,10 +50,23 @@ function Max() {
         <br />
         <Link href="mailto:max@redxam.com" passHref>
           <button
-            className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-10 bg-buttons-green"
+            className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-4 bg-buttons-green"
             id="join-waiting"
           >
             Email Max
+          </button>
+        </Link>
+        <Link
+          href="https://api.whatsapp.com/send/?phone=19736264505&text&app_absent=0"
+          passHref
+        >
+          <button className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] mb-4 bg-buttons-green">
+            Whatsapp
+          </button>
+        </Link>
+        <Link href="https://t.me/maxawad" passHref>
+          <button className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] bg-buttons-green">
+            Telegram
           </button>
         </Link>
       </section>
