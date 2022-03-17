@@ -14,10 +14,16 @@ const ReferCard = () => {
     <Card width="lg:w-[440px]" height="h-[197px]" my="my-6 lg:my-0">
       <div className="flex h-full">
         <div className="flex flex-col justify-center ltr:pl-7 rtl:pr-7">
-          <p className="font-secondary text-sm text-[#6A6E73]">{t('getRewarded')}</p>
+          <p className="font-secondary text-sm text-[#6A6E73]">
+            {t('getRewarded')}
+          </p>
           <p className="font-secondary text-sm text-[#6A6E73] mt-2 mb-6">
-            <span className="text-[#61D404] font-bold text-xl ">$70</span> {t('from')}{' '}
-            <span className="text-[#2A3037] font-bold">7</span> {t('referrals')}.
+            <span className="text-[#61D404] font-bold text-xl ">$0</span>{' '}
+            {t('from')} <span className="text-[#2A3037] font-bold">0</span>{' '}
+            {t('referrals')}.
+          </p>
+          <p className="font-secondary text-sm text-[#6A6E73] mb-2">
+            Try sharing your referral code!
           </p>
           <IconButton buttonText={t('referAndEarn')} buttonIcon={shareIcon} />
         </div>

@@ -60,7 +60,9 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
             <span className="font-secondary text-xs text-lighter-black">
               {t('portfolio')}
             </span>
-            <span className="font-secondary text-2xl font-bold">{t('passive')}</span>
+            <span className="font-secondary text-2xl font-bold">
+              {t('passive')}
+            </span>
           </div>
         </div>
         <ResponsiveContainer
@@ -71,9 +73,11 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
         >
           <LineChart
             data={performanceData}
-            onMouseEnter={(e: any) =>
-              setValue(e.activePayload[0].payload.value)
-            }
+            onMouseEnter={(e: any) => {
+              if (e.activePayload) {
+                setValue(e.activePayload[0].payload.value);
+              }
+            }}
             onMouseMove={(e: any) =>
               setValue(e?.activePayload?.[0]?.payload?.value || 0)
             }
