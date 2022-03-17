@@ -159,9 +159,12 @@ const Crypto: NextPage = () => {
                   />
                 </button>
               </div>
-              <div className="px-7 mt-5 w-full">
+              <div
+                className="px-7 mt-5 w-full"
+                onClick={() => handleToken('BTC', btcLogo)}
+              >
                 <button
-                  className="flex"
+                  className="flex w-full"
                   onClick={() => handleToken('BTC', btcLogo)}
                 >
                   <Image

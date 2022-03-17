@@ -6,6 +6,7 @@ import { HomeContext } from '@providers/Home';
 import { BalanceRecordsContext } from '@providers/BalanceRecords';
 import { useTranslation } from 'next-i18next';
 import Card from './Card';
+import Tippy from '@tippyjs/react';
 
 interface ChartProps {
   data: {
@@ -93,10 +94,11 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-
-      <button className="w-full text-center font-medium font-secondary text-base underline py-4 border-t">
-        {t('viewPortfolio')}
-      </button>
+      <Tippy content="Coming soon">
+        <button className="w-full text-center font-medium font-secondary text-base underline py-4 border-t">
+          {t('viewPortfolio')}
+        </button>
+      </Tippy>
     </Card>
   );
 };

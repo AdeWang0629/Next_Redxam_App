@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 import { UserContext } from '@providers/User';
 import { useRouter } from 'next/router';
 
+import Tippy from '@tippyjs/react';
 import InternalLayout from '@components/dashboard/InternalLayout';
 import IconButton from '@components/dashboard/IconButton';
 import settings from '@public/icons/settings.svg';
@@ -50,7 +51,6 @@ const Home: NextPage = () => {
   }, [user?.accountStatus, noUser, loading, router]);
 
   if (loading) return <span>loading</span>;
-
   return (
     <InternalLayout>
       <Head>
@@ -58,11 +58,23 @@ const Home: NextPage = () => {
       </Head>
       <div className="px-3 lg:px-0 max-w-[900px] my-0 mx-auto">
         <div className="flex justify-between items-center mb-10">
-          <IconButton buttonText={t('settings')} buttonIcon={settings} />
+          <Tippy content="Coming soon">
+            <div>
+              <IconButton
+                buttonText={t('settings')}
+                buttonIcon={settings}
+                data-tooltip-target="tooltip-default"
+              />
+            </div>
+          </Tippy>
         </div>
         <div className="lg:grid lg:grid-cols-2 lg:gap-5">
           <BalanceCard />
-          <ReferCard />
+          <ReferCard
+            referralURL={`https://redxam.com/?referral=${
+              user ? user.referralCode : ''
+            }`}
+          />
           <RecentActivity />
           <Chart
             data={new Array(100).fill(0).map((_, i) => ({

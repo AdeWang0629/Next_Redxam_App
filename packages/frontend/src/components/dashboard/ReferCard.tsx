@@ -5,10 +5,11 @@ import referBg from '@public/images/dashboard/refer-bg.svg';
 import shareIcon from '@public/icons/share.svg';
 import IconButton from './IconButton';
 import Card from './Card';
+import Tippy from '@tippyjs/react';
 
 // Imgs
 
-const ReferCard = () => {
+const ReferCard = (props: { referralURL: string }) => {
   const { t } = useTranslation('dashboard');
   return (
     <Card width="lg:w-[440px]" height="h-[197px]" my="my-6 lg:my-0">
@@ -25,7 +26,20 @@ const ReferCard = () => {
           <p className="font-secondary text-sm text-[#6A6E73] mb-2">
             Try sharing your referral code!
           </p>
-          <IconButton buttonText={t('referAndEarn')} buttonIcon={shareIcon} />
+          <Tippy content="Click to copy link">
+            <div
+              style={{ marginLeft: '-50px' }}
+              className="cursor-pointer"
+              onClick={() =>
+                navigator.clipboard.writeText(props.referralURL || '')
+              }
+            >
+              <IconButton
+                buttonText={t('referAndEarn')}
+                buttonIcon={shareIcon}
+              />
+            </div>
+          </Tippy>
         </div>
         <div className="w-full h-full flex justify-end rounded-[25px] w-[72%]">
           <Image
