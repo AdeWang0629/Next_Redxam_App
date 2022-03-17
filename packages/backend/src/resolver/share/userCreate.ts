@@ -76,7 +76,7 @@ export const createNewUser = async (
 };
 
 export const signupUser = async (user: NewUser) => {
-  await User.create({
+  return User.create({
     accountBalance: 0,
     pending_balance: 0,
     balance: 0,
@@ -87,7 +87,7 @@ export const signupUser = async (user: NewUser) => {
     token: '',
     deposited: 0,
     withdrawn: 0,
-    accountStatus: 'pending',
+    accountStatus: 'accepted',
     wallets: generateWallets()
   });
 };
@@ -190,10 +190,11 @@ export const sendWaitlistMail = async (
   });
 };
 
-export const sendSignupMail = async (email: string) => {
-  await sendUserEmail(__dirname, '../../emails/simplewaitlist.hjs', {
+export const sendSignupMail = async (email: string, loginUrl: string) => {
+  await sendUserEmail(__dirname, '../../emails/signup.hjs', {
     email,
-    subject: 'You Joined The Waitlist | redxam'
+    subject: 'You Joined redxam',
+    loginUrl
   });
 };
 

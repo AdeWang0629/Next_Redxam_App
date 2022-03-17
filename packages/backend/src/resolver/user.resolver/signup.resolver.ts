@@ -1,65 +1,76 @@
-import { readFileSync } from 'fs';
+import { Request } from 'express';
 import { resolve } from 'path';
+import { readFileSync } from 'fs';
 import { render } from 'mustache';
 import { Attachment } from 'nodemailer/lib/mailer';
-import { Request } from 'express';
-import { sign, verify } from 'jsonwebtoken';
-import { User } from '@/database';
-import { sendMail } from '@/apis/sendgrid/index';
 import { messages } from '@/config/messages';
-import { createUser } from './createUser.resolver';
-import getAuthorizationToken from '../share/getAuthorizationToken';
+import { sanitize, isValidEmail } from '@/utils/helpers';
+import userCreate from '../share/userCreate';
 import { Argument, NewUser } from '../types';
+import { User, UserProps } from '@/database';
+import { JWT } from '@/config/jwt';
+import sendGrid from '@/apis/sendgrid/index';
 
-const { TOKEN_SECURITY_KEY, SERVICE_EMAIL } = process.env;
+const { SERVICE_EMAIL } = process.env;
 
 export const signup = async ({ arg }: Argument<NewUser>, req: Request) => {
-  console.log(req.headers.origin);
+  const form = sanitize(arg);
+
+  if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
+
   try {
-    if (await isUser(arg.email)) {
-      return await createUser({ arg }, req);
-    }
-    const verificationToken = sign({ ...arg }, TOKEN_SECURITY_KEY, {
-      expiresIn: '1h'
+    let user: UserProps = await User.findOne({
+      email: form.email.toLowerCase()
     });
-    await sendMail({
+
+    if (!user) {
+      user = await userCreate.signupUser(form);
+    }
+
+    const loginToken = await new JWT({
+      userId: user._id,
+      type: 'login'
+    }).sign();
+    const loginUrl = getLoginUrl(loginToken, req.headers.origin);
+    await sendMail(form.email, loginUrl);
+
+    return messages.success.register;
+  } catch (error) {
+    console.error(error.message);
+    return messages.failed.general;
+  }
+};
+
+const getLoginUrl = (token: string, origin: string) =>
+  origin + `/verify?token=${token}`;
+
+const renderTemplate = (loginURL: string) =>
+  render(templateData, {
+    loginURL,
+    randomText: `Ref #: ${Date.now()}`
+  });
+
+const sendMail = async (targetEmail: string, loginUrl: string) => {
+  try {
+    await sendGrid.sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
-      to: arg.email,
-      subject: 'Verification email from redxam',
+      to: targetEmail,
+      subject: 'Signup Email',
+      html: renderTemplate(loginUrl),
       attachments: [
         facebookIcon,
         twitterIcon,
         linkedInIcon,
         telegramIcon,
         discordIcon
-      ],
-      html: render(templateData, {
-        verificationToken,
-        origin: req.headers.origin
-      })
+      ]
     });
-    return { success: true, message: 'verification email sent succesfully' };
-  } catch (error) {
-    return { message: error.message, success: false };
+  } catch (e) {
+    console.log(e);
   }
 };
 
-export const emailValidateToken = async (_: void, req: Request) => {
-  const auth = getAuthorizationToken(req.headers.authorization);
-  if (!auth.success) return auth;
-  try {
-    const payload: NewUser = verify(auth.token, TOKEN_SECURITY_KEY) as NewUser;
-
-    return await signup({ arg: payload }, req);
-  } catch (error) {
-    return { message: error.message, success: false };
-  }
-};
-
-const isUser = async (email: string): Promise<boolean> =>
-  (await User.findOne({ email })) !== null;
-
-const templatePath = resolve(__dirname, '../../emails/verification.hjs');
+const templatePath = resolve(__dirname, '../../emails/simplelogin.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
@@ -67,7 +78,7 @@ const facebookIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/facebook.png`).toString(
     'base64'
   ),
-  content_id: 'facebook@waitlist',
+  content_id: 'facebook@login',
   disposition: 'inline'
 });
 
@@ -76,7 +87,7 @@ const twitterIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/twitter.png`).toString(
     'base64'
   ),
-  content_id: 'twitter@waitlist',
+  content_id: 'twitter@login',
   disposition: 'inline'
 });
 
@@ -85,7 +96,7 @@ const linkedInIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/linkedin.png`).toString(
     'base64'
   ),
-  content_id: 'linkedin@waitlist',
+  content_id: 'linkedin@login',
   disposition: 'inline'
 });
 
@@ -94,7 +105,7 @@ const telegramIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/telegram.png`).toString(
     'base64'
   ),
-  content_id: 'telegram@waitlist',
+  content_id: 'telegram@login',
   disposition: 'inline'
 });
 
@@ -103,6 +114,6 @@ const discordIcon: Readonly<Attachment> = Object.freeze({
   content: readFileSync(`${__dirname}/../../emails/discord.png`).toString(
     'base64'
   ),
-  content_id: 'discord@waitlist',
+  content_id: 'discord@login',
   disposition: 'inline'
 });

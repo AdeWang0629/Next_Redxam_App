@@ -315,6 +315,7 @@ type Query {
   mxWidgetConnect: WidgetUrl
   updateReferral: UpdateReferral
   emailValidation(arg: NewUser): Response
+  signup(arg: NewUser): Response
   contactForm(arg: ContactForm): Response
   tellerAccounts(userId: String): TellerAccounts
   tellerPayee(accountId: String): TellerPayee

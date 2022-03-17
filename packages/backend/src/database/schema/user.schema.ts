@@ -102,7 +102,7 @@ export const UserSchema = new Schema(
     },
     level: {
       type: Number,
-      required: true,
+      required: false,
       index: true
     },
     verification: {
@@ -200,11 +200,11 @@ export const UserSchema = new Schema(
     },
     waitlistToken: {
       type: String,
-      required: true
+      required: false
     },
     referralCode: {
       type: String,
-      required: true
+      required: false
     },
     referralId: {
       type: String,

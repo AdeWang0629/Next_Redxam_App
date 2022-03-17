@@ -15,6 +15,7 @@ import {
 import { addDiscord } from './addDiscord.resolver';
 import { contactForm } from './contactForm.resolver';
 import { invitationCode } from './invitationCode.resolver';
+import { signup } from './signup.resolver';
 
 export const UserResolver = {
   checkRole,
@@ -31,5 +32,6 @@ export const UserResolver = {
   emailValidateToken,
   addDiscord,
   contactForm,
-  invitationCode
+  invitationCode,
+  signup
 };

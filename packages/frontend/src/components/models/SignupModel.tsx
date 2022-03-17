@@ -47,15 +47,16 @@ const SignupModel: NextPage<SignupModelProps> = ({ isOpened, setOpened }) => {
     setLoading(true);
 
     const res = await api
-      .validateEmail(email, firstName, lastName)
+      .signup(email, firstName, lastName)
       .catch(() => {
         setError(true);
       })
       .finally(() => {
         setLoading(false);
       });
-
-    if (res?.data.data.emailValidation.success) setSignupSuccess(true);
+    console.log(res);
+    if (res?.data.data.signup.success) setSignupSuccess(true);
+    else setError(true);
 
     return null;
   };
@@ -134,7 +135,7 @@ const SignupModel: NextPage<SignupModelProps> = ({ isOpened, setOpened }) => {
             <input
               type="text"
               className="font-secondary w-full"
-              onChange={e => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value.toLowerCase())}
               onBlur={() => checkEmail()}
               value={email}
               id="email"

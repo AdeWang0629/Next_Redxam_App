@@ -8,20 +8,20 @@ export const createUser = async ({ arg }: Argument<NewUser>, req: Request) => {
   const form = sanitize(arg);
   if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
 
-  try {
-    const jobs: Promise<any>[] = [];
+  // try {
+  //   const jobs: Promise<any>[] = [];
 
-    const jobCreate = userCreate.signupUser(form);
-    jobs.push(jobCreate);
+  //   const jobCreate = userCreate.signupUser(form);
+  //   jobs.push(jobCreate);
 
-    const jobMail = userCreate.sendSignupMail(form.email);
-    jobs.push(jobMail);
+  //   const jobMail = userCreate.sendSignupMail(form.email);
+  //   jobs.push(jobMail);
 
-    await Promise.all(jobs);
-
-    return messages.success.register;
-  } catch (error) {
-    console.error(error.message);
-    return messages.failed.general;
-  }
+  //   await Promise.all(jobs);
+  //   console.log(jobs);
+  //   return messages.success.register;
+  // } catch (error) {
+  //   console.error(error.message);
+  //   return messages.failed.general;
+  // }
 };
