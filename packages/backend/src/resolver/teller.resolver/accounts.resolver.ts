@@ -46,7 +46,7 @@ export const tellerAccounts = async (
       };
     }
 
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId }, { bankAccounts: 1 });
 
     await user.updateOne({
       $set: {
@@ -60,12 +60,10 @@ export const tellerAccounts = async (
       }
     });
 
-    const checkingAccount = accountsRes.data.find(
-      acc => acc.subtype === 'checking'
-    );
+    const checkingAccount = accounts[0];
 
     const accountId = checkingAccount.id;
-    const bankName = checkingAccount.institution.name;
+    const bankName = checkingAccount.name;
 
     const balanceRes = await axios.get(
       `${baseUrl}/accounts/${accountId}/balances`,

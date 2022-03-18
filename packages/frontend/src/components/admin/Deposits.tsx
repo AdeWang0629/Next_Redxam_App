@@ -13,6 +13,7 @@ export default function Deposits() {
       const { data } = await api.getDeposits(
         getCookie('admin_token') as string
       );
+      
       setDeposits(
         data.data.getDeposits.deposits.sort(
           (
@@ -102,6 +103,7 @@ export default function Deposits() {
                 deposit.currency
               )}
             </td>
+
             <td className="bg-black dark:bg-gray-300 bg-opacity-5 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
               {deposit.processedByRedxam ? <span>Yes</span> : <span>No</span>}
             </td>
