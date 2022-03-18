@@ -1,4 +1,5 @@
 export interface Deposit {
+  email: string | null;
   _id: string;
   type: string;
   amount: number;

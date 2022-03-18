@@ -249,7 +249,7 @@ class API {
           bankIcon
           bankName
           bankType
-          userEmail
+          email
         }
         success
         message
