@@ -40,7 +40,7 @@ const KYCModel: NextPage<KYCModelProps> = ({
       onClick={handleOutsideClick}
       role="dialog"
     >
-      <div className="flex flex-col justify-center bg-white rounded-[30px] w-3/4 md:w-1/2 pb-8">
+      <div className="flex flex-col justify-center bg-white rounded-[30px] w-[92%] sm:w-[60%] pb-8">
         <div className="flex items-center justify-between p-8">
           <h1 className="font-secondary font-medium text-black text-lg">
             Complete KYC Verification
