@@ -20,7 +20,7 @@ const ReferCard = (props: { referralURL: string }) => {
           <p className="font-secondary text-sm text-[#6A6E73]">
             {t('getRewarded')}
           </p>
-          <p className="font-secondary text-sm text-[#6A6E73] mt-2 mb-6">
+          <p className="font-secondary text-sm text-[#6A6E73] my-2">
             <span className="text-[#61D404] font-bold text-xl ">$0</span>{' '}
             {t('from')} <span className="text-[#2A3037] font-bold">0</span>{' '}
             {t('referrals')}.
