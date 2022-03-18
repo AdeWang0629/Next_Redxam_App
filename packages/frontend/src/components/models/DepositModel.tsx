@@ -167,7 +167,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
         onClick={handleOutsideClick}
         role="dialog"
       >
-        <div className="flex flex-col justify-center bg-white rounded-[30px] w-3/4 md:w-1/2 pb-8">
+        <div className="flex flex-col justify-center bg-white rounded-[30px] w-[92%] md:w-1/2 pb-8">
           <div className="flex items-center justify-between p-8">
             <h1 className="font-secondary font-medium text-black text-lg">
               Deposit
@@ -183,8 +183,8 @@ const DepositModel: NextPage<DepositModelProps> = ({
           </div>
           <hr />
 
-          <div className="flex flex-col items-center pt-10 px-32">
-            <div className="flex items-center">
+          <div className="flex flex-col items-center pt-10 xl:px-32">
+            <div className="flex flex-col xl:flex-row items-center">
               {paymentApi !== 'LEAN' && (
                 <>
                   <CustomSelect
@@ -192,7 +192,10 @@ const DepositModel: NextPage<DepositModelProps> = ({
                     value={selectedAccount}
                     setValue={setSelectedAccount}
                   />
-                  <FontAwesomeIcon icon={faArrowRight} className="mx-8" />
+                  <FontAwesomeIcon
+                    icon={faArrowRight}
+                    className="my-4 xl:my-0 xl:mx-8 w-[20px]"
+                  />
                 </>
               )}
 
