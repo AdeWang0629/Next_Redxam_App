@@ -140,8 +140,8 @@ const Crypto: NextPage = () => {
         {tokenModal && (
           <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
             <Card
-              width="w-[622px]"
-              height="h-[170px]"
+              width="md:w-[622px] w-[95%]"
+              height="h-1/2"
               py="py-7"
               otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
             >
@@ -159,9 +159,14 @@ const Crypto: NextPage = () => {
                   />
                 </button>
               </div>
-              <div className="px-7 mt-5">
+              <div
+                role="button"
+                tabIndex={0}
+                className="px-7 mt-5 w-full cursor-pointer"
+                onClick={() => handleToken('BTC', btcLogo)}
+              >
                 <button
-                  className="flex"
+                  className="flex w-full"
                   onClick={() => handleToken('BTC', btcLogo)}
                 >
                   <Image
@@ -230,7 +235,7 @@ const Crypto: NextPage = () => {
               </div>
               <div className="px-7 mt-5">
                 <button
-                  className="flex flex-col mb-6"
+                  className="flex flex-col mb-6 w-full"
                   onClick={() => {
                     // @ts-ignore
                     handleNetwork({ name: 'BTC', ...user?.wallets?.BTC });
@@ -243,11 +248,11 @@ const Crypto: NextPage = () => {
                 </button>
                 {getCookie('environment') !== 'production' && (
                   <button
-                    className="flex flex-col"
+                    className="flex flex-col w-full"
                     onClick={() => {
                       // @ts-ignore
                       handleNetwork({
-                        name: 'Tesnet BTC',
+                        name: 'Testnet BTC',
                         ...user?.wallets?.TEST_BTC
                       });
                     }}
@@ -256,7 +261,7 @@ const Crypto: NextPage = () => {
                       Test BTC
                     </p>
                     <p className="font-secondary text-base text-[#95989B] mt-1.5">
-                      Tesnet Bitcoin
+                      Testnet Bitcoin
                     </p>
                   </button>
                 )}

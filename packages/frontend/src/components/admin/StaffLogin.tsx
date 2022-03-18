@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import { useState, useContext, BaseSyntheticEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import api from '@utils/api';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -68,7 +69,10 @@ const StaffLogin: NextPage = () => {
               className="border border-red-900 rounded-full p-1 flex items-center justify-center cursor-pointer w-8 h-8"
               onClick={() => setError('')}
             >
-              <FontAwesomeIcon icon={faTimes} className="text-red-900" />
+              <FontAwesomeIcon
+                icon={faTimes as IconProp}
+                className="text-red-900"
+              />
             </button>
           </span>
         )}

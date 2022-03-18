@@ -5,6 +5,7 @@ import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
 import { HomeContext } from '@providers/Home';
 import { BalanceRecordsContext } from '@providers/BalanceRecords';
 import { useTranslation } from 'next-i18next';
+import Tippy from '@tippyjs/react';
 import Card from './Card';
 
 interface ChartProps {
@@ -60,7 +61,9 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
             <span className="font-secondary text-xs text-lighter-black">
               {t('portfolio')}
             </span>
-            <span className="font-secondary text-2xl font-bold">{t('passive')}</span>
+            <span className="font-secondary text-2xl font-bold">
+              {t('passive')}
+            </span>
           </div>
         </div>
         <ResponsiveContainer
@@ -71,9 +74,11 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
         >
           <LineChart
             data={performanceData}
-            onMouseEnter={(e: any) =>
-              setValue(e.activePayload[0].payload.value)
-            }
+            onMouseEnter={(e: any) => {
+              if (e.activePayload) {
+                setValue(e.activePayload[0].payload.value);
+              }
+            }}
             onMouseMove={(e: any) =>
               setValue(e?.activePayload?.[0]?.payload?.value || 0)
             }
@@ -89,10 +94,11 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-
-      <button className="w-full text-center font-medium font-secondary text-base underline py-4 border-t">
-        {t('viewPortfolio')}
-      </button>
+      <Tippy content="Coming soon">
+        <button className="w-full text-center font-medium font-secondary text-base underline py-4 border-t">
+          {t('viewPortfolio')}
+        </button>
+      </Tippy>
     </Card>
   );
 };
