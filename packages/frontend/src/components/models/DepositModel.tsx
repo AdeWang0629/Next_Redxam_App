@@ -46,7 +46,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
   paymentApi,
   reloadDeposits
 }) => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   let userId = '';
   if (user) {
@@ -128,10 +128,15 @@ const DepositModel: NextPage<DepositModelProps> = ({
                 userId
               );
               await reloadDeposits();
+              const userData = await api.getUserData();
+
+              setUser(userData.data.user[0]);
             }
           });
           setup.open();
         } else {
+          const userData = await api.getUserData();
+          setUser(userData.data.data.user[0]);
           await reloadDeposits();
         }
         break;

@@ -13,7 +13,7 @@ export default function Deposits() {
       const { data } = await api.getDeposits(
         getCookie('admin_token') as string
       );
-      
+
       setDeposits(
         data.data.getDeposits.deposits.sort(
           (
