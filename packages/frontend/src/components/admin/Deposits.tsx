@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
 import { useEffect, useState } from 'react';
 import api from '@utils/api';
 import { getCookie } from 'cookies-next';
@@ -12,7 +13,7 @@ export default function Deposits() {
       const { data } = await api.getDeposits(
         getCookie('admin_token') as string
       );
-
+      
       setDeposits(
         data.data.getDeposits.deposits.sort(
           (

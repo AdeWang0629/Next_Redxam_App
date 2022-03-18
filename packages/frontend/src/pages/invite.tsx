@@ -8,8 +8,7 @@ import { UserContext } from '@providers/User';
 import Logo from '@public/logo.svg';
 
 const Invite: NextPage = () => {
-  const { user, loading, noUser, setUser, setLoading, setNoUser } =
-    useContext(UserContext);
+  const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
   const [code, setCode] = useState('');
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -38,16 +37,16 @@ const Invite: NextPage = () => {
         ) {
           alert('Invalid code!');
         } else if (data.data.invitationCode.success) {
-          api
-            .getUserData()
-            .then(({ data: accountData }) => {
-              console.log(accountData);
-              setNoUser(false);
-              setUser(accountData.data.user[0]);
-              router.push(`/verify?token=${data.data.invitationCode.token}`);
-            })
-            .catch(() => setNoUser(true))
-            .finally(() => setLoading(false));
+          // api
+          // .getUserData()
+          // .then(({ data: accountData }) => {
+          // console.log(accountData);
+          // setNoUser(false);
+          // setUser(accountData.data.user[0]);
+          router.push(`/verify?token=${data.data.invitationCode.token}`);
+          // })
+          // .catch(() => setNoUser(true))
+          // .finally(() => setLoading(false));
         }
       })
       .catch(() => alert('An error occurred!'))

@@ -8,6 +8,7 @@ import BalanceRecordsProvider from '@providers/BalanceRecords';
 import Head from 'next/head';
 import { appWithTranslation } from 'next-i18next';
 import { useLocale } from '@utils/hooks';
+import 'tippy.js/dist/tippy.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const locale = useLocale();

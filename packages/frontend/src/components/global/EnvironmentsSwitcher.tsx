@@ -1,5 +1,6 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { getCookie, setCookies } from 'cookies-next';
 import type { NextPage } from 'next';
 import { useState, useEffect } from 'react';
@@ -29,7 +30,7 @@ const EnvironmentsSwitcher: NextPage = () => {
           className="flex items-center justify-center"
           onClick={() => setHidden(true)}
         >
-          <FontAwesomeIcon icon={faTimes} />
+          <FontAwesomeIcon icon={faTimes as IconProp} />
         </button>
       </div>
 

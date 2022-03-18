@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Script from 'next/script';
 import Particles from 'react-tsparticles';
 import Navbar from '@components/global/Navbar';
-// import Hero from '@components/landing/Hero';
+import Hero from '@components/landing/Hero';
 import WhyUs from '@components/landing/WhyUs';
 import Starting from '@components/landing/Starting';
 import Relax from '@components/landing/Relax';
@@ -12,7 +12,6 @@ import Plan from '@components/landing/Plan';
 import FAQ from '@components/landing/FAQ';
 import Newsletter from '@components/landing/Newsletter';
 import Footer from '@components/global/Footer';
-import DubaiExpo from '@components/landing/DubaiExpo';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -79,8 +78,7 @@ const Home: NextPage = () => (
         width: '100%'
       }}
     />
-    {/* <Hero /> */}
-    <DubaiExpo />
+    <Hero />
     <WhyUs />
     <Starting />
     <Relax />
