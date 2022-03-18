@@ -9,6 +9,7 @@ import Head from 'next/head';
 import { appWithTranslation } from 'next-i18next';
 import { useLocale } from '@utils/hooks';
 import 'tippy.js/dist/tippy.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const locale = useLocale();
