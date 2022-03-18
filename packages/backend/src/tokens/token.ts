@@ -15,7 +15,7 @@ export interface Token {
   getBalance(address: string): Promise<number>;
   getWallets(): Promise<Wallet[]>;
   getWalletTxs(addres: string): Promise<Transaction[]>;
-  hasWalletNewTxs(wallet: Wallet, txs: Transaction[]): boolean;
+  hasWalletNewTxs(wallet: Wallet, txs: Deposit[]): boolean;
   getWalletDeposits(txs: Transaction[], address: string): Deposit[];
   updateWalletDeposits(deposits: Deposit[], wallet: Wallet): Promise<void>;
   isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean;

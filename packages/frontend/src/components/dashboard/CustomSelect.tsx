@@ -69,7 +69,7 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
             </span>
             <FontAwesomeIcon
               icon={faChevronDown as IconProp}
-              className="ml-2 text-[#98A3AA] text-xs"
+              className="ml-2 text-[#98A3AA] w-[15px]"
             />
           </div>
         </div>
