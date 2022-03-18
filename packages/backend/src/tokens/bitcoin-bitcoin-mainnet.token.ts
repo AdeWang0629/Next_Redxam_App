@@ -110,7 +110,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
 
     for (const deposit of deposits) {
       if (deposit.blockId === -1) hasPendingTxs = true;
-      // await this.depositConfirmationMailing(deposit, wallet.userId);
+      await this.depositConfirmationMailing(deposit, wallet.userId);
       const updatedDeposit = await Deposits.updateOne(
         { userId: wallet.userId, hash: deposit.hash },
         {
@@ -182,25 +182,34 @@ export class BitcoinBitcoinMainnetToken implements Token {
     deposit: Deposit,
     userId: string
   ): Promise<emailStatus> {
-    const status = deposit.blockId > 0 ? 'completed' : 'pending';
-    const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
-    if (this.isPendingDeposit(status, dbDeposit)) {
-      const user = await this.getUser(userId);
-      return sendPendingTxEmail(user, this.symbol, deposit.value * 0.00000001);
-    } else if (this.isConfirmedDeposit(status, dbDeposit)) {
-      const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(
-        user,
-        this.symbol,
-        deposit.value * 0.00000001
-      );
-    } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
-      const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(
-        user,
-        this.symbol,
-        deposit.value * 0.00000001
-      );
+    try {
+      const status = deposit.blockId > 0 ? 'completed' : 'pending';
+      const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
+      if (this.isPendingDeposit(status, dbDeposit)) {
+        const user = await this.getUser(userId);
+        return sendPendingTxEmail(
+          user,
+          this.symbol,
+          deposit.value * 0.00000001
+        );
+      } else if (this.isConfirmedDeposit(status, dbDeposit)) {
+        const user = await this.getUser(userId);
+        return sendConfirmedTxEmail(
+          user,
+          this.symbol,
+          deposit.value * 0.00000001
+        );
+      } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
+        const user = await this.getUser(userId);
+        return sendConfirmedTxEmail(
+          user,
+          this.symbol,
+          deposit.value * 0.00000001
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+      return error.message;
     }
   }
   async getUnspentInfo(
