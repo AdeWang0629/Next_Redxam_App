@@ -30,12 +30,12 @@ const TransactionsTable = ({
   useEffect(() => {
     setPendingDeposits(
       // @ts-ignore
-      deposits.filter(deposit => deposit.status === 'pending')
+      deposits && deposits.filter(deposit => deposit.status === 'pending')
     );
 
     setAcceptedDeposits(
       // @ts-ignore
-      deposits.filter(deposit => deposit.status !== 'pending')
+      deposits && deposits.filter(deposit => deposit.status !== 'pending')
     );
   }, [deposits]);
 
@@ -68,7 +68,7 @@ const TransactionsTable = ({
         </h2>
       )}
 
-      {deposits.length ? (
+      {deposits && deposits.length ? (
         <>
           {pendingDeposits.length > 0 && (
             <>
