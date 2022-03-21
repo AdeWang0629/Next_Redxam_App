@@ -1,5 +1,4 @@
 import { checkRole } from './checkRole.resolver';
-import { createUser } from './createUser.resolver';
 import { updateToken } from './updateToken.resolver';
 import { user } from './user.resolver';
 import { users } from './users.resolver';
@@ -19,7 +18,6 @@ import { signup } from './signup.resolver';
 
 export const UserResolver = {
   checkRole,
-  createUser,
   updateToken,
   user,
   users,
