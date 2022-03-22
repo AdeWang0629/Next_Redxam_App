@@ -296,6 +296,12 @@ type AdminDeposit {
   message: String
 }
 
+type CreateWaitlist {
+  level: Int
+  success: Boolean
+  message: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -333,7 +339,7 @@ type Mutation {
   verifyToken(arg: VerifyInput): Response
   sendReferral(arg: SendReferInput): Response
   goUpQueue: Response
-  createWaitlist(arg: NewUser): Response
+  createWaitlist(arg: NewUser): CreateWaitlist
   inviteUser(arg: NewUser): Response
   invitationCode(code: String): InvitationCode
   emailValidateToken: Response
