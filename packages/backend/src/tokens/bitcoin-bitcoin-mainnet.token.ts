@@ -1,4 +1,6 @@
+/* eslint-disable lines-between-class-members */
 import WAValidator from 'trezor-address-validator';
+import axios from 'axios';
 import { ECPair, payments, networks, TransactionBuilder } from 'bitcoinjs-lib';
 import * as Sentry from '@sentry/node';
 import {
@@ -97,7 +99,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
 
     return userTxs;
   }
-  hasWalletNewTxs(wallet: Wallet, txs: Transaction[]): boolean {
+  hasWalletNewTxs(wallet: Wallet, txs: Deposit[]): boolean {
     return txs.length > wallet.txsCount || wallet.hasPendingTxs;
   }
   async updateWalletDeposits(
@@ -109,7 +111,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
     for (const deposit of deposits) {
       if (deposit.blockId === -1) hasPendingTxs = true;
       await this.depositConfirmationMailing(deposit, wallet.userId);
-      await Deposits.updateOne(
+      const updatedDeposit = await Deposits.updateOne(
         { userId: wallet.userId, hash: deposit.hash },
         {
           $set: {
@@ -131,14 +133,33 @@ export class BitcoinBitcoinMainnetToken implements Token {
           upsert: true
         }
       );
+      if (updatedDeposit.upserted) {
+        const priceres = await axios.get(
+          'https://api.coindesk.com/v1/bpi/currentprice.json'
+        );
+        await User.updateOne(
+          { _id: wallet.userId },
+          {
+            $inc: {
+              pending_balance:
+                deposit.value * 0.00000001 * priceres.data.bpi.USD.rate_float
+            }
+          }
+        );
+      }
     }
+
+    const currentWallet = `wallets.${this.symbol}`;
 
     await User.updateOne(
       {
         _id: wallet.userId
       },
       {
-        $set: { hasPendingTxs, 'wallet.txsCount': deposits.length }
+        $set: {
+          [`${currentWallet}.hasPendingTxs`]: hasPendingTxs,
+          [`${currentWallet}.txsCount`]: deposits.length
+        }
       }
     );
   }
@@ -161,25 +182,34 @@ export class BitcoinBitcoinMainnetToken implements Token {
     deposit: Deposit,
     userId: string
   ): Promise<emailStatus> {
-    const status = deposit.blockId > 0 ? 'completed' : 'pending';
-    const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
-    if (this.isPendingDeposit(status, dbDeposit)) {
-      const user = await this.getUser(userId);
-      return sendPendingTxEmail(user, this.symbol, deposit.value * 0.00000001);
-    } else if (this.isConfirmedDeposit(status, dbDeposit)) {
-      const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(
-        user,
-        this.symbol,
-        deposit.value * 0.00000001
-      );
-    } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
-      const user = await this.getUser(userId);
-      return sendConfirmedTxEmail(
-        user,
-        this.symbol,
-        deposit.value * 0.00000001
-      );
+    try {
+      const status = deposit.blockId > 0 ? 'completed' : 'pending';
+      const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
+      if (this.isPendingDeposit(status, dbDeposit)) {
+        const user = await this.getUser(userId);
+        return sendPendingTxEmail(
+          user,
+          this.symbol,
+          deposit.value * 0.00000001
+        );
+      } else if (this.isConfirmedDeposit(status, dbDeposit)) {
+        const user = await this.getUser(userId);
+        return sendConfirmedTxEmail(
+          user,
+          this.symbol,
+          deposit.value * 0.00000001
+        );
+      } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
+        const user = await this.getUser(userId);
+        return sendConfirmedTxEmail(
+          user,
+          this.symbol,
+          deposit.value * 0.00000001
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+      return error.message;
     }
   }
   async getUnspentInfo(

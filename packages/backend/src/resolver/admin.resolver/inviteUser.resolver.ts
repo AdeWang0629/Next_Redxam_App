@@ -3,6 +3,7 @@ import { messages } from '@/config/messages';
 import { sanitize, isValidEmail } from '@/utils/helpers';
 import { isValidAdmin } from './adminHelpers';
 import userCreate from '../share/userCreate';
+import { User, UserProps } from '@/database';
 import { Argument, NewUser } from '../types';
 
 export const inviteUser = async ({ arg }: Argument<NewUser>, req: Request) => {
@@ -12,6 +13,12 @@ export const inviteUser = async ({ arg }: Argument<NewUser>, req: Request) => {
 
     const form = sanitize(arg);
     if (!isValidEmail(form.email)) return messages.failed.invalidEmail;
+
+    const user: UserProps = await User.findOne({ email: form.email });
+
+    if (user) {
+      return { message: 'This user already exist', success: false };
+    }
 
     const lastOrder = await userCreate.fetchLastOrder(form.email);
     const jobs: Promise<any>[] = [];

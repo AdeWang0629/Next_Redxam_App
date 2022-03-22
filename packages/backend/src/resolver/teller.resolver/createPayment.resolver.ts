@@ -97,6 +97,10 @@ const saveDeposit = async (
   userId: string,
   bankName: string
 ) => {
+  await User.updateOne(
+    { _id: userId },
+    { $inc: { pending_balance: parseFloat(amount) } }
+  );
   await Deposits.create({
     type: DepositsType.FIAT,
     currency: DepositsCurrencyType.USD,

@@ -1,5 +1,4 @@
 import { checkRole } from './checkRole.resolver';
-import { createUser } from './createUser.resolver';
 import { updateToken } from './updateToken.resolver';
 import { user } from './user.resolver';
 import { users } from './users.resolver';
@@ -15,10 +14,10 @@ import {
 import { addDiscord } from './addDiscord.resolver';
 import { contactForm } from './contactForm.resolver';
 import { invitationCode } from './invitationCode.resolver';
+import { signup } from './signup.resolver';
 
 export const UserResolver = {
   checkRole,
-  createUser,
   updateToken,
   user,
   users,
@@ -31,5 +30,6 @@ export const UserResolver = {
   emailValidateToken,
   addDiscord,
   contactForm,
-  invitationCode
+  invitationCode,
+  signup
 };

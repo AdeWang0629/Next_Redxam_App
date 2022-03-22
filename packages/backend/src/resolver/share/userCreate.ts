@@ -75,6 +75,23 @@ export const createNewUser = async (
   });
 };
 
+export const signupUser = async (user: NewUser) => {
+  return User.create({
+    accountBalance: 0,
+    pending_balance: 0,
+    balance: 0,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email.toLowerCase(),
+    phone: '',
+    token: '',
+    deposited: 0,
+    withdrawn: 0,
+    accountStatus: 'accepted',
+    wallets: generateWallets()
+  });
+};
+
 const getNewLevel = level => {
   let newLevel = 0;
 
@@ -173,6 +190,14 @@ export const sendWaitlistMail = async (
   });
 };
 
+export const sendSignupMail = async (email: string, loginUrl: string) => {
+  await sendUserEmail(__dirname, '../../emails/signup.hjs', {
+    email,
+    subject: 'You Joined redxam',
+    loginUrl
+  });
+};
+
 export const sendInvitationEmail = async (
   email: string,
   origin: string,
@@ -192,5 +217,7 @@ export default {
   createNewUser,
   handleReferral,
   sendWaitlistMail,
-  sendInvitationEmail
+  sendInvitationEmail,
+  signupUser,
+  sendSignupMail
 };

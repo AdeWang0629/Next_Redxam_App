@@ -65,6 +65,17 @@ class API {
     );
   }
 
+  signup(email: string, firstName?: string, lastName?: string) {
+    const query = `query {
+      signup(arg:{firstName:"${firstName}" lastName: "${lastName}" email: "${email}"}) {
+          message
+          success
+      }
+  }`;
+
+    return this.axios.post(`${this.baseURL}/api/v1`, { query });
+  }
+
   contactform(form: {
     firstName: string;
     lastName: string;
@@ -249,7 +260,7 @@ class API {
           bankIcon
           bankName
           bankType
-          userEmail
+          email
         }
         success
         message

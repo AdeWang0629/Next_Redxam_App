@@ -13,15 +13,13 @@ interface UnlinkModelProps {
   setOpened: (isOpened: boolean) => void;
   accounts:
     | []
-    | [
-        {
-          _id: string;
-          id: string;
-          name: string;
-          logo?: string | undefined;
-          type: string;
-        }
-      ];
+    | {
+        _id: string;
+        id: string;
+        name: string;
+        logo?: string | undefined;
+        type: string;
+      }[];
   IDs: [] | [string];
   fetchAccounts: () => void;
 }
@@ -72,7 +70,7 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
       onClick={handleOutsideClick}
       role="dialog"
     >
-      <div className="flex flex-col justify-center bg-white rounded-[30px] w-3/4 md:w-1/2 pb-8">
+      <div className="flex flex-col justify-center bg-white rounded-[30px] w-[92%] sm:w-1/2 pb-8">
         <div className="flex items-center justify-between p-8">
           <h1 className="font-secondary font-medium text-black text-lg">
             Unlink Bank
@@ -87,7 +85,7 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
           </button>
         </div>
         <hr />
-        <div className="flex flex-col items-center py-10 px-32">
+        <div className="flex flex-col items-center py-10 px-10 lg:px-32">
           <Image src={UnlinkImage} alt="Unlink" width="324px" />
           <p className="font-secondary text-sm text-lighter-black text-center mt-6">
             Are you sure you want to remove{' '}

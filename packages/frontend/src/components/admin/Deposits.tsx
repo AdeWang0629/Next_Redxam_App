@@ -13,6 +13,7 @@ export default function Deposits() {
       const { data } = await api.getDeposits(
         getCookie('admin_token') as string
       );
+
       setDeposits(
         data.data.getDeposits.deposits.sort(
           (
@@ -44,6 +45,9 @@ export default function Deposits() {
       <thead>
         <tr>
           <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20 rounded-tl-xl">
+            Email:
+          </th>
+          <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20 rounded-tl-xl">
             Name:
           </th>
           <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
@@ -72,6 +76,9 @@ export default function Deposits() {
       <tbody>
         {deposits.map(deposit => (
           <tr key={deposit._id}>
+            <td className="bg-black dark:bg-gray-300 bg-opacity-5 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
+              {deposit.email}
+            </td>
             <td className="bg-black dark:bg-gray-300 bg-opacity-5 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
               {!deposit.bankName ? (
                 <span className="underline font-bold">N/A</span>
@@ -102,6 +109,7 @@ export default function Deposits() {
                 deposit.currency
               )}
             </td>
+
             <td className="bg-black dark:bg-gray-300 bg-opacity-5 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
               {deposit.processedByRedxam ? <span>Yes</span> : <span>No</span>}
             </td>

@@ -6,7 +6,7 @@ import { BitcoinBitcoinTestnetToken } from './bitcoin-bitcoin-testnet.token';
 
 export const tokens: Token[] = [
   new BitcoinBitcoinMainnetToken(),
-  new BitcoinBitcoinTestnetToken(),
+  new BitcoinBitcoinTestnetToken()
 ];
 
 const tokenWatcher = () => {
@@ -17,9 +17,9 @@ const tokenWatcher = () => {
         const wallets = await token.getWallets();
         for (const wallet of wallets) {
           const txs = await token.getWalletTxs(wallet.address);
-          const hasNewTxs = token.hasWalletNewTxs(wallet, txs);
+          const deposits = token.getWalletDeposits(txs, wallet.address);
+          const hasNewTxs = token.hasWalletNewTxs(wallet, deposits);
           if (hasNewTxs) {
-            const deposits = token.getWalletDeposits(txs, wallet.address);
             await token.updateWalletDeposits(deposits, wallet);
           }
 
@@ -33,7 +33,6 @@ const tokenWatcher = () => {
     clearInterval(interval);
     Sentry.captureException(error);
   }
-
 };
 
 export default tokenWatcher;

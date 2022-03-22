@@ -140,8 +140,8 @@ const Crypto: NextPage = () => {
         {tokenModal && (
           <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
             <Card
-              width="w-[622px]"
-              height="h-[170px]"
+              width="md:w-[622px] w-[95%]"
+              height="h-1/2"
               py="py-7"
               otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center opacity-100"
             >

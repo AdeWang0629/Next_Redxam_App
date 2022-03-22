@@ -3,12 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import WaitlistModel from '@components/models/WaitlistModel';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 
 import Logo from '@public/logo.svg';
 import ArabicLogo from '@public/arabic-logo.svg';
+import SignupModel from '@components/models/SignupModel';
 import LoginModel from '@components/models/LoginModel';
 
 interface NavbarProps {
@@ -24,7 +24,7 @@ const Navbar: NextPage<NavbarProps> = ({
   const { t } = useTranslation('navbar');
   const [navMobile, setNavMobile] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
-  const [waitlistModelOpened, setWaitlistModelOpened] = useState(false);
+  const [signupModelOpened, setSignupModelOpened] = useState(false);
   const [loginModelOpened, setLoginModelOpened] = useState(false);
 
   useEffect(() => {
@@ -131,6 +131,11 @@ const Navbar: NextPage<NavbarProps> = ({
                   <a>{t('security')}</a>
                 </Link>
               </li>
+              <li className="mt-[25px] md:mt-0 md:mr-[50px]">
+                <button onClick={() => setSignupModelOpened(true)}>
+                  <a>{t('signup')}</a>
+                </button>
+              </li>
               <li
                 className={`mt-[25px] md:mt-0 md:mr-[50px] ${
                   locale === 'ar' && 'md:ml-[50px]'
@@ -148,19 +153,13 @@ const Navbar: NextPage<NavbarProps> = ({
                 </button>
               </li>
             </ul>
-            <button
-              className="hidden font-primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green order-first md:order-none mt-[25px] md:mt-0"
-              onClick={() => setWaitlistModelOpened(true)}
-            >
-              {t('waitlist')}
-            </button>
           </div>
         </div>
       </nav>
-      {waitlistModelOpened && (
-        <WaitlistModel
-          isOpened={waitlistModelOpened}
-          setOpened={setWaitlistModelOpened}
+      {signupModelOpened && (
+        <SignupModel
+          isOpened={signupModelOpened}
+          setOpened={setSignupModelOpened}
         />
       )}
       {loginModelOpened && (

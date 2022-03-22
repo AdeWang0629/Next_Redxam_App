@@ -20,6 +20,7 @@ export const getDeposits = async (_: void, req: Request) => {
   try {
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'admin not found' };
+
     const deposits = await Deposits.aggregate([
       {
         $match: {
@@ -39,7 +40,7 @@ export const getDeposits = async (_: void, req: Request) => {
       { $unwind: '$user' },
       { $addFields: { email: '$user.email' } }
     ]);
-    console.log(deposits);
+
     return { deposits, success: true, message: '' };
   } catch (err) {
     return { success: false, message: err.message };
