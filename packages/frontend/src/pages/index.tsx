@@ -12,6 +12,7 @@ import Plan from '@components/landing/Plan';
 import FAQ from '@components/landing/FAQ';
 import Newsletter from '@components/landing/Newsletter';
 import Footer from '@components/global/Footer';
+// import DubaiExpo from '@components/landing/DubaiExpo';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -79,6 +80,7 @@ const Home: NextPage = () => (
       }}
     />
     <Hero />
+    {/* <DubaiExpo /> */}
     <WhyUs />
     <Starting />
     <Relax />
