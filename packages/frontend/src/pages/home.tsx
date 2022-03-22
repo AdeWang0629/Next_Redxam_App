@@ -70,18 +70,19 @@ const Home: NextPage = () => {
             </div>
           </Tippy>
           <Tippy content="Coming soon">
-            <div
+            <button
+              type="button"
               onClick={() => {
                 setCookies('token', null);
                 router.push(window.location.origin);
               }}
             >
               <IconButton
-                buttonText={'Log out'}
+                buttonText="Log out"
                 buttonIcon={logout}
                 data-tooltip-target="tooltip-default"
               />
-            </div>
+            </button>
           </Tippy>
         </div>
         <div className="lg:grid lg:grid-cols-2 lg:gap-5">
