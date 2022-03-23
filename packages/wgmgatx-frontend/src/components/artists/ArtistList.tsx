@@ -2,16 +2,13 @@ import Image from 'next/image';
 import Masonry from 'react-masonry-css';
 
 const ArtistList = (artists: { artists: any[] }, all?: boolean) => {
-  // console.log(gallery);
+  console.log(artists);
   const Columns = {
     default: 3,
     1440: 3,
     1000: 2,
     700: 1
   };
-  // let to = 0;
-  // if (all) to = artists.artists.length;
-  // else to = 9;
 
   return (
     <div id="artists" className="bg-[#171717] p-8 rounded-[18px]">
