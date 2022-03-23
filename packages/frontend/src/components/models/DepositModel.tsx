@@ -162,7 +162,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
   return (
     <>
       <div
-        className="flex flex-col justify-center items-center bg-black bg-opacity-75 absolute top-0 left-0 h-full w-full z-50"
+        className="flex flex-col justify-center items-center bg-black bg-opacity-75 absolute top-0 left-0 h-[100dvh] h-full w-full z-50"
         ref={outsideContainerRef}
         onClick={handleOutsideClick}
         role="dialog"
