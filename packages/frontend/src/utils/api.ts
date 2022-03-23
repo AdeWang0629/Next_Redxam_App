@@ -728,6 +728,23 @@ class API {
   `;
     return this.axios.post(`${this.baseURL}/api/v1`, { query });
   }
+
+  getFeatureStatus(feature: string) {
+    const query = `
+      query {
+        featureFlag {
+          status
+        }
+      }`;
+
+    return this.axios.post(
+      `${this.baseURL}/api/v1?featureName=${feature}&query=${query}`,
+      null,
+      {
+        headers: { ...this.getAuthorizationHeader() }
+      }
+    );
+  }
 }
 
 export default new API();
