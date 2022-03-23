@@ -36,14 +36,14 @@ const ContactUs = () => {
 
         {/* @ts-ignore */}
         {submit ? (
-          <h3 className="text-2xl pt-6 font-bold">
-            We’re so excited about your interest in WGMG’s Art community and
-            someone on the team will get back to you soon.
+          <h3 className="text-xl pt-6 font-medium text-center">
+            We’re so excited about your interest in WGMG’s Art community <br />{' '}
+            and someone on the team will get back to you soon.
           </h3>
         ) : (
           <form
             ref={form}
-            onSubmit={sendEmail}
+            onSubmit={e => sendEmail(e)}
             className="flex items-center flex-col pt-10 gap-7 w-full md:w-[50%] 2xl:w-[38%]"
           >
             <input
