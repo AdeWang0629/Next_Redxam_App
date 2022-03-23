@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Masonry from 'react-masonry-css';
 
 const ArtistList = (artists: { artists: any[] }, all?: boolean) => {
-  console.log(artists);
   const Columns = {
     default: 3,
     1440: 3,
