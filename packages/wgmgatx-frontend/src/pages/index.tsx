@@ -44,9 +44,9 @@ export async function getStaticProps() {
     image: String;
   }[] = [];
 
-  responseGallery?.data?.values?.map(picture => {
-    if (picture[0] !== null && picture !== null) {
-      gallery[picture[0]] = {
+  responseGallery?.data?.values?.map((picture, i) => {
+    if (picture[i] !== null && picture !== null) {
+      gallery[i] = {
         id: picture[0],
         name: picture[1],
         artistId: picture[2],
@@ -59,9 +59,9 @@ export async function getStaticProps() {
     }
   });
 
-  responseArtist?.data?.values?.map(artist => {
-    if (artist[0] !== null) {
-      artists[artist[0]] = {
+  responseArtist?.data?.values?.map((artist, i) => {
+    if (artist[i] !== null) {
+      artists[i] = {
         id: artist[0],
         name: artist[1],
         description: artist[2],
@@ -120,13 +120,14 @@ const Home = (props: Props) => {
               </h1>
               <div className="flex flex-col items-center">
                 <p className=" text-md px-3 my-10 opacity-80 text-grayscale-400 text-justify">
-                  WGMGART is an Agency to protect artists And to be given
-                  opportunities to have their work curated at other venues
-                  around the world. We offer a secure way to sell your work,
-                  help with creating merch, access to prints and connecting with
-                  other artists to learn new skills. We are working on launching
-                  a blockchain and will have animators to make your art
-                  animation dreams come true.
+                  WGMGART is an Agency for anyone that wants opportunities in
+                  the Art community. We are a place where your art can be seen
+                  and curated all over the city & even around the globe. We
+                  offer a secure way to sell your work and connect with other
+                  artists in your community. We are currently working on our
+                  Blockchain Launch 🚀 & have animators just waiting to help you
+                  design your art and bring it into animation or still digital
+                  life.
                 </p>
                 <a
                   href="about"
