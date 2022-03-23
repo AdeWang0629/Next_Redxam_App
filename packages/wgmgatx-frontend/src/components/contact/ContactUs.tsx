@@ -10,11 +10,11 @@ const ContactUs = () => {
     e.preventDefault();
     setSubmit(true);
 
-    // @ts-ignore
     emailjs
       .sendForm(
         'service_7x1n6jd',
         'template_5fs7fas',
+        // @ts-ignore
         form.current,
         'user_Zb6bgIsD9JympDy0Ot25C'
       )
@@ -42,6 +42,7 @@ const ContactUs = () => {
           </h3>
         ) : (
           <form
+            // @ts-ignore
             ref={form}
             onSubmit={e => sendEmail(e)}
             className="flex items-center flex-col pt-10 gap-7 w-full md:w-[50%] 2xl:w-[38%]"
