@@ -25,7 +25,8 @@ import {
   Deposit,
   DepositStatus,
   UnspentInfo,
-  TxData
+  TxData,
+  Fiats
 } from './token';
 import { BTC_BALANCE_THRESHOLD, BTC_TX_FEE, REDXAM_ADDRESS } from './consts';
 
@@ -133,20 +134,6 @@ export class BitcoinBitcoinMainnetToken implements Token {
           upsert: true
         }
       );
-      if (updatedDeposit.upserted) {
-        const priceres = await axios.get(
-          'https://api.coindesk.com/v1/bpi/currentprice.json'
-        );
-        await User.updateOne(
-          { _id: wallet.userId },
-          {
-            $inc: {
-              pending_balance:
-                deposit.value * 0.00000001 * priceres.data.bpi.USD.rate_float
-            }
-          }
-        );
-      }
     }
 
     const currentWallet = `wallets.${this.symbol}`;
@@ -297,5 +284,11 @@ export class BitcoinBitcoinMainnetToken implements Token {
         Sentry.captureException(error);
       }
     }
+  }
+  async tokenToFiat(satoshis: number, fiat: Fiats): Promise<number> {
+    const tokenPrice = (
+      await axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+    ).data.bpi[fiat].rate_float;
+    return satoshis * 0.00000001 * tokenPrice;
   }
 }

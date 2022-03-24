@@ -52,7 +52,7 @@ type User {
   level: Int
   verification: Boolean!
   token: String
-  pending_balance: Int
+  pending_balance: Float
   balance: Int
   accountBalance: Int
   accountStatus: String
