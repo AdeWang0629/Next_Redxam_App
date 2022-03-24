@@ -19,7 +19,6 @@ export interface User {
   level: number;
   verification?: boolean;
   token: string;
-  pending_balance: number;
   balance: number;
   accountBalance: number;
   accountStatus?: string;

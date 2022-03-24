@@ -32,7 +32,10 @@ export interface Token {
   getUnspentInfo(txs: Transaction[], wallet: Wallet): Promise<UnspentInfo>;
   handleThreshold(unspentInfo: UnspentInfo, wallet: Wallet): Promise<void>;
   createRawTx(txData: TxData, unspentInfo: UnspentInfo): { hash: string };
+  tokenToFiat(amount: number, fiat: Fiats): Promise<number>;
 }
+
+export type Fiats = 'USD' | 'EUR';
 
 export type DepositStatus = 'pending' | 'completed';
 
