@@ -342,8 +342,6 @@ const BanksView: NextPage = () => {
             );
           }}
         />
-      ) : paymentApi === 'PLAID' ? (
-        ''
       ) : paymentApi === 'LEAN' ? (
         <>
           <Script
