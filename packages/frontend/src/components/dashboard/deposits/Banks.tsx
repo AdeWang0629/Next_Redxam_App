@@ -43,7 +43,7 @@ interface Teller {
   bankName: string;
 }
 
-type PaymentApi = 'LEAN' | 'TELLER';
+type PaymentApi = 'LEAN' | 'TELLER' | 'MX';
 
 const getAPIFromLocale = (locale: string | undefined): PaymentApi => {
   switch (locale) {
@@ -51,10 +51,10 @@ const getAPIFromLocale = (locale: string | undefined): PaymentApi => {
       return 'LEAN';
 
     case 'en':
-      return 'TELLER';
+      return 'LEAN';
 
     default:
-      return 'TELLER';
+      return 'LEAN';
   }
 };
 
