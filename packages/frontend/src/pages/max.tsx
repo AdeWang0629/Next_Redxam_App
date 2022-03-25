@@ -69,6 +69,11 @@ function Max() {
             Telegram
           </button>
         </Link>
+        <Link href="https://linkedin.com/in/maxawad" passHref>
+          <button className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] bg-buttons-green">
+            LinkedIn
+          </button>
+        </Link>
       </section>
 
       <Footer />
