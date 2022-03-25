@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { getCookie } from 'cookies-next';
+import admin from './apis/admin';
 
 class API {
   axios: AxiosInstance;
@@ -8,6 +9,7 @@ class API {
     this.axios = axios.create();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get baseURL() {
     return (
       typeof window !== 'undefined' &&
@@ -18,6 +20,12 @@ class API {
     ) as string;
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  get admin() {
+    return admin;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
   getToken() {
     return typeof window !== 'undefined' ? getCookie('token') : null;
   }
@@ -472,80 +480,6 @@ class API {
         IDs
       },
       { headers: { ...this.getAuthorizationHeader() } }
-    );
-  }
-
-  updateReferralScript(adminToken: String) {
-    const query = `query {
-      updateReferral {
-          message
-          success
-          updatedUsers {
-              userId
-              referralCode
-              waitlistToken
-          }
-          amount
-      }
-  }`;
-    return this.axios.post(
-      `${this.baseURL}/api/v1`,
-      { query },
-      {
-        headers: { Authorization: `Bearer ${adminToken}` }
-      }
-    );
-  }
-
-  updateWalletsScript(adminToken: String) {
-    const mutation = `mutation {
-      updateWallets{
-          message
-          success
-      }
-  }`;
-    return this.axios.post(
-      `${this.baseURL}/api/v1`,
-      { query: mutation },
-      {
-        headers: { Authorization: `Bearer ${adminToken}` }
-      }
-    );
-  }
-
-  updateUserStatusScript(
-    adminToken: String,
-    email: String,
-    status: 'invited' | 'accepted'
-  ) {
-    const mutation = `mutation {
-      updateUserStatus (arg: {email: "${email}", status: "${status}"}) {
-        message
-        success
-      }
-    }`;
-    return this.axios.post(
-      `${this.baseURL}/api/v1`,
-      { query: mutation },
-      {
-        headers: { Authorization: `Bearer ${adminToken}` }
-      }
-    );
-  }
-
-  inviteUser(adminToken: String, email: String) {
-    const mutation = `mutation {
-      inviteUser(arg:{email: "${email}"}){
-          message
-          success
-      }
-  }`;
-    return this.axios.post(
-      `${this.baseURL}/api/v1`,
-      { query: mutation },
-      {
-        headers: { Authorization: `Bearer ${adminToken}` }
-      }
     );
   }
 
