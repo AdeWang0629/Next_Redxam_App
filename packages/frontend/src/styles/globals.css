@@ -160,3 +160,12 @@ input[type='number'] {
 .faq-wrapper {
   min-height: 300px;
 }
+
+.hDbDvd {
+  height: 100% !important;
+}
+
+.ReactModalPortal .LeanTech__ReactModal__Content {
+  padding: 20px !important;
+  overflow: hidden !important;
+}
