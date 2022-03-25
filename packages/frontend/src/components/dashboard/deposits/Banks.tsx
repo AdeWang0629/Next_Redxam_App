@@ -43,18 +43,18 @@ interface Teller {
   bankName: string;
 }
 
-const getAPIFromLocale = (locale: string | undefined): string => {
+type PaymentApi = 'LEAN' | 'TELLER';
+
+const getAPIFromLocale = (locale: string | undefined): PaymentApi => {
   switch (locale) {
     case 'ar':
       return 'LEAN';
-      break;
+
     case 'en':
       return 'TELLER';
-      break;
 
     default:
       return 'TELLER';
-      break;
   }
 };
 
@@ -66,7 +66,7 @@ const BanksView: NextPage = () => {
   if (user) {
     userId = user._id;
   }
-  const [paymentApi] = useState(getAPIFromLocale(router.locale));
+  const [paymentApi] = useState<PaymentApi>(getAPIFromLocale(router.locale));
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
   const [leanConnect, setLeanConnect] = useState(null);
