@@ -5,6 +5,7 @@
 
 import { useState, useEffect, useContext } from 'react';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import * as Sentry from '@sentry/nextjs';
 import Script from 'next/script';
 import { usePlaidLink } from 'react-plaid-link';
@@ -42,14 +43,30 @@ interface Teller {
   bankName: string;
 }
 
+const getAPIFromLocale = (locale: string | undefined): string => {
+  switch (locale) {
+    case 'ar':
+      return 'LEAN';
+      break;
+    case 'en':
+      return 'TELLER';
+      break;
+
+    default:
+      return 'TELLER';
+      break;
+  }
+};
+
 const BanksView: NextPage = () => {
+  const router = useRouter();
   const { t } = useTranslation('dashboard');
   const { user } = useContext(UserContext);
   let userId = '';
   if (user) {
     userId = user._id;
   }
-  const [paymentApi] = useState('TELLER');
+  const [paymentApi] = useState(getAPIFromLocale(router.locale));
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
   const [leanConnect, setLeanConnect] = useState(null);
