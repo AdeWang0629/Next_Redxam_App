@@ -27,16 +27,16 @@ const Scripts: NextPage = () => {
   const handleSubmit = () => {
     switch (script) {
       case 'updateReferral':
-        api.updateReferralScript(getCookie('admin_token') as String);
+        api.admin.updateReferralScript(getCookie('admin_token') as String);
         break;
 
       case 'updateWallets':
-        api.updateWalletsScript(getCookie('admin_token') as String);
+        api.admin.updateWalletsScript(getCookie('admin_token') as String);
         break;
 
       case 'updateUserStatus':
         (async () => {
-          await api
+          await api.admin
             .updateUserStatusScript(
               getCookie('admin_token') as String,
               email,
@@ -51,7 +51,7 @@ const Scripts: NextPage = () => {
 
       case 'inviteUser':
         (async () => {
-          await api
+          await api.admin
             .inviteUser(getCookie('admin_token') as String, email)
             .then(res => {
               alert(res.data.data.inviteUser.message);
