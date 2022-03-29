@@ -106,6 +106,9 @@ input LoginInput {
   email: String
   phone: String
 }
+input SpoofInput {
+  email: String
+}
 input VerifyInput {
   token: String
   phone: String
@@ -352,4 +355,5 @@ type Mutation {
   updateWallets: Response
   updateUserStatus(arg: UpdateStatus): Response
   updateDepositStatus(arg: UpdateDeposit): Response
+  spoofAccount(arg: SpoofInput): Response
 }
