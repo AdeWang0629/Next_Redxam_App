@@ -15,6 +15,8 @@ export const createWaitlist = async (
 
   try {
     let level = 0;
+    let userReferralCode = '';
+
     const jobs: Promise<any>[] = [];
 
     let referralId = null;
@@ -25,6 +27,7 @@ export const createWaitlist = async (
       const { waitlistToken, referralCode } = userCreate.createUserCodes();
 
       level = lastOrder.level + 1;
+      userReferralCode = referralCode;
 
       const jobCreate = userCreate.createNewUser(
         form,
@@ -46,6 +49,7 @@ export const createWaitlist = async (
       jobs.push(jobMail);
     } else {
       level = lastOrder.level;
+      userReferralCode = lastOrder.referralCode;
       const jobMail = userCreate.sendWaitlistMail(
         form.email,
         level,
@@ -59,7 +63,11 @@ export const createWaitlist = async (
 
     await Promise.all(jobs);
 
-    return { ...messages.success.register, level };
+    return {
+      ...messages.success.register,
+      level,
+      referralCode: userReferralCode
+    };
   } catch (error) {
     console.error(error.message);
     return messages.failed.general;
