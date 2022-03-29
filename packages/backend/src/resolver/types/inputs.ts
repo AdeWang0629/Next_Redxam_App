@@ -31,6 +31,10 @@ export interface LoginInput {
   phone?: string;
 }
 
+export interface SpoofInput {
+  email?: string;
+}
+
 export interface VerifyInput {
   token?: string;
   phone?: string;

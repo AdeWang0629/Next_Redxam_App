@@ -69,7 +69,7 @@ const Home: NextPage = () => {
               />
             </div>
           </Tippy>
-          <Tippy content="Coming soon">
+          <Tippy content="Click to log out">
             <button
               type="button"
               onClick={() => {

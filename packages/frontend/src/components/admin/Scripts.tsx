@@ -26,6 +26,21 @@ const Scripts: NextPage = () => {
 
   const handleSubmit = () => {
     switch (script) {
+      case 'spoofAccount':
+        (async () => {
+          api.admin
+            .spoofAccount(getCookie('admin_token') as String, email)
+            .then(res => {
+              // eslint-disable-next-line no-alert
+              alert('success, check the console');
+              // eslint-disable-next-line no-console
+              console.log(res.data.data.spoofAccount.message);
+            })
+            // eslint-disable-next-line no-alert
+            .catch(err => alert(err));
+        })();
+        break;
+
       case 'updateReferral':
         api.admin.updateReferralScript(getCookie('admin_token') as String);
         break;
@@ -83,6 +98,7 @@ const Scripts: NextPage = () => {
           <option disabled selected>
             Scripts
           </option>
+          <option value="spoofAccount">Spoof Account</option>
           <option value="updateReferral">Update Referral Code</option>
           <option value="updateWallets">Update Wallets Strategy Pattern</option>
           <option value="updateUserStatus">Update User Status</option>
@@ -97,41 +113,41 @@ const Scripts: NextPage = () => {
           disabled={submitDisabled}
         />
       </div>
+      {(script === 'updateUserStatus' || script === 'spoofAccount') && (
+        <select
+          name="emailTemplate"
+          id="emailTemplate"
+          className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2 mt-6"
+          placeholder="Select Script"
+          onChange={e => setEmail(e.target.value)}
+        >
+          <option disabled selected>
+            Select an email
+          </option>
+          {users
+            .filter(
+              user =>
+                user.accountStatus === 'pending' ||
+                user.accountStatus === 'invited'
+            )
+            .map(user => (
+              <option value={user.email} key={user._id}>
+                {user.accountStatus} - {user.email}
+              </option>
+            ))}
+        </select>
+      )}
       {script === 'updateUserStatus' && (
-        <>
-          <select
-            name="emailTemplate"
-            id="emailTemplate"
-            className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2 mt-6"
-            placeholder="Select Script"
-            onChange={e => setEmail(e.target.value)}
-          >
-            <option disabled selected>
-              Select an email
-            </option>
-            {users
-              .filter(
-                user =>
-                  user.accountStatus === 'pending' ||
-                  user.accountStatus === 'invited'
-              )
-              .map(user => (
-                <option value={user.email} key={user._id}>
-                  {user.accountStatus} - {user.email}
-                </option>
-              ))}
-          </select>
-          <select
-            name="status"
-            id="status"
-            className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2 mt-6"
-            placeholder="Select Status"
-            onChange={e => setStatus(e.target.value as 'invited' | 'accepted')}
-          >
-            <option value="invited">Invited</option>
-            <option value="accepted">Accepted</option>
-          </select>
-        </>
+        <select
+          name="status"
+          id="status"
+          className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2 mt-6"
+          placeholder="Select Status"
+          onChange={e => setStatus(e.target.value as 'invited' | 'accepted')}
+        >
+          <option value="invited">Invited</option>
+          <option value="accepted">Accepted</option>
+        </select>
       )}
       {script === 'inviteUser' && (
         <input

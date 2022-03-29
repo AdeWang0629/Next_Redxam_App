@@ -1,0 +1,636 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9941A71D27D771B400041A11 /* RedxamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941A71C27D771B400041A11 /* RedxamApp.swift */; };
+		9941A71F27D771B400041A11 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941A71E27D771B400041A11 /* ContentView.swift */; };
+		9941A72127D771B500041A11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9941A72027D771B500041A11 /* Assets.xcassets */; };
+		9941A72427D771B500041A11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9941A72327D771B500041A11 /* Preview Assets.xcassets */; };
+		9941A72E27D771B500041A11 /* RedxamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941A72D27D771B500041A11 /* RedxamTests.swift */; };
+		9941A73827D771B500041A11 /* RedxamUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941A73727D771B500041A11 /* RedxamUITests.swift */; };
+		9941A73A27D771B500041A11 /* RedxamUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941A73927D771B500041A11 /* RedxamUITestsLaunchTests.swift */; };
+		9941A74927D798C200041A11 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941A74827D798C200041A11 /* CustomButton.swift */; };
+		9941A74B27D7A72C00041A11 /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941A74A27D7A72B00041A11 /* BottomView.swift */; };
+		9941A74D27D7BB3600041A11 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941A74C27D7BB3600041A11 /* SignUpScreen.swift */; };
+		9941A74F27D7CD7E00041A11 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941A74E27D7CD7E00041A11 /* CustomTextField.swift */; };
+		99666E2A27E1F6E000E739F7 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99666E2927E1F6E000E739F7 /* Rubik-Italic.ttf */; };
+		99666E2D27E1FA3C00E739F7 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99666E2B27E1FA3B00E739F7 /* Rubik-Regular.ttf */; };
+		99666E2E27E1FA3C00E739F7 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99666E2C27E1FA3B00E739F7 /* Rubik-Bold.ttf */; };
+		999CA10F27DFBD4F0039682A /* BuyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999CA10E27DFBD4E0039682A /* BuyScreen.swift */; };
+		999CA13327E1DC640039682A /* Rubik in Resources */ = {isa = PBXBuildFile; fileRef = 999CA13227E1DC640039682A /* Rubik */; };
+		99BA0D7827F31CB400C48536 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BA0D7727F31CB400C48536 /* LoadingView.swift */; };
+		99BF473627DA7E6100B6516C /* ReferalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BF473527DA7E6100B6516C /* ReferalScreen.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9941A72A27D771B500041A11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9941A71127D771B400041A11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9941A71827D771B400041A11;
+			remoteInfo = Redxam;
+		};
+		9941A73427D771B500041A11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9941A71127D771B400041A11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9941A71827D771B400041A11;
+			remoteInfo = Redxam;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9941A71927D771B400041A11 /* Redxam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Redxam.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9941A71C27D771B400041A11 /* RedxamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedxamApp.swift; sourceTree = "<group>"; };
+		9941A71E27D771B400041A11 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9941A72027D771B500041A11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9941A72327D771B500041A11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9941A72927D771B500041A11 /* RedxamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedxamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9941A72D27D771B500041A11 /* RedxamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedxamTests.swift; sourceTree = "<group>"; };
+		9941A73327D771B500041A11 /* RedxamUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedxamUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9941A73727D771B500041A11 /* RedxamUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedxamUITests.swift; sourceTree = "<group>"; };
+		9941A73927D771B500041A11 /* RedxamUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedxamUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9941A74827D798C200041A11 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		9941A74A27D7A72B00041A11 /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
+		9941A74C27D7BB3600041A11 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
+		9941A74E27D7CD7E00041A11 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		99666E2927E1F6E000E739F7 /* Rubik-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic.ttf"; sourceTree = "<group>"; };
+		99666E2B27E1FA3B00E739F7 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rubik-Regular.ttf"; path = "Rubik/static/Rubik-Regular.ttf"; sourceTree = "<group>"; };
+		99666E2C27E1FA3B00E739F7 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rubik-Bold.ttf"; path = "Rubik/static/Rubik-Bold.ttf"; sourceTree = "<group>"; };
+		999CA10E27DFBD4E0039682A /* BuyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyScreen.swift; sourceTree = "<group>"; };
+		999CA13227E1DC640039682A /* Rubik */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Rubik; sourceTree = "<group>"; };
+		999CA13427E1DEB70039682A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		99BA0D7727F31CB400C48536 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		99BF473527DA7E6100B6516C /* ReferalScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferalScreen.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9941A71627D771B400041A11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9941A72627D771B500041A11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9941A73027D771B500041A11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9941A71027D771B400041A11 = {
+			isa = PBXGroup;
+			children = (
+				9941A71B27D771B400041A11 /* Redxam */,
+				9941A72C27D771B500041A11 /* RedxamTests */,
+				9941A73627D771B500041A11 /* RedxamUITests */,
+				9941A71A27D771B400041A11 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9941A71A27D771B400041A11 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9941A71927D771B400041A11 /* Redxam.app */,
+				9941A72927D771B500041A11 /* RedxamTests.xctest */,
+				9941A73327D771B500041A11 /* RedxamUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9941A71B27D771B400041A11 /* Redxam */ = {
+			isa = PBXGroup;
+			children = (
+				99666E2927E1F6E000E739F7 /* Rubik-Italic.ttf */,
+				999CA13427E1DEB70039682A /* Info.plist */,
+				999CA13227E1DC640039682A /* Rubik */,
+				9941A71C27D771B400041A11 /* RedxamApp.swift */,
+				9941A74A27D7A72B00041A11 /* BottomView.swift */,
+				9941A71E27D771B400041A11 /* ContentView.swift */,
+				99666E2C27E1FA3B00E739F7 /* Rubik-Bold.ttf */,
+				99666E2B27E1FA3B00E739F7 /* Rubik-Regular.ttf */,
+				9941A74827D798C200041A11 /* CustomButton.swift */,
+				9941A74E27D7CD7E00041A11 /* CustomTextField.swift */,
+				9941A74C27D7BB3600041A11 /* SignUpScreen.swift */,
+				9941A72027D771B500041A11 /* Assets.xcassets */,
+				9941A72227D771B500041A11 /* Preview Content */,
+				99BF473527DA7E6100B6516C /* ReferalScreen.swift */,
+				999CA10E27DFBD4E0039682A /* BuyScreen.swift */,
+				99BA0D7727F31CB400C48536 /* LoadingView.swift */,
+			);
+			path = Redxam;
+			sourceTree = "<group>";
+		};
+		9941A72227D771B500041A11 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				9941A72327D771B500041A11 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9941A72C27D771B500041A11 /* RedxamTests */ = {
+			isa = PBXGroup;
+			children = (
+				9941A72D27D771B500041A11 /* RedxamTests.swift */,
+			);
+			path = RedxamTests;
+			sourceTree = "<group>";
+		};
+		9941A73627D771B500041A11 /* RedxamUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9941A73727D771B500041A11 /* RedxamUITests.swift */,
+				9941A73927D771B500041A11 /* RedxamUITestsLaunchTests.swift */,
+			);
+			path = RedxamUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9941A71827D771B400041A11 /* Redxam */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9941A73D27D771B500041A11 /* Build configuration list for PBXNativeTarget "Redxam" */;
+			buildPhases = (
+				9941A71527D771B400041A11 /* Sources */,
+				9941A71627D771B400041A11 /* Frameworks */,
+				9941A71727D771B400041A11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Redxam;
+			productName = Redxam;
+			productReference = 9941A71927D771B400041A11 /* Redxam.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9941A72827D771B500041A11 /* RedxamTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9941A74027D771B500041A11 /* Build configuration list for PBXNativeTarget "RedxamTests" */;
+			buildPhases = (
+				9941A72527D771B500041A11 /* Sources */,
+				9941A72627D771B500041A11 /* Frameworks */,
+				9941A72727D771B500041A11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9941A72B27D771B500041A11 /* PBXTargetDependency */,
+			);
+			name = RedxamTests;
+			productName = RedxamTests;
+			productReference = 9941A72927D771B500041A11 /* RedxamTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9941A73227D771B500041A11 /* RedxamUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9941A74327D771B500041A11 /* Build configuration list for PBXNativeTarget "RedxamUITests" */;
+			buildPhases = (
+				9941A72F27D771B500041A11 /* Sources */,
+				9941A73027D771B500041A11 /* Frameworks */,
+				9941A73127D771B500041A11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9941A73527D771B500041A11 /* PBXTargetDependency */,
+			);
+			name = RedxamUITests;
+			productName = RedxamUITests;
+			productReference = 9941A73327D771B500041A11 /* RedxamUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9941A71127D771B400041A11 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					9941A71827D771B400041A11 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					9941A72827D771B500041A11 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 9941A71827D771B400041A11;
+					};
+					9941A73227D771B500041A11 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 9941A71827D771B400041A11;
+					};
+				};
+			};
+			buildConfigurationList = 9941A71427D771B400041A11 /* Build configuration list for PBXProject "Redxam" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9941A71027D771B400041A11;
+			productRefGroup = 9941A71A27D771B400041A11 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9941A71827D771B400041A11 /* Redxam */,
+				9941A72827D771B500041A11 /* RedxamTests */,
+				9941A73227D771B500041A11 /* RedxamUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9941A71727D771B400041A11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99666E2A27E1F6E000E739F7 /* Rubik-Italic.ttf in Resources */,
+				99666E2E27E1FA3C00E739F7 /* Rubik-Bold.ttf in Resources */,
+				999CA13327E1DC640039682A /* Rubik in Resources */,
+				9941A72427D771B500041A11 /* Preview Assets.xcassets in Resources */,
+				99666E2D27E1FA3C00E739F7 /* Rubik-Regular.ttf in Resources */,
+				9941A72127D771B500041A11 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9941A72727D771B500041A11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9941A73127D771B500041A11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9941A71527D771B400041A11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9941A74D27D7BB3600041A11 /* SignUpScreen.swift in Sources */,
+				9941A71F27D771B400041A11 /* ContentView.swift in Sources */,
+				999CA10F27DFBD4F0039682A /* BuyScreen.swift in Sources */,
+				99BF473627DA7E6100B6516C /* ReferalScreen.swift in Sources */,
+				9941A74F27D7CD7E00041A11 /* CustomTextField.swift in Sources */,
+				9941A71D27D771B400041A11 /* RedxamApp.swift in Sources */,
+				9941A74927D798C200041A11 /* CustomButton.swift in Sources */,
+				9941A74B27D7A72C00041A11 /* BottomView.swift in Sources */,
+				99BA0D7827F31CB400C48536 /* LoadingView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9941A72527D771B500041A11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9941A72E27D771B500041A11 /* RedxamTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9941A72F27D771B500041A11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9941A73827D771B500041A11 /* RedxamUITests.swift in Sources */,
+				9941A73A27D771B500041A11 /* RedxamUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9941A72B27D771B500041A11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9941A71827D771B400041A11 /* Redxam */;
+			targetProxy = 9941A72A27D771B500041A11 /* PBXContainerItemProxy */;
+		};
+		9941A73527D771B500041A11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9941A71827D771B400041A11 /* Redxam */;
+			targetProxy = 9941A73427D771B500041A11 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9941A73B27D771B500041A11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9941A73C27D771B500041A11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9941A73E27D771B500041A11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Redxam/Preview Content\"";
+				DEVELOPMENT_TEAM = 6J296J6VPF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Redxam/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Redxam;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9941A73F27D771B500041A11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Redxam/Preview Content\"";
+				DEVELOPMENT_TEAM = 6J296J6VPF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Redxam/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Redxam;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9941A74127D771B500041A11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RedxamTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Redxam.app/Redxam";
+			};
+			name = Debug;
+		};
+		9941A74227D771B500041A11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RedxamTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Redxam.app/Redxam";
+			};
+			name = Release;
+		};
+		9941A74427D771B500041A11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RedxamUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Redxam;
+			};
+			name = Debug;
+		};
+		9941A74527D771B500041A11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RedxamUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Redxam;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9941A71427D771B400041A11 /* Build configuration list for PBXProject "Redxam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9941A73B27D771B500041A11 /* Debug */,
+				9941A73C27D771B500041A11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9941A73D27D771B500041A11 /* Build configuration list for PBXNativeTarget "Redxam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9941A73E27D771B500041A11 /* Debug */,
+				9941A73F27D771B500041A11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9941A74027D771B500041A11 /* Build configuration list for PBXNativeTarget "RedxamTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9941A74127D771B500041A11 /* Debug */,
+				9941A74227D771B500041A11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9941A74327D771B500041A11 /* Build configuration list for PBXNativeTarget "RedxamUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9941A74427D771B500041A11 /* Debug */,
+				9941A74527D771B500041A11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9941A71127D771B400041A11 /* Project object */;
+}

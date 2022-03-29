@@ -92,6 +92,22 @@ class AdminAPI {
       }
     );
   }
+
+  spoofAccount(adminToken: String, email: String) {
+    const mutation = `mutation {
+      spoofAccount(arg:{email: "${email}"}){
+          message
+          success
+      }
+  }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
 }
 
 export default new AdminAPI();
