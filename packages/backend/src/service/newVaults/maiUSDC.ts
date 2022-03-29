@@ -5,6 +5,7 @@ import { promisify } from './utils';
 import beefyCeloDaiUsdContract from './contractAPI';
 
 const redxamAddress = '0xEfAe44925c9D7550429AF8B54897A919cE46217B';
+const ownContract = '0x635Dc716B223e89783D6a95045d3939fCb445AB4';
 
 const handleDaiUsd = async () => {
   const decimals: number = <number>(
