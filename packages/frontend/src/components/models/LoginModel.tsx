@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import api from 'src/utils/api';
 import { validateEmail } from 'src/utils/helpers';
-import WaitlistModel from './WaitlistModel';
+import SignupModel from './SignupModel';
 
 interface LoginModelProps {
   isOpened: boolean;
@@ -17,7 +17,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
-  const [waitlistModelOpened, setWaitlistModelOpened] = useState(false);
+  const [signupOpened, setSignupOpened] = useState(false);
   const outsideContainerRef = useRef(null);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
         onClick={handleOutsideClick}
         role="dialog"
       >
-        <div className="flex flex-col items-center bg-white rounded-[30px] w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/4 px-6 py-12">
+        <div className="flex flex-col items-center bg-white rounded-[30px] w-[90%] md:w-1/2 xl:w-2/5 2xl:w-1/4 px-6 py-12">
           {!submitted ? (
             <>
               <h3 className="mb-2.5 text-4xl text-black text-opacity-80 text-center">
@@ -120,7 +120,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
               <div className="flex flex-col justify-center items-center">
                 <button
                   className="font-primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green order-first md:order-none mt-[25px] md:mt-0"
-                  onClick={() => setWaitlistModelOpened(true)}
+                  onClick={() => setSignupOpened(true)}
                 >
                   {t('join-waitlist')}
                 </button>
@@ -134,11 +134,8 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
           )}
         </div>
       </div>
-      {waitlistModelOpened && (
-        <WaitlistModel
-          isOpened={waitlistModelOpened}
-          setOpened={setWaitlistModelOpened}
-        />
+      {signupOpened && (
+        <SignupModel isOpened={signupOpened} setOpened={setSignupOpened} />
       )}
     </>
   );
