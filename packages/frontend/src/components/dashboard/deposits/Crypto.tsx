@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '@providers/User';
 import { NextPage } from 'next';
 import Image from 'next/image';
-import { getCookie } from 'cookies-next';
 import api from '@utils/api';
 import QRCode from 'qrcode';
 
@@ -246,7 +245,7 @@ const Crypto: NextPage = () => {
                     Bitcoin
                   </p>
                 </button>
-                {getCookie('environment') !== 'production' && (
+                {process.env.NODE_ENV && (
                   <button
                     className="flex flex-col w-full"
                     onClick={() => {
