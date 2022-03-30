@@ -301,7 +301,7 @@ type AdminDeposit {
 
 type CreateWaitlist {
   referralCode: String
-  level: Int
+  level: String
   success: Boolean
   message: String
 }
