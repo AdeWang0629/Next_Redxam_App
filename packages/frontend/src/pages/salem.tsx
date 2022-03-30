@@ -47,7 +47,7 @@ function Salem() {
         </h5>
         <p className="dark:text-white">CIO, Co-Founder</p>
         <p className="dark:text-white">
-          Salem is a royal from family of Ras Al-Khaimah
+          Salem is a member of the royal family of Ras Al-Khaimah
         </p>
         <br />
         <Link href="mailto:salem@redxam.com" passHref>
