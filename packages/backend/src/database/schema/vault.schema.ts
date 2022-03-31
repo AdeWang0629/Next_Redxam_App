@@ -6,32 +6,33 @@ export const Vault = new Schema({
   balance: Number,
   interestRate: Number,
   token: String,
-  tokenBalance: Number,
+  tokenBalance: Number
 });
 
 export const VaultSchema = new Schema(
   {
     type: {
       type: String,
-      required: true,
+      required: true
     },
     totalContribution: {
-      type: Number,
+      type: Number
     },
     userId: {
-      type: String,
+      type: String
     },
     vaults: {
       aave: Vault,
       harvest: Vault,
       fulcrum: Vault,
       beefy: Vault,
-    },
+      beefyMai: Vault
+    }
   },
   {
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
-    },
-  },
+      updatedAt: 'updated_at'
+    }
+  }
 );
