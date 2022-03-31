@@ -161,7 +161,7 @@ const WaitlistModel: NextPage<WaitlistModelProps> = ({
               <input
                 type="text"
                 className="font-secondary w-full"
-                onChange={e => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value.toLowerCase())}
                 onBlur={() => checkEmail()}
                 value={email}
                 id="email"
