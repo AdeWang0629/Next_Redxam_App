@@ -125,10 +125,11 @@ const Scripts: NextPage = () => {
             Select an email
           </option>
           {users
-            .filter(
-              user =>
-                user.accountStatus === 'pending' ||
-                user.accountStatus === 'invited'
+            .filter(user =>
+              script === 'spoofAccount'
+                ? user.accountStatus === 'accepted'
+                : user.accountStatus === 'pending' ||
+                  user.accountStatus === 'invited'
             )
             .map(user => (
               <option value={user.email} key={user._id}>
