@@ -119,7 +119,9 @@ const Scripts: NextPage = () => {
           id="emailTemplate"
           className="flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2 mt-6"
           placeholder="Select Script"
-          onChange={e => setEmail(e.target.value)}
+          onChange={e => {
+            setEmail(e.target.value);
+          }}
         >
           <option disabled selected>
             Select an email
