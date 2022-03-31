@@ -161,103 +161,105 @@ const DepositModel: NextPage<DepositModelProps> = ({
 
   return (
     <>
-      <div
-        className="flex flex-col justify-center items-center bg-black bg-opacity-75 absolute top-0 left-0 h-[100dvh] h-full w-full z-50"
-        ref={outsideContainerRef}
-        onClick={handleOutsideClick}
-        role="dialog"
-      >
-        <div className="flex flex-col justify-center bg-white rounded-[30px] w-[92%] md:w-1/2 pb-8">
-          <div className="flex items-center justify-between p-8">
-            <h1 className="font-secondary font-medium text-black text-lg">
-              Deposit
-            </h1>
-            <button
-              onClick={() => {
-                setOpened(false);
-                document.body.style.overflow = 'auto';
-              }}
-            >
-              <IconButton buttonText="" buttonIcon={TimesIcon} />
-            </button>
-          </div>
-          <hr />
+      <div className="bg-black bg-opacity-75 absolute top-0 left-0 h-[200%] w-screen z-50">
+        <div
+          className="flex flex-col justify-center items-center h-screen w-screen"
+          ref={outsideContainerRef}
+          onClick={handleOutsideClick}
+          role="dialog"
+        >
+          <div className="flex flex-col justify-center bg-white rounded-[30px] w-[92%] md:w-1/2 pb-8">
+            <div className="flex items-center justify-between p-8">
+              <h1 className="font-secondary font-medium text-black text-lg">
+                Deposit
+              </h1>
+              <button
+                onClick={() => {
+                  setOpened(false);
+                  document.body.style.overflow = 'auto';
+                }}
+              >
+                <IconButton buttonText="" buttonIcon={TimesIcon} />
+              </button>
+            </div>
+            <hr />
 
-          <div className="flex flex-col items-center pt-10 xl:px-32">
-            <div className="flex flex-col xl:flex-row items-center">
-              {paymentApi !== 'LEAN' && (
-                <>
-                  <CustomSelect
-                    accounts={accounts}
-                    value={selectedAccount}
-                    setValue={setSelectedAccount}
-                  />
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    className="my-4 xl:my-0 xl:mx-8 w-[20px]"
-                  />
-                </>
-              )}
+            <div className="flex flex-col items-center pt-10 xl:px-32">
+              <div className="flex flex-col xl:flex-row items-center">
+                {paymentApi !== 'LEAN' && (
+                  <>
+                    <CustomSelect
+                      accounts={accounts}
+                      value={selectedAccount}
+                      setValue={setSelectedAccount}
+                    />
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      className="my-4 xl:my-0 xl:mx-8 w-[20px]"
+                    />
+                  </>
+                )}
 
-              <div className="flex rounded-3xl border p-6 min-w-[15.0625rem]">
-                <Image
-                  src={RedxamLogo}
-                  className="rounded-full"
-                  width="40px"
-                  height="40px"
-                />
-                <div className="flex flex-col justify-center ml-5">
-                  <h2 className="font-secondary text-sm font-medium text-card-button">
-                    Redxam Wallet
-                  </h2>
+                <div className="flex rounded-3xl border p-6 min-w-[15.0625rem]">
+                  <Image
+                    src={RedxamLogo}
+                    className="rounded-full"
+                    width="40px"
+                    height="40px"
+                  />
+                  <div className="flex flex-col justify-center ml-5">
+                    <h2 className="font-secondary text-sm font-medium text-card-button">
+                      Redxam Wallet
+                    </h2>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="bg-[#fafafa] rounded-3xl p-8 flex flex-col items-center w-full mt-8">
-              <div className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
-                <span className="text-card-button">$</span>
-                <input
-                  className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
-                  value={`${numberWithCommas(value)}`}
-                  style={{ width: `${value.toString().length}ch` }}
-                  onChange={({ target }) => {
-                    const newValue = +target.value.replace(/[^0-9]/g, '');
-                    console.log(newValue);
-                    setValue(newValue);
-                  }}
-                />
-                <span>.00</span>
+              <div className="bg-[#fafafa] rounded-3xl p-8 flex flex-col items-center w-full mt-8">
+                <div className="flex flex-row font-secondary font-bold text-[2.625rem] px-auto">
+                  <span className="text-card-button">$</span>
+                  <input
+                    className="font-secondary font-bold bg-transparent text-center appearance-none border-none outline-none"
+                    value={`${numberWithCommas(value)}`}
+                    style={{ width: `${value.toString().length}ch` }}
+                    onChange={({ target }) => {
+                      const newValue = +target.value.replace(/[^0-9]/g, '');
+                      console.log(newValue);
+                      setValue(newValue);
+                    }}
+                  />
+                  <span>.00</span>
+                </div>
+                <span className="font-secondary text-sm text-[#95989B]">
+                  Enter amount you want to deposit
+                </span>
               </div>
-              <span className="font-secondary text-sm text-[#95989B]">
-                Enter amount you want to deposit
-              </span>
-            </div>
 
-            <div className="mb-4 input-wrapper">
-              <input
-                type="text"
-                className="font-secondary"
-                onChange={e => setMemo(e.target.value)}
-                value={memo}
-                id="tellerMemo"
-              />
-              <label className="font-primary" htmlFor="firstName">
-                Enter a description
-              </label>
-            </div>
+              <div className="mb-4 input-wrapper">
+                <input
+                  type="text"
+                  className="font-secondary"
+                  onChange={e => setMemo(e.target.value)}
+                  value={memo}
+                  id="tellerMemo"
+                />
+                <label className="font-primary" htmlFor="firstName">
+                  Enter a description
+                </label>
+              </div>
 
-            <button
-              className="w-2/3 mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{
-                boxShadow:
-                  '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
-              }}
-              disabled={value < 10 || depositLoading}
-              onClick={deposit}
-            >
-              Deposit
-            </button>
+              <button
+                className="w-2/3 mx-auto bg-card-button rounded-[50px] py-4 px-16 mt-10 font-secondary font-medium text-white transition-opacity duration-300 hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
+                style={{
+                  boxShadow:
+                    '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
+                }}
+                disabled={value < 10 || depositLoading}
+                onClick={deposit}
+              >
+                Deposit
+              </button>
+            </div>
           </div>
         </div>
       </div>
