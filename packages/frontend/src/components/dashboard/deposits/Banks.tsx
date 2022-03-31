@@ -48,13 +48,13 @@ type PaymentApi = 'LEAN' | 'TELLER' | 'MX';
 const getAPIFromLocale = (locale: string | undefined): PaymentApi => {
   switch (locale) {
     case 'ar':
-      return 'LEAN';
+      return 'TELLER';
 
     case 'en':
-      return 'LEAN';
+      return 'TELLER';
 
     default:
-      return 'LEAN';
+      return 'TELLER';
   }
 };
 
