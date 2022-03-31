@@ -84,7 +84,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
                     <input
                       type="email"
                       className="font-secondary w-full"
-                      onChange={e => setEmail(e.target.value)}
+                      onChange={e => setEmail(e.target.value.toLowerCase())}
                       value={email}
                       required
                       id="email"
