@@ -195,12 +195,10 @@ class API {
           wallets {
             BTC {
               address
-              wif
               txsCount
             }
             TEST_BTC {
               address
-              wif
               txsCount
             }
           }
