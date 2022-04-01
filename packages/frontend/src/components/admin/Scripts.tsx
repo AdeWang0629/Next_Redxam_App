@@ -156,7 +156,7 @@ const Scripts: NextPage = () => {
           id="email"
           placeholder="Email"
           className="mt-6 flex-1 px-8 py-3 border border-gray-200 rounded-full w-full outline-none focus:shadow focus:border-2 font-extralight mx-2"
-          onChange={e => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value.toLowerCase())}
         />
       )}
     </div>
