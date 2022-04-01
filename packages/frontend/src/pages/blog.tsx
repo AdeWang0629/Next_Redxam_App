@@ -1,16 +1,17 @@
 import type { NextPage } from 'next';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@components/global/Navbar';
 import Footer from '@components/global/Footer';
 import Switcher from '@components/global/Switcher';
-
 import MouseIcon from '@public/icons/mouse.svg';
 import BetaBlogPostImage from '@public/images/blog/beta.png';
 import PassiveBlogPostImage from '@public/images/blog/passive.png';
 import Newsletter from '@components/landing/Newsletter';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import api from '@utils/api';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -31,6 +32,18 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 
 const Blog: NextPage = () => {
+  const [blogs, setBlogs] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const res = await api.getMediumBlogs();
+      setBlogs(res.data.items);
+
+      console.log('blog');
+    })();
+  }, []);
+
+  console.log(blogs);
+
   const blogPosts = [
     {
       image: BetaBlogPostImage,
