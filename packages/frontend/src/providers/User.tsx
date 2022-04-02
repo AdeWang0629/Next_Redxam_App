@@ -22,12 +22,10 @@ export type Context = {
       BTC: {
         address: string;
         tsxCount: number;
-        wif: string;
       };
       TEST_BTC: {
         address: string;
         tsxCount: number;
-        wif: string;
       };
     };
   };
