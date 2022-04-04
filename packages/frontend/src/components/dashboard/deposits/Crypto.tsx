@@ -26,8 +26,7 @@ const Crypto: NextPage = () => {
     name: string;
     address: string;
     tsxCount: number;
-    wif: string;
-  }>({ name: '', address: '', tsxCount: 0, wif: '' });
+  }>({ name: '', address: '', tsxCount: 0 });
   const [qrCode, setQrCode] = useState('');
   const [qrCodeModal, setQrCodeModal] = useState(false);
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
@@ -73,7 +72,6 @@ const Crypto: NextPage = () => {
     name: string;
     address: string;
     tsxCount: number;
-    wif: string;
   }) => {
     setNetwork(selectedNetwork);
     setNetworkModal(false);

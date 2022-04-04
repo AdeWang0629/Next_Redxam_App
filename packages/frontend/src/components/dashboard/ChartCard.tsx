@@ -36,7 +36,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
   }
 
   return (
-    <Card width="w-[440px]" height="h-[fit-content]">
+    <Card width="md:w-[440px]" height="h-[fit-content] mt-6 md:mt-0">
       <div className="flex flex-col px-7 pt-7">
         <div className="flex">
           <div className="flex flex-col flex-1">
