@@ -156,3 +156,4 @@ rules:
     - outside
     - functionPrototypeMethods: true
   yoda: 2
+  lines-between-class-members: 0

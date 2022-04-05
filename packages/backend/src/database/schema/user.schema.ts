@@ -28,7 +28,8 @@ export const SimpleWalletSchema = new Schema(
 export const TokenWalletSchema = new Schema(
   {
     BTC: SimpleWalletSchema,
-    TEST_BTC: SimpleWalletSchema
+    TEST_BTC: SimpleWalletSchema,
+    MATIC: SimpleWalletSchema
   },
   {
     _id: false

@@ -1,17 +1,17 @@
+/* eslint-disable @typescript-eslint/lines-between-class-members */
 import { User } from '@/database';
 import { Token, Wallet } from './token';
 import { BitcoinBitcoinMainnetToken } from './bitcoin-bitcoin-mainnet.token';
 import {
   TEST_BTC_BALANCE_THRESHOLD,
   TEST_BTC_TX_FEE,
-  TEST_REDXAM_ADDRESS,
+  TEST_REDXAM_ADDRESS
 } from './consts';
-
 
 export class BitcoinBitcoinTestnetToken
   extends BitcoinBitcoinMainnetToken
-  implements Token {
-
+  implements Token
+{
   readonly symbol;
 
   readonly isTestNet;
@@ -37,16 +37,16 @@ export class BitcoinBitcoinTestnetToken
         {
           wallets: { $exists: true },
           verification: true,
-          accountStatus: 'accepted',
+          accountStatus: 'accepted'
         },
-        { _id: 1, 'wallets.TEST_BTC': 1 },
+        { _id: 1, 'wallets.TEST_BTC': 1 }
       )
     ).map(user => ({
       userId: user._id,
       address: user.wallets.TEST_BTC.address,
       txsCount: user.wallets.TEST_BTC.txsCount,
       hasPendingTxs: user.wallets.TEST_BTC.hasPendingTxs,
-      wif: user.wallets.TEST_BTC.wif,
+      wif: user.wallets.TEST_BTC.wif
     }));
   }
 }
