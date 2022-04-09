@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { useContext, useEffect } from 'react';
 import { UserContext } from '@providers/User';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 
 import Tippy from '@tippyjs/react';
 import InternalLayout from '@components/dashboard/InternalLayout';
@@ -18,7 +17,7 @@ import { useTranslation } from 'next-i18next';
 import { GetStaticProps } from 'next';
 import { setCookies } from 'cookies-next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import AnimatedLogo from '@public/images/dashboard/footer-logo2.gif';
+import Loader from '@components/global/Loader';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -54,17 +53,7 @@ const Home: NextPage = () => {
     }
   }, [user?.accountStatus, noUser, loading, router]);
 
-  if (loading)
-    return (
-      <div className="flex flex-col justify-center items-center h-screen">
-        <Image
-          src={AnimatedLogo}
-          width="50px"
-          height="45,5px"
-          alt="redxam Animated Logo"
-        />
-      </div>
-    );
+  if (loading) return <Loader height="h-screen" />;
   return (
     <InternalLayout>
       <Head>

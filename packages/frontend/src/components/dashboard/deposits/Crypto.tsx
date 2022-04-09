@@ -30,6 +30,7 @@ const Crypto: NextPage = () => {
   const [qrCode, setQrCode] = useState('');
   const [qrCodeModal, setQrCodeModal] = useState(false);
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
@@ -59,6 +60,7 @@ const Crypto: NextPage = () => {
             ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
           )
       );
+      setLoading(false);
     })();
   }, []);
 
@@ -345,7 +347,7 @@ const Crypto: NextPage = () => {
         )}
       </Card>
 
-      <TsxsTable deposits={deposits} depositsType="crypto" />
+      <TsxsTable deposits={deposits} depositsType="crypto" loading={loading} />
     </div>
   );
 };

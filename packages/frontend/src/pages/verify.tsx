@@ -11,12 +11,11 @@
 
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { useContext, useEffect } from 'react';
 import { UserContext } from '@providers/User';
 import { setCookies } from 'cookies-next';
 import api from 'src/utils/api';
-import AnimatedLogo from '@public/images/dashboard/footer-logo2.gif';
+import Loader from '@components/global/Loader';
 
 const Verify: NextPage = () => {
   const { setUser, setLoading, setNoUser } = useContext(UserContext);
@@ -51,16 +50,7 @@ const Verify: NextPage = () => {
         setLoading(false);
       });
   }, [router.query?.token, router, setLoading, setNoUser, setUser]);
-  return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      <Image
-        src={AnimatedLogo}
-        width="50px"
-        height="45,5px"
-        alt="redxam Animated Logo"
-      />
-    </div>
-  );
+  return <Loader height="h-screen" />;
 };
 
 export default Verify;
