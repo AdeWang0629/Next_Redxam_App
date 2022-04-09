@@ -245,7 +245,7 @@ const Crypto: NextPage = () => {
                     Bitcoin
                   </p>
                 </button>
-                {process.env.NODE_ENV && (
+                {process.env.NODE_ENV === 'development' && (
                   <button
                     className="flex flex-col w-full"
                     onClick={() => {
