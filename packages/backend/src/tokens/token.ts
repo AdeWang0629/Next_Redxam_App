@@ -35,7 +35,7 @@ export interface Token {
   tokenToFiat(amount: number, fiat: Fiats): Promise<number>;
 }
 
-export type Fiats = 'USD' | 'EUR';
+export type Fiats = 'USD' | 'EUR' | 'AED';
 
 export type DepositStatus = 'pending' | 'completed';
 

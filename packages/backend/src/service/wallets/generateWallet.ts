@@ -1,6 +1,5 @@
 import { tokens } from '@/tokens/listTokens';
 import { SimpleWallet, TokenWallet } from '@/database/types';
-import { NETWORK } from './consts';
 
 /**
  *
@@ -9,8 +8,12 @@ import { NETWORK } from './consts';
  */
 export const generateWallets = (): TokenWallet => {
   const wallets = {};
-  tokens.forEach(token => {
-    wallets[token.symbol] = token.createWallet() as SimpleWallet;
-  });
+  try {
+    tokens.forEach(token => {
+      wallets[token.symbol] = token.createWallet() as SimpleWallet;
+    });
+  } catch (e) {
+    console.error(e);
+  }
   return wallets as TokenWallet;
 };

@@ -10,16 +10,19 @@ import btcLogo from '@public/icons/bitcoin.svg';
 import EmptyImage from '@public/images/dashboard/deposits/empty.svg';
 import { Deposit } from '@utils/types';
 import { useTranslation } from 'next-i18next';
+import Loader from '@components/global/Loader';
 import Card from '../Card';
 
 interface TransactionsTableProps {
   deposits: Deposit[] | [];
   depositsType: string;
+  loading: boolean;
 }
 
 const TransactionsTable = ({
   deposits,
-  depositsType
+  depositsType,
+  loading
 }: TransactionsTableProps) => {
   const { t } = useTranslation('dashboard');
   const router = useRouter();
@@ -68,7 +71,11 @@ const TransactionsTable = ({
         </h2>
       )}
 
-      {deposits && deposits.length ? (
+      {loading ? (
+        <div className="h-[300px]">
+          <Loader height="h-full" />
+        </div>
+      ) : deposits && deposits.length ? (
         <>
           {pendingDeposits.length > 0 && (
             <>
@@ -254,12 +261,14 @@ const TransactionsTable = ({
             })}
         </>
       ) : (
-        <div className="mt-16 flex flex-col items-center px-8 pb-10">
-          <Image src={EmptyImage} alt="No Transactions Ilustration" />
-          <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
-            {t('noTransactions')}
-          </p>
-        </div>
+        !loading && (
+          <div className="mt-16 flex flex-col items-center px-8 pb-10">
+            <Image src={EmptyImage} alt="No Transactions Ilustration" />
+            <p className="mt-6 text-lighter-black font-secondary font-normal text-center">
+              {t('noTransactions')}
+            </p>
+          </div>
+        )
       )}
       {depositsType === 'all' && (
         <button
