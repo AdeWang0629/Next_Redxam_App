@@ -15,6 +15,7 @@ import { useContext, useEffect } from 'react';
 import { UserContext } from '@providers/User';
 import { setCookies } from 'cookies-next';
 import api from 'src/utils/api';
+import Loader from '@components/global/Loader';
 
 const Verify: NextPage = () => {
   const { setUser, setLoading, setNoUser } = useContext(UserContext);
@@ -49,7 +50,7 @@ const Verify: NextPage = () => {
         setLoading(false);
       });
   }, [router.query?.token, router, setLoading, setNoUser, setUser]);
-  return <div>loading</div>;
+  return <Loader height="h-screen" />;
 };
 
 export default Verify;

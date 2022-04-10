@@ -23,6 +23,7 @@ import BankImage from '@public/images/dashboard/deposits/bank.svg';
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
+import Loader from '@components/global/Loader';
 import TsxsTable from './TransactionsTable';
 import Card from '../Card';
 import LocaleDropdown from './LocaleDropdown';
@@ -71,11 +72,12 @@ const BanksView: NextPage = () => {
   const [leanConnect, setLeanConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
-
+  const [loading, setLoading] = useState(true);
   const [accounts, setAccounts] = useState<
     | []
     | { _id: string; id: string; name: string; logo?: string; type: string }[]
   >([]);
+  const [loadingAccounts, setLoadingAccounts] = useState(true);
   const [selectedToUnlink, setSelectedToUnlink] = useState<[] | [string]>([]);
   const [unlinkMode, setUnlinkMode] = useState(false);
   const [showUnlinkModel, setShowUnlinkModel] = useState(false);
@@ -122,11 +124,13 @@ const BanksView: NextPage = () => {
           ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
         )
     );
+    setLoading(false);
   };
 
   const getBankAccounts = async () => {
     const { data: accountsData } = await api.getBankAccounts();
     setAccounts(accountsData.accounts);
+    setLoadingAccounts(false);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -402,7 +406,11 @@ const BanksView: NextPage = () => {
               ) : null}
             </div>
             <hr />
-            {accounts.length > 0 ? (
+            {loadingAccounts ? (
+              <div className="h-[300px]">
+                <Loader height="h-full" />
+              </div>
+            ) : accounts.length > 0 ? (
               <div className="flex flex-col">
                 {accounts.map(account => (
                   <div
@@ -600,7 +608,7 @@ const BanksView: NextPage = () => {
           ) : null}
         </div>
 
-        <TsxsTable deposits={deposits} depositsType="fiat" />
+        <TsxsTable deposits={deposits} depositsType="fiat" loading={loading} />
 
         {openMx && (
           <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">

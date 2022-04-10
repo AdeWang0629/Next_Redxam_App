@@ -12,6 +12,7 @@ const CardsView: NextPage = () => {
   const { t } = useTranslation('dashboard');
   const router = useRouter();
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
+  const [loading, setLoading] = useState(true);
   const [value, setValue] = useState<number>(0);
   const [depositLoading, setDepositLoading] = useState<boolean>(false);
 
@@ -28,6 +29,7 @@ const CardsView: NextPage = () => {
             ) => secondTimeStamp.timestamp - firstTimestamp.timestamp
           )
       );
+      setLoading(false);
     })();
   }, []);
 
@@ -99,7 +101,7 @@ const CardsView: NextPage = () => {
           </div>
         </Card>
       </div>
-      <TsxsTable deposits={deposits} depositsType="fiat" />
+      <TsxsTable deposits={deposits} depositsType="fiat" loading={loading} />
     </div>
   );
 };

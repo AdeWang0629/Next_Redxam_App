@@ -17,6 +17,7 @@ import { useTranslation } from 'next-i18next';
 import { GetStaticProps } from 'next';
 import { setCookies } from 'cookies-next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Loader from '@components/global/Loader';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -52,7 +53,7 @@ const Home: NextPage = () => {
     }
   }, [user?.accountStatus, noUser, loading, router]);
 
-  if (loading) return <span>loading</span>;
+  if (loading) return <Loader height="h-screen" />;
   return (
     <InternalLayout>
       <Head>
