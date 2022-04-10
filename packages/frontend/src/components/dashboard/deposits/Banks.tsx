@@ -5,7 +5,6 @@
 
 import { useState, useEffect, useContext } from 'react';
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import * as Sentry from '@sentry/nextjs';
 import Script from 'next/script';
 import { usePlaidLink } from 'react-plaid-link';
@@ -26,6 +25,7 @@ import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
 import TsxsTable from './TransactionsTable';
 import Card from '../Card';
+import LocaleDropdown from './LocaleDropdown';
 
 const TELLER_APPLICATION_ID = 'app_nu123i0nvg249720i8000';
 const LEAN_APPLICATION_ID = '94e54b49-973c-47c8-8b11-f0d9bba2c6d5';
@@ -59,14 +59,13 @@ const getAPIFromLocale = (locale: string | undefined): PaymentApi => {
 };
 
 const BanksView: NextPage = () => {
-  const router = useRouter();
   const { t } = useTranslation('dashboard');
   const { user } = useContext(UserContext);
   let userId = '';
   if (user) {
     userId = user._id;
   }
-  const [paymentApi] = useState<PaymentApi>(getAPIFromLocale(router.locale));
+  const [paymentApi, setPaymentApi] = useState<PaymentApi>('TELLER');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
   const [leanConnect, setLeanConnect] = useState(null);
@@ -161,6 +160,7 @@ const BanksView: NextPage = () => {
       case 'TELLER':
         // @ts-ignore
         tellerConnect.open();
+
         break;
 
       case 'LEAN':
@@ -361,10 +361,12 @@ const BanksView: NextPage = () => {
       <div className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse lg:gap-x-3">
         <div className="flex-1 flex flex-col">
           <Card otherClasses="w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
-            <div className="flex items-center justify-between px-8">
-              <h1 className="font-secondary font-medium text-lg py-6">
+            <div className="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-6">
+              <h1 className="font-secondary font-medium text-lg">
                 {t('addedBanks')}
               </h1>
+              <LocaleDropdown setPaymentApi={setPaymentApi} />
+
               {accounts.length ? (
                 unlinkMode ? (
                   selectedToUnlink.length ? (

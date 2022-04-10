@@ -5,7 +5,10 @@ module.exports = withSentryConfig(
   /** @type {import('next').NextConfig} */
   {
     i18n,
-    reactStrictMode: true
+    reactStrictMode: true,
+    images: {
+      domains: ['cdn-images-1.medium.com']
+    }
   },
   {
     silent: true

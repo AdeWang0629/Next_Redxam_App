@@ -195,12 +195,10 @@ class API {
           wallets {
             BTC {
               address
-              wif
               txsCount
             }
             TEST_BTC {
               address
-              wif
               txsCount
             }
           }
@@ -677,6 +675,12 @@ class API {
       {
         headers: { ...this.getAuthorizationHeader() }
       }
+    );
+  }
+
+  getMediumBlogs() {
+    return this.axios.get(
+      'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@redxam'
     );
   }
 }

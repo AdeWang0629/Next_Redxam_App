@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { BaseSyntheticEvent, useMemo, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
-import ConservativePlan from '@public/images/conservative-plan.svg';
-import RegularBanks from '@public/images/regular-banks.svg';
+import ConservativePlan from '@public/images/investmentPlans/conservative-plan.svg';
+import RegularBanks from '@public/images/investmentPlans/regular-banks.svg';
 
 function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -12,25 +12,38 @@ function numberWithCommas(x: number) {
 
 const Calculate: NextPage = () => {
   const { t } = useTranslation('calculate');
-  const [averageRedxam] = useState(0.05);
+  const averageRedxam = 0.05;
+  const averageRedxamStaking = 0.15;
+  const reforestationAPY = 0.1714;
 
   const rates = useMemo(
     () => [
       {
         id: 1,
+        name: t('regular-banks'),
+        interest: 0.0001,
+        icon: RegularBanks
+      },
+      {
+        id: 2,
         name: t('passive-plan'),
         interest: averageRedxam,
         icon: ConservativePlan
       },
-
       {
-        id: 2,
-        name: t('regular-banks'),
-        interest: 0.0001,
-        icon: RegularBanks
+        id: 3,
+        name: t('passive-plan-with-staking'),
+        interest: averageRedxamStaking,
+        icon: ConservativePlan
+      },
+      {
+        id: 4,
+        name: 'Amazonic Reforestation plan',
+        interest: reforestationAPY,
+        icon: ConservativePlan
       }
     ],
-    [averageRedxam, t]
+    [t]
   );
 
   const [plan, setPlan] = useState(rates[0].id);

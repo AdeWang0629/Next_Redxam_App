@@ -5,6 +5,7 @@
   "capital": "This is your capital that’ll be invested with us.",
   "paid": "You get paid",
   "year": "year",
-  "passive-plan": "Passive plan",
+  "passive-plan": "redxam Passive plan",
+  "passive-plan-with-staking": "Passive plan + staking",
   "regular-banks": "Regular banks"
 }

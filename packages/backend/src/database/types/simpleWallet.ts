@@ -18,11 +18,12 @@ export interface bankAccount {
       name: String;
       logo: String;
       type: String;
-    },
+    }
   ];
 }
 
 export interface TokenWallet {
   BTC: SimpleWallet;
   TEST_BTC: SimpleWallet;
+  MATIC: SimpleWallet;
 }

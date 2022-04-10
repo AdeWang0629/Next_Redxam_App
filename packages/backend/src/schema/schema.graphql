@@ -1,6 +1,7 @@
 type TokenWallet {
   BTC: SimpleWallet
   TEST_BTC: SimpleWallet
+  MATIC: SimpleWallet
 }
 type SimpleWallet {
   address: String

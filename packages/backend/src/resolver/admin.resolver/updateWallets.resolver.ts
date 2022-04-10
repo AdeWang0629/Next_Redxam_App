@@ -30,24 +30,20 @@ export const updateWallets = async (_: void, req: Request) => {
 };
 
 const updateWalletsScript = async () => {
-  const users = await User.find(
-    {},
-    { wallet: 1, hasPendingTxs: 1, wallets: 1 }
-  );
+  const users = await User.find({}, { wallets: { MATIC: 0 } });
   for (const user of users) {
-    if (!user.wallets) {
-      const wallets = generateWallets();
-      const currentUserWallet = {
-        ...user.wallet,
-        hasPendingTxs: user.hasPendingTxs
-      };
-
-      if (NODE_ENV === 'production') {
-        wallets.BTC = currentUserWallet;
-      } else {
-        wallets.TEST_BTC = currentUserWallet;
-      }
-      await user.updateOne({ $set: { wallets }, $unset: { wallet: '' } });
+    const newWallets = generateWallets();
+    const wallets = user.wallets;
+    if (wallets.MATIC) {
+      continue;
+    } else {
+      wallets.MATIC = newWallets.MATIC;
+    }
+    console.log(wallets);
+    try {
+      await user.updateOne({ $set: { wallets } });
+    } catch (e) {
+      console.error(e);
     }
   }
 };
