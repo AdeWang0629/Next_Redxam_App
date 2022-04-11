@@ -180,6 +180,20 @@ export class MATICMainnetToken implements Token {
           this.symbol,
           deposit.value / Math.pow(10, decimals)
         );
+      } else if (this.isConfirmedDeposit(status, dbDeposit)) {
+        const user = await this.getUser(userId);
+        return sendConfirmedTxEmail(
+          user,
+          this.symbol,
+          deposit.value / Math.pow(10, decimals)
+        );
+      } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
+        const user = await this.getUser(userId);
+        return sendConfirmedTxEmail(
+          user,
+          this.symbol,
+          deposit.value / Math.pow(10, decimals)
+        );
       }
     } catch (error) {
       console.log(error.message);
