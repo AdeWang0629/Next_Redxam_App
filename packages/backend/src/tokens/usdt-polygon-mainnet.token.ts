@@ -192,8 +192,8 @@ export class MATICMainnetToken implements Token {
     }
   }
   async tokenToFiat(wey: number, fiat: Fiats): Promise<number> {
-    // as we only support dolar convertion for now, just return the wey because usdt is equal to 1 dolar
-    return wey;
+    const decimals = this.isTestNet ? 18 : 6;
+    return wey / Math.pow(10, decimals);
   }
   async getWallets(): Promise<Wallet[]> {
     const res = await User.find(
