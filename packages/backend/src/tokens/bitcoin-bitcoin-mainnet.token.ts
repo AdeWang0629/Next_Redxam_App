@@ -21,7 +21,7 @@ import {
 import {
   Token,
   Wallet,
-  Transaction,
+  TransactionBTC,
   Deposit,
   DepositStatus,
   UnspentInfo,
@@ -70,7 +70,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
       wif: user.wallets.BTC.wif
     }));
   }
-  async getWalletTxs(address: string): Promise<Transaction[]> {
+  async getWalletTxs(address: string): Promise<TransactionBTC[]> {
     const res = await blockchain.getTxByAddress(address, this.isTestNet);
     if (res.status === 200) {
       return res.txs.map(tx => ({
@@ -83,7 +83,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
       return [];
     }
   }
-  getWalletDeposits(txs: Transaction[], address: string): Deposit[] {
+  getWalletDeposits(txs: TransactionBTC[], address: string): Deposit[] {
     const userTxs: Deposit[] = [];
 
     txs.forEach(tx => {
@@ -200,7 +200,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
     }
   }
   async getUnspentInfo(
-    txs: Transaction[],
+    txs: TransactionBTC[],
     wallet: Wallet
   ): Promise<UnspentInfo> {
     const outputs = await blockchain.getAddressUtxo(

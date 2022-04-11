@@ -61,13 +61,22 @@ export interface UnspentInfo {
   }[];
 }
 
-export interface Transaction {
+export type Transaction = TransactionBTC | TransactionMatic;
+
+export interface TransactionBTC {
   blockId: string | number;
   hash: string;
   outputs: {
     address: string;
     value: number;
   }[];
+}
+
+export interface TransactionMatic {
+  blockId: string | number;
+  hash: string;
+  value: number;
+  address: string;
 }
 
 export interface Deposit {
