@@ -46,6 +46,19 @@ interface Teller {
 
 type PaymentApi = 'LEAN' | 'TELLER' | 'MX';
 
+const getAPIFromLocale = (locale: string | undefined): PaymentApi => {
+  switch (locale) {
+    case 'ar':
+      return 'TELLER';
+
+    case 'en':
+      return 'TELLER';
+
+    default:
+      return 'TELLER';
+  }
+};
+
 const BanksView: NextPage = () => {
   const { t } = useTranslation('dashboard');
   const { user } = useContext(UserContext);

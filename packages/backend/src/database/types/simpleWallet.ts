@@ -26,4 +26,5 @@ export interface TokenWallet {
   BTC: SimpleWallet;
   TEST_BTC: SimpleWallet;
   MATIC: SimpleWallet;
+  TEST_MATIC: SimpleWallet;
 }
