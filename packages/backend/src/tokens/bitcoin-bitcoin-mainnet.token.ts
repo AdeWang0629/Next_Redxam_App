@@ -179,20 +179,6 @@ export class BitcoinBitcoinMainnetToken implements Token {
           this.symbol,
           deposit.value * 0.00000001
         );
-      } else if (this.isConfirmedDeposit(status, dbDeposit)) {
-        const user = await this.getUser(userId);
-        return sendConfirmedTxEmail(
-          user,
-          this.symbol,
-          deposit.value * 0.00000001
-        );
-      } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
-        const user = await this.getUser(userId);
-        return sendConfirmedTxEmail(
-          user,
-          this.symbol,
-          deposit.value * 0.00000001
-        );
       }
     } catch (error) {
       console.log(error.message);
