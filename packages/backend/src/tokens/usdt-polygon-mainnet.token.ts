@@ -1,18 +1,17 @@
 /* eslint-disable lines-between-class-members */
-import WAValidator from 'trezor-address-validator';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import crypto from 'crypto';
 import Web3 from 'web3';
-import { ECPair, payments, networks, TransactionBuilder } from 'bitcoinjs-lib';
 import * as Sentry from '@sentry/node';
+import matic from '@/apis/polygon';
+import { MaticTx } from '@/apis/polygon/types';
 import {
   sendPendingTxEmail,
   sendConfirmedTxEmail,
   emailStatus,
   sendBalanceSurpassThreshold
 } from '@/apis/sendgrid';
-import blockchair from '@/apis/blockchair';
 import {
   User,
   Deposits,
@@ -24,7 +23,7 @@ import {
 import {
   Token,
   Wallet,
-  Transaction,
+  TransactionMatic,
   Deposit,
   DepositStatus,
   UnspentInfo,
@@ -38,21 +37,6 @@ import {
 } from './consts';
 
 export class MATICMainnetToken implements Token {
-  getBalance(address: string): Promise<number> {
-    return new Promise((resolutionFunc, _) => resolutionFunc(0));
-  }
-  getWalletTxs(address: string): Promise<Transaction[]> {
-    return new Promise((resolutionFunc, _) => resolutionFunc([]));
-  }
-  hasWalletNewTxs(wallet: Wallet, txs: Deposit[]): boolean {
-    return false;
-  }
-  getWalletDeposits(txs: Transaction[], address: string): Deposit[] {
-    return [];
-  }
-  updateWalletDeposits(deposits: Deposit[], wallet: Wallet): Promise<void> {
-    return new Promise((resolutionFunc, _) => resolutionFunc(null));
-  }
   isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
     return false;
   }
@@ -65,8 +49,8 @@ export class MATICMainnetToken implements Token {
   ): boolean {
     return false;
   }
-  getUnspentInfo(txs: Transaction[], wallet: Wallet): Promise<UnspentInfo> {
-    throw new Error('Method not implemented.');
+  getUnspentInfo(txs: [], wallet: Wallet) {
+    return null;
   }
   handleThreshold(unspentInfo: UnspentInfo, wallet: Wallet): Promise<void> {
     return new Promise((resolutionFunc, _) => resolutionFunc(null));
@@ -95,9 +79,97 @@ export class MATICMainnetToken implements Token {
   validateAddress(address: string): boolean {
     return Web3.utils.isAddress(address);
   }
+
+  getBalance(address: string): Promise<number> {
+    return matic.getWalletBalance(address, this.isTestNet);
+  }
+
+  getWalletTxs(address: string): Promise<TransactionMatic[]> {
+    return new Promise(resolve => {
+      setTimeout(async () => {
+        const txs: MaticTx[] = await matic.getWalletTxs(
+          address,
+          this.isTestNet
+        );
+        resolve(
+          txs.map(tx => ({
+            blockId: tx.blockNumber,
+            value: tx.value,
+            hash: tx.hash,
+            address: tx.to
+          }))
+        );
+      }, 500);
+    });
+  }
+
+  getWalletDeposits(txs: TransactionMatic[], address: string): Deposit[] {
+    return txs.map((tx, index) => {
+      if (tx.address.toLowerCase() !== address.toLowerCase()) return null;
+      return {
+        ...tx,
+        address,
+        index
+      };
+    });
+  }
+
+  hasWalletNewTxs(wallet: Wallet, txs: Deposit[]): boolean {
+    return txs.length > wallet.txsCount || wallet.hasPendingTxs;
+  }
+
+  async updateWalletDeposits(
+    deposits: Deposit[],
+    wallet: Wallet
+  ): Promise<void> {
+    let hasPendingTxs = false;
+
+    for (const deposit of deposits) {
+      if (deposit.blockId === -1) hasPendingTxs = true;
+      await this.depositConfirmationMailing(deposit, wallet.userId);
+      await Deposits.updateOne(
+        { userId: wallet.userId, hash: deposit.hash },
+        {
+          $set: {
+            userId: wallet.userId,
+            address: wallet.address,
+            index: deposit.index,
+            type: DepositsType.CRYPTO,
+            currency: this.symbol,
+            processedByRedxam: false,
+            hash: deposit.hash,
+            amount: deposit.value
+          },
+          $setOnInsert: {
+            timestamp: Date.now(),
+            status: 'pending'
+          }
+        },
+        {
+          upsert: true
+        }
+      );
+    }
+
+    const currentWallet = `wallets.${this.symbol}`;
+
+    await User.updateOne(
+      {
+        _id: wallet.userId
+      },
+      {
+        $set: {
+          [`${currentWallet}.hasPendingTxs`]: hasPendingTxs,
+          [`${currentWallet}.txsCount`]: deposits.length
+        }
+      }
+    );
+  }
+
   async getUser(userId: string): Promise<UserProps> {
     return User.findOne({ _id: userId });
   }
+
   async depositConfirmationMailing(
     deposit: Deposit,
     userId: string
@@ -105,26 +177,27 @@ export class MATICMainnetToken implements Token {
     try {
       const status = deposit.blockId > 0 ? 'completed' : 'pending';
       const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
+      const decimals = this.isTestNet ? 18 : 6;
       if (this.isPendingDeposit(status, dbDeposit)) {
         const user = await this.getUser(userId);
         return sendPendingTxEmail(
           user,
           this.symbol,
-          deposit.value * 0.00000001
+          deposit.value / Math.pow(10, decimals)
         );
       } else if (this.isConfirmedDeposit(status, dbDeposit)) {
         const user = await this.getUser(userId);
         return sendConfirmedTxEmail(
           user,
           this.symbol,
-          deposit.value * 0.00000001
+          deposit.value / Math.pow(10, decimals)
         );
       } else if (this.isCofirmedDepositWithoutPending(status, dbDeposit)) {
         const user = await this.getUser(userId);
         return sendConfirmedTxEmail(
           user,
           this.symbol,
-          deposit.value * 0.00000001
+          deposit.value / Math.pow(10, decimals)
         );
       }
     } catch (error) {
@@ -133,30 +206,24 @@ export class MATICMainnetToken implements Token {
     }
   }
   async tokenToFiat(wey: number, fiat: Fiats): Promise<number> {
-    const tokenPrice = (
-      await axios.get(
-        // eslint-disable-next-line max-len
-        'https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=usd'
-      )
-    ).data['matic-network'][fiat.toLowerCase()];
-    return wey * 0.00000001 * tokenPrice;
+    // as we only support dolar convertion for now, just return the wey because usdt is equal to 1 dolar
+    return wey;
   }
   async getWallets(): Promise<Wallet[]> {
-    return (
-      await User.find(
-        {
-          wallets: { $exists: true },
-          verification: true,
-          accountStatus: 'accepted'
-        },
-        { _id: 1, 'wallets.MATIC': 1 }
-      )
-    ).map(user => ({
+    const res = await User.find(
+      {
+        [`wallets.${this.symbol}`]: { $exists: true },
+        verification: true,
+        accountStatus: 'accepted'
+      },
+      { _id: 1, [`wallets.${this.symbol}`]: 1 }
+    );
+    return res.map(user => ({
       userId: user._id,
-      address: user.wallets.MATIC.address,
-      txsCount: user.wallets.MATIC.txsCount,
-      hasPendingTxs: user.wallets.MATIC.hasPendingTxs,
-      wif: user.wallets.MATIC.wif
+      address: user.wallets[this.symbol].address,
+      txsCount: user.wallets[this.symbol].txsCount,
+      hasPendingTxs: user.wallets[this.symbol].hasPendingTxs,
+      wif: user.wallets[this.symbol].wif
     }));
   }
 }

@@ -3,12 +3,14 @@ import { INTERVAL } from './consts';
 import { Token } from './token';
 import { BitcoinBitcoinMainnetToken } from './bitcoin-bitcoin-mainnet.token';
 import { BitcoinBitcoinTestnetToken } from './bitcoin-bitcoin-testnet.token';
-import { MATICMainnetToken } from './matic-matic-mainnet.token';
+import { MATICMainnetToken } from './usdt-polygon-mainnet.token';
+import { MATICTestnetToken } from './usdt-polygon-testnet.token';
 
 export const tokens: Token[] = [
   new BitcoinBitcoinMainnetToken(),
   new BitcoinBitcoinTestnetToken(),
-  new MATICMainnetToken()
+  new MATICMainnetToken(),
+  new MATICTestnetToken()
 ];
 
 const tokenWatcher = () => {
@@ -17,6 +19,7 @@ const tokenWatcher = () => {
     interval = setInterval(() => {
       tokens.forEach(async token => {
         const wallets = await token.getWallets();
+
         for (const wallet of wallets) {
           const txs = await token.getWalletTxs(wallet.address);
           const deposits = token.getWalletDeposits(txs, wallet.address);
