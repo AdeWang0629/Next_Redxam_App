@@ -4,8 +4,7 @@ import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 
 const Gallery = (gallery: { gallery: any[] }) => {
-  const publishableKey =
-    'pk_test_51IVEgYEPejRluWxLZTE44JGekNDtvmcS236uxdaqri1KEL8lBvzFhALv0WZP6hqmhjEdoWU42FkTL4AtrmhW2XTz00NtjDSgfi';
+  const publishableKey = 'pk_live_Fe2qWUs2kJcjwNrQToadMzQq';
   const stripePromise = loadStripe(publishableKey as string);
 
   const createCheckOutSession = async (item: {
