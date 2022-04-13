@@ -19,7 +19,6 @@ const tokenWatcher = () => {
     interval = setInterval(() => {
       tokens.forEach(async token => {
         const wallets = await token.getWallets();
-
         for (const wallet of wallets) {
           const txs = await token.getWalletTxs(wallet.address);
           const deposits = token.getWalletDeposits(txs, wallet.address);
@@ -28,8 +27,12 @@ const tokenWatcher = () => {
             await token.updateWalletDeposits(deposits, wallet);
           }
 
-          const unspentInfo = await token.getUnspentInfo(txs, wallet);
-          await token.handleThreshold(unspentInfo, wallet);
+          if (token.getUnspentInfo) {
+            const unspentInfo = await token.getUnspentInfo(txs, wallet);
+            await token.handleThreshold(unspentInfo, wallet);
+          } else if (token.handleTokenThreshold) {
+            await token.handleTokenThreshold(wallet);
+          }
         }
       });
     }, INTERVAL);
