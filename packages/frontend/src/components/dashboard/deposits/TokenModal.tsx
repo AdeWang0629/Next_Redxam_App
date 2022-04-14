@@ -1,16 +1,20 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 
-import btcLogo from '@public/icons/bitcoin.svg';
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
+import { Tokens, Token } from '@utils/types';
 import Card from '../Card';
+
+import tokensData from './Tokens.json';
 
 type Props = {
   setTokenModal(modal: boolean): void;
-  handleToken(newToken: string, newTokenIcon: string): void;
+  handleToken(newToken: Token): void;
 };
 
 const TokenModal = ({ setTokenModal, handleToken }: Props) => {
+  const [tokens] = useState<Tokens>(tokensData);
   const { t } = useTranslation('dashboard');
 
   return (
@@ -35,23 +39,25 @@ const TokenModal = ({ setTokenModal, handleToken }: Props) => {
             />
           </button>
         </div>
-        <div
-          role="button"
-          tabIndex={0}
-          className="flex px-7 mt-5 w-full cursor-pointer"
-          onClick={() => {
-            handleToken('BTC', btcLogo);
-            setTokenModal(false);
-          }}
-        >
-          <Image
-            src={btcLogo || ''}
-            alt="BTC Logo"
-            width="28px"
-            height="28px"
-          />
-          <p className="font-secondary text-lg ml-6">BTC</p>
-        </div>
+        {Object.keys(tokens).map(key => (
+          <div
+            role="button"
+            tabIndex={0}
+            className="flex px-7 mt-5 w-full cursor-pointer"
+            onClick={() => {
+              handleToken(tokens[key]);
+              setTokenModal(false);
+            }}
+          >
+            <Image
+              src={tokens[key].ico}
+              alt={`${tokens[key].name} logo`}
+              width="28px"
+              height="28px"
+            />
+            <p className="font-secondary text-lg ml-6">{key}</p>
+          </div>
+        ))}
       </Card>
     </div>
   );

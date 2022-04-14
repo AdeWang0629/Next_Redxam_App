@@ -22,3 +22,19 @@ export interface Users {
   lastName: string;
   _id: string;
 }
+
+export interface Tokens {
+  [key: string]: Token;
+}
+
+export interface Network {
+  isTestnet: boolean;
+  name: string;
+}
+
+export interface Token {
+  symbol: string;
+  name: string;
+  ico: string;
+  networks: { [key: string]: Network };
+}

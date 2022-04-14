@@ -27,6 +27,14 @@ export type Context = {
         address: string;
         tsxCount: number;
       };
+      MATIC: {
+        address: string;
+        tsxCount: number;
+      };
+      TEST_MATIC: {
+        address: string;
+        tsxCount: number;
+      };
     };
   };
   setUser: Dispatch<SetStateAction<null>>;

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
+import { Token } from '@utils/types';
+
 // Components
 import TokenSelector from './TokenSelector';
 import NetworkSelector from './NetworkSelector';
@@ -10,24 +12,20 @@ import Card from '../Card';
 const CryptoWallets = () => {
   const { t } = useTranslation('dashboard');
 
-  const [token, setToken] = useState('');
-  const [tokenIcon, setTokenIcon] = useState('');
+  const [token, setToken] = useState<Token | null>(null);
   const [network, setNetwork] = useState<{
     name: string;
     address: string;
-    tsxCount: number;
-  }>({ name: '', address: '', tsxCount: 0 });
+  }>({ name: '', address: '' });
 
-  const handleToken = (newToken: string, newTokenIcon: string) => {
+  const handleToken = (newToken: Token) => {
     setToken(newToken);
-    setTokenIcon(newTokenIcon);
-    handleNetwork({ name: '', address: '', tsxCount: 0 });
+    handleNetwork({ name: '', address: '' });
   };
 
   const handleNetwork = (selectedNetwork: {
     name: string;
     address: string;
-    tsxCount: number;
   }) => {
     setNetwork(selectedNetwork);
   };
@@ -41,23 +39,28 @@ const CryptoWallets = () => {
       </div>
       <hr />
 
-      {token === '' || network.address === '' ? (
-        <p className="text-center text-sm font-secondary text-[#636369] mt-3">
-          {t('selectTokenAndNetwork')}
-        </p>
-      ) : (
-        ''
-      )}
+      {!token ||
+        (network.address === '' && (
+          <p className="text-center text-sm font-secondary text-[#636369] mt-3">
+            {t('selectTokenAndNetwork')}
+          </p>
+        ))}
 
-      <TokenSelector
-        token={token}
-        tokenIcon={tokenIcon}
-        handleToken={handleToken}
+      <TokenSelector token={token} handleToken={handleToken} />
+
+      <NetworkSelector
+        networks={token?.networks}
+        network={network}
+        handleNetwork={handleNetwork}
       />
 
-      <NetworkSelector network={network} handleNetwork={handleNetwork} />
-
-      {token && network.address && <CryptoAddress address={network.address} />}
+      {token && network.address && (
+        <CryptoAddress
+          address={network.address}
+          tokenSymbol={token.symbol}
+          network={network.name}
+        />
+      )}
     </Card>
   );
 };
