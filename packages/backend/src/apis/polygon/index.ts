@@ -3,7 +3,7 @@ import { MaticTx } from './types';
 
 const { POLYGONSCAN_KEY, POLYGON_MAIN, POLYGON_TESTNET } = process.env;
 const usdtContract = '0xc2132D05D31c914a87C6611C10748AEb04B58e8F';
-const testContract = '0x2d7882beDcbfDDce29Ba99965dd3cdF7fcB10A1e';
+const testContract = '0xfe4F5145f6e09952a5ba9e956ED0C25e3Fa4c7F1';
 
 const getWalletTxs = async (
   address: string,

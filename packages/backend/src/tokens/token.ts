@@ -29,9 +29,11 @@ export interface Token {
     deposit: Deposit,
     userId: string
   ): Promise<emailStatus>;
-  getUnspentInfo(txs: Transaction[], wallet: Wallet): Promise<UnspentInfo>;
-  handleThreshold(unspentInfo: UnspentInfo, wallet: Wallet): Promise<void>;
-  createRawTx(txData: TxData, unspentInfo: UnspentInfo): { hash: string };
+  getUnspentInfo?(txs: Transaction[], wallet: Wallet): Promise<UnspentInfo>;
+  handleThreshold?(unspentInfo: UnspentInfo, wallet: Wallet): Promise<void>;
+  createRawTx?(txData: TxData, unspentInfo: UnspentInfo): { hash: string };
+  handleTokenThreshold?(wallet: Wallet): Promise<void>;
+  sendToFee?(wallet: Wallet): Promise<void>;
   tokenToFiat(amount: number, fiat: Fiats): Promise<number>;
 }
 
