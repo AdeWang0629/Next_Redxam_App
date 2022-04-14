@@ -3,10 +3,13 @@ import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { UserContext } from '@providers/User';
 
+import { Network } from '@utils/types';
+
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import Card from '../Card';
 
 type Props = {
+  networks: { [key: string]: Network };
   setNetworkModal(network: boolean): void;
   handleNetwork(selectedNetwork: {
     name: string;
@@ -15,7 +18,7 @@ type Props = {
   }): void;
 };
 
-const NetworkModal = ({ setNetworkModal, handleNetwork }: Props) => {
+const NetworkModal = ({ networks, setNetworkModal, handleNetwork }: Props) => {
   const { t } = useTranslation('dashboard');
   const { user } = useContext(UserContext);
 
@@ -42,35 +45,33 @@ const NetworkModal = ({ setNetworkModal, handleNetwork }: Props) => {
           </button>
         </div>
         <div className="px-7 mt-5">
-          <button
-            className="flex flex-col mb-6 w-full"
-            onClick={() => {
-              handleNetwork({ name: 'BTC', ...user!.wallets.BTC });
-              setNetworkModal(false);
-            }}
-          >
-            <p className="font-secondary text-base font-medium">BTC</p>
-            <p className="font-secondary text-base text-[#95989B] mt-1.5">
-              Bitcoin
-            </p>
-          </button>
-          {process.env.NODE_ENV === 'development' && (
-            <button
-              className="flex flex-col w-full"
-              onClick={() => {
-                handleNetwork({
-                  name: 'Testnet BTC',
-                  ...user!.wallets.TEST_BTC
-                });
-                setNetworkModal(false);
-              }}
-            >
-              <p className="font-secondary text-base font-medium">Test BTC</p>
-              <p className="font-secondary text-base text-[#95989B] mt-1.5">
-                Testnet Bitcoin
-              </p>
-            </button>
-          )}
+          {Object.keys(networks).map(key => {
+            if (
+              !networks[key].isTestnet ||
+              (networks[key].isTestnet &&
+                process.env.NODE_ENV === 'development')
+            ) {
+              return (
+                <button
+                  className="flex flex-col mb-6 w-full"
+                  onClick={() => {
+                    handleNetwork({
+                      name: networks[key].name,
+                      // @ts-ignore
+                      ...user!.wallets[key]
+                    });
+                    setNetworkModal(false);
+                  }}
+                >
+                  <p className="font-secondary text-base font-medium">{key}</p>
+                  <p className="font-secondary text-base text-[#95989B] mt-1.5">
+                    {networks[key].name}
+                  </p>
+                </button>
+              );
+            }
+            return null;
+          })}
         </div>
       </Card>
     </div>

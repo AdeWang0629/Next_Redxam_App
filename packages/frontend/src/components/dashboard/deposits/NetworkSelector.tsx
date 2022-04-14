@@ -3,20 +3,22 @@ import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import arrowDrop from '@public/images/dashboard/deposits/arrow-drop.svg';
 
+import { Network } from '@utils/types';
+
 import NetworkModal from './NetworkModal';
 
-type Network = {
+type NetworkWallet = {
   name: string;
   address: string;
-  tsxCount: number;
 };
 
 type Props = {
-  network: Network;
-  handleNetwork(selectedNetwork: Network): void;
+  networks: { [key: string]: Network } | undefined;
+  network: NetworkWallet;
+  handleNetwork(selectedNetwork: NetworkWallet): void;
 };
 
-const NetworkSelector = ({ network, handleNetwork }: Props) => {
+const NetworkSelector = ({ networks, network, handleNetwork }: Props) => {
   const { t } = useTranslation('dashboard');
   const [networkModal, setNetworkModal] = useState<boolean>(false);
 
@@ -52,8 +54,9 @@ const NetworkSelector = ({ network, handleNetwork }: Props) => {
       </div>
 
       {/* Network Modal */}
-      {networkModal && (
+      {networks && networkModal && (
         <NetworkModal
+          networks={networks}
           setNetworkModal={setNetworkModal}
           handleNetwork={handleNetwork}
         />

@@ -5,9 +5,9 @@ import QRCode from 'qrcode';
 
 import copyIcon from '@public/images/dashboard/deposits/copy.svg';
 
-type Props = { address: string };
+type Props = { address: string; tokenSymbol: string; network: strig };
 
-const CryptoAddress = ({ address }: Props) => {
+const CryptoAddress = ({ address, tokenSymbol, network }: Props) => {
   const { t } = useTranslation('dashboard');
 
   const [qrCode, setQrCode] = useState('');
@@ -36,7 +36,9 @@ const CryptoAddress = ({ address }: Props) => {
         </p>
 
         <div className="flex justify-between items-center relative">
-          <p className="font-secondary text-xs text-[#95989B]">{address}</p>
+          <p className="font-secondary text-xs text-[#95989B] max-w-[90%] elipsis-text">
+            {address}
+          </p>
           <button
             onClick={() => {
               navigator.clipboard.writeText(address);
@@ -94,10 +96,10 @@ const CryptoAddress = ({ address }: Props) => {
       <div className="pb-6 px-8">
         <ul>
           <li className="before:content-['•'] before:text-[#67CE0C] before:font-bold before:inline-block before:w-[4px] before:pr-3.5 text-xs font-secondary text-[#95989B] mb-2">
-            {t('sendBTCOnly')}
+            {`Send only ${tokenSymbol} to this depost address`}
           </li>
           <li className="before:content-['•'] before:text-[#67CE0C] before:font-bold before:inline-block before:w-[4px] before:pr-3.5 text-xs font-secondary text-[#95989B]">
-            {t('makeSure')}
+            {`Make sure the network is ${network}`}
           </li>
         </ul>
       </div>
