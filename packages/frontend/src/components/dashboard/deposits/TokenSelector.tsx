@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 
+import { Token } from '@utils/types';
 import arrowDrop from '@public/images/dashboard/deposits/arrow-drop.svg';
 import TokenModal from './TokenModal';
 
 type Props = {
-  token: string;
-  handleToken(newToken: string, newTokenImage: string): void;
-  tokenIcon: string;
+  token: Token | null;
+  handleToken(newToken: Token): void;
 };
 
-const TokenSelector = ({ token, handleToken, tokenIcon }: Props) => {
+const TokenSelector = ({ token, handleToken }: Props) => {
   const { t } = useTranslation('dashboard');
   const [tokenModal, setTokenModal] = useState<boolean>(false);
 
@@ -33,12 +33,12 @@ const TokenSelector = ({ token, handleToken, tokenIcon }: Props) => {
             {token ? (
               <>
                 <Image
-                  src={tokenIcon || ''}
-                  alt="BTC Logo"
+                  src={token.ico}
+                  alt={`${token.name} logo`}
                   width="28px"
                   height="28px"
                 />
-                <p className="ml-4 font-secondary text-sm">{token}</p>
+                <p className="ml-4 font-secondary text-sm">{token.symbol}</p>
               </>
             ) : (
               <p className="font-secondary text-sm opacity-50">
