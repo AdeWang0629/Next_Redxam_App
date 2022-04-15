@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { getCookie } from 'cookies-next';
 import admin from './apis/admin';
+import walletQuery from './wallets';
 
 class API {
   axios: AxiosInstance;
@@ -192,16 +193,7 @@ class API {
           accountStatus
           referralCode
           withdrawn
-          wallets {
-            BTC {
-              address
-              txsCount
-            }
-            TEST_BTC {
-              address
-              txsCount
-            }
-          }
+          ${walletQuery}
           pending_balance
         }
       }
