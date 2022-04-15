@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import type { NextPage } from 'next';
 import { useRef, useEffect } from 'react';
 import Image from 'next/image';
@@ -64,6 +65,7 @@ const UnlinkModel: NextPage<UnlinkModelProps> = ({
   }
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <div
       className="flex flex-col justify-center items-center bg-black bg-opacity-75 absolute top-0 left-0 h-[100dvh] h-full w-full z-50"
       ref={outsideContainerRef}
