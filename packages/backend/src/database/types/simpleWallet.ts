@@ -25,6 +25,8 @@ export interface bankAccount {
 export interface TokenWallet {
   BTC: SimpleWallet;
   TEST_BTC: SimpleWallet;
+  USDT_POLYGON: SimpleWallet;
+  TEST_USDT_POLYGON: SimpleWallet;
   MATIC: SimpleWallet;
   TEST_MATIC: SimpleWallet;
 }

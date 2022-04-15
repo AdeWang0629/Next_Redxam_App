@@ -30,20 +30,51 @@ export const updateWallets = async (_: void, req: Request) => {
 };
 
 const updateWalletsScript = async () => {
-  const users = await User.find({}, { wallets: { MATIC: 0 } });
-  for (const user of users) {
-    const newWallets = generateWallets();
-    const wallets = user.wallets;
-    if (wallets.MATIC) {
-      continue;
-    } else {
-      wallets.MATIC = newWallets.MATIC;
+  User.find().then(async res => {
+    for (const user of res) {
+      const newWallets = generateWallets();
+      if (user.wallets.MATIC) {
+        await User.updateOne(
+          { _id: user._id },
+          {
+            $set: {
+              'wallets.USDT_POLYGON': {
+                ...user.wallets.MATIC,
+                txsCount: 0,
+                hasPendingTxs: false
+              }
+            }
+          }
+        );
+      } else if (!user.wallets.USDT_POLYGON) {
+        await User.updateOne(
+          { _id: user._id },
+          {
+            $set: { 'wallets.USDT_POLYGON': newWallets.USDT_POLYGON }
+          }
+        );
+      }
+      if (user.wallets.TEST_MATIC) {
+        await User.updateOne(
+          { _id: user._id },
+          {
+            $set: {
+              'wallets.TEST_USDT_POLYGON': {
+                ...user.wallets.MATIC,
+                txsCount: 0,
+                hasPendingTxs: false
+              }
+            }
+          }
+        );
+      } else if (!user.wallets.TEST_USDT_POLYGON) {
+        await User.updateOne(
+          { _id: user._id },
+          {
+            $set: { 'wallets.TEST_USDT_POLYGON': newWallets.TEST_USDT_POLYGON }
+          }
+        );
+      }
     }
-    console.log(wallets);
-    try {
-      await user.updateOne({ $set: { wallets } });
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  });
 };

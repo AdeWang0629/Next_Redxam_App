@@ -1,21 +1,13 @@
 /* eslint-disable lines-between-class-members */
-import axios from 'axios';
 import { ethers } from 'ethers';
 import crypto from 'crypto';
 import Web3 from 'web3';
-import * as Sentry from '@sentry/node';
 import matic from '@/apis/polygon';
 import { MaticTx } from '@/apis/polygon/types';
-import {
-  sendPendingTxEmail,
-  sendConfirmedTxEmail,
-  emailStatus,
-  sendBalanceSurpassThreshold
-} from '@/apis/sendgrid';
+import { sendPendingTxEmail, emailStatus } from '@/apis/sendgrid';
 import {
   User,
   Deposits,
-  InternalDeposits,
   DepositsType,
   UserProps,
   DepositsProps
@@ -26,20 +18,26 @@ import {
   TransactionMatic,
   Deposit,
   DepositStatus,
-  UnspentInfo,
-  TxData,
   Fiats
 } from './token';
 import {
+  MATIC_MAINNET_RPC,
+  MATIC_TESTNET_RPC,
   MATIC_TX_FEE,
   MATIC_BALANCE_THRESHOLD,
-  REDXAM_ADDRESS_MATIC
+  REDXAM_ADDRESS_MATIC,
+  REDXAM_FEE_ADDRESS,
+  REDXAM_FEE_KEY,
+  ERC20_TEST_CONTRACT,
+  ERC20_TEST_DECIMALS,
+  USDT_CONTRACT,
+  USDT_DECIMALS
 } from './consts';
 
 import TEST_ABI from './usdt-polygon-abi/usdt-polygon-testnet.abi.json';
 import ABI from './usdt-polygon-abi/usdt-polygon-mainnet.abi.json';
 
-export class MATICMainnetToken implements Token {
+export class USDTMainnetToken implements Token {
   isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
     return false;
   }
@@ -52,9 +50,9 @@ export class MATICMainnetToken implements Token {
   ): boolean {
     return false;
   }
-  readonly name = 'Polygon';
-  readonly symbol = 'MATIC';
-  readonly network = 'Matic';
+  readonly name = 'USD Tether';
+  readonly symbol = 'USDT';
+  readonly network = 'USDT_POLYGON';
   readonly isTestNet = false;
   readonly txFee = MATIC_TX_FEE;
   readonly threshold = MATIC_BALANCE_THRESHOLD;
@@ -146,7 +144,7 @@ export class MATICMainnetToken implements Token {
       );
     }
 
-    const currentWallet = `wallets.${this.symbol}`;
+    const currentWallet = `wallets.${this.network}`;
 
     await User.updateOne(
       {
@@ -172,7 +170,7 @@ export class MATICMainnetToken implements Token {
     try {
       const status = deposit.blockId > 0 ? 'completed' : 'pending';
       const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
-      const decimals = this.isTestNet ? 18 : 6;
+      const decimals = this.isTestNet ? ERC20_TEST_DECIMALS : USDT_DECIMALS;
       if (this.isPendingDeposit(status, dbDeposit)) {
         const user = await this.getUser(userId);
         return sendPendingTxEmail(
@@ -191,17 +189,15 @@ export class MATICMainnetToken implements Token {
 
     if (balance >= this.threshold) {
       await this.sendToFee(wallet);
-      const rpc = this.isTestNet
-        ? 'https://rpc-mumbai.matic.today'
-        : 'https://polygon-rpc.com';
+      const rpc = this.isTestNet ? MATIC_TESTNET_RPC : MATIC_MAINNET_RPC;
+
       const contract_address = this.isTestNet
-        ? '0xfe4F5145f6e09952a5ba9e956ED0C25e3Fa4c7F1'
-        : '0xc2132D05D31c914a87C6611C10748AEb04B58e8F';
-      const decimals = this.isTestNet ? 18 : 6;
+        ? ERC20_TEST_CONTRACT
+        : USDT_CONTRACT;
+
+      const decimals = this.isTestNet ? ERC20_TEST_DECIMALS : USDT_DECIMALS;
       const contractABI = this.isTestNet ? TEST_ABI : ABI;
-
       const amount = balance.toString();
-
       const gas_limit = '0x100000';
 
       const ethersProvider = new ethers.providers.JsonRpcProvider(rpc);
@@ -234,21 +230,12 @@ export class MATICMainnetToken implements Token {
   }
 
   async sendToFee(wallet: Wallet): Promise<void> {
-    const rpc = this.isTestNet
-      ? 'https://rpc-mumbai.matic.today'
-      : 'https://polygon-rpc.com/';
+    const rpc = this.isTestNet ? MATIC_TESTNET_RPC : MATIC_MAINNET_RPC;
 
-    const sender_address = this.isTestNet
-      ? '0xF623BFF5733Dd50178C595a433E1956d2747c144'
-      : '0xF623BFF5733Dd50178C595a433E1956d2747c144';
-    // change for a prod redxam wallet in the future
-
-    const senderPrivateKey = this.isTestNet
-      ? '25cfcd4dee586c955459b2f27f6a615091ebcafb1366563b35cd2e5b02454172'
-      : '25cfcd4dee586c955459b2f27f6a615091ebcafb1366563b35cd2e5b02454172';
+    const sender_address = REDXAM_FEE_ADDRESS;
+    const senderPrivateKey = REDXAM_FEE_KEY;
 
     const amount = '0.001';
-
     const gas_limit = '0x100000';
 
     const ethersProvider = new ethers.providers.JsonRpcProvider(rpc);
@@ -276,24 +263,24 @@ export class MATICMainnetToken implements Token {
   }
 
   async tokenToFiat(wey: number, fiat: Fiats): Promise<number> {
-    const decimals = this.isTestNet ? 18 : 6;
+    const decimals = this.isTestNet ? ERC20_TEST_DECIMALS : USDT_DECIMALS;
     return wey / Math.pow(10, decimals);
   }
   async getWallets(): Promise<Wallet[]> {
     const res = await User.find(
       {
-        [`wallets.${this.symbol}`]: { $exists: true },
+        [`wallets.${this.network}`]: { $exists: true },
         verification: true,
         accountStatus: 'accepted'
       },
-      { _id: 1, [`wallets.${this.symbol}`]: 1 }
+      { _id: 1, [`wallets.${this.network}`]: 1 }
     );
     return res.map(user => ({
       userId: user._id,
-      address: user.wallets[this.symbol].address,
-      txsCount: user.wallets[this.symbol].txsCount,
-      hasPendingTxs: user.wallets[this.symbol].hasPendingTxs,
-      wif: user.wallets[this.symbol].wif
+      address: user.wallets[this.network].address,
+      txsCount: user.wallets[this.network].txsCount,
+      hasPendingTxs: user.wallets[this.network].hasPendingTxs,
+      wif: user.wallets[this.network].wif
     }));
   }
 }

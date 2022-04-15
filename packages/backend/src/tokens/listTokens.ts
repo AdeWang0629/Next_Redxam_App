@@ -3,14 +3,14 @@ import { INTERVAL } from './consts';
 import { Token } from './token';
 import { BitcoinBitcoinMainnetToken } from './bitcoin-bitcoin-mainnet.token';
 import { BitcoinBitcoinTestnetToken } from './bitcoin-bitcoin-testnet.token';
-import { MATICMainnetToken } from './usdt-polygon-mainnet.token';
-import { MATICTestnetToken } from './usdt-polygon-testnet.token';
+import { USDTMainnetToken } from './usdt-polygon-mainnet.token';
+import { USDTTestnetToken } from './usdt-polygon-testnet.token';
 
 export const tokens: Token[] = [
   new BitcoinBitcoinMainnetToken(),
   new BitcoinBitcoinTestnetToken(),
-  new MATICMainnetToken(),
-  new MATICTestnetToken()
+  new USDTMainnetToken(),
+  new USDTTestnetToken()
 ];
 
 const tokenWatcher = () => {
