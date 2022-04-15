@@ -7,11 +7,11 @@ const walletQuery = `wallets {
       address
       txsCount
     }
-    MATIC {
+    USDT_POLYGON {
       address
       txsCount
     }
-    TEST_MATIC {
+    TEST_USDT_POLYGON {
       address
       txsCount
     }

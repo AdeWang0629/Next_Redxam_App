@@ -63,8 +63,7 @@ const NetworkModal = ({ networks, setNetworkModal, handleNetwork }: Props) => {
                     setNetworkModal(false);
                   }}
                 >
-                  <p className="font-secondary text-base font-medium">{key}</p>
-                  <p className="font-secondary text-base text-[#95989B] mt-1.5">
+                  <p className="font-secondary text-base font-medium">
                     {networks[key].name}
                   </p>
                 </button>
