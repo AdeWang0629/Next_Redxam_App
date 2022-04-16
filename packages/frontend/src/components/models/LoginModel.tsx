@@ -79,7 +79,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
                 <p className="w-full mb-5text-black text-opacity-80 leading-[1.8] text-lg font-primary text-center">
                   {t('login-desc')}
                 </p>
-                <form className="flex flex-col" onSubmit={handleSubmit}>
+                <form className="flex flex-col w-full" onSubmit={handleSubmit}>
                   <div className="mt-5 input-wrapper w-full">
                     <input
                       type="email"

@@ -27,6 +27,7 @@ import Loader from '@components/global/Loader';
 import TsxsTable from './TransactionsTable';
 import Card from '../Card';
 import LocaleDropdown from './LocaleDropdown';
+import tdbankIcon from './icons/tdbank.svg';
 
 const TELLER_APPLICATION_ID = 'app_nu123i0nvg249720i8000';
 const LEAN_APPLICATION_ID = '94e54b49-973c-47c8-8b11-f0d9bba2c6d5';
@@ -420,7 +421,9 @@ const BanksView: NextPage = () => {
                     <div className="flex-1 flex items-center">
                       <Image
                         src={
-                          account.logo
+                          account.name.includes('TD')
+                            ? tdbankIcon
+                            : account.logo
                             ? `data:image/png;base64,${account.logo}`
                             : bankIcon
                         }

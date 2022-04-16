@@ -5,12 +5,13 @@ import { UserContext } from '@providers/User';
 import { useRouter } from 'next/router';
 
 import Tippy from '@tippyjs/react';
-import InternalLayout from '@components/dashboard/InternalLayout';
+import InternalLayout from '@components/global/InternalLayout';
 import IconButton from '@components/dashboard/IconButton';
 import settings from '@public/icons/settings.svg';
 import logout from '@public/icons/logout.svg';
 import BalanceCard from '@components/dashboard/BalanceCard';
 import ReferCard from '@components/dashboard/ReferCard';
+import NFTCard from '@components/dashboard/NFTCard';
 import RecentActivity from '@components/dashboard/RecentActivity';
 import Chart from '@components/dashboard/ChartCard';
 import { useTranslation } from 'next-i18next';
@@ -100,6 +101,7 @@ const Home: NextPage = () => {
               value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1)
             }))}
           />
+          <NFTCard />
           <div />
         </div>
       </div>

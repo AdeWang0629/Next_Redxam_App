@@ -19,11 +19,7 @@ export type Context = {
     referralCode: string;
     pending_balance: number;
     wallets: {
-      BTC: {
-        address: string;
-        tsxCount: number;
-      };
-      TEST_BTC: {
+      [key: string]: {
         address: string;
         tsxCount: number;
       };
