@@ -18,6 +18,7 @@ import { GetStaticProps } from 'next';
 import { setCookies } from 'cookies-next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Loader from '@components/global/Loader';
+import Card from '@components/dashboard/Card';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -100,6 +101,9 @@ const Home: NextPage = () => {
               value: 100 * i - 3 * i * (Math.random() > 0.5 ? 1 : -1)
             }))}
           />
+          <Card>
+            <div>hello</div>
+          </Card>
           <div />
         </div>
       </div>

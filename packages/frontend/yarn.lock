@@ -11342,6 +11342,18 @@ store2@^2.12.0:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.13.2.tgz#01ad8802ca5b445b9c316b55e72645c13a3cd7e3"
   integrity sha512-CMtO2Uneg3SAz/d6fZ/6qbqqQHi2ynq6/KzMD/26gTkiEShCcpqFfTHgOxsE0egAq6SX3FmN4CeSqn8BzXQkJg==
 
+storybook-i18n@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/storybook-i18n/-/storybook-i18n-1.0.11.tgz#21963c8353b9ab68fec0faacdaee15de39b0220e"
+  integrity sha512-wHN/93ylrfdxot0MV8sMKWJF4TkJT/XOtuHnUA4CIWrenymC4o33uNcB1sOWa2UiiEqhOK3wJ5gOPOyhgjPjwA==
+
+storybook-react-i18next@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/storybook-react-i18next/-/storybook-react-i18next-1.0.20.tgz#32ebb3f97411496e2d26bdd803488590c4e9747f"
+  integrity sha512-5k8enV4gtS4JWdk5cUfPrHODL2P3Xbf0tJXgqjg4etyy1dM8hZjSDIuO7OtKblO6AWjz8YUfJVpHWkAko1smKw==
+  dependencies:
+    storybook-i18n "^1.0.11"
+
 stream-browserify@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-2.0.2.tgz#87521d38a44aa7ee91ce1cd2a47df0cb49dd660b"

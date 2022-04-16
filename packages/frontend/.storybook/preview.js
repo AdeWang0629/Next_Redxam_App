@@ -1,5 +1,5 @@
 import * as NextImage from 'next/image';
-
+import i18n from './i18next.js';
 import '../src/styles/globals.css';
 
 export const parameters = {
@@ -9,6 +9,12 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/
     }
+  },
+  i18n,
+  locale: 'en',
+  locales: {
+    en: 'English',
+    es: 'Spanish'
   }
 };
 
