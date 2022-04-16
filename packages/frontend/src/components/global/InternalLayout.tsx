@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import type { NextPage } from 'next';
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../dashboard/Header';
+import Footer from './InternalFooter';
 
 interface InternalLayoutProps {
   children?: ReactNode;

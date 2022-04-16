@@ -2,7 +2,7 @@ import React, { ComponentProps } from 'react';
 
 import { Story, Meta } from '@storybook/react';
 
-import Footer from '@components/dashboard/Footer';
+import Footer from '@components/global/InternalFooter';
 
 export default {
   title: 'Dashboard/Footer',

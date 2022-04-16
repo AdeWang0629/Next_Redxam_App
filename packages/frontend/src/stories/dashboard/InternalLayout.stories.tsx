@@ -2,7 +2,7 @@ import React, { ComponentProps } from 'react';
 
 import { Story, Meta } from '@storybook/react';
 
-import InternalLayout from '@components/dashboard/InternalLayout';
+import InternalLayout from '@components/global/InternalLayout';
 
 export default {
   title: 'Dashboard/InternalLayout',

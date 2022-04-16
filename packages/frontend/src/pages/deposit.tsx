@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '@providers/User';
 import { useRouter } from 'next/router';
 import api from '@utils/api';
-import InternalLayout from '@components/dashboard/InternalLayout';
+import InternalLayout from '@components/global/InternalLayout';
 import IconButton from '@components/dashboard/IconButton';
 import Switcher from '@components/dashboard/deposits/Switcher';
 import KYC from '@components/dashboard/deposits/KYC';

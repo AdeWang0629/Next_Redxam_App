@@ -2,18 +2,18 @@ import React, { ComponentProps } from 'react';
 
 import { Story, Meta } from '@storybook/react';
 
-import CardKYC from '@components/dashboard/CardKYC';
+import CardWithImage from '@components/dashboard/CardWithImage';
 
 import kycImage from '@public/images/kyc/kyc.svg';
 
 export default {
-  title: 'dashboard/CardKYC',
-  component: CardKYC
+  title: 'dashboard/CardWithImage',
+  component: CardWithImage
 } as Meta;
 
-const Template: Story<ComponentProps<typeof CardKYC>> = args => (
+const Template: Story<ComponentProps<typeof CardWithImage>> = args => (
   <div className="bg-black min-h-screen">
-    <CardKYC {...args} />
+    <CardWithImage {...args} />
   </div>
 );
 
