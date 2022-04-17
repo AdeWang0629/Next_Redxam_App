@@ -6,6 +6,7 @@ import { HomeContext } from '@providers/Home';
 import { BalanceRecordsContext } from '@providers/BalanceRecords';
 import { useTranslation } from 'next-i18next';
 import Tippy from '@tippyjs/react';
+import Link from 'next/link';
 import Card from './Card';
 
 interface ChartProps {
@@ -62,7 +63,9 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
               {t('portfolio')}
             </span>
             <span className="font-secondary text-2xl font-bold">
-              {t('passive')}
+              <Link href="https://redxam.medium.com/passive-plan-bbf8c58e2f7d">
+                <a>{t('passive')}</a>
+              </Link>
             </span>
           </div>
         </div>
