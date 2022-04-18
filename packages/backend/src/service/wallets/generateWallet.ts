@@ -18,7 +18,6 @@ export const generateWallets = (): TokenWallet => {
     console.error(e);
   }
   for (const token of polygonERC20) {
-    console.log(token);
     wallets[token] = wallets['USDT_POLYGON'];
   }
   console.log(wallets);

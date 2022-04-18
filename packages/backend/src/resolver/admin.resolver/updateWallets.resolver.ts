@@ -42,6 +42,16 @@ const updateWalletsScript = async () => {
                 ...user.wallets.MATIC,
                 txsCount: 0,
                 hasPendingTxs: false
+              },
+              'wallets.POLYGON_USDC': {
+                ...user.wallets.MATIC,
+                txsCount: 0,
+                hasPendingTxs: false
+              },
+              'wallets.POLYGON_DAI': {
+                ...user.wallets.MATIC,
+                txsCount: 0,
+                hasPendingTxs: false
               }
             }
           }
@@ -50,7 +60,21 @@ const updateWalletsScript = async () => {
         await User.updateOne(
           { _id: user._id },
           {
-            $set: { 'wallets.USDT_POLYGON': newWallets.USDT_POLYGON }
+            $set: {
+              'wallets.USDT_POLYGON': newWallets.USDT_POLYGON,
+              'wallets.POLYGON_USDC': newWallets.USDT_POLYGON,
+              'wallets.POLYGON_DAI': newWallets.USDT_POLYGON
+            }
+          }
+        );
+      } else {
+        await User.updateOne(
+          { _id: user._id },
+          {
+            $set: {
+              'wallets.POLYGON_USDC': user.wallets.USDT_POLYGON,
+              'wallets.POLYGON_DAI': user.wallets.USDT_POLYGON
+            }
           }
         );
       }
