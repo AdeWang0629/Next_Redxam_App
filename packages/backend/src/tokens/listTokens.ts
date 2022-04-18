@@ -5,12 +5,16 @@ import { BitcoinBitcoinMainnetToken } from './bitcoin-bitcoin-mainnet.token';
 import { BitcoinBitcoinTestnetToken } from './bitcoin-bitcoin-testnet.token';
 import { USDTMainnetToken } from './usdt-polygon-mainnet.token';
 import { USDTTestnetToken } from './usdt-polygon-testnet.token';
+import { USDCMainnetToken } from './usdc-polygon-mainnet.token';
+import { DAIMainnetToken } from './dai-polygon-mainnet.token';
 
 export const tokens: Token[] = [
   new BitcoinBitcoinMainnetToken(),
   new BitcoinBitcoinTestnetToken(),
   new USDTMainnetToken(),
-  new USDTTestnetToken()
+  new USDTTestnetToken(),
+  new USDCMainnetToken(),
+  new DAIMainnetToken()
 ];
 
 const tokenWatcher = () => {

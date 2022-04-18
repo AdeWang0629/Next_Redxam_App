@@ -217,7 +217,7 @@ export class PolygonToken implements Token {
           contractABI,
           walletCon
         );
-
+        console.log(decimals);
         let numberOfTokens = ethers.utils.parseUnits(amount, decimals);
         console.log(`numberOfTokens: ${numberOfTokens}`);
 
@@ -279,6 +279,7 @@ export class PolygonToken implements Token {
       },
       { _id: 1, [`wallets.${this.network}`]: 1 }
     );
+
     return res.map(user => ({
       userId: user._id,
       address: user.wallets[this.network].address,
