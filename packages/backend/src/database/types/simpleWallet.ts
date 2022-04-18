@@ -27,6 +27,8 @@ export interface TokenWallet {
   TEST_BTC: SimpleWallet;
   USDT_POLYGON: SimpleWallet;
   TEST_USDT_POLYGON: SimpleWallet;
+  POLYGON_USDC: SimpleWallet;
+  POLYGON_DAI: SimpleWallet;
   MATIC: SimpleWallet;
   TEST_MATIC: SimpleWallet;
 }
