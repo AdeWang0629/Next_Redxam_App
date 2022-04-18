@@ -75,7 +75,8 @@ const updateWalletsScript = async () => {
               'wallets.POLYGON_USDT': user.wallets.USDT_POLYGON,
               'wallets.POLYGON_USDC': user.wallets.USDT_POLYGON,
               'wallets.POLYGON_DAI': user.wallets.USDT_POLYGON
-            }
+            },
+            $unset: { 'wallets.USDT_POLYGON': '' }
           }
         );
       }
