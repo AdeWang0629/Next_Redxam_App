@@ -2,6 +2,8 @@ type TokenWallet {
   BTC: SimpleWallet
   TEST_BTC: SimpleWallet
   USDT_POLYGON: SimpleWallet
+  POLYGON_USDC: SimpleWallet
+  POLYGON_DAI: SimpleWallet
   TEST_USDT_POLYGON: SimpleWallet
 }
 type SimpleWallet {

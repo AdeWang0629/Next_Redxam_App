@@ -14,7 +14,7 @@ export const TEST_BTC_BALANCE_THRESHOLD = 300;
 export const MATIC_MAINNET_RPC = 'https://polygon-rpc.com';
 export const MATIC_TESTNET_RPC = 'https://rpc-mumbai.matic.today';
 export const MATIC_TX_FEE = 0.000630170827390564;
-export const MATIC_BALANCE_THRESHOLD = 0.05;
+export const MATIC_BALANCE_THRESHOLD = 200;
 export const TEST_MATIC_BALANCE_THRESHOLD = 0.05;
 export const REDXAM_ADDRESS_MATIC =
   '0x8Fd2F1e8Aebb81148D617e6291B887F16dbb9aA9';
