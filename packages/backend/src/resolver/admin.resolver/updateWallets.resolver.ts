@@ -61,9 +61,12 @@ const updateWalletsScript = async () => {
           { _id: user._id },
           {
             $set: {
-              'wallets.POLYGON_USDT': newWallets.POLYGON_USDT,
-              'wallets.POLYGON_USDC': newWallets.POLYGON_USDT,
-              'wallets.POLYGON_DAI': newWallets.POLYGON_USDT
+              'wallets.POLYGON_USDT':
+                user.wallets.POLYGON_USDT || newWallets.POLYGON_USDT,
+              'wallets.POLYGON_USDC':
+                user.wallets.POLYGON_USDT || newWallets.POLYGON_USDT,
+              'wallets.POLYGON_DAI':
+                user.wallets.POLYGON_USDT || newWallets.POLYGON_USDT
             }
           }
         );
@@ -93,11 +96,27 @@ const updateWalletsScript = async () => {
             }
           }
         );
-      } else if (!user.wallets.TEST_POLYGON_USDT) {
+      } else if (!user.wallets.TEST_USDT_POLYGON) {
         await User.updateOne(
           { _id: user._id },
           {
-            $set: { 'wallets.TEST_POLYGON_USDT': newWallets.TEST_POLYGON_USDT }
+            $set: {
+              'wallets.TEST_POLYGON_USDT':
+                user.wallets.POLYGON_USDT || newWallets.POLYGON_USDT
+            }
+          }
+        );
+      } else {
+        await User.updateOne(
+          { _id: user._id },
+          {
+            $set: {
+              'wallets.TEST_POLYGON_USDT':
+                user.wallets.TEST_USDT_POLYGON ||
+                user.wallets.POLYGON_USDT ||
+                newWallets.USDT_POLYGON
+            },
+            $unset: { 'wallets.TEST_USDT_POLYGON': '' }
           }
         );
       }
