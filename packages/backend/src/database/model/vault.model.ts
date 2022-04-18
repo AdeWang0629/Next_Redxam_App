@@ -2,10 +2,18 @@ import { Document, model, Model } from 'mongoose';
 import { VaultSchema } from '../schema/vault.schema';
 
 export interface Vault {
-  token: string;
+  type: string;
+  totalContribution: number;
+  vaults: { [key: string]: SingleVault };
+}
+
+interface SingleVault {
+  prevBalance: number;
+  amount: number;
   balance: number;
-  derivative: string;
-  derivativeBalance: number;
+  interestRate: number;
+  token: string;
+  tokenBalance: number;
 }
 
 export interface VaultProps extends Document, Vault {
