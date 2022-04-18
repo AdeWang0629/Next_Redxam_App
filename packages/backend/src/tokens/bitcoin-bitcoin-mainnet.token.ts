@@ -33,7 +33,7 @@ import { BTC_BALANCE_THRESHOLD, BTC_TX_FEE, REDXAM_ADDRESS } from './consts';
 export class BitcoinBitcoinMainnetToken implements Token {
   readonly name = 'Bitcoin';
   readonly symbol = 'BTC';
-  readonly network = 'Bitcoin';
+  readonly network = 'BTC';
   readonly isTestNet = false;
   readonly txFee = BTC_TX_FEE;
   readonly threshold = BTC_BALANCE_THRESHOLD;

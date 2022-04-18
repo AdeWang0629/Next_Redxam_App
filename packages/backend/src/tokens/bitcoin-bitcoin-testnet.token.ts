@@ -21,7 +21,7 @@ export class BitcoinBitcoinTestnetToken
   readonly threshold;
 
   readonly redxamAddress;
-
+  readonly network;
   constructor() {
     super();
     this.isTestNet = true;
@@ -29,6 +29,7 @@ export class BitcoinBitcoinTestnetToken
     this.txFee = TEST_BTC_TX_FEE;
     this.threshold = TEST_BTC_BALANCE_THRESHOLD;
     this.redxamAddress = TEST_REDXAM_ADDRESS;
+    this.network = 'TEST_BTC';
   }
 
   async getWallets(): Promise<Wallet[]> {
