@@ -15,6 +15,14 @@ const walletQuery = `wallets {
       address
       txsCount
     }
+    POLYGON_USDC {
+      address
+      txsCount
+    }
+    POLYGON_DAI {
+      address
+      txsCount
+    }
   }`;
 
 export default walletQuery;
