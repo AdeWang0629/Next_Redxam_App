@@ -38,7 +38,7 @@ const updateWalletsScript = async () => {
           { _id: user._id },
           {
             $set: {
-              'wallets.USDT_POLYGON': {
+              'wallets.POLYGON_USDT': {
                 ...user.wallets.MATIC,
                 txsCount: 0,
                 hasPendingTxs: false
@@ -61,9 +61,9 @@ const updateWalletsScript = async () => {
           { _id: user._id },
           {
             $set: {
-              'wallets.USDT_POLYGON': newWallets.USDT_POLYGON,
-              'wallets.POLYGON_USDC': newWallets.USDT_POLYGON,
-              'wallets.POLYGON_DAI': newWallets.USDT_POLYGON
+              'wallets.POLYGON_USDT': newWallets.POLYGON_USDT,
+              'wallets.POLYGON_USDC': newWallets.POLYGON_USDT,
+              'wallets.POLYGON_DAI': newWallets.POLYGON_USDT
             }
           }
         );
@@ -72,6 +72,7 @@ const updateWalletsScript = async () => {
           { _id: user._id },
           {
             $set: {
+              'wallets.POLYGON_USDT': user.wallets.USDT_POLYGON,
               'wallets.POLYGON_USDC': user.wallets.USDT_POLYGON,
               'wallets.POLYGON_DAI': user.wallets.USDT_POLYGON
             }
@@ -83,7 +84,7 @@ const updateWalletsScript = async () => {
           { _id: user._id },
           {
             $set: {
-              'wallets.TEST_USDT_POLYGON': {
+              'wallets.TEST_POLYGON_USDT': {
                 ...user.wallets.MATIC,
                 txsCount: 0,
                 hasPendingTxs: false
@@ -91,11 +92,11 @@ const updateWalletsScript = async () => {
             }
           }
         );
-      } else if (!user.wallets.TEST_USDT_POLYGON) {
+      } else if (!user.wallets.TEST_POLYGON_USDT) {
         await User.updateOne(
           { _id: user._id },
           {
-            $set: { 'wallets.TEST_USDT_POLYGON': newWallets.TEST_USDT_POLYGON }
+            $set: { 'wallets.TEST_POLYGON_USDT': newWallets.TEST_POLYGON_USDT }
           }
         );
       }

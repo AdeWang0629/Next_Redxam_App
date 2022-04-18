@@ -1,10 +1,10 @@
 type TokenWallet {
   BTC: SimpleWallet
   TEST_BTC: SimpleWallet
-  USDT_POLYGON: SimpleWallet
+  POLYGON_USDT: SimpleWallet
   POLYGON_USDC: SimpleWallet
   POLYGON_DAI: SimpleWallet
-  TEST_USDT_POLYGON: SimpleWallet
+  TEST_POLYGON_USDT: SimpleWallet
 }
 type SimpleWallet {
   address: String
