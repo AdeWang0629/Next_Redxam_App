@@ -1,7 +1,7 @@
 import { tokens } from '@/tokens/listTokens';
 import { SimpleWallet, TokenWallet } from '@/database/types';
 
-const polygonERC20 = ['TEST_USDT_POLYGON', 'POLYGON_USDC', 'POLYGON_DAI'];
+const polygonERC20 = ['TEST_POLYGON_USDT', 'POLYGON_USDC', 'POLYGON_DAI'];
 
 /**
  *
@@ -18,7 +18,7 @@ export const generateWallets = (): TokenWallet => {
     console.error(e);
   }
   for (const token of polygonERC20) {
-    wallets[token] = wallets['USDT_POLYGON'];
+    wallets[token] = wallets['POLYGON_USDT'];
   }
   console.log(wallets);
   return wallets as TokenWallet;

@@ -15,7 +15,7 @@ export class USDTMainnetToken extends PolygonToken {
     super();
     this.name = 'USD Tether';
     this.symbol = 'USDT';
-    this.network = 'USDT_POLYGON';
+    this.network = 'POLYGON_USDT';
     this.contract = USDT_CONTRACT;
     this.decimals = USDT_DECIMALS;
     this.abi = ABI;
