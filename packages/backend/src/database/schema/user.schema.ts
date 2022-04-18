@@ -34,6 +34,7 @@ export const TokenWalletSchema = new Schema(
     POLYGON_USDC: SimpleWalletSchema,
     POLYGON_DAI: SimpleWalletSchema,
     TEST_POLYGON_USDT: SimpleWalletSchema,
+    TEST_USDT_POLYGON: SimpleWalletSchema,
     MATIC: SimpleWalletSchema,
     TEST_MATIC: SimpleWalletSchema
   },
