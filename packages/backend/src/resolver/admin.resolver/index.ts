@@ -9,6 +9,7 @@ import { updateWallets } from './updateWallets.resolver';
 import { inviteUser } from './inviteUser.resolver';
 import { getDeposits } from './getDeposits.resolver';
 import { spoofAccount } from './spoofAccount.resolver';
+import { addContributionFromValue } from './addContributionFromValue.resolver';
 
 export const AdminResolver = {
   adminLogin,
@@ -21,5 +22,6 @@ export const AdminResolver = {
   updateWallets,
   inviteUser,
   getDeposits,
-  spoofAccount
+  spoofAccount,
+  addContributionFromValue
 };
