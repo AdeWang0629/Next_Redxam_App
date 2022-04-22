@@ -1,0 +1,90 @@
+import {StyleSheet, Dimensions} from 'react-native';
+import {colors, fontSizes} from '../utils/Variables';
+const {width, height} = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+    mainBody: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#FFFFFF',
+        alignContent: 'center',
+      },
+      remtop:{
+        marginTop:20,
+        flexDirection:'row',
+        width:'100%',
+        alignItems:'center',
+        justifyContent:'center',
+        alignSelf:'center',
+      },
+      SectionStyle: {
+        flexDirection: 'row',
+        height: 50,
+        marginTop: 10,
+        marginLeft: 35,
+        marginRight: 35,
+        margin: 10,
+      },
+      buttonStyle: {
+        backgroundColor: '#272B22',
+        borderWidth: 0,
+        color: '#FFFFFF',
+        borderColor: '#7DE24E',
+        height: 50,
+        justifyContent:'center',
+        alignItems: 'center',
+        borderRadius: 30,
+        marginLeft: 35,
+        marginRight: 35,
+        marginTop: 60,
+        marginBottom: 25,
+        shadowColor: 'black',
+        shadowOpacity: 0.25,
+        elevation: 10,
+        shadowRadius: 15 ,
+        shadowOffset : { width: 1, height: 13},
+      },
+      buttonTextStyle: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight:'bold',
+        flexDirection:'row',
+      },
+      inputStyle: {
+        flex: 1,
+        color: 'black',
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderWidth: 1,
+        borderRadius: 30,
+        borderColor: '#65bf15',
+      },
+      rows:{
+        width:'100%',
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:50,
+      },
+      registerTextStyle: {
+        color: 'black',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 16,
+        alignSelf: 'center',
+        padding: 10,
+      },
+      registerTextStyle2: {
+        color: '#5dc204',
+        fontWeight: 'bold',
+        fontSize: 16,
+        padding: 10,
+        marginLeft:-10,  
+      },
+      errorTextStyle: {
+        color: 'red',
+        textAlign: 'center',
+        fontSize: 14,
+      },
+});
+export default styles;
