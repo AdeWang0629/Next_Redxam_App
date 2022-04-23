@@ -1,5 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
 import { connection } from 'mongoose';
 import { config as appConfig } from './appConfig';
 import { binanceBalanceWatcher } from './service/getTotalBalance';
@@ -8,7 +10,7 @@ import { vaultWatcher } from './service/vaultService';
 import { balanceWatcher } from './service/balanceService';
 import { requestWatcher } from './service/changeRequestService';
 
-const { PORT = '3000', SERVICE } = process.env;
+const { PORT = '3000', SERVICE, NODE_ENV } = process.env;
 
 const app = express();
 appConfig(app);
@@ -31,7 +33,37 @@ switch (SERVICE) {
     break;
 }
 
-app.listen(PORT, () => {
+const server = http.createServer(app);
+
+export const io = new Server(server, {
+  cors: {
+    origin:
+      NODE_ENV === 'production'
+        ? 'https://www.redxam.com'
+        : 'http://localhost:3000',
+    methods: ['GET', 'POST']
+  }
+});
+
+const connectedByEmail = {};
+
+io.on('connection', socket => {
+  console.log('este es el socket');
+  console.log(socket.id);
+
+  socket.on('onLogin', email => {
+    console.log(email);
+    console.log(socket.id);
+    connectedByEmail[email] = socket.id;
+  });
+
+  socket.on('onVerified', ({ email, token }) => {
+    socket.to(connectedByEmail[email]).emit('userVerified', token);
+    delete connectedByEmail[email];
+  });
+});
+
+server.listen(PORT, () => {
   console.info(`Server now live on http://localhost:${PORT}/api/v1`);
 });
 
