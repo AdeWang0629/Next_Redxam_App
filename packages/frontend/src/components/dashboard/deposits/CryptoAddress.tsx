@@ -5,7 +5,7 @@ import QRCode from 'qrcode';
 
 import copyIcon from '@public/images/dashboard/deposits/copy.svg';
 
-type Props = { address: string; tokenSymbol: string; network: strig };
+type Props = { address: string; tokenSymbol: string; network: string };
 
 const CryptoAddress = ({ address, tokenSymbol, network }: Props) => {
   const { t } = useTranslation('dashboard');
