@@ -1,10 +1,17 @@
 /* eslint-disable no-nested-ternary */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
+import { useRouter } from 'next/router';
+
 import type { NextPage } from 'next';
+import { UserContext } from '@providers/User';
 import { useTranslation } from 'next-i18next';
+import { io } from 'socket.io-client';
 import api from 'src/utils/api';
 import { validateEmail } from 'src/utils/helpers';
+import { setCookies } from 'cookies-next';
 import SignupModel from './SignupModel';
+
+const socket = io('http://localhost:5005');
 
 interface LoginModelProps {
   isOpened: boolean;
@@ -12,6 +19,8 @@ interface LoginModelProps {
 }
 
 const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
+  const router = useRouter();
+  const { setUser, setNoUser } = useContext(UserContext);
   const { t } = useTranslation('login');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -19,6 +28,20 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
   const [response, setResponse] = useState(null);
   const [signupOpened, setSignupOpened] = useState(false);
   const outsideContainerRef = useRef(null);
+
+  useEffect(() => {
+    socket.on('userVerified', token => {
+      setCookies('token', token);
+      api.getUserData().then(({ data: userData }) => {
+        setUser(userData.data.user[0]);
+        setNoUser(false);
+        document.body.style.overflow = 'auto';
+        if (userData.data.user[0].accountStatus === 'invited') {
+          router.push('/invite');
+        } else router.push('/home');
+      });
+    });
+  }, [router, setNoUser, setUser]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -48,6 +71,8 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
     api
       .login(email)
       .then(res => {
+        // start socket
+        socket.emit('onLogin', email);
         setResponse(res.data.data.updateToken.success);
       })
       .catch(() => {
