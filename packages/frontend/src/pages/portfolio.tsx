@@ -4,6 +4,7 @@ import Footer from '@components/global/Footer';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { PieChart, Pie, ResponsiveContainer } from 'recharts';
+import Link from 'next/link';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -86,9 +87,11 @@ const Portfolio: NextPage = () => {
           </div>
         </div>
         <div className="mt-10 flex justify-between items-center">
-          <button className="font-primary text-[15px] text-darker-primary w-[15rem] py-3.5 font-bold text-center rounded-[30px] border-darker-primary border mr-6">
-            Portafolio Details
-          </button>
+          <Link href="/portfolioDetails" passHref>
+            <button className="font-primary text-[15px] text-darker-primary w-[15rem] py-3.5 font-bold text-center rounded-[30px] border-darker-primary border mr-6">
+              Portafolio Details
+            </button>
+          </Link>
           <button className="font-primary text-[15px] w-[15rem] py-3.5 font-bold text-center rounded-[30px] bg-buttons-green">
             Change Portfolio
           </button>
