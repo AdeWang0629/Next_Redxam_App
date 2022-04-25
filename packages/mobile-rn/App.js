@@ -18,7 +18,7 @@ const theme = {
   },
 };
 //Orientation.lockToLandscape();
-Orientation.lockToPortrait()
+Orientation.lockToPortrait();
 const App = () => {
   return (
     <SafeAreaView style={styles.mainContainer}>
