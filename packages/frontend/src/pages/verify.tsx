@@ -16,6 +16,7 @@ import { UserContext } from '@providers/User';
 import api from 'src/utils/api';
 import Loader from '@components/global/Loader';
 import { io } from 'socket.io-client';
+import { getCookie } from 'cookies-next';
 
 const Verify: NextPage = () => {
   const { setUser, setLoading, setNoUser, loading } = useContext(UserContext);
@@ -31,7 +32,12 @@ const Verify: NextPage = () => {
         if (data.data.verifyToken.success) {
           const { token } = data.data.verifyToken;
           const { email } = router.query;
-          const socket = io('http://localhost:5005');
+          const socket = io(
+            (getCookie('environment') &&
+            getCookie('environment') === 'development'
+              ? process.env.NEXT_PUBLIC_DEV_BASE_URL
+              : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string
+          );
           socket.emit('onVerified', { token, email });
         } else {
           alert(data.data.verifyToken.message);
