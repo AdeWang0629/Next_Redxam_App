@@ -1,14 +1,12 @@
 /* eslint-disable no-nested-ternary */
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
-
 import type { NextPage } from 'next';
 import { UserContext } from '@providers/User';
 import { useTranslation } from 'next-i18next';
 import { io } from 'socket.io-client';
 import api from 'src/utils/api';
 import { validateEmail } from 'src/utils/helpers';
-
 import { setCookies, getCookie } from 'cookies-next';
 import SignupModel from './SignupModel';
 
@@ -19,7 +17,6 @@ const socket = io(
     ? process.env.NEXT_PUBLIC_DEV_BASE_URL
     : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string
 );
-
 
 interface LoginModelProps {
   isOpened: boolean;
@@ -59,7 +56,6 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
     if (isOpened) {
       window.scroll({ top: 0, left: 0, behavior: 'smooth' });
       document.body.style.overflow = 'hidden';
@@ -77,9 +73,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
     event.preventDefault();
 
     if (!email) return alert(t('enter-email-error'));
-
     if (!validateEmail(email)) return alert(t('valid-email-error'));
-
     setLoading(true);
 
     api
@@ -96,7 +90,6 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
         setSubmitted(true);
         setLoading(false);
       });
-
     return null;
   }
 
