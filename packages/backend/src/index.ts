@@ -39,7 +39,7 @@ export const io = new Server(server, {
   cors: {
     origin:
       NODE_ENV === 'production'
-        ? 'https://www.redxam.com'
+        ? 'https://redxam.com'
         : 'http://localhost:3000',
     methods: ['GET', 'POST']
   }
