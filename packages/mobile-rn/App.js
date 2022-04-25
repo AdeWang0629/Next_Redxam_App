@@ -6,7 +6,7 @@ import Orientation from 'react-native-orientation-locker';
 
 import MainStack from './src/redxam/navigations/MainStack';
 import styles from './src/styles/AppStyle';
-import {store} from './src/redux/store';
+import store from './src/redux/store';
 import {ThemeProvider} from 'react-native-elements';
 import {thememode} from './src/utils/Variables';
 const theme = {
