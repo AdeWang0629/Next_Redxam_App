@@ -11,9 +11,7 @@ import { setCookies, getCookie } from 'cookies-next';
 import SignupModel from './SignupModel';
 
 const socket = io(
-  (typeof window !== 'undefined' &&
-  getCookie('environment') &&
-  getCookie('environment') === 'development'
+  (getCookie('environment') && getCookie('environment') === 'development'
     ? process.env.NEXT_PUBLIC_DEV_BASE_URL
     : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string
 );
