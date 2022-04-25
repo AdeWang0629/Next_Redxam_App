@@ -38,9 +38,15 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
         document.body.style.overflow = 'auto';
         if (userData.data.user[0].accountStatus === 'invited') {
           router.push('/invite');
-        } else router.push('/home');
+        } else {
+          router.push('/home');
+        }
       });
     });
+
+    return () => {
+      socket.disconnect();
+    };
   }, [router, setNoUser, setUser]);
 
   useEffect(() => {
