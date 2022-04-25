@@ -1,3 +1,4 @@
+import API from '../../api';
 export const IS_LOGIN = 'IS_LOGIN';
 
 const isLogin = () => ({
@@ -16,8 +17,9 @@ const errorLog = () => ({
   type: ERROR_LOG,
 });
 
-export function login({email}) {
+export function login(email) {
   return dispatch => {
     dispatch(isLogin());
+    API.login(email);
   };
 }
