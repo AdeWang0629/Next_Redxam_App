@@ -17,8 +17,8 @@ const IS_PRODUCTION = NODE_ENV === 'production';
 const ADMIN_USERS = Object.freeze(['max@redxam.com']);
 const isAdmin = (email: string) => ADMIN_USERS.includes(email);
 
-const getLoginUrl = (token: string, origin: string) =>
-  origin + `/verify?token=${token}`;
+const getLoginUrl = (token: string, origin: string, email: string) =>
+  origin + `/verify?token=${token}&email=${email}`;
 
 const templatePath = resolve(__dirname, '../../emails/simplelogin.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');
@@ -130,7 +130,7 @@ const updateByEmail = async (userId: string, email: string, origin: string) => {
   //   return loginAdmin(userId);
   // }
   const loginToken = await new JWT({ userId, type: 'login' }).sign();
-  const loginUrl = getLoginUrl(loginToken, origin);
+  const loginUrl = getLoginUrl(loginToken, origin, email);
   console.log(loginToken);
   await sendMail(email, loginUrl);
   return messages.success.loginByEmail;
