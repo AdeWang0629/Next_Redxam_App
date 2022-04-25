@@ -8,6 +8,7 @@ import { useTranslation } from 'next-i18next';
 import { io } from 'socket.io-client';
 import api from 'src/utils/api';
 import { validateEmail } from 'src/utils/helpers';
+
 import { setCookies, getCookie } from 'cookies-next';
 import SignupModel from './SignupModel';
 
@@ -18,6 +19,7 @@ const socket = io(
     ? process.env.NEXT_PUBLIC_DEV_BASE_URL
     : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string
 );
+
 
 interface LoginModelProps {
   isOpened: boolean;
