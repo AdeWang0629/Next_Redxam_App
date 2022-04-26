@@ -1,6 +1,6 @@
 import axios from 'axios';
 import walletQuery from './wallets';
-const baseURL = 'http://192.168.1.26:5005';
+const baseURL = 'http://YOURLOCALIP:5005';
 
 export const login = async email => {
   const mutation = `mutation {
