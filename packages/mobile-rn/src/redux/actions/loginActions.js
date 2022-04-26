@@ -7,14 +7,15 @@ const isLogin = () => ({
 
 export const SUCCESS_LOG = 'SUCCESS_LOG';
 
-const successLog = () => ({
+export const successLog = () => ({
   type: SUCCESS_LOG,
 });
 
 export const ERROR_LOG = 'ERROR_LOG';
 
-const errorLog = () => ({
+export const errorLog = error => ({
   type: ERROR_LOG,
+  payload: error,
 });
 
 export function login(email) {
