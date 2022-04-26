@@ -3,13 +3,12 @@ import {IS_LOGIN, SUCCESS_LOG, ERROR_LOG} from '../actions/loginActions';
 const initialState = {
   logged: false,
   isLogin: false,
-  attempts: 0,
+  loginError: null,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case IS_LOGIN:
-      console.log("i'm login");
       return {
         ...state,
         isLogin: true,
@@ -25,7 +24,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isLogin: false,
-        attempts: state.attempts + 1,
+        loginError: action.payload,
       };
 
     default:

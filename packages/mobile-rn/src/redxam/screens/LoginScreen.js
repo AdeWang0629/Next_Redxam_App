@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Dimensions,
   Image,
@@ -11,23 +11,36 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import io from 'socket.io-client';
-import {login} from '../../redux/actions/loginActions';
 import styles from '../styles/LoginScreenStyle';
+
+// actions
+import {login} from '../../redux/actions/loginActions';
+import {userVerified} from '../../redux/actions/userActions';
+
+const socket = io('http://YOURLOCALIP:5005');
 
 const screenWidth = Dimensions.get('window').width;
 const {height, width} = Dimensions.get('window');
 
-const LoginScreen = props => {
+const LoginScreen = () => {
   const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.login.isLogin);
+  const [emailInput, setEmailInput] = useState('');
+
+  useEffect(() => {
+    socket.on('userVerified', token => {
+      dispatch(userVerified(token));
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, [dispatch]);
 
   const handleLoggin = () => {
-    const socket = io('http://192.168.1.26:5005');
-    console.log(socket);
-    socket.emit('onLogin', 'jhosephgp@gmail.com');
-
-    dispatch(login('jhosephgp@gmail.com'));
+    socket.emit('onLogin', emailInput);
+    dispatch(login(emailInput));
   };
 
   return (
@@ -40,6 +53,7 @@ const LoginScreen = props => {
             justifyContent: 'center',
             alignContent: 'center',
           }}>
+          {isLogin && <LoginModal />}
           <View>
             <KeyboardAvoidingView enabled>
               <View style={{alignItems: 'center', marginBottom: 50}}>
@@ -69,6 +83,8 @@ const LoginScreen = props => {
                   keyboardType="email-address"
                   returnKeyType="next"
                   blurOnSubmit={false}
+                  onChangeText={text => setEmailInput(text)}
+                  value={emailInput}
                 />
               </View>
 
@@ -117,5 +133,15 @@ const LoginScreen = props => {
     </SafeAreaView>
   );
 };
+
+const LoginModal = () => (
+  <View style={styles.modalContainer}>
+    <View style={styles.modalBox}>
+      <Text style={styles.modalText}>
+        Please confirm the verification link sent to your email
+      </Text>
+    </View>
+  </View>
+);
 
 export default LoginScreen;

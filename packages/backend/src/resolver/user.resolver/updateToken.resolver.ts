@@ -17,8 +17,12 @@ const IS_PRODUCTION = NODE_ENV === 'production';
 const ADMIN_USERS = Object.freeze(['max@redxam.com']);
 const isAdmin = (email: string) => ADMIN_USERS.includes(email);
 
-const getLoginUrl = (token: string, origin: string, email: string) =>
-  origin + `/verify?token=${token}&email=${email}`;
+const getLoginUrl = (token: string, origin: string, email: string) => {
+  if (!origin) {
+    origin = IS_PRODUCTION ? 'https://redxam.com' : 'http://localhost:3000';
+  }
+  return origin + `/verify?token=${token}&email=${email}`;
+};
 
 const templatePath = resolve(__dirname, '../../emails/simplelogin.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');

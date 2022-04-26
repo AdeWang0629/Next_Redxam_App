@@ -37,7 +37,10 @@ const server = http.createServer(app);
 
 export const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin:
+      NODE_ENV === 'production'
+        ? 'https://redxam.com'
+        : 'http://localhost:3000',
     methods: ['GET', 'POST']
   }
 });
