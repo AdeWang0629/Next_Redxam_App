@@ -37,10 +37,7 @@ const server = http.createServer(app);
 
 export const io = new Server(server, {
   cors: {
-    origin:
-      NODE_ENV === 'production'
-        ? 'https://redxam.com'
-        : 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST']
   }
 });
@@ -48,7 +45,11 @@ export const io = new Server(server, {
 const connectedByEmail = {};
 
 io.on('connection', socket => {
+  console.log('hola me conecte');
+  console.log(socket.id);
+
   socket.on('onLogin', email => {
+    console.log(email);
     connectedByEmail[email] = socket.id;
   });
 
