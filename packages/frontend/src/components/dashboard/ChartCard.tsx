@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import ReactPlaceholder from 'react-placeholder';
 import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
 import { HomeContext } from '@providers/Home';
@@ -21,6 +21,8 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
   const { t } = useTranslation('dashboard');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [value, setValue] = useState(0);
+  const [percentChange, setPercentChange] = useState(0);
+  const [dolarChange, setDolarChange] = useState(0);
   const { home, loading } = useContext(HomeContext);
   const { balanceRecords } = useContext(BalanceRecordsContext);
 
@@ -28,6 +30,13 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
     { time: 0, value: 0 },
     { time: 0, value: 0 }
   ];
+
+  useEffect(() => {
+    if (home?.percentChange && home?.dolarChange) {
+      setPercentChange(home?.percentChange);
+      setDolarChange(home?.dolarChange);
+    }
+  }, [home]);
 
   if (balanceRecords) {
     performanceData = balanceRecords.map(balanceRecord => ({
@@ -52,9 +61,7 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
             >
               <span className="font-secondary text-2xl font-bold">
                 <span className="text-[#61D404]">+</span>
-                {`${home?.percentChange.toFixed(
-                  2
-                )}% ($${home?.dolarChange.toFixed(2)})`}
+                {`${percentChange.toFixed(2)}% ($${dolarChange.toFixed(2)})`}
               </span>
             </ReactPlaceholder>
           </div>
