@@ -12,6 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
+import io from 'socket.io-client';
 import {login} from '../../redux/actions/loginActions';
 import styles from '../styles/LoginScreenStyle';
 
@@ -22,7 +23,10 @@ const LoginScreen = props => {
   const dispatch = useDispatch();
 
   const handleLoggin = () => {
-    console.log('hola bebe');
+    const socket = io('http://192.168.1.26:5005');
+    console.log(socket);
+    socket.emit('onLogin', 'jhosephgp@gmail.com');
+
     dispatch(login('jhosephgp@gmail.com'));
   };
 
