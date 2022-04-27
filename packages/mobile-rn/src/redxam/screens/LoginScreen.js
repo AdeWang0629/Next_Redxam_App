@@ -18,8 +18,9 @@ import styles from '../styles/LoginScreenStyle';
 // actions
 import {login} from '../../redux/actions/loginActions';
 import {userVerified} from '../../redux/actions/userActions';
+import {BASE_URL} from '@env';
 
-const socket = io('http://YOURLOCALIP:5005');
+const socket = io(BASE_URL);
 
 const screenWidth = Dimensions.get('window').width;
 const {height, width} = Dimensions.get('window');

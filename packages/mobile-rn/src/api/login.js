@@ -1,8 +1,10 @@
 import axios from 'axios';
 import walletQuery from './wallets';
-const baseURL = 'http://YOURLOCALIP:5005';
+
+import {BASE_URL} from '@env';
 
 export const login = async email => {
+  console.log(BASE_URL);
   const mutation = `mutation {
     updateToken(arg: {
         email: "${email}"
@@ -12,7 +14,7 @@ export const login = async email => {
       }
     }`;
 
-  return axios.post(`${baseURL}/api/v1`, {query: mutation});
+  return axios.post(`${BASE_URL}/api/v1`, {query: mutation});
 };
 
 export const getUserData = async token => {
@@ -36,7 +38,7 @@ export const getUserData = async token => {
 `;
 
   return axios.post(
-    `${baseURL}/api/v1`,
+    `${BASE_URL}/api/v1`,
     {query},
     {
       headers: {Authorization: `Bearer ${token}`},
