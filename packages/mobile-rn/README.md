@@ -1,12 +1,12 @@
-# PokerGame
+# Redxam
 
 Requirements:
 
-  node, npm
-  react-native cli
-  android studio
-  xcode 12.5
- 
+node, npm
+react-native cli
+android studio
+xcode 12.5
+
 please follow the link to install requirements
 
 https://reactnative.dev/docs/environment-setup
@@ -18,7 +18,6 @@ run: yarn install instead of npm install
 to run android
 
 run command: react-native run-android
-
 
 to run ios
 
