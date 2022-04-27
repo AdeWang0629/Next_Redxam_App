@@ -5,9 +5,11 @@ import {BASE_URL} from '@env';
 
 export const login = async email => {
   console.log(BASE_URL);
+  console.log('hola bebe');
   const mutation = `mutation {
     updateToken(arg: {
-        email: "${email}"
+        email: "${email}",
+        isMobile: ${true}
       }) {
           success
           message

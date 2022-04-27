@@ -29,6 +29,7 @@ export interface NewManualUser {
 export interface LoginInput {
   email?: string;
   phone?: string;
+  isMobile?: boolean;
 }
 
 export interface SpoofInput {
