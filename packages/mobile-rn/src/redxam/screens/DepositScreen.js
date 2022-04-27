@@ -4,13 +4,8 @@ import {
   SafeAreaView,
   View,
   TouchableOpacity,
-  FlatList,
   ScrollView,
   Image,
-  StatusBar,
-  Alert,
-  Modal,
-  Pressable,
 } from 'react-native';
 import {BottomSheet, Button, Icon, Card} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -36,6 +31,7 @@ const DepositScreen = props => {
   const [modelselect, setmodelselect] = useState(false);
   const [depositVisible, setdepositVisible] = useState(false);
 
+  // split this shit
   const Kyccomponent = ({
     buttontext,
     textc,
@@ -83,162 +79,13 @@ const DepositScreen = props => {
     );
   };
 
-  const Modalcomponent = ({buttontext, textc, imaged, ...props}) => {
-    return (
-      <View style={styles.modalView}>
-        {Kyc == 1 && <Text style={styles.modalText}>SELFIE</Text>}
-        {Kyc == 2 && (
-          <Text style={[styles.modalText, {color: colors.red}]}>
-            <Icon
-              name="warning"
-              type="antdesign"
-              color={colors.red}
-              size={15}
-              style={{marginRight: 10}}
-            />
-            PAUSED
-          </Text>
-        )}
-        {Kyc == 3 && (
-          <Text style={[styles.modalText, {color: colors.primaryGreen}]}>
-            <Icon
-              name="checkcircle"
-              type="antdesign"
-              color={colors.primaryGreen}
-              size={15}
-              style={{marginRight: 10}}
-            />
-            COMPLETED
-          </Text>
-        )}
-        <Text style={styles.modaltextfont}>
-          Face the camera. Ensure your frame within the frame. Then, slowly turn
-          your head around the circle.
-        </Text>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          <Image
-            source={require('../assets/photo.png')}
-            style={styles.photoimage}
-          />
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Icon
-            name="arrow-back"
-            color={'black'}
-            size={15}
-            style={styles.icontext}
-          />
-          <Text
-            style={styles.textdarkStyle}
-            onPress={() => setModalVisible(!modalVisible)}>
-            BACK
-          </Text>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={styles.textStyle}>I'M READY</Text>
-          </Pressable>
-          <Text
-            style={[
-              styles.textdarkStyle,
-              {color: 'white', paddingVertical: 0},
-            ]}>
-            <Icon
-              name="arrow-back"
-              color={'white'}
-              size={15}
-              style={styles.icontext}
-            />
-            BACK
-          </Text>
-        </View>
-        <Text style={styles.continueonphone}>or continue on a phone</Text>
-      </View>
-    );
-  };
-
-  const closemodal = () => {
-    setModaltransVisible(!modaltransVisible);
-  };
   const closedrop = () => {
     setmodelselect(!modelselect);
-  };
-  const closedeposit = () => {
-    setdepositVisible(!depositVisible);
   };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <StatusBar
-        animated={true}
-        translucent
-        backgroundColor={colors.primaryGreen}
-        barStyle={colors.statusbarstyle[2]}
-        showHideTransition={TRANSITIONS[0]}
-        hidden={false}
-      />
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <Modalcomponent
-            imaged={require('../assets/kyc.png')}
-            buttontext={'Start KYC Verification'}
-            textc="To continue adding a bank account to redxam you will need to complete your sumsub KYC verification."
-          />
-        </View>
-      </Modal>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={modaltransVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModaltransVisible(!modaltransVisible);
-        }}>
-        <View style={styles.DatacenteredView}>
-          <Translucentcomponent closemodal={closemodal} props={props} />
-        </View>
-      </Modal>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={depositVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setdepositVisible(!depositVisible);
-        }}>
-        <View style={styles.DatacenteredView}>
-          <AddDeposit closemodal={closedeposit} props={props} />
-        </View>
-      </Modal>
-
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={modelselect}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setmodelselect(!modelselect);
-        }}>
-        <View style={styles.DatacenteredView}>
-          {droptype == 'qrcode' ? (
-            <Qrcode closemodal={closedrop} droptype={droptype} props={props} />
-          ) : (
-            <Modelselect
-              closemodal={closedrop}
-              droptype={droptype}
-              props={props}
-            />
-          )}
-        </View>
-      </Modal>
-
+      {/* split & refactor component header */}
       <View style={commonestyles.header}>
         <TouchableOpacity
           onPress={() => {
@@ -248,7 +95,9 @@ const DepositScreen = props => {
         </TouchableOpacity>
         <Text style={commonestyles.headertext}>Deposit</Text>
       </View>
+
       <View style={commonestyles.body}>
+        {/* split & refactor component deposit tab */}
         <View style={styles.headertab}>
           <TouchableOpacity
             onPress={() => settabindex(0)}
@@ -272,6 +121,10 @@ const DepositScreen = props => {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {/* change conditional according to applicantData */}
+        {/* split & refactor component crypto deposits */}
+        {/* create component for each screen */}
         {Kyc > 3 && tabindex == 0 ? (
           <ScrollView style={{marginBottom: 70}}>
             <View>
@@ -361,37 +214,45 @@ const DepositScreen = props => {
                 </View>
               </View>
             </View>
-            {showwalletdeposit == true ? (
-              <Depositwalletlist />
-            ) : (
-              <TouchableOpacity onPress={() => setshowwalletdeposit(true)}>
-                <Kyccomponent
-                  button={false}
-                  imaged={require('../assets/depositimg.png')}
-                  header={'Deposit to Wallet'}
-                  buttontext={'Add Bank Account'}
-                  textc="No transactions has been made from any & of the added bank accounts."
-                />
-              </TouchableOpacity>
-            )}
           </ScrollView>
         ) : null}
 
+        {/* change conditional according to applicantData */}
+        {/* split & refactor component bank deposits */}
+        {/* create component for each screen */}
         {Kyc > 3 && tabindex == 2 ? (
           <ScrollView>
-            <Banklist />
-            <View style={styles.paddingbutton}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  setdepositVisible(true);
+            <View style={{paddingBottom: 120}}>
+              <Banklist />
+              <View style={styles.paddingbutton}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => {
+                    setdepositVisible(true);
+                  }}>
+                  <Text style={styles.buttontext}>Deposit to Wallet</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* split into component for bank and crypto deposits */}
+              <Depositlist />
+
+              {/* split into a component */}
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}>
-                <Text style={styles.buttontext}>Deposit to Wallet</Text>
-              </TouchableOpacity>
+                <Image
+                  source={require('../assets/footer.png')}
+                  style={styles.footerimage}
+                />
+              </View>
             </View>
-            <Depositlist />
           </ScrollView>
         ) : null}
+
+        {/* split this component and create one with a type or status prop */}
         <ScrollView>
           {Kyc == 0 && (
             <Kyccomponent
@@ -426,21 +287,6 @@ const DepositScreen = props => {
               textc="Your KYC is complete, now you can add multiple bank accounts to your redxam."
             />
           )}
-          {Kyc == 3 && (
-            <Kyccomponent
-              button={false}
-              imaged={require('../assets/notransaction.png')}
-              header={'Recent Deposits from Bank'}
-              buttontext={'Add Bank Account'}
-              textc="No transactions has been made from any of the added bank accounts."
-            />
-          )}
-          <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Image
-              source={require('../assets/footer.png')}
-              style={styles.footerimage}
-            />
-          </View>
         </ScrollView>
       </View>
     </SafeAreaView>
