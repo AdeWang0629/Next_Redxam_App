@@ -9,12 +9,12 @@ const styles = StyleSheet.create({
   logoStyle: {
     width: width,
     resizeMode: 'stretch',
-    height: width/2-21
+    height: width / 2 - 21,
   },
   iconrowlist: {
     padding: 10,
     backgroundColor: colors.white,
-    borderRadius: 50
+    borderRadius: 50,
   },
   imagefull: {
     width: '100%',
@@ -24,61 +24,62 @@ const styles = StyleSheet.create({
     height: 44,
   },
   headertab: {
-      backgroundColor: colors.white,
-      height: 40,
-      borderColor: colors.gray,
-      borderWidth: 0.3,
-      borderRadius: 30,
-      flexDirection: 'row'
+    backgroundColor: colors.white,
+    height: 40,
+    borderColor: colors.gray,
+    borderWidth: 0.3,
+    borderRadius: 30,
+    flexDirection: 'row',
+    margin: 20,
   },
   activetab: {
-    width : '33%',
+    width: '33%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.black,
     borderRadius: 30,
   },
   singletab: {
-      width : '33%',
-      justifyContent: 'center',
-      alignItems: 'center'
+    width: '33%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   darktext: {
     color: '#2A3037',
     fontSize: 14,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   lighttext: {
     color: '#fff',
     fontSize: 14,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   kyctest: {
-      paddingHorizontal: 10,
-      paddingVertical: 50
+    paddingHorizontal: 10,
+    paddingVertical: 50,
   },
   kyctext: {
-      color: colors.black,
-      padding: 20,
-      textAlign: 'center'
+    color: colors.black,
+    padding: 20,
+    textAlign: 'center',
   },
   buttontext: {
     color: colors.white,
     width: '100%',
     textAlign: 'center',
     fontSize: 14,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   button: {
     backgroundColor: colors.primaryGreen,
     marginHorizontal: '10%',
     padding: 13,
-    borderRadius: 30
+    borderRadius: 30,
   },
   footerimage: {
-      width: 60,
-      resizeMode: 'contain',
-      height: 60
+    width: 60,
+    resizeMode: 'contain',
+    height: 60,
   },
   photoimage: {
     width: 200,
@@ -87,114 +88,114 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     margin: 10,
-    marginLeft:50,
-},
-madelimage1: {
-  width: 40,
-  height: 40,
-  margin: 10,
-  marginLeft:30,
-},
+    marginLeft: 50,
+  },
+  madelimage1: {
+    width: 40,
+    height: 40,
+    margin: 10,
+    marginLeft: 30,
+  },
 
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
   },
   DatacenteredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     marginTop: 22,
   },
   DatamodalView: {
     margin: 20,
-    width: width-40,
-    backgroundColor: "white",
+    width: width - 40,
+    backgroundColor: 'white',
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   modalView: {
     margin: 20,
     width: width,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: '#F194FF',
   },
   buttonClose: {
-      paddingHorizontal: 30,
+    paddingHorizontal: 30,
     backgroundColor: colors.primaryGreen,
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   textdarkStyle: {
-    color: "black",
-    textAlign: "center",
-    paddingVertical: 12
+    color: 'black',
+    textAlign: 'center',
+    paddingVertical: 12,
   },
   icontext: {
-    textAlign: "center",
-    paddingVertical: 12
+    textAlign: 'center',
+    paddingVertical: 12,
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
-    color: 'blue'
+    textAlign: 'center',
+    color: 'blue',
   },
   modaltextfont: {
     color: colors.black,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   continueonphone: {
     color: colors.blue,
     paddingTop: 20,
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
   },
   headercard: {
-      padding: 20,
-      borderBottomWidth: 0.4,
-      borderBottomColor: '#ccc'
+    padding: 20,
+    borderBottomWidth: 0.4,
+    borderBottomColor: '#ccc',
   },
-  headertextcard : {fontSize: 20, fontWeight: '500'},
+  headertextcard: {fontSize: 20, fontWeight: '500'},
   listtext: {paddingVertical: 5},
   simpletext: {fontSize: 14, color: '#95989B', marginTop: 20},
   TranslucentView: {
     margin: 20,
-    width: width-40,
-    backgroundColor: "white",
-    alignItems: "center",
-    shadowColor: "#000",
+    width: width - 40,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   madels: {
     borderBottomWidth: 0.4,
@@ -208,9 +209,8 @@ madelimage1: {
     borderRadius: 20,
     height: '18%',
     width: '85%',
-    padding:10,
-    top:10,
-
+    padding: 10,
+    top: 10,
   },
   madels1: {
     borderBottomWidth: 0.4,
@@ -224,8 +224,7 @@ madelimage1: {
     borderRadius: 20,
     height: '14%',
     width: '85%',
-    padding:10,
-
+    padding: 10,
   },
   modelamount: {
     backgroundColor: '#FAFAFA',
@@ -240,13 +239,13 @@ madelimage1: {
     borderRadius: 20,
     height: '25%',
     width: '85%',
-    padding:10,
-    top:10,
+    padding: 10,
+    top: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
   paddingbutton: {
-      padding: 30
+    padding: 30,
   },
   inputspan: {
     fontSize: 18,
@@ -264,19 +263,19 @@ madelimage1: {
     fontWeight: '500',
     fontSize: 15,
     padding: 8,
-    width: '80%'
+    width: '80%',
   },
   dropdowntextfull: {
     fontWeight: '500',
     fontSize: 15,
     padding: 8,
-    width: '90%'
+    width: '90%',
   },
   dropdowntextfulls: {
     fontWeight: '500',
     fontSize: 15,
     paddingVertical: 8,
-    width: '90%'
-  }
+    width: '90%',
+  },
 });
 export default styles;

@@ -15,21 +15,24 @@ import {colors, TRANSITIONS} from '../utils/Variables';
 import commonestyles from '../CommonStyle';
 import Translucentcomponent from '../component/Translucentcomponent';
 import Banklist from '../component/Banklist';
+import Header from '../component/Header';
 import Depositlist from '../component/Depositlist';
 import Depositwalletlist from '../component/Depositwalletlist';
 import Modelselect from '../component/Modelselect';
 import Qrcode from '../component/Qrcode';
 import AddDeposit from '../component/AddDeposit';
+import Tabulation from '../component/Tabulation';
+
+const tabulationOptions = ['Crypto', 'Credit', 'Banks'];
 
 const DepositScreen = props => {
-  const [tabindex, settabindex] = useState(0);
+  const [tab, setTab] = useState(0);
   const [Kyc, setKyc] = useState(0);
   const [droptype, setdroptype] = useState('token');
-  const [showwalletdeposit, setshowwalletdeposit] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modaltransVisible, setModaltransVisible] = useState(false);
-  const [modelselect, setmodelselect] = useState(false);
   const [depositVisible, setdepositVisible] = useState(false);
+  const [modelselect, setmodelselect] = useState(false);
 
   // split this shit
   const Kyccomponent = ({
@@ -83,49 +86,18 @@ const DepositScreen = props => {
     setmodelselect(!modelselect);
   };
 
+  console.log(Header);
+
   return (
     <SafeAreaView style={styles.mainContainer}>
-      {/* split & refactor component header */}
-      <View style={commonestyles.header}>
-        <TouchableOpacity
-          onPress={() => {
-            props.navigation.navigate('Home');
-          }}>
-          <Icon name="arrow-back" color={colors.white} size={30} />
-        </TouchableOpacity>
-        <Text style={commonestyles.headertext}>Deposit</Text>
-      </View>
-
+      <Header text="Deposits" />
+      <Tabulation options={tabulationOptions} tab={tab} setTab={setTab} />
       <View style={commonestyles.body}>
         {/* split & refactor component deposit tab */}
-        <View style={styles.headertab}>
-          <TouchableOpacity
-            onPress={() => settabindex(0)}
-            style={tabindex == 0 ? styles.activetab : styles.singletab}>
-            <Text style={tabindex == 0 ? styles.lighttext : styles.darktext}>
-              Bitcoin
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => settabindex(1)}
-            style={tabindex == 1 ? styles.activetab : styles.singletab}>
-            <Text style={tabindex == 1 ? styles.lighttext : styles.darktext}>
-              Card
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => settabindex(2)}
-            style={tabindex == 2 ? styles.activetab : styles.singletab}>
-            <Text style={tabindex == 2 ? styles.lighttext : styles.darktext}>
-              Bank
-            </Text>
-          </TouchableOpacity>
-        </View>
-
         {/* change conditional according to applicantData */}
         {/* split & refactor component crypto deposits */}
         {/* create component for each screen */}
-        {Kyc > 3 && tabindex == 0 ? (
+        {Kyc > 3 && tab == 0 ? (
           <ScrollView style={{marginBottom: 70}}>
             <View>
               <View style={[commonestyles.cardborder, {marginTop: 30}]}>
@@ -216,11 +188,10 @@ const DepositScreen = props => {
             </View>
           </ScrollView>
         ) : null}
-
         {/* change conditional according to applicantData */}
         {/* split & refactor component bank deposits */}
         {/* create component for each screen */}
-        {Kyc > 3 && tabindex == 2 ? (
+        {Kyc > 3 && tab == 2 ? (
           <ScrollView>
             <View style={{paddingBottom: 120}}>
               <Banklist />
@@ -251,7 +222,6 @@ const DepositScreen = props => {
             </View>
           </ScrollView>
         ) : null}
-
         {/* split this component and create one with a type or status prop */}
         <ScrollView>
           {Kyc == 0 && (
