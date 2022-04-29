@@ -43,7 +43,7 @@ const BalanceCard = () => {
   }, []);
 
   const balanceNumber =
-    country !== 'UAE' ? balance.toFixed(2) : (balance * 3.672).toFixed(2);
+    country !== 'UAE' ? balance.toFixed(5) : (balance * 3.672).toFixed(5);
 
   const balanceInfo =
     country !== 'UAE' ? (
@@ -89,7 +89,7 @@ const BalanceCard = () => {
       <p className="text-center bg-light-gray py-1 font-secondary text-sm text-[#95989B]">
         {t('pendingBalance')}{' '}
         <span className="text-lighter-black font-medium ml-1.5">
-          ${user?.pending_balance}
+          ${user?.pending_balance.toFixed(2)}
         </span>
       </p>
       <div className="w-full">
