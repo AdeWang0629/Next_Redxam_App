@@ -43,7 +43,7 @@ const BalanceCard = () => {
   }, []);
 
   const balanceNumber =
-    country !== 'UAE' ? balance.toFixed(5) : (balance * 3.672).toFixed(5);
+    country !== 'UAE' ? balance.toFixed(2) : (balance * 3.672).toFixed(2);
 
   const balanceInfo =
     country !== 'UAE' ? (
