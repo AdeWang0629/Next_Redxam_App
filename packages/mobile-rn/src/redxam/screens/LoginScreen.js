@@ -15,6 +15,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import io from 'socket.io-client';
 import styles from '../styles/LoginScreenStyle';
 
+import Button from '../component/Button';
+
 // actions
 import {login} from '../../redux/actions/loginActions';
 import {userVerified} from '../../redux/actions/userActions';
@@ -25,7 +27,7 @@ const socket = io(BASE_URL);
 const screenWidth = Dimensions.get('window').width;
 const {height, width} = Dimensions.get('window');
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.login.isLogin);
   const [emailInput, setEmailInput] = useState('');
@@ -73,6 +75,7 @@ const LoginScreen = () => {
                   Login
                 </Text>
               </View>
+
               <View style={styles.SectionStyle}>
                 <TextInput
                   label="Email"
@@ -89,43 +92,19 @@ const LoginScreen = () => {
                 />
               </View>
 
-              <View style={styles.remtop}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    width: '50%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Image source={require('../icons/remember.png')} />
-                  <Text style={{fontWeight: 'bold', marginLeft: 10}}>
-                    Remember me
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    width: '50%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text style={{color: 'gray', fontWeight: 'bold'}}>
-                    Forgot password?
-                  </Text>
-                </View>
-              </View>
+              <Button text="Login" onClick={handleLoggin} />
 
-              <TouchableOpacity
-                onPress={handleLoggin}
-                style={styles.buttonStyle}
-                activeOpacity={0.5}>
-                <Text style={styles.buttonTextStyle}>LOGIN</Text>
-              </TouchableOpacity>
-              <View style={styles.rows}>
+              <View>
                 <Text style={styles.registerTextStyle}>
                   Don't have an account ?
                 </Text>
-                <Text style={styles.registerTextStyle2}>Sign up</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Signup')}
+                  activeOpacity={0.5}>
+                  <Text style={styles.registerTextStyle2}>
+                    Sign up to the waitlist now!
+                  </Text>
+                </TouchableOpacity>
               </View>
             </KeyboardAvoidingView>
           </View>
