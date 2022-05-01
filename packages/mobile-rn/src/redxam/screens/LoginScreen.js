@@ -42,7 +42,7 @@ const LoginScreen = ({navigation}) => {
   }, [dispatch]);
 
   const handleLoggin = async () => {
-    const res = await dispatch(login(emailInput, socket));
+    const res = await dispatch(login(emailInput));
     if (res.success) {
       setIsLogin(true);
       socket.emit('onLogin', emailInput);
