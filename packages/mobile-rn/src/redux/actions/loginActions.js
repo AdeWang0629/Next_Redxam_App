@@ -20,7 +20,6 @@ export const errorLog = error => ({
 
 export function login(email, socket) {
   return async dispatch => {
-    dispatch(isLogin());
     const res = await API.login(email);
     return res.data.data.updateToken;
   };
