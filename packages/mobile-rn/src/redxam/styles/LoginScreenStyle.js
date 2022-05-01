@@ -8,6 +8,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
     alignContent: 'center',
+  },
+  content: {
     padding: 40,
   },
   remtop: {
@@ -69,6 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 10,
+    padding: 40,
   },
   modalBox: {
     backgroundColor: '#fff',

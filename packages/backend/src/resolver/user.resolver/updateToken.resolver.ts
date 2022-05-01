@@ -180,7 +180,10 @@ export const updateToken = async (
     console.warn(
       '[Resolver] updateToken user account is not accepted and not invited'
     );
-    return messages.failed.general;
+    return {
+      success: false,
+      message: `Your account does not have access yet.`
+    };
   }
 
   try {

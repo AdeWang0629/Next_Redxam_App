@@ -4,7 +4,7 @@ import {
   Image,
   TextInput,
   KeyboardAvoidingView,
-  StyleSheet,
+  Alert,
   Text,
   View,
   SafeAreaView,
@@ -29,7 +29,7 @@ const {height, width} = Dimensions.get('window');
 
 const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const isLogin = useSelector(state => state.login.isLogin);
+  const [isLogin, setIsLogin] = useState(false);
   const [emailInput, setEmailInput] = useState('');
 
   useEffect(() => {
@@ -41,9 +41,14 @@ const LoginScreen = ({navigation}) => {
     };
   }, [dispatch]);
 
-  const handleLoggin = () => {
-    socket.emit('onLogin', emailInput);
-    dispatch(login(emailInput));
+  const handleLoggin = async () => {
+    const res = await dispatch(login(emailInput, socket));
+    if (res.success) {
+      setIsLogin(true);
+      socket.emit('onLogin', emailInput);
+    } else {
+      Alert.alert(res.message);
+    }
   };
 
   return (
@@ -57,7 +62,7 @@ const LoginScreen = ({navigation}) => {
             alignContent: 'center',
           }}>
           {isLogin && <LoginModal />}
-          <View>
+          <View style={styles.content}>
             <KeyboardAvoidingView enabled>
               <View style={{alignItems: 'center', marginBottom: 50}}>
                 <Image

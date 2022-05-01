@@ -7,6 +7,10 @@ const buttonStylesMap = {
     buttonStyle: styles.buttonStylePrimary,
     buttonTextStyle: styles.buttonTextStylePrimary,
   },
+  secondary: {
+    buttonStyle: styles.buttonStyleSecondary,
+    buttonTextStyle: styles.buttonTextStyleSecondary,
+  },
 };
 
 const Button = ({type = 'primary', text, onClick}) => {
@@ -19,7 +23,7 @@ const Button = ({type = 'primary', text, onClick}) => {
       {typeof text === 'string' ? (
         <Text style={selectedStyle.buttonTextStyle}>{text}</Text>
       ) : (
-        {text}
+        text(selectedStyle)
       )}
     </TouchableOpacity>
   );

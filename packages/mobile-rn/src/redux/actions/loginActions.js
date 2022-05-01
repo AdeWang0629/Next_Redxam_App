@@ -18,9 +18,10 @@ export const errorLog = error => ({
   payload: error,
 });
 
-export function login(email) {
-  return dispatch => {
+export function login(email, socket) {
+  return async dispatch => {
     dispatch(isLogin());
-    API.login(email);
+    const res = await API.login(email);
+    return res.data.data.updateToken;
   };
 }

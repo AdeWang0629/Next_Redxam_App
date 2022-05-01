@@ -58,5 +58,30 @@ const commonestyles = StyleSheet.create({
   body: {
     padding: 15,
   },
+  modalContainer: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0,0,0,0.85)',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+    padding: 40,
+  },
+  modalBox: {
+    backgroundColor: '#fff',
+    borderRadius: 30,
+    padding: 20,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalText: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
 });
 export default commonestyles;
