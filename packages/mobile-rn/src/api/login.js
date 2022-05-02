@@ -48,7 +48,27 @@ export const getUserData = async token => {
   );
 };
 
+export const getHomeData = async token => {
+  const query = `query {
+    home {
+      balance
+      dolarChange
+      percentChange
+    }
+  }
+`;
+
+  return axios.post(
+    `${BASE_URL}/api/v1`,
+    {query},
+    {
+      headers: {Authorization: `Bearer ${token}`},
+    },
+  );
+};
+
 export default {
   login,
   getUserData,
+  getHomeData,
 };
