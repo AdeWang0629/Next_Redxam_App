@@ -7,7 +7,17 @@ class API {
   axios: AxiosInstance;
 
   constructor() {
-    this.axios = axios.create();
+    const currentUrlHeader =
+      typeof window !== 'undefined'
+        ? { currenturl: window.location.toString() }
+        : {};
+
+    this.axios = axios.create({
+      // @ts-ignore
+      headers: {
+        ...currentUrlHeader
+      }
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this

@@ -42,7 +42,14 @@ export const inviteUser = async ({ arg }: Argument<NewUser>, req: Request) => {
       const jobMail = userCreate.sendInvitationEmail(
         form.email,
         req.headers.origin,
-        invitationCode
+        invitationCode,
+        req.headers.origin.includes('redxam.ae') ||
+          req.headers.referer.includes('/ar/') ||
+          req.headers.referer.endsWith('/ar') ||
+          req.headers.currenturl.includes('/ar/') ||
+          (req.headers.currenturl as string).endsWith('/ar')
+          ? 'ar'
+          : 'en'
       );
 
       jobs.push(jobCreate);
@@ -51,7 +58,14 @@ export const inviteUser = async ({ arg }: Argument<NewUser>, req: Request) => {
       const jobMail = userCreate.sendInvitationEmail(
         form.email,
         req.headers.origin,
-        lastOrder.invitationCode
+        lastOrder.invitationCode,
+        req.headers.origin.includes('redxam.ae') ||
+          req.headers.referer.includes('/ar/') ||
+          req.headers.referer.endsWith('/ar') ||
+          req.headers.currenturl.includes('/ar/') ||
+          (req.headers.currenturl as string).endsWith('/ar')
+          ? 'ar'
+          : 'en'
       );
       jobs.push(jobMail);
     }

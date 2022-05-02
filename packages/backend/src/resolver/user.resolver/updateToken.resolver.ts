@@ -22,9 +22,14 @@ const getLoginUrl = (token: string, origin: string, email: string) =>
 
 const templatePath = resolve(__dirname, '../../emails/simplelogin.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');
+const templateArabicPath = resolve(
+  __dirname,
+  '../../emails/simplelogin_ar.hjs'
+);
+const templateArabicData = readFileSync(templateArabicPath, 'utf-8');
 
-const renderTemplate = (loginURL: string) =>
-  render(templateData, {
+const renderTemplate = (loginURL: string, language: string) =>
+  render(language === 'ar' ? templateArabicData : templateData, {
     loginURL,
     randomText: `Ref #: ${Date.now()}`
   });
@@ -94,13 +99,17 @@ const loginAdmin = async (userId: string) => {
   return { ...messages.success.login, token };
 };
 
-const sendMail = async (targetEmail: string, loginUrl: string) => {
+const sendMail = async (
+  targetEmail: string,
+  loginUrl: string,
+  language: string
+) => {
   try {
     await sendGrid.sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
       to: targetEmail,
       subject: 'Login Email',
-      html: renderTemplate(loginUrl),
+      html: renderTemplate(loginUrl, language),
       attachments: [
         facebookIcon,
         twitterIcon,
@@ -125,14 +134,19 @@ const fetchUser = async (
     .exec();
 };
 
-const updateByEmail = async (userId: string, email: string, origin: string) => {
+const updateByEmail = async (
+  userId: string,
+  email: string,
+  origin: string,
+  language: string
+) => {
   // if (!IS_PRODUCTION && isAdmin(email)) {
   //   return loginAdmin(userId);
   // }
   const loginToken = await new JWT({ userId, type: 'login' }).sign();
   const loginUrl = getLoginUrl(loginToken, origin, email);
   console.log(loginToken);
-  await sendMail(email, loginUrl);
+  await sendMail(email, loginUrl, language);
   return messages.success.loginByEmail;
 };
 
@@ -171,7 +185,18 @@ export const updateToken = async (
   try {
     let result: Message;
     if (form.email) {
-      result = await updateByEmail(user._id, form.email, req.headers.origin);
+      result = await updateByEmail(
+        user._id,
+        form.email,
+        req.headers.origin,
+        req.headers.origin.includes('redxam.ae') ||
+          req.headers.referer.includes('/ar/') ||
+          req.headers.referer.endsWith('/ar') ||
+          req.headers.currenturl.includes('/ar/') ||
+          (req.headers.currenturl as string).endsWith('/ar')
+          ? 'ar'
+          : 'en'
+      );
     } else if (form.phone) {
       result = await updateByPhone(user._id, form.phone);
     }
