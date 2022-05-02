@@ -19,9 +19,8 @@ export function userVerified(token) {
     try {
       const data = (await API.getUserData(token)).data.data.user[0];
       const home = (await API.getHomeData(token)).data.data.home;
-      console.log(homeData);
-      dispatch(userData(data, token));
       dispatch(homeData(home));
+      dispatch(userData(data, token));
       dispatch(successLog());
     } catch (error) {
       console.log(error);

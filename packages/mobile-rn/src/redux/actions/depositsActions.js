@@ -1,21 +1,20 @@
 import API from '../../api';
-import {errorLog} from './loginActions';
 
-export const DEPOSITS_DATA = 'DEPOSITS_DATA';
+export const FETCH_DEPOSITS = 'FETCH_DEPOSITS';
 
 export const depositsData = deposits => ({
-  type: DEPOSITS_DATA,
+  type: FETCH_DEPOSITS,
   payload: {deposits},
 });
 
-export function getDeposits() {
+export function getUserDeposits(token) {
   return async dispatch => {
     try {
-      const deposits = (await API.getUserDeposits()).data.data;
+      const deposits = (await API.getUserDeposits(token)).data.data
+        .userDeposits;
       dispatch(depositsData(deposits));
     } catch (error) {
       console.log(error);
-      dispatch(errorLog(error));
     }
   };
 }

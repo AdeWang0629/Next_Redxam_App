@@ -1,12 +1,11 @@
-import {DEPOSITS_DATA} from '../actions/depositsActions';
+import {FETCH_DEPOSITS} from '../actions/depositsActions';
 const initialState = {
   deposits: {},
-  token: null,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case DEPOSITS_DATA:
+    case FETCH_DEPOSITS:
       const {deposits} = action.payload;
       return {
         ...state,

@@ -28,8 +28,6 @@ const screenWidth = Dimensions.get('window').width;
 const HomeScreen = props => {
   const user = useSelector(state => state.user.userData);
   const home = useSelector(state => state.user.homeData);
-  console.log(user);
-
   useEffect(() => {}, []);
   return (
     <SafeAreaView style={styles.mainContainer}>

@@ -6,7 +6,7 @@ import {
   FlatList,
   ScrollView,
   Image,
-  Dimensions,,
+  Dimensions,
 } from 'react-native';
 import {BottomSheet, Button, Icon, Card, Input} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -14,36 +14,27 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import styles from '../styles/DepositScreenStyle';
 import {colors} from '../utils/Variables';
 import commonestyles from '../CommonStyle';
+import {useSelector} from 'react-redux';
+
 const width = Dimensions.get('screen').width;
 const Withdrawlist = props => {
-  const [data, setData] = useState([
-    {
-      id: 0,
-      name: 'Bank of America',
-      type: 'Savings',
-      accountnumber: '2367',
-      amount: '$2000',
-      date: new Date(),
-      image: require('../assets/boa.png'),,
-    },
-    {
-      id: 1,
-      name: 'Citigroup Inc.',
-      type: 'Checking',
-      accountnumber: '6234',
-      amount: '$2000',
-      date: new Date(),
-      image: require('../assets/citi.png'),,
-    },
-  ]);;
+  const [data, setData] = useState([]);
+
+  const deposits = useSelector(state => state.deposits.deposits);
+  console.log(deposits);
+
+  useEffect(() => {
+    setData(deposits);
+  }, [deposits]);
+
   return (
     <View>
       <View style={[commonestyles.cardborder, {marginTop: 20}]}>
         <View style={styles.headercard}>
           <Text style={styles.headertextcard}>{props.heading}</Text>
         </View>
-        {data.map((item, index) => {
-          return  (
+        {deposits.map((item, index) => {
+          return (
             <View
               key={index}
               style={{
@@ -72,11 +63,19 @@ const Withdrawlist = props => {
                   {item.amount}
                 </Text>
                 <Text style={{fontSize: 15, fontWeight: '300'}}>
-                  {item.date.toDateString()}
+                  {new Date(item.timestamp).toLocaleDateString(undefined, {
+                    day: '2-digit',
+                    month: 'short',
+                  })}
+                  {', '}
+                  {new Date(item.timestamp).toLocaleTimeString(undefined, {
+                    minute: '2-digit',
+                    hour: '2-digit',
+                  })}
                 </Text>
               </View>
             </View>
-          );;
+          );
         })}
         <View style={styles.headercard}>
           <Text
