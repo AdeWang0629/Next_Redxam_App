@@ -17,8 +17,18 @@ const IS_PRODUCTION = NODE_ENV === 'production';
 const ADMIN_USERS = Object.freeze(['max@redxam.com']);
 const isAdmin = (email: string) => ADMIN_USERS.includes(email);
 
-const getLoginUrl = (token: string, origin: string, email: string) =>
-  origin + `/verify?token=${token}&email=${email}`;
+const getLoginUrl = (
+  token: string,
+  origin: string,
+  email: string,
+  isMobile: boolean
+) => {
+  if (!origin) {
+    origin = IS_PRODUCTION ? 'https://redxam.com' : 'http://localhost:3000';
+  }
+  const page = isMobile ? 'verifyRN' : 'verify';
+  return origin + `/${page}?token=${token}&email=${email}`;
+};
 
 const templatePath = resolve(__dirname, '../../emails/simplelogin.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');
@@ -138,14 +148,15 @@ const updateByEmail = async (
   userId: string,
   email: string,
   origin: string,
-  language: string
+  language: string,
+  isMobile: boolean
 ) => {
   // if (!IS_PRODUCTION && isAdmin(email)) {
   //   return loginAdmin(userId);
   // }
   const loginToken = await new JWT({ userId, type: 'login' }).sign();
-  const loginUrl = getLoginUrl(loginToken, origin, email);
-  console.log(loginToken);
+  const loginUrl = getLoginUrl(loginToken, origin, email, isMobile);
+
   await sendMail(email, loginUrl, language);
   return messages.success.loginByEmail;
 };
@@ -189,13 +200,14 @@ export const updateToken = async (
         user._id,
         form.email,
         req.headers.origin,
-        req.headers.origin.includes('redxam.ae') ||
+        (req.headers.origin.includes('redxam.ae') ||
           req.headers.referer.includes('/ar/') ||
           req.headers.referer.endsWith('/ar') ||
           req.headers.currenturl.includes('/ar/') ||
           (req.headers.currenturl as string).endsWith('/ar')
           ? 'ar'
-          : 'en'
+          : 'en'),
+        form.isMobile
       );
     } else if (form.phone) {
       result = await updateByPhone(user._id, form.phone);

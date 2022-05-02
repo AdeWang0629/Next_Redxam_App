@@ -1,20 +1,10 @@
 /* eslint-disable no-nested-ternary */
-import { useEffect, useRef, useState, useContext } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import type { NextPage } from 'next';
-import { UserContext } from '@providers/User';
 import { useTranslation } from 'next-i18next';
-import { io } from 'socket.io-client';
 import api from 'src/utils/api';
 import { validateEmail } from 'src/utils/helpers';
-import { setCookies, getCookie } from 'cookies-next';
 import SignupModel from './SignupModel';
-
-const socket = io(
-  (getCookie('environment') && getCookie('environment') === 'development'
-    ? process.env.NEXT_PUBLIC_DEV_BASE_URL
-    : process.env.NEXT_PUBLIC_PROD_BASE_URL) as string
-);
 
 interface LoginModelProps {
   isOpened: boolean;
@@ -22,8 +12,6 @@ interface LoginModelProps {
 }
 
 const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
-  const router = useRouter();
-  const { setUser, setNoUser } = useContext(UserContext);
   const { t } = useTranslation('login');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -33,27 +21,8 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
   const outsideContainerRef = useRef(null);
 
   useEffect(() => {
-    socket.on('userVerified', token => {
-      setCookies('token', token);
-      api.getUserData().then(({ data: userData }) => {
-        setUser(userData.data.user[0]);
-        setNoUser(false);
-        document.body.style.overflow = 'auto';
-        if (userData.data.user[0].accountStatus === 'invited') {
-          router.push('/invite');
-        } else {
-          router.push('/home');
-        }
-      });
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [router, setNoUser, setUser]);
-
-  useEffect(() => {
     if (typeof window === 'undefined') return;
+
     if (isOpened) {
       window.scroll({ top: 0, left: 0, behavior: 'smooth' });
       document.body.style.overflow = 'hidden';
@@ -71,14 +40,14 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
     event.preventDefault();
 
     if (!email) return alert(t('enter-email-error'));
+
     if (!validateEmail(email)) return alert(t('valid-email-error'));
+
     setLoading(true);
 
     api
       .login(email)
       .then(res => {
-        // start socket
-        socket.emit('onLogin', email);
         setResponse(res.data.data.updateToken.success);
       })
       .catch(() => {
@@ -88,6 +57,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
         setSubmitted(true);
         setLoading(false);
       });
+
     return null;
   }
 
@@ -109,7 +79,7 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
                 <p className="w-full mb-5text-black text-opacity-80 leading-[1.8] text-lg font-primary text-center">
                   {t('login-desc')}
                 </p>
-                <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+                <form className="flex flex-col" onSubmit={handleSubmit}>
                   <div className="mt-5 input-wrapper w-full">
                     <input
                       type="email"

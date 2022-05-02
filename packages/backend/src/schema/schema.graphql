@@ -109,6 +109,7 @@ input NewManualUser {
 input LoginInput {
   email: String
   phone: String
+  isMobile: Boolean = false
 }
 input SpoofInput {
   email: String
