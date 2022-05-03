@@ -9,7 +9,7 @@ class API {
   constructor() {
     let currentUrlHeader: Record<string, string> = {};
     if (window) {
-      currentUrlHeader.currentUrl = window.location.toString();
+      currentUrlHeader.currenturl = window.location.toString();
     }
 
     this.axios = axios.create({
