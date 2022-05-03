@@ -1,7 +1,12 @@
-import {USER_DATA, HOME_DATA} from '../actions/userActions';
+import {
+  USER_DATA,
+  HOME_DATA,
+  BALANCE_RECORDS_DATA,
+} from '../actions/userActions';
 const initialState = {
   userData: {},
   homeData: {},
+  balanceRecords: {},
   token: null,
 };
 
@@ -20,6 +25,13 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         homeData: home,
+      };
+
+    case BALANCE_RECORDS_DATA:
+      const {balanceRecords} = action.payload;
+      return {
+        ...state,
+        balanceRecords,
       };
     default:
       return state;

@@ -20,15 +20,13 @@ const theme = {
 Orientation.lockToPortrait();
 const App = () => {
   return (
-    <>
-      <SafeAreaView style={styles.mainContainer}>
-        <ThemeProvider useDark={thememode === 'light'}>
-          <Provider store={store}>
-            <Router />
-          </Provider>
-        </ThemeProvider>
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={styles.mainContainer}>
+      <ThemeProvider useDark={thememode === 'light'}>
+        <Provider store={store}>
+          <Router />
+        </Provider>
+      </ThemeProvider>
+    </SafeAreaView>
   );
 };
 export default App;

@@ -66,8 +66,28 @@ export const getHomeData = async token => {
   );
 };
 
+export const getBalanceRecords = async token => {
+  const query = `
+  query {
+    balanceRecords {
+      balance
+      timestamp
+    }
+  }
+`;
+
+  return axios.post(
+    `${BASE_URL}/api/v1`,
+    {query, view: 'ALL'},
+    {
+      headers: {Authorization: `Bearer ${token}`},
+    },
+  );
+};
+
 export default {
   login,
   getUserData,
   getHomeData,
+  getBalanceRecords,
 };
