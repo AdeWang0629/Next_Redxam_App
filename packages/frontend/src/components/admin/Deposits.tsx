@@ -2,10 +2,13 @@
 /* eslint-disable max-len */
 import { useEffect, useState } from 'react';
 import api from '@utils/api';
+import tokensData from '@utils/Tokens.json';
+
 import { getCookie } from 'cookies-next';
 import { Deposit } from '@utils/types';
 
 export default function Deposits() {
+  const [dolarAmount, setDolarAmount] = useState<{ [key: string]: string }>({});
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
 
   useEffect(() => {
@@ -25,19 +28,23 @@ export default function Deposits() {
     })();
   }, []);
 
-  const confirmDeposit = async (depositId: string) => {
-    (async () => {
-      await api
-        .updateDepositStatus(
-          getCookie('admin_token') as string,
-          depositId,
-          'completed'
-        )
-        .then(res => {
-          alert(res.data.data.updateDepositStatus.message);
-        })
-        .catch(err => alert(err));
-    })();
+  const confirmDeposit = async (depositId: string, email: string) => {
+    try {
+      await api.addContributionFromValue(
+        getCookie('admin_token') as string,
+        parseFloat(dolarAmount[depositId]),
+        email
+      );
+      await api.updateDepositStatus(
+        getCookie('admin_token') as string,
+        depositId,
+        'completed'
+      );
+      delete dolarAmount[depositId];
+      alert('deposit confirmed successfully');
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return deposits.length ? (
@@ -68,8 +75,11 @@ export default function Deposits() {
           <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20 ">
             Hash:
           </th>
-          <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20 rounded-tr-xl">
+          <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
             Date:
+          </th>
+          <th className="bg-black dark:bg-gray-300 bg-opacity-10 py-4 px-2 text-left border border-black dark:border-white border-opacity-20 rounded-tr-xl">
+            Dolar amount:
           </th>
         </tr>
       </thead>
@@ -97,7 +107,11 @@ export default function Deposits() {
               {!deposit.amount ? (
                 <span className="underline font-bold">N/A</span>
               ) : deposit.type === 'CRYPTO' ? (
-                deposit.amount * 0.00000001
+                deposit.amount /
+                10 **
+                  // @ts-ignore
+                  tokensData[deposit.currency].networks[deposit.network]
+                    .decimals
               ) : (
                 deposit.amount
               )}
@@ -141,9 +155,21 @@ export default function Deposits() {
               )}
             </td>
             <td className="bg-[#3eb402] dark:bg-gray-300 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
+              <input
+                value={dolarAmount[deposit._id] || ''}
+                type="text"
+                onChange={e =>
+                  setDolarAmount(prev => ({
+                    ...prev,
+                    [deposit._id]: e.target.value
+                  }))
+                }
+              />
+            </td>
+            <td className="bg-[#3eb402] dark:bg-gray-300 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
               <button
                 className="text-white"
-                onClick={() => confirmDeposit(deposit._id)}
+                onClick={() => confirmDeposit(deposit._id, deposit.email)}
               >
                 Confirm
               </button>

@@ -16,6 +16,7 @@ export interface Deposits {
   bankName: string;
   bankIcon: string;
   bankType: string;
+  network?: string;
 }
 export interface DepositsProps extends Document, Deposits {
   created_at?: Date;
@@ -26,4 +27,7 @@ export interface DepositsModel extends Model<DepositsProps> {
   findOneOrCreate: findOneOrCreate<DepositsProps, DepositsModel>;
 }
 
-export const Deposits = model<DepositsProps, DepositsModel>('Deposits', DepositsSchema);
+export const Deposits = model<DepositsProps, DepositsModel>(
+  'Deposits',
+  DepositsSchema
+);
