@@ -26,6 +26,7 @@ type Deposits {
   bankIcon: String
   bankName: String
   bankType: String
+  network: String
   email: String
 }
 type InternalDeposits {

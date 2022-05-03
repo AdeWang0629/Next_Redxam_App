@@ -13,6 +13,7 @@ export interface Deposit {
   bankIcon: string | null;
   bankName: string | null;
   bankType: string | null;
+  network?: string;
 }
 
 export interface Users {
@@ -30,6 +31,7 @@ export interface Tokens {
 export interface Network {
   isTestnet: boolean;
   name: string;
+  decimals: number;
 }
 
 export interface Token {
