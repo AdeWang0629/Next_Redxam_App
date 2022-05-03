@@ -7,13 +7,12 @@ class API {
   axios: AxiosInstance;
 
   constructor() {
-    const currentUrlHeader =
-      typeof window !== 'undefined'
-        ? { currenturl: window.location.toString() }
-        : {};
+    let currentUrlHeader: Record<string, string> = {};
+    if (window) {
+      currentUrlHeader.currentUrl = window.location.toString();
+    }
 
     this.axios = axios.create({
-      // @ts-ignore
       headers: {
         ...currentUrlHeader
       }
@@ -24,8 +23,8 @@ class API {
   get baseURL() {
     return (
       typeof window !== 'undefined' &&
-      getCookie('environment') &&
-      getCookie('environment') === 'development'
+        getCookie('environment') &&
+        getCookie('environment') === 'development'
         ? process.env.NEXT_PUBLIC_DEV_BASE_URL
         : process.env.NEXT_PUBLIC_PROD_BASE_URL
     ) as string;
@@ -46,8 +45,8 @@ class API {
       this.getToken() ? { Authorization: `Bearer ${this.getToken()}` } : {}
     ) as
       | {
-          Authorization: string;
-        }
+        Authorization: string;
+      }
       | {};
   }
 
