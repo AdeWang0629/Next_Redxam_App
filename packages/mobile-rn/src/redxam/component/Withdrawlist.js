@@ -15,6 +15,7 @@ import styles from '../styles/DepositScreenStyle';
 import {colors} from '../utils/Variables';
 import commonestyles from '../CommonStyle';
 import {useSelector} from 'react-redux';
+import ListItemSwipeable from 'react-native-elements/dist/list/ListItemSwipeable';
 
 const width = Dimensions.get('screen').width;
 const Withdrawlist = props => {
@@ -33,45 +34,66 @@ const Withdrawlist = props => {
           <Text style={styles.headertextcard}>{props.heading}</Text>
         </View>
         {deposits.map((item, index) => {
+          console.log(item);
           return (
             <View
               key={index}
               style={{
                 flexDirection: 'row',
-                padding: 15,
+                paddingVertical: 20,
+                paddingHorizontal: 5,
                 borderBottomColor: '#ccc',
                 borderBottomWidth: 0.5,
+                width: '88%',
               }}>
-              <Image source={item.image} style={{width: 50, height: 50}} />
-              <View style={{paddingHorizontal: 10, paddingVertical: 5}}>
-                <Text style={{fontSize: 15, fontWeight: '600'}}>
-                  {item.name}
-                </Text>
-                <Text style={{fontSize: 15, fontWeight: '300'}}>
-                  {item.type} ({item.accountnumber})
-                </Text>
-              </View>
-              <View style={{paddingHorizontal: 10, paddingVertical: 5}}>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    fontWeight: '600',
-                    width: '100%',
-                    textAlign: 'right',
-                  }}>
-                  {item.amount}
-                </Text>
-                <Text style={{fontSize: 15, fontWeight: '300'}}>
-                  {new Date(item.timestamp).toLocaleDateString(undefined, {
-                    day: '2-digit',
-                    month: 'short',
-                  })}
-                  {', '}
-                  {new Date(item.timestamp).toLocaleTimeString(undefined, {
-                    minute: '2-digit',
-                    hour: '2-digit',
-                  })}
-                </Text>
+              <Image
+                source={require('../assets/bankPlaceholder.png')}
+                style={{width: 40, height: 40, marginRight: 10}}
+              />
+              <View
+                style={{
+                  width: '100%',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <View>
+                  <Text style={{fontSize: 15, fontWeight: '600'}}>
+                    {item.type === 'CRYPTO' ? 'BITCOIN' : item.bankName}
+                  </Text>
+                  <Text style={{fontSize: 15, fontWeight: '300'}}>
+                    Processed
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontWeight: '600',
+                      textAlign: 'right',
+                    }}>
+                    {item.currency === 'USD' ? '$' : item.currency}{' '}
+                    {item.type === 'FIAT'
+                      ? item.amount
+                      : item.amount * 0.00000001}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontWeight: '300',
+                      textAlign: 'right',
+                    }}>
+                    {new Date(item.timestamp).toLocaleDateString(undefined, {
+                      day: '2-digit',
+                      month: 'short',
+                    })}
+                    {', '}
+                    {new Date(item.timestamp).toLocaleTimeString(undefined, {
+                      minute: '2-digit',
+                      hour: '2-digit',
+                    })}
+                  </Text>
+                </View>
               </View>
             </View>
           );

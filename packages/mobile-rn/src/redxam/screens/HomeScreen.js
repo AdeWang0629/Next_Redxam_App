@@ -90,6 +90,7 @@ const HomeScreen = props => {
           </View>
           <View style={commonestyles.rowdirection}>
             <TouchableOpacity
+              disabled={true}
               onPress={() => {
                 props.navigation.navigate('Deposit');
               }}
@@ -99,6 +100,7 @@ const HomeScreen = props => {
                 borderRightColor: '#FAFAFA',
               }}>
               <Text
+                opacity={0.5}
                 style={[
                   commonestyles.headingtext,
                   {width: '100%', textAlign: 'center'},
@@ -126,8 +128,7 @@ const HomeScreen = props => {
             <View style={{width: '65%', padding: 10}}>
               <Text style={commonestyles.headingtext}>Invite your friend</Text>
               <Text style={styles.name}>
-                Lorem ipsum asked the dog to jump over 17 foxes, but the dog
-                barked and asked Lorem to not order like a dog.
+                Get rewarded when a friend adds money to redxam.
               </Text>
               <View style={[commonestyles.rowdirection, {marginTop: 20}]}>
                 <Icon
