@@ -100,15 +100,19 @@ const HomeScreen = props => {
                 borderRightColor: '#FAFAFA',
               }}>
               <Text
-                opacity={0.5}
                 style={[
                   commonestyles.headingtext,
-                  {width: '100%', textAlign: 'center'},
+                  {
+                    width: '100%',
+                    textAlign: 'center',
+                    color: 'rgba(0,0,0,0.2)',
+                  },
                 ]}>
                 Deposit
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              disabled={true}
               onPress={() => {
                 props.navigation.navigate('Withdraw');
               }}
@@ -116,7 +120,11 @@ const HomeScreen = props => {
               <Text
                 style={[
                   commonestyles.headingtext,
-                  {width: '100%', textAlign: 'center'},
+                  {
+                    width: '100%',
+                    textAlign: 'center',
+                    color: 'rgba(0,0,0,0.2)',
+                  },
                 ]}>
                 Withdraw
               </Text>
