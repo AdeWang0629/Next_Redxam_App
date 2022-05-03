@@ -136,7 +136,8 @@ export class PolygonToken implements Token {
             currency: this.symbol,
             processedByRedxam: false,
             hash: deposit.hash,
-            amount: deposit.value
+            amount: deposit.value,
+            network: this.network
           },
           $setOnInsert: {
             timestamp: Date.now(),
