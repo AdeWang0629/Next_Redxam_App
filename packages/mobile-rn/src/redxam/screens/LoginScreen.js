@@ -20,6 +20,7 @@ import Button from '../component/Button';
 // actions
 import {login} from '../../redux/actions/loginActions';
 import {userVerified} from '../../redux/actions/userActions';
+import {getUserDeposits} from '../../redux/actions/depositsActions';
 import {BASE_URL} from '@env';
 
 const socket = io(BASE_URL);
@@ -35,6 +36,7 @@ const LoginScreen = ({navigation}) => {
   useEffect(() => {
     socket.on('userVerified', token => {
       dispatch(userVerified(token));
+      dispatch(getUserDeposits(token));
     });
     return () => {
       socket.disconnect();

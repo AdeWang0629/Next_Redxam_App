@@ -5,7 +5,6 @@ import {BASE_URL} from '@env';
 
 export const login = async email => {
   console.log(BASE_URL);
-  console.log('hola bebe');
   const mutation = `mutation {
     updateToken(arg: {
         email: "${email}",
@@ -48,7 +47,47 @@ export const getUserData = async token => {
   );
 };
 
+export const getHomeData = async token => {
+  const query = `query {
+    home {
+      balance
+      dolarChange
+      percentChange
+    }
+  }
+`;
+
+  return axios.post(
+    `${BASE_URL}/api/v1`,
+    {query},
+    {
+      headers: {Authorization: `Bearer ${token}`},
+    },
+  );
+};
+
+export const getBalanceRecords = async token => {
+  const query = `
+  query {
+    balanceRecords {
+      balance
+      timestamp
+    }
+  }
+`;
+
+  return axios.post(
+    `${BASE_URL}/api/v1`,
+    {query, view: 'ALL'},
+    {
+      headers: {Authorization: `Bearer ${token}`},
+    },
+  );
+};
+
 export default {
   login,
   getUserData,
+  getHomeData,
+  getBalanceRecords,
 };
