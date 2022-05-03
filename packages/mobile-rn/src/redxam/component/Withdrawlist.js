@@ -31,7 +31,9 @@ const Withdrawlist = props => {
     <View>
       <View style={[commonestyles.cardborder, {marginTop: 20}]}>
         <View style={styles.headercard}>
-          <Text style={styles.headertextcard}>{props.heading}</Text>
+          <Text style={[styles.headertextcard, {color: '#000'}]}>
+            {props.heading}
+          </Text>
         </View>
         {deposits.map((item, index) => {
           console.log(item);
