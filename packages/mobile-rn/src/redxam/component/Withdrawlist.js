@@ -21,7 +21,6 @@ const Withdrawlist = props => {
   const [data, setData] = useState([]);
 
   const deposits = useSelector(state => state.deposits.deposits);
-  console.log(deposits);
 
   useEffect(() => {
     setData(deposits);

@@ -11,14 +11,7 @@ import {
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {BottomSheet, Button, Icon, Card} from 'react-native-elements';
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from 'react-native-chart-kit';
+import {LineChart} from 'react-native-chart-kit';
 import styles from '../styles/HomeScreenStyle';
 import {colors} from '../utils/Variables';
 import commonestyles from '../CommonStyle';
@@ -26,9 +19,29 @@ import Withdrawlist from '../component/Withdrawlist';
 const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen = props => {
+  const [percentChange, setPercentChange] = useState(0);
+  const [dolarChange, setDolarChange] = useState(0);
   const user = useSelector(state => state.user.userData);
   const home = useSelector(state => state.user.homeData);
-  useEffect(() => {}, []);
+  const balanceRecords = useSelector(state => state.user.balanceRecords);
+
+  let performanceBalances = [];
+
+  useEffect(() => {
+    if (home.percentChange && home.dolarChange) {
+      setPercentChange(home.percentChange);
+      setDolarChange(home.dolarChange);
+    }
+  }, [home]);
+
+  if (balanceRecords) {
+    balanceRecords.map(balanceRecord =>
+      performanceBalances.push(balanceRecord.balance),
+    );
+  } else {
+    performanceBalances.push(0, 0, 0, 0);
+  }
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <StatusBar
@@ -59,7 +72,7 @@ const HomeScreen = props => {
         <View style={commonestyles.cardborder}>
           <View style={styles.user}>
             <Text style={styles.name}>Total redxam balance</Text>
-            <Text style={styles.money}>${home.balance}</Text>
+            <Text style={styles.money}>${home.balance.toFixed(4)}</Text>
           </View>
           <View style={styles.cardstripe}>
             <Text style={{fontWeight: '400', fontSize: 14, color: '#95989B'}}>
@@ -139,12 +152,9 @@ const HomeScreen = props => {
           <View style={[commonestyles.rowdirection, {paddingTop: 15}]}>
             <View style={{width: '60%', paddingLeft: 15}}>
               <Text style={styles.name}>Performance</Text>
-              <Text
-                style={
-                  commonestyles.headingtext
-                }>{`${home.percentChange.toFixed(
+              <Text style={commonestyles.headingtext}>{`${percentChange.toFixed(
                 2,
-              )}% ($${home.dolarChange.toFixed(2)})`}</Text>
+              )}% ($${dolarChange.toFixed(2)})`}</Text>
             </View>
             <View style={{width: '40%', paddingRight: 15}}>
               <Text style={[styles.name, {textAlign: 'right'}]}>
@@ -161,14 +171,7 @@ const HomeScreen = props => {
                 labels: [],
                 datasets: [
                   {
-                    data: [
-                      Math.random(0, 99) * 100,
-                      Math.random(0, 99) * 100,
-                      Math.random(0, 99) * 100,
-                      Math.random(0, 99) * 100,
-                      Math.random(0, 99) * 100,
-                      Math.random(0, 99) * 100,
-                    ],
+                    data: performanceBalances,
                   },
                 ],
               }}
