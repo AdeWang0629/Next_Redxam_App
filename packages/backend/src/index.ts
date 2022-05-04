@@ -48,11 +48,7 @@ export const io = new Server(server, {
 const connectedByEmail = {};
 
 io.on('connection', socket => {
-  console.log('hola me conecte');
-  console.log(socket.id);
-
   socket.on('onLogin', email => {
-    console.log(email);
     connectedByEmail[email] = socket.id;
   });
 

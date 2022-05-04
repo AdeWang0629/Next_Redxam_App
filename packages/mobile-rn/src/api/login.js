@@ -4,7 +4,6 @@ import walletQuery from './wallets';
 import {BASE_URL} from '@env';
 
 export const login = async email => {
-  console.log(BASE_URL);
   const mutation = `mutation {
     updateToken(arg: {
         email: "${email}",
