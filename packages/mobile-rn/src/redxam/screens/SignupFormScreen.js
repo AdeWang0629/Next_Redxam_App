@@ -10,6 +10,7 @@ import {
   ScrollView,
   SafeAreaView,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import Button from '../component/Button';
@@ -17,6 +18,7 @@ import bgImage from '../assets/signupbg-nocard.png';
 import SocialBar from '../component/SocialBar';
 import styles from '../styles/SignupFormScreen.style';
 import commonestyles from '../CommonStyle';
+import logo from '../assets/redxam-logo-white.png';
 
 // Actions
 import {signup} from '../../redux/actions/signupActions';
@@ -58,10 +60,8 @@ const SignupFormScreen = ({navigation}) => {
           <ActivityIndicator size="large" color="#00ff00" />
         </View>
       )}
-      <ImageBackground
-        source={bgImage}
-        resizeMode="stretch"
-        style={styles.image}>
+      <ImageBackground source={bgImage} resizeMode="cover" style={styles.image}>
+        <Image source={logo} style={commonestyles.logo} resizeMode="contain" />
         <KeyboardAvoidingView enabled>
           <View>
             <Text style={styles.titleText}>Join the Waitlist</Text>

@@ -83,5 +83,11 @@ const commonestyles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  logo: {
+    position: 'absolute',
+    top: 0,
+    left: 20,
+    width: 120,
+  },
 });
 export default commonestyles;

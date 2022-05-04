@@ -10,23 +10,33 @@ export default StyleSheet.create({
     padding: 40,
   },
   titleText: {
-    color: '#000',
-    fontSize: 35,
+    color: '#414141',
+    fontSize: 40,
     lineHeight: 40,
-    fontWeight: 'bold',
     textAlign: 'left',
+    fontFamily: 'Rubik',
+  },
+  underline: {
+    textDecorationLine: 'underline',
+  },
+  bold: {
+    fontWeight: 'bold',
   },
   text: {
-    color: '#000',
+    color: '#818181',
     fontSize: 18,
+    fontFamily: 'Rubik',
   },
-  buttonText: {
+  buttonTextContainer: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
+  buttonText: {
+    textTransform: 'none',
+  },
   buttonSize: {
-    width: '80%',
+    width: '90%',
   },
   blurContainer: {
     position: 'relative',
@@ -70,5 +80,11 @@ export default StyleSheet.create({
     fontSize: 16,
     textTransform: 'uppercase',
     textAlign: 'center',
+  },
+  logo: {
+    position: 'absolute',
+    bottom: -5,
+    right: 15,
+    width: 50,
   },
 });

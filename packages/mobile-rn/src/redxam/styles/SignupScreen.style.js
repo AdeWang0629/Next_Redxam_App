@@ -11,10 +11,17 @@ export default StyleSheet.create({
   },
   titleText: {
     color: '#fff',
-    fontSize: 35,
+    fontSize: 40,
     lineHeight: 40,
-    fontWeight: 'bold',
     textAlign: 'left',
+    fontFamily: 'Rubik',
+  },
+  underline: {
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
+  },
+  boldy: {
+    fontWeight: 'bold',
   },
   text: {
     color: '#fff',
