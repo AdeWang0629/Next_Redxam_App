@@ -7,8 +7,8 @@ class API {
   axios: AxiosInstance;
 
   constructor() {
-    let currentUrlHeader: Record<string, string> = {};
-    if (window) {
+    const currentUrlHeader: Record<string, string> = {};
+    if (typeof window !== 'undefined') {
       currentUrlHeader.currenturl = window.location.toString();
     }
 
@@ -23,8 +23,8 @@ class API {
   get baseURL() {
     return (
       typeof window !== 'undefined' &&
-        getCookie('environment') &&
-        getCookie('environment') === 'development'
+      getCookie('environment') &&
+      getCookie('environment') === 'development'
         ? process.env.NEXT_PUBLIC_DEV_BASE_URL
         : process.env.NEXT_PUBLIC_PROD_BASE_URL
     ) as string;
@@ -45,8 +45,8 @@ class API {
       this.getToken() ? { Authorization: `Bearer ${this.getToken()}` } : {}
     ) as
       | {
-        Authorization: string;
-      }
+          Authorization: string;
+        }
       | {};
   }
 
