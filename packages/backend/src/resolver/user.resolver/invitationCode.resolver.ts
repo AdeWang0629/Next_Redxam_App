@@ -22,7 +22,14 @@ export const invitationCode = async (
       user.level,
       req.headers.origin,
       user.waitlistToken,
-      user.referralCode
+      user.referralCode,
+      req.headers.origin.includes('redxam.ae') ||
+        req.headers.referer.includes('/ar/') ||
+        req.headers.referer.endsWith('/ar') ||
+        req.headers.currenturl.includes('/ar/') ||
+        (req.headers.currenturl as string).endsWith('/ar')
+        ? 'ar'
+        : 'en'
     );
     const token = new JWT({ userId: user._id, type: 'login' }).signSync();
     await user.updateOne({

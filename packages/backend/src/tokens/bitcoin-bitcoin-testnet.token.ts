@@ -25,7 +25,7 @@ export class BitcoinBitcoinTestnetToken
   constructor() {
     super();
     this.isTestNet = true;
-    this.symbol = 'TEST_BTC';
+    this.symbol = 'BTC';
     this.txFee = TEST_BTC_TX_FEE;
     this.threshold = TEST_BTC_BALANCE_THRESHOLD;
     this.redxamAddress = TEST_REDXAM_ADDRESS;

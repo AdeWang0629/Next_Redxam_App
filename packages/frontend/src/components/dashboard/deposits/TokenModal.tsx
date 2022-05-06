@@ -4,9 +4,8 @@ import { useTranslation } from 'next-i18next';
 
 import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Tokens, Token } from '@utils/types';
+import tokensData from '@utils/Tokens.json';
 import Card from '../Card';
-
-import tokensData from './Tokens.json';
 
 type Props = {
   setTokenModal(modal: boolean): void;

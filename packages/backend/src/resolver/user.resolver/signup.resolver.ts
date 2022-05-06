@@ -32,7 +32,17 @@ export const signup = async ({ arg }: Argument<NewUser>, req: Request) => {
       type: 'login'
     }).sign();
     const loginUrl = getLoginUrl(loginToken, req.headers.origin);
-    await sendMail(form.email, loginUrl);
+    await sendMail(
+      form.email,
+      loginUrl,
+      req.headers.origin.includes('redxam.ae') ||
+        req.headers.referer.includes('/ar/') ||
+        req.headers.referer.endsWith('/ar') ||
+        req.headers.currenturl.includes('/ar/') ||
+        (req.headers.currenturl as string).endsWith('/ar')
+        ? 'ar'
+        : 'en'
+    );
 
     return messages.success.register;
   } catch (error) {
@@ -44,19 +54,23 @@ export const signup = async ({ arg }: Argument<NewUser>, req: Request) => {
 const getLoginUrl = (token: string, origin: string) =>
   origin + `/verify?token=${token}`;
 
-const renderTemplate = (loginURL: string) =>
-  render(templateData, {
+const renderTemplate = (loginURL: string, language: string) =>
+  render(language === 'ar' ? templateArabicData : templateData, {
     loginURL,
     randomText: `Ref #: ${Date.now()}`
   });
 
-const sendMail = async (targetEmail: string, loginUrl: string) => {
+const sendMail = async (
+  targetEmail: string,
+  loginUrl: string,
+  language: string
+) => {
   try {
     await sendGrid.sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
       to: targetEmail,
       subject: 'Signup Email',
-      html: renderTemplate(loginUrl),
+      html: renderTemplate(loginUrl, language),
       attachments: [
         facebookIcon,
         twitterIcon,
@@ -72,6 +86,11 @@ const sendMail = async (targetEmail: string, loginUrl: string) => {
 
 const templatePath = resolve(__dirname, '../../emails/simplelogin.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');
+const templateArabicPath = resolve(
+  __dirname,
+  '../../emails/simplelogin_ar.hjs'
+);
+const templateArabicData = readFileSync(templateArabicPath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',

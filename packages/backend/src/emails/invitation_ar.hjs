@@ -1,0 +1,85 @@
+<html xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    <meta content='width=device-width, initial-scale=1' name='viewport' />
+    <title>Invited</title>
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    <link
+      href='https://fonts.googleapis.com/css2?family=Tajawal:wght@700&display=swap'
+      rel='stylesheet'
+    />
+  </head>
+
+  <body>
+    <table style='margin: 2rem auto;'>
+      <tbody>
+        <tr style='text-align: center;'>
+          <td>
+            <h1
+              style='text-align: center; font-family: "Tajawal", sans-serif; font-weight: bold; font-size: 60px; line-height: 120%; text-align: center; margin: 0;
+letter-spacing: -0.05em; color: #2A3037;'
+            >
+              مبروك ، لقد تم دعوتك الى ردزام!
+            </h1>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p
+              style='font-family: "Tajawal", sans-serif; font-size: 17px; line-height: 180%; text-align: center; color: #000000; opacity: 0.8;'
+            >
+              هذا هو رمز الدعوة الخاص بك:
+            </p>
+            <h3
+              style='text-align: center; font-family: "Tajawal", sans-serif; font-weight: bold; font-size: 48px; line-height: 120%; text-align: center; margin: 0;
+letter-spacing: -0.05em; color: #2A3037;'
+            >
+              {{invitationCode}}
+            </h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p
+              style='font-family: "Tajawal", sans-serif; font-size: 17px; line-height: 180%; text-align: center; color: #000000; opacity: 0.8;'
+            >
+              يرجى ادخال الرمز الى الرابط التالي لتكن جزءًا من ردزام:
+              <a href='{{origin}}/invite'>مرحبًا بك في ردزام</a>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <br />
+          <br />
+        </tr>
+        <tr style='text-align: center;'>
+          <span
+            style='font-family: "Tajawal", sans-serif; font-size: 8px; line-height: 180%; text-align: center; color: #000000; opacity: 0.7;'
+          >
+            {{randomText}}
+          </span>
+          <span
+            style='font-family: "Tajawal", sans-serif; font-size: 8px; line-height: 180%; text-align: center; color: #000000; opacity: 0.7;'
+          >
+            •
+          </span>
+          <a
+            href='https://redxam.ae'
+            style='font-family: "Tajawal", sans-serif; font-size: 8px; line-height: 180%; text-align: center; color: #000000; opacity: 0.7;'
+          >
+            redxam.ae
+          </a>
+        </tr>
+        <tr style='text-align: center;'>
+          <a href='https://bit.ly/3sDVHhe'><img src='cid:linkedin@ico' /></a>
+          <a href='https://bit.ly/33oAfEe'><img src='cid:twitter@ico' /></a>
+          <a href='https://bit.ly/3uUt3el'><img src='cid:facebook@ico' /></a>
+          <a href='https://bit.ly/33qB53x'><img src='cid:telegram@ico' /></a>
+          <a href='https://bit.ly/3HVyJZe'><img src='cid:discord@ico' /></a>
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+</html>

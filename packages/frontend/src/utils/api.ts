@@ -7,15 +7,24 @@ class API {
   axios: AxiosInstance;
 
   constructor() {
-    this.axios = axios.create();
+    let currentUrlHeader: Record<string, string> = {};
+    if (window) {
+      currentUrlHeader.currenturl = window.location.toString();
+    }
+
+    this.axios = axios.create({
+      headers: {
+        ...currentUrlHeader
+      }
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
   get baseURL() {
     return (
       typeof window !== 'undefined' &&
-      getCookie('environment') &&
-      getCookie('environment') === 'development'
+        getCookie('environment') &&
+        getCookie('environment') === 'development'
         ? process.env.NEXT_PUBLIC_DEV_BASE_URL
         : process.env.NEXT_PUBLIC_PROD_BASE_URL
     ) as string;
@@ -36,8 +45,8 @@ class API {
       this.getToken() ? { Authorization: `Bearer ${this.getToken()}` } : {}
     ) as
       | {
-          Authorization: string;
-        }
+        Authorization: string;
+      }
       | {};
   }
 
@@ -258,6 +267,7 @@ class API {
           bankIcon
           bankName
           bankType
+          network
           email
         }
         success
@@ -333,6 +343,26 @@ class API {
   updateDepositStatus(adminToken: string, depositId: string, status: string) {
     const mutation = `mutation {
       updateDepositStatus (arg: {depositId: "${depositId}", status: "${status}"}) {
+        message
+        success
+      }
+    }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
+  addContributionFromValue(
+    adminToken: string,
+    dolarAmount: number,
+    email: string
+  ) {
+    const mutation = `mutation {
+      addContributionFromValue (arg: {amount: ${dolarAmount}, email: "${email}"}) {
         message
         success
       }

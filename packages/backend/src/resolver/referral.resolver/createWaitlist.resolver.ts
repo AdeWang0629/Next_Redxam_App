@@ -43,7 +43,14 @@ export const createWaitlist = async (
         level,
         req.headers.origin,
         waitlistToken,
-        referralCode
+        referralCode,
+        req.headers.origin.includes('redxam.ae') ||
+          req.headers.referer.includes('/ar/') ||
+          req.headers.referer.endsWith('/ar') ||
+          req.headers.currenturl.includes('/ar/') ||
+          (req.headers.currenturl as string).endsWith('/ar')
+          ? 'ar'
+          : 'en'
       );
 
       jobs.push(jobMail);
@@ -55,7 +62,14 @@ export const createWaitlist = async (
         level,
         req.headers.origin,
         lastOrder.waitlistToken,
-        lastOrder.referralCode
+        lastOrder.referralCode,
+        req.headers.origin.includes('redxam.ae') ||
+          req.headers.referer.includes('/ar/') ||
+          req.headers.referer.endsWith('/ar') ||
+          req.headers.currenturl.includes('/ar/') ||
+          (req.headers.currenturl as string).endsWith('/ar')
+          ? 'ar'
+          : 'en'
       );
 
       jobs.push(jobMail);

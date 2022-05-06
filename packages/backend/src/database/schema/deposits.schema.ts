@@ -5,68 +5,72 @@ export const DepositsSchema = new Schema(
   {
     userId: {
       type: String,
-      required: true,
+      required: true
     },
     hash: {
       type: String,
-      required: false,
+      required: false
     },
     address: {
       type: String,
-      required: false,
+      required: false
     },
     type: {
       type: String,
       enum: DepositsType,
-      default: DepositsType.CRYPTO,
+      default: DepositsType.CRYPTO
     },
     currency: {
       type: String,
       enum: DepositsCurrencyType,
-      default: DepositsCurrencyType.BTC,
+      default: DepositsCurrencyType.BTC
     },
     amount: {
       type: Number,
-      default: 0,
+      default: 0
     },
     index: {
       type: Number,
-      required: false,
+      required: false
     },
     timestamp: {
       type: Number,
-      required: true,
+      required: true
     },
     processedByRedxam: {
       type: Boolean,
       required: true,
-      default: false,
+      default: false
     },
     status: {
       type: String,
-      required: true,
+      required: true
     },
     stripeChargeId: {
       type: String,
-      required: false,
+      required: false
     },
     bankName: {
       type: String,
-      required: false,
+      required: false
     },
     bankIcon: {
       type: String,
-      required: false,
+      required: false
     },
     bankType: {
       type: String,
-      required: false,
+      required: false
     },
+    network: {
+      type: String,
+      required: false
+    }
   },
   {
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
-    },
-  },
+      updatedAt: 'updated_at'
+    }
+  }
 );
