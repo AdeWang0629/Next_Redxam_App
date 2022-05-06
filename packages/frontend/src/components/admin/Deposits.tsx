@@ -28,10 +28,11 @@ export default function Deposits() {
     })();
   }, []);
 
-  const confirmDeposit = async (depositId: string, email: string) => {
+
+  const confirmDeposit = async (depositId: string, email: string | null) => {
     try {
       const amount = parseFloat(dolarAmount[depositId]);
-      if (isNaN(amount)) throw new Error('insert a valid amount');
+      if (Number.isNaN(amount)) throw new Error('insert a valid amount');
       await api.addContributionFromValue(
         getCookie('admin_token') as string,
         amount,
@@ -44,7 +45,7 @@ export default function Deposits() {
       );
       delete dolarAmount[depositId];
       alert('deposit confirmed successfully');
-    } catch (error) {
+    } catch (error: any) {
       alert(error.message);
     }
   };
