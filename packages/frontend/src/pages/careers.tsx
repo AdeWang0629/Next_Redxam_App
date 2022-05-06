@@ -99,7 +99,7 @@ const Careers: NextPage = () => {
         </h1>
 
         <p className="text-black dark:text-white font-primary text-[1.0625rem] max-w-[43.0625rem] mb-[1.875rem] text-center text-opacity-80">
-          Redxam is changing the way the world moves and embraces
+          redxam is changing the way the world moves and embraces
           cryptocurrencies, a gateway to more and better business creating a
           financial solutions platform to make cryptocurrencies purchase simple
           and user-friendly.
@@ -161,7 +161,7 @@ const Careers: NextPage = () => {
             Our Mission
           </h2>
           <p className="text-black dark:text-white font-primary text-[0.9375rem] max-w-[43.0625rem] mb-5 text-left text-opacity-80">
-            Redxam is changing the way the world moves and embraces
+            redxam is changing the way the world moves and embraces
             cryptocurrencies, a gateway to more and better business creating a
             financial solutions platform to make cryptocurrencies purchase
             simple and user-friendly.
