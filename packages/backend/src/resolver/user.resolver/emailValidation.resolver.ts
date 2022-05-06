@@ -25,6 +25,15 @@ export const emailValidation = async (
     const verificationToken = sign({ ...arg }, TOKEN_SECURITY_KEY, {
       expiresIn: '1h'
     });
+    const language =
+      req.headers.origin.includes('redxam.ae') ||
+      req.headers.referer.includes('/ar/') ||
+      req.headers.referer.endsWith('/ar') ||
+      req.headers.currenturl.includes('/ar/') ||
+      (req.headers.currenturl as string).endsWith('/ar')
+        ? 'ar'
+        : 'en';
+
     await sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
       to: arg.email,
@@ -36,7 +45,7 @@ export const emailValidation = async (
         telegramIcon,
         discordIcon
       ],
-      html: render(templateData, {
+      html: render(language === 'ar' ? templateArabicData : templateData, {
         verificationToken,
         origin: req.headers.origin
       })
@@ -64,6 +73,12 @@ const isUser = async (email: string): Promise<boolean> =>
 
 const templatePath = resolve(__dirname, '../../emails/verification.hjs');
 const templateData = readFileSync(templatePath, 'utf-8');
+
+const templateArabicPath = resolve(
+  __dirname,
+  '../../emails/verification_ar.hjs'
+);
+const templateArabicData = readFileSync(templateArabicPath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({
   filename: 'facebook.png',

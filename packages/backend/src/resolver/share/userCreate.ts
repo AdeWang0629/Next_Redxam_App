@@ -176,16 +176,23 @@ export const sendWaitlistMail = async (
   lastOrder: number,
   origin: string,
   waitlistToken: string,
-  referralCode: string
+  referralCode: string,
+  language: string
 ) => {
-  await sendUserEmail(__dirname, '../../emails/simplewaitlist.hjs', {
-    origin,
-    lastOrder,
-    email,
-    waitlistToken,
-    referralCode,
-    subject: 'You Joined The Waitlist | redxam'
-  });
+  await sendUserEmail(
+    __dirname,
+    language === 'ar'
+      ? '../../emails/simplewaitlist_ar.hjs'
+      : '../../emails/simplewaitlist.hjs',
+    {
+      origin,
+      lastOrder,
+      email,
+      waitlistToken,
+      referralCode,
+      subject: 'You Joined The Waitlist | redxam'
+    }
+  );
 };
 
 export const sendSignupMail = async (email: string, loginUrl: string) => {
@@ -199,14 +206,21 @@ export const sendSignupMail = async (email: string, loginUrl: string) => {
 export const sendInvitationEmail = async (
   email: string,
   origin: string,
-  invitationCode: string
+  invitationCode: string,
+  language: string
 ) => {
-  await sendUserEmail(__dirname, '../../emails/invitation.hjs', {
-    email,
-    origin,
-    invitationCode,
-    subject: 'You have been invited to join Redxam!'
-  });
+  await sendUserEmail(
+    __dirname,
+    language === 'ar'
+      ? '../../emails/invitation_ar.hjs'
+      : '../../emails/invitation.hjs',
+    {
+      email,
+      origin,
+      invitationCode,
+      subject: 'You have been invited to join Redxam!'
+    }
+  );
 };
 
 export default {
