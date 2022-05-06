@@ -44,7 +44,7 @@ export default function Deposits() {
       );
       delete dolarAmount[depositId];
       alert('deposit confirmed successfully');
-    } catch (error: unknown) {
+    } catch (error: any) {
       alert(error.message);
     }
   };
