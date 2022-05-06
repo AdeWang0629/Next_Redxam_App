@@ -156,7 +156,7 @@ const updateByEmail = async (
   // }
   const loginToken = await new JWT({ userId, type: 'login' }).sign();
   const loginUrl = getLoginUrl(loginToken, origin, email, isMobile);
-
+  console.log(loginUrl);
   await sendMail(email, loginUrl, language);
   return messages.success.loginByEmail;
 };
@@ -200,13 +200,13 @@ export const updateToken = async (
         user._id,
         form.email,
         req.headers.origin,
-        (req.headers.origin.includes('redxam.ae') ||
+        req.headers.origin.includes('redxam.ae') ||
           req.headers.referer.includes('/ar/') ||
           req.headers.referer.endsWith('/ar') ||
           req.headers.currenturl.includes('/ar/') ||
           (req.headers.currenturl as string).endsWith('/ar')
           ? 'ar'
-          : 'en'),
+          : 'en',
         form.isMobile
       );
     } else if (form.phone) {
@@ -214,7 +214,8 @@ export const updateToken = async (
     }
 
     return result;
-  } catch {
+  } catch (error) {
+    console.log(error);
     return messages.failed.general;
   }
 };
