@@ -359,7 +359,7 @@ class API {
   addContributionFromValue(
     adminToken: string,
     dolarAmount: number,
-    email: string
+    email: string | null
   ) {
     const mutation = `mutation {
       addContributionFromValue (arg: {amount: ${dolarAmount}, email: "${email}"}) {

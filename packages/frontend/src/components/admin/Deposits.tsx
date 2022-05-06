@@ -28,7 +28,7 @@ export default function Deposits() {
     })();
   }, []);
 
-  const confirmDeposit = async (depositId: string, email: string) => {
+  const confirmDeposit = async (depositId: string, email: string | null) => {
     try {
       const amount = parseFloat(dolarAmount[depositId]);
       if (Number.isNaN(amount)) throw new Error('insert a valid amount');
