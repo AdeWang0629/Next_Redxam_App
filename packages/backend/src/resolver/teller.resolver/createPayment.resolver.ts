@@ -10,6 +10,9 @@ const httpsAgent = new https.Agent({
   cert: fs.readFileSync(__dirname + '/certificates/certificate.pem'),
   key: fs.readFileSync(__dirname + '/certificates/private_key.pem')
 });
+const bankIconAsBase64 = fs.readFileSync('./bankIcons/bankIcon.png', 'base64');
+const boaIconAsBase64 = fs.readFileSync('./bankIcons/boa200.png', 'base64');
+const tdbankIconAsBase64 = fs.readFileSync('./bankIcons/tdbank.png', 'base64');
 
 export const tellerPayment = async (
   {
@@ -97,6 +100,9 @@ const saveDeposit = async (
   userId: string,
   bankName: string
 ) => {
+  let bankIcon = bankIconAsBase64;
+  if (bankName.includes('America')) bankIcon = boaIconAsBase64;
+  if (bankName.includes('TD')) bankIcon = tdbankIconAsBase64;
   await Deposits.create({
     type: DepositsType.FIAT,
     currency: DepositsCurrencyType.USD,
@@ -105,6 +111,7 @@ const saveDeposit = async (
     userId,
     status: 'pending',
     bankName,
+    bankIcon,
     timestamp: new Date().getTime(),
     stripeChargeId: paymentId
   });
