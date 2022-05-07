@@ -2,9 +2,7 @@
   "compilerOptions": {
     "module": "CommonJS",
     "target": "ES2019",
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -14,15 +12,9 @@
     "baseUrl": "src",
     "tsBuildInfoFile": "dist/.tsbuildinfo",
     "paths": {
-      "blockchair-api": [
-        "apis/blockchair"
-      ],
-      "@/*": [
-        "*"
-      ]
+      "blockchair-api": ["apis/blockchair"],
+      "@/*": ["*"]
     }
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "./dist/**/*"]
 }
