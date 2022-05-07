@@ -100,9 +100,7 @@ const Scripts: NextPage = () => {
           </option>
           <option value="spoofAccount">Spoof Account</option>
           <option value="updateReferral">Update Referral Code</option>
-          <option value="updateWallets">
-            Add USDT Wallets to users without it
-          </option>
+          <option value="updateWallets">add networks to deposits</option>
           <option value="updateUserStatus">Update User Status</option>
           <option value="inviteUser">Invite User</option>
         </select>

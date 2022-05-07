@@ -1,6 +1,6 @@
 import { verify } from 'jsonwebtoken';
 import { Request } from 'express';
-import { Admin, User } from '@/database';
+import { Admin, Deposits } from '@/database';
 import getAuthorizationToken from '../share/getAuthorizationToken';
 import { generateWallets } from '@/service/wallets';
 
@@ -30,95 +30,29 @@ export const updateWallets = async (_: void, req: Request) => {
 };
 
 const updateWalletsScript = async () => {
-  User.find().then(async res => {
-    for (const user of res) {
-      const newWallets = generateWallets();
-      if (user.wallets.MATIC) {
-        await User.updateOne(
-          { _id: user._id },
-          {
-            $set: {
-              'wallets.POLYGON_USDT': {
-                ...user.wallets.MATIC,
-                txsCount: 0,
-                hasPendingTxs: false
-              },
-              'wallets.POLYGON_USDC': {
-                ...user.wallets.MATIC,
-                txsCount: 0,
-                hasPendingTxs: false
-              },
-              'wallets.POLYGON_DAI': {
-                ...user.wallets.MATIC,
-                txsCount: 0,
-                hasPendingTxs: false
-              }
-            }
-          }
-        );
-      } else if (!user.wallets.USDT_POLYGON) {
-        await User.updateOne(
-          { _id: user._id },
-          {
-            $set: {
-              'wallets.POLYGON_USDT':
-                user.wallets.POLYGON_USDT || newWallets.POLYGON_USDT,
-              'wallets.POLYGON_USDC':
-                user.wallets.POLYGON_USDT || newWallets.POLYGON_USDT,
-              'wallets.POLYGON_DAI':
-                user.wallets.POLYGON_USDT || newWallets.POLYGON_USDT
-            }
-          }
-        );
-      } else {
-        await User.updateOne(
-          { _id: user._id },
-          {
-            $set: {
-              'wallets.POLYGON_USDT': user.wallets.USDT_POLYGON,
-              'wallets.POLYGON_USDC': user.wallets.USDT_POLYGON,
-              'wallets.POLYGON_DAI': user.wallets.USDT_POLYGON
-            },
-            $unset: { 'wallets.USDT_POLYGON': '' }
-          }
-        );
+  Deposits.find({ type: 'CRYPTO' }).then(async deposits => {
+    for (const deposit of deposits) {
+      if (deposit.currency === 'USDT') {
+        await deposit.updateOne({ $set: { network: 'POLYGON_USDT' } });
       }
-      if (user.wallets.TEST_MATIC) {
-        await User.updateOne(
-          { _id: user._id },
-          {
-            $set: {
-              'wallets.TEST_POLYGON_USDT': {
-                ...user.wallets.MATIC,
-                txsCount: 0,
-                hasPendingTxs: false
-              }
-            }
-          }
-        );
-      } else if (!user.wallets.TEST_USDT_POLYGON) {
-        await User.updateOne(
-          { _id: user._id },
-          {
-            $set: {
-              'wallets.TEST_POLYGON_USDT':
-                user.wallets.POLYGON_USDT || newWallets.POLYGON_USDT
-            }
-          }
-        );
-      } else {
-        await User.updateOne(
-          { _id: user._id },
-          {
-            $set: {
-              'wallets.TEST_POLYGON_USDT':
-                user.wallets.TEST_USDT_POLYGON ||
-                user.wallets.POLYGON_USDT ||
-                newWallets.USDT_POLYGON
-            },
-            $unset: { 'wallets.TEST_USDT_POLYGON': '' }
-          }
-        );
+      if (deposit.currency === 'ERC20TEST') {
+        await deposit.updateOne({
+          $set: { network: 'TEST_POLYGON_USDT', currency: 'USDT' }
+        });
+      }
+      if (deposit.currency === 'DAI') {
+        await deposit.updateOne({ $set: { network: 'POLYGON_DAI' } });
+      }
+      if (deposit.currency === 'USDC') {
+        await deposit.updateOne({ $set: { network: 'POLYGON_USDC' } });
+      }
+      if (deposit.currency === 'BTC') {
+        await deposit.updateOne({ $set: { network: 'BTC' } });
+      }
+      if (deposit.currency === 'TEST_BTC') {
+        await deposit.updateOne({
+          $set: { network: 'TEST_BTC', currency: 'BTC' }
+        });
       }
     }
   });
