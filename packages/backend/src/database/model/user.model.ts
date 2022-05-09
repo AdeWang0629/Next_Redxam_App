@@ -14,7 +14,6 @@ export interface User {
   verification?: boolean;
   token: string;
   balance: number;
-  accountBalance: number;
   accountStatus?: string;
   hasPendingTxs?: boolean;
   balanceRecords?: [BalanceRecords];
