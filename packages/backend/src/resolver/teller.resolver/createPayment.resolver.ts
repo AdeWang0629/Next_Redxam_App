@@ -10,9 +10,18 @@ const httpsAgent = new https.Agent({
   cert: fs.readFileSync(__dirname + '/certificates/certificate.pem'),
   key: fs.readFileSync(__dirname + '/certificates/private_key.pem')
 });
-const bankIconAsBase64 = fs.readFileSync('./bankIcons/bankIcon.png', 'base64');
-const boaIconAsBase64 = fs.readFileSync('./bankIcons/boa200.png', 'base64');
-const tdbankIconAsBase64 = fs.readFileSync('./bankIcons/tdbank.png', 'base64');
+const bankIconAsBase64 = fs.readFileSync(
+  __dirname + '/bankIcons/bankIcon.png',
+  'base64'
+);
+const boaIconAsBase64 = fs.readFileSync(
+  __dirname + '/bankIcons/boa200.png',
+  'base64'
+);
+const tdbankIconAsBase64 = fs.readFileSync(
+  __dirname + '/bankIcons/tdbank.png',
+  'base64'
+);
 
 export const tellerPayment = async (
   {
