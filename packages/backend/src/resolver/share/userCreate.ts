@@ -54,7 +54,6 @@ export const createNewUser = async (
   invitationCode?: string
 ) => {
   await User.create({
-    accountBalance: 0,
     balance: 0,
     firstName: user.firstName,
     lastName: user.lastName,
@@ -76,7 +75,6 @@ export const createNewUser = async (
 
 export const signupUser = async (user: NewUser) => {
   return User.create({
-    accountBalance: 0,
     balance: 0,
     firstName: user.firstName,
     lastName: user.lastName,
