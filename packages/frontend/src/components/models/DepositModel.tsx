@@ -62,7 +62,6 @@ const DepositModel: NextPage<DepositModelProps> = ({
     type: string;
   }>(accounts[0]);
   const [value, setValue] = useState<number>(10);
-  const [memo, setMemo] = useState<string>('');
   const [depositLoading, setDepositLoading] = useState<boolean>(false);
   const [updateToken, setUpdateToken] = useState('');
 
@@ -110,7 +109,6 @@ const DepositModel: NextPage<DepositModelProps> = ({
           value,
           selectedAccount.name,
           userId,
-          memo
         );
 
         if (tellerPayment.connect_token) {
@@ -233,19 +231,6 @@ const DepositModel: NextPage<DepositModelProps> = ({
                 <span className="font-secondary text-sm text-[#95989B]">
                   Enter amount you want to deposit
                 </span>
-              </div>
-
-              <div className="mb-4 input-wrapper">
-                <input
-                  type="text"
-                  className="font-secondary"
-                  onChange={e => setMemo(e.target.value)}
-                  value={memo}
-                  id="tellerMemo"
-                />
-                <label className="font-primary" htmlFor="firstName">
-                  Enter a description
-                </label>
               </div>
 
               <button
