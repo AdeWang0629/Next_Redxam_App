@@ -4,6 +4,7 @@ import { User, Deposits, DepositsCurrencyType, DepositsType } from '@/database';
 import { getPayee } from './getPayee.resolver';
 import https from 'https';
 import fs from 'fs';
+import path from 'path';
 
 const baseUrl = 'https://api.teller.io';
 const httpsAgent = new https.Agent({
@@ -11,15 +12,15 @@ const httpsAgent = new https.Agent({
   key: fs.readFileSync(__dirname + '/certificates/private_key.pem')
 });
 const bankIconAsBase64 = fs.readFileSync(
-  __dirname + '/bankIcons/bankIcon.png',
+  path.join(__dirname, 'bankIcons', 'bankIcon.png'),
   'base64'
 );
 const boaIconAsBase64 = fs.readFileSync(
-  __dirname + '/bankIcons/boa200.png',
+  path.join(__dirname, 'bankIcons', 'boa200.png'),
   'base64'
 );
 const tdbankIconAsBase64 = fs.readFileSync(
-  __dirname + '/bankIcons/tdbank.png',
+  path.join(__dirname, 'bankIcons', 'tdbank.png'),
   'base64'
 );
 
