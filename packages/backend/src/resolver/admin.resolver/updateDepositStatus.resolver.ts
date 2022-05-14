@@ -4,7 +4,13 @@ import { render } from 'mustache';
 import { verify } from 'jsonwebtoken';
 import { Request } from 'express';
 import { Attachment } from 'nodemailer/lib/mailer';
-import { Admin, Deposits, DepositsProps, User, UserProps } from '@/database';
+import {
+  Admin,
+  TransactionsProps,
+  User,
+  UserProps,
+  Transactions
+} from '@/database';
 import { sendMail } from '@/apis/sendgrid';
 import getAuthorizationToken from '../share/getAuthorizationToken';
 
@@ -33,7 +39,7 @@ export const updateDepositStatus = async (
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'invalid admin token' };
 
-    const deposit = await Deposits.findOne({ _id: arg.depositId });
+    const deposit = await Transactions.findOne({ _id: arg.depositId });
     if (!deposit)
       return { success: false, message: 'deposit is not in the waitlist' };
 
@@ -55,7 +61,7 @@ export const updateDepositStatus = async (
 };
 
 const handleChangeDepositStatus = async (
-  deposit: DepositsProps,
+  deposit: TransactionsProps,
   status: string,
   user: UserProps
 ) => {

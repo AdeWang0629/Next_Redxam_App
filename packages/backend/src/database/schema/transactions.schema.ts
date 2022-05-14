@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
-import { DepositsType, DepositsCurrencyType } from '../enums';
+import { DepositsType, DepositsCurrencyType, TransactionTypes } from '../enums';
 
-export const DepositsSchema = new Schema(
+export const TransactionSchema = new Schema(
   {
     userId: {
       type: String,
@@ -65,6 +65,11 @@ export const DepositsSchema = new Schema(
     network: {
       type: String,
       required: false
+    },
+    direction: {
+      type: String,
+      enum: TransactionTypes,
+      default: TransactionTypes.DEPOSIT
     }
   },
   {

@@ -1,4 +1,4 @@
-import { User, Deposits, DepositsType } from '@/database';
+import { User, Transactions, TransactionTypes, DepositsType } from '@/database';
 import { sendMail } from '@/apis/sendgrid';
 
 const { SERVICE_EMAIL } = process.env;
@@ -39,9 +39,10 @@ const leanWebhook = async (req, res) => {
           } is being proccesed for the bank, we will send you another email when banks confirm it.`
         });
       } else if (data.payload.status === 'ACCEPTED_BY_BANK') {
-        await Deposits.create({
+        await Transactions.create({
           type: DepositsType.FIAT,
           currency: data.payload.currency,
+          direction: TransactionTypes.DEPOSIT,
           amount: data.payload.amount,
           processedByRedxam: false,
           userId: user._id,

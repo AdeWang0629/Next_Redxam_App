@@ -7,10 +7,11 @@ import { MaticTx } from '@/apis/polygon/types';
 import { sendPendingTxEmail, emailStatus } from '@/apis/sendgrid';
 import {
   User,
-  Deposits,
+  Transactions,
+  TransactionsProps,
+  TransactionTypes,
   DepositsType,
-  UserProps,
-  DepositsProps
+  UserProps
 } from '@/database';
 import {
   Token,
@@ -36,15 +37,18 @@ import {
 import TEST_ABI from './polygon-abis/usdt-polygon-testnet.abi.json';
 
 export class PolygonToken implements Token {
-  isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
+  isPendingDeposit(status: DepositStatus, deposit: TransactionsProps): boolean {
     return false;
   }
-  isConfirmedDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
+  isConfirmedDeposit(
+    status: DepositStatus,
+    deposit: TransactionsProps
+  ): boolean {
     return false;
   }
   isCofirmedDepositWithoutPending(
     status: DepositStatus,
-    deposit: DepositsProps
+    deposit: TransactionsProps
   ): boolean {
     return false;
   }
@@ -125,10 +129,10 @@ export class PolygonToken implements Token {
     for (const deposit of deposits) {
       if (deposit.blockId === -1) hasPendingTxs = true;
       await this.depositConfirmationMailing(deposit, wallet.userId);
-      await Deposits.updateOne(
+      await Transactions.updateOne(
         { userId: wallet.userId, hash: deposit.hash },
         {
-          $set: {
+          $setOnInsert: {
             userId: wallet.userId,
             address: wallet.address,
             index: deposit.index,
@@ -137,11 +141,10 @@ export class PolygonToken implements Token {
             processedByRedxam: false,
             hash: deposit.hash,
             amount: deposit.value,
-            network: this.network
-          },
-          $setOnInsert: {
+            network: this.network,
             timestamp: Date.now(),
-            status: 'pending'
+            status: 'pending',
+            direction: TransactionTypes.DEPOSIT
           }
         },
         {
@@ -175,7 +178,7 @@ export class PolygonToken implements Token {
   ): Promise<emailStatus> {
     try {
       const status = deposit.blockId > 0 ? 'completed' : 'pending';
-      const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
+      const dbDeposit = await Transactions.findOne({ hash: deposit.hash });
       const decimals = this.isTestNet ? ERC20_TEST_DECIMALS : this.decimals;
       if (this.isPendingDeposit(status, dbDeposit)) {
         const user = await this.getUser(userId);
@@ -227,8 +230,19 @@ export class PolygonToken implements Token {
             gasLimit: ethers.utils.hexlify(gas_limit),
             gasPrice: gas_price
           })
-          .then(transferResult => {
-            console.dir(transferResult);
+          .then(async transferResult => {
+            await Transactions.create({
+              amount: numberOfTokens,
+              hash: transferResult.hash,
+              userId: wallet.userId,
+              address: wallet.address,
+              timestamp: new Date().getTime(),
+              direction: TransactionTypes.INTERNAL,
+              type: DepositsType.CRYPTO,
+              currency: this.symbol,
+              status: 'pending',
+              processedByRedxam: false
+            });
           })
           .catch(console.log);
       });

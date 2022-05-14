@@ -1,9 +1,9 @@
 import { JWT } from '@/config/jwt';
-import { Contribution, TotalPrice, User, Deposits } from '@/database';
+import { User } from '@/database';
 import { Request } from 'express';
 const client = require('twilio')(
   process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN,
+  process.env.TWILIO_AUTH_TOKEN
 );
 
 const getUserPhone = async userId => {
@@ -29,10 +29,11 @@ export const startTwilioVerify = async (_: void, req: Request) => {
     const status = verification.status;
     return {
       success: true,
-      message: status,
+      message: status
     };
   } catch (error) {
-    if (error.code === 60200) return { success: false, message: 'invalid phone' };
+    if (error.code === 60200)
+      return { success: false, message: 'invalid phone' };
     return { success: false, message: error };
   }
 };
@@ -52,7 +53,7 @@ export const checkTwilioVerify = async ({ arg }, req: Request) => {
       .verificationChecks.create({ to: phone, code });
     return {
       success: verificationCheck.status === 'approved',
-      message: verificationCheck.valid ? 'approved' : 'rejected',
+      message: verificationCheck.valid ? 'approved' : 'rejected'
     };
   } catch (error) {
     if (error.code === 20404) return { success: false, message: 'expired' };

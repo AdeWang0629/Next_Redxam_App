@@ -1,5 +1,5 @@
 import { verify } from 'jsonwebtoken';
-import { Admin, Deposits } from '@/database';
+import { Admin } from '@/database';
 import { Request } from 'express';
 import getAuthorizationToken from '../share/getAuthorizationToken';
 

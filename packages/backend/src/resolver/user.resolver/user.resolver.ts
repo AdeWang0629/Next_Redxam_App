@@ -3,7 +3,8 @@ import {
   Contribution,
   TotalPrice,
   User,
-  Deposits,
+  Transactions,
+  TransactionTypes,
   DepositsType,
   DepositsCurrencyType
 } from '@/database';
@@ -40,7 +41,11 @@ const getUserContribution = (userId: string) => {
 };
 
 const getPendingBalance = async (userId: string) => {
-  const pendingDeposits = await Deposits.find({ userId, status: 'pending' });
+  const pendingDeposits = await Transactions.find({
+    userId,
+    status: 'pending',
+    direction: TransactionTypes.DEPOSIT
+  });
   let pending = 0;
   const tokensHash = {};
   for (const token of tokens) {

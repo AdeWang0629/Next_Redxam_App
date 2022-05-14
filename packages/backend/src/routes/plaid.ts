@@ -14,7 +14,13 @@ import {
   Products
 } from 'plaid';
 import { messages } from '@/config/messages';
-import { Deposits, DepositsCurrencyType, DepositsType, User } from '@/database';
+import {
+  Transactions,
+  TransactionTypes,
+  DepositsCurrencyType,
+  DepositsType,
+  User
+} from '@/database';
 import Stripe from 'stripe';
 import { bankAccount } from '@/database/schema/user.schema';
 
@@ -312,10 +318,11 @@ router.post('/deposit', async (req, res) => {
         }
       });
 
-      await Deposits.create({
+      await Transactions.create({
         userId: payload.userId,
         type: DepositsType.FIAT,
         currency: DepositsCurrencyType.USD,
+        direction: TransactionTypes.DEPOSIT,
         amount,
         timestamp: new Date().getTime(),
         status: 'pending',

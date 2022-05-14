@@ -1,6 +1,6 @@
 export enum DepositsType {
   CRYPTO = 'CRYPTO',
-  FIAT = 'FIAT',
+  FIAT = 'FIAT'
 }
 
 export enum DepositsCurrencyType {
@@ -19,10 +19,16 @@ export enum DepositsCurrencyType {
   // FIATS
   USD = 'USD', // US Dollar
   EUR = 'EUR', // Euro
-  AED = 'AED', // UAE Derham
+  AED = 'AED' // UAE Derham
 }
 
 export enum UsersPortfolios {
   PASSIVE = 'PASSIVE',
-  LESSPASSIVE = 'LESSPASSIVE',
+  LESSPASSIVE = 'LESSPASSIVE'
+}
+
+export enum TransactionTypes {
+  DEPOSIT = 'DEPOSIT',
+  WITHDRAW = 'WITHDRAW',
+  INTERNAL = 'INTERNAL'
 }
