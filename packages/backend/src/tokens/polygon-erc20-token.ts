@@ -93,6 +93,7 @@ export class PolygonToken implements Token {
           this.contract,
           this.isTestNet
         );
+
         resolve(
           txs.map(tx => ({
             blockId: tx.blockNumber,
@@ -101,7 +102,7 @@ export class PolygonToken implements Token {
             address: tx.to
           }))
         );
-      }, 500);
+      }, 800);
     });
   }
 
