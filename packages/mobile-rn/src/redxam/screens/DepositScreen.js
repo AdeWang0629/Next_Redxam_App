@@ -10,7 +10,7 @@ import {
   StatusBar,
   Alert,
   Modal,
-  Pressable,,
+  Pressable,
 } from 'react-native';
 import {BottomSheet, Button, Icon, Card} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -44,7 +44,7 @@ const DepositScreen = props => {
     button,
     ...props
   }) => {
-    return  (
+    return (
       <View>
         <View style={[commonestyles.cardborder, {marginTop: 30}]}>
           {(Kyc == 3 || header) && (
@@ -80,11 +80,11 @@ const DepositScreen = props => {
           </View>
         </View>
       </View>
-    );;
-  };;
+    );
+  };
 
   const Modalcomponent = ({buttontext, textc, imaged, ...props}) => {
-    return  (
+    return (
       <View style={styles.modalView}>
         {Kyc == 1 && <Text style={styles.modalText}>SELFIE</Text>}
         {Kyc == 2 && (
@@ -154,18 +154,18 @@ const DepositScreen = props => {
         </View>
         <Text style={styles.continueonphone}>or continue on a phone</Text>
       </View>
-    );;
-  };;
+    );
+  };
 
   const closemodal = () => {
     setModaltransVisible(!modaltransVisible);
-  };;
+  };
   const closedrop = () => {
     setmodelselect(!modelselect);
-  };;
+  };
   const closedeposit = () => {
     setdepositVisible(!depositVisible);
-  };;
+  };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
