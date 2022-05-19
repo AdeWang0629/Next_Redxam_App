@@ -14,6 +14,10 @@
 		42A4729865C5619234029042 /* libPods-Redxam-RedxamTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F406B8528853C349316C5BA4 /* libPods-Redxam-RedxamTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		E536F10E189B7F0536529375 /* libPods-Redxam.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DEFA177793E81C3C04AB339 /* libPods-Redxam.a */; };
+		F1E2B3552836FE6D00CDDDD8 /* Pods-Redxam-RedxamTests.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B4C4A8E5F2340B52FF5BCB30 /* Pods-Redxam-RedxamTests.release.xcconfig */; };
+		F1E2B3562836FE6F00CDDDD8 /* Pods-Redxam-RedxamTests.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 859895826D11C979E39FC46C /* Pods-Redxam-RedxamTests.debug.xcconfig */; };
+		F1E2B3592836FE9300CDDDD8 /* Pods-Redxam.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 247D5A110F9EF61F515FDCAE /* Pods-Redxam.debug.xcconfig */; };
+		F1E2B35A2836FE9500CDDDD8 /* Pods-Redxam.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5E500D4ADAC30ABC12E6DB5F /* Pods-Redxam.release.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -243,6 +247,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1E2B3552836FE6D00CDDDD8 /* Pods-Redxam-RedxamTests.release.xcconfig in Resources */,
+				F1E2B3562836FE6F00CDDDD8 /* Pods-Redxam-RedxamTests.debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +256,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1E2B3592836FE9300CDDDD8 /* Pods-Redxam.debug.xcconfig in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				F1E2B35A2836FE9500CDDDD8 /* Pods-Redxam.release.xcconfig in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,7 +580,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -638,7 +646,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
