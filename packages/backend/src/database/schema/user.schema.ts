@@ -100,10 +100,6 @@ export const UserSchema = new Schema(
       type: Number,
       default: 0
     },
-    accountBalance: {
-      type: Number,
-      default: 0
-    },
     level: {
       type: Number,
       required: false,

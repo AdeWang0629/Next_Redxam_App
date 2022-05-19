@@ -57,7 +57,6 @@ export const createNewUser = async (
   invitationCode?: string
 ) => {
   await User.create({
-    accountBalance: 0,
     balance: 0,
     firstName: user.firstName,
     lastName: user.lastName,
@@ -79,7 +78,6 @@ export const createNewUser = async (
 
 export const signupUser = async (user: NewUser) => {
   return User.create({
-    accountBalance: 0,
     balance: 0,
     firstName: user.firstName,
     lastName: user.lastName,
@@ -179,7 +177,8 @@ export const sendWaitlistMail = async (
   lastOrder: number,
   origin: string,
   waitlistToken: string,
-  referralCode: string
+  referralCode: string,
+  language: string
 ) => {
   if (!origin) {
     origin = IS_PRODUCTION ? 'https://redxam.com' : 'http://localhost:3000';
@@ -205,14 +204,21 @@ export const sendSignupMail = async (email: string, loginUrl: string) => {
 export const sendInvitationEmail = async (
   email: string,
   origin: string,
-  invitationCode: string
+  invitationCode: string,
+  language: string
 ) => {
-  await sendUserEmail(__dirname, '../../emails/invitation.hjs', {
-    email,
-    origin,
-    invitationCode,
-    subject: 'You have been invited to join Redxam!'
-  });
+  await sendUserEmail(
+    __dirname,
+    language === 'ar'
+      ? '../../emails/invitation_ar.hjs'
+      : '../../emails/invitation.hjs',
+    {
+      email,
+      origin,
+      invitationCode,
+      subject: 'You have been invited to join Redxam!'
+    }
+  );
 };
 
 export default {

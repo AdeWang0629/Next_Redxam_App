@@ -22,7 +22,7 @@
   "noTransactions": "No transactions has been made from wallet.",
   "viewAll": "View all",
   "enterAmountToDeposit": "Enter amount you want to deposit",
-  "depositToWallet": "Deposit to Wallet",
+  "depositToWallet": "Deposit",
   "deposits": "Deposits",
   "selectTokenAndNetwork": "Please select token & network",
   "token": "Token",

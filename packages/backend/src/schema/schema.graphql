@@ -26,6 +26,7 @@ type Deposits {
   bankIcon: String
   bankName: String
   bankType: String
+  network: String
   email: String
 }
 type InternalDeposits {
@@ -58,7 +59,6 @@ type User {
   token: String
   pending_balance: Float
   balance: Int
-  accountBalance: Int
   accountStatus: String
   hasPendingTxs: Boolean!
   deposited: Float

@@ -7,7 +7,16 @@ class API {
   axios: AxiosInstance;
 
   constructor() {
-    this.axios = axios.create();
+    const currentUrlHeader: Record<string, string> = {};
+    if (typeof window !== 'undefined') {
+      currentUrlHeader.currenturl = window.location.toString();
+    }
+
+    this.axios = axios.create({
+      headers: {
+        ...currentUrlHeader
+      }
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -258,6 +267,7 @@ class API {
           bankIcon
           bankName
           bankType
+          network
           email
         }
         success
@@ -333,6 +343,26 @@ class API {
   updateDepositStatus(adminToken: string, depositId: string, status: string) {
     const mutation = `mutation {
       updateDepositStatus (arg: {depositId: "${depositId}", status: "${status}"}) {
+        message
+        success
+      }
+    }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
+  addContributionFromValue(
+    adminToken: string,
+    dolarAmount: number,
+    email: string | null
+  ) {
+    const mutation = `mutation {
+      addContributionFromValue (arg: {amount: ${dolarAmount}, email: "${email}"}) {
         message
         success
       }
