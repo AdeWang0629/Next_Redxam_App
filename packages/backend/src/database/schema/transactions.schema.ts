@@ -1,5 +1,10 @@
 import { Schema } from 'mongoose';
-import { DepositsType, DepositsCurrencyType, TransactionTypes } from '../enums';
+import {
+  DepositsType,
+  DepositsCurrencyType,
+  TransactionTypes,
+  TransactionStatus
+} from '../enums';
 
 export const TransactionSchema = new Schema(
   {
@@ -44,6 +49,7 @@ export const TransactionSchema = new Schema(
     },
     status: {
       type: String,
+      enum: TransactionStatus,
       required: true
     },
     stripeChargeId: {

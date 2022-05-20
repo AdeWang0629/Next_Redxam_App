@@ -32,3 +32,8 @@ export enum TransactionTypes {
   WITHDRAW = 'WITHDRAW',
   INTERNAL = 'INTERNAL'
 }
+
+export enum TransactionStatus {
+  PENDING = 'pending',
+  COMPLETED = 'completed'
+}
