@@ -2,6 +2,7 @@
 import { ethers } from 'ethers';
 import crypto from 'crypto';
 import Web3 from 'web3';
+import { setTimeout } from 'timers/promises';
 import matic from '@/apis/polygon';
 import { MaticTx } from '@/apis/polygon/types';
 import { sendPendingTxEmail, emailStatus } from '@/apis/sendgrid';
@@ -85,25 +86,20 @@ export class PolygonToken implements Token {
     return matic.getWalletBalance(address, this.contract, this.isTestNet);
   }
 
-  getWalletTxs(address: string): Promise<TransactionMatic[]> {
-    return new Promise(resolve => {
-      setTimeout(async () => {
-        const txs: MaticTx[] = await matic.getWalletTxs(
-          address,
-          this.contract,
-          this.isTestNet
-        );
+  async getWalletTxs(address: string): Promise<TransactionMatic[]> {
+    await setTimeout(500);
+    const txs: MaticTx[] = await matic.getWalletTxs(
+      address,
+      this.contract,
+      this.isTestNet
+    );
 
-        resolve(
-          txs.map(tx => ({
-            blockId: tx.blockNumber,
-            value: tx.value,
-            hash: tx.hash,
-            address: tx.to
-          }))
-        );
-      }, 800);
-    });
+    return txs.map(tx => ({
+      blockId: tx.blockNumber,
+      value: tx.value,
+      hash: tx.hash,
+      address: tx.to
+    }));
   }
 
   getWalletDeposits(txs: TransactionMatic[], address: string): Deposit[] {
