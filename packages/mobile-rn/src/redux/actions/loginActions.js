@@ -21,6 +21,7 @@ export const errorLog = error => ({
 export function login(email, socket) {
   return async dispatch => {
     const res = await API.login(email);
+    console.log(res);
     return res.data.data.updateToken;
   };
 }

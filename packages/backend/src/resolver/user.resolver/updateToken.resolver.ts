@@ -10,6 +10,7 @@ import { User, UserProps } from '@/database';
 import sendGrid from '@/apis/sendgrid/index';
 import { sanitize, isValidEmail } from '@/utils/helpers';
 import { Argument, LoginInput } from '../types';
+import { getLanguage } from '../share/getLanguage';
 
 const { NODE_ENV, SERVICE_EMAIL } = process.env;
 const IS_PRODUCTION = NODE_ENV === 'production';
@@ -203,13 +204,7 @@ export const updateToken = async (
         user._id,
         form.email,
         req.headers.origin,
-        req.headers.origin.includes('redxam.ae') ||
-          req.headers.referer.includes('/ar/') ||
-          req.headers.referer.endsWith('/ar') ||
-          req.headers.currenturl.includes('/ar/') ||
-          (req.headers.currenturl as string).endsWith('/ar')
-          ? 'ar'
-          : 'en',
+        getLanguage(req),
         form.isMobile
       );
     } else if (form.phone) {
