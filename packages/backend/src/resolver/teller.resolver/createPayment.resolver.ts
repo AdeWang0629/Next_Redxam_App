@@ -4,6 +4,7 @@ import {
   User,
   Transactions,
   TransactionTypes,
+  TransactionStatus,
   DepositsCurrencyType,
   DepositsType
 } from '@/database';
@@ -126,7 +127,7 @@ const saveDeposit = async (
     amount,
     processedByRedxam: false,
     userId,
-    status: 'pending',
+    status: TransactionStatus.PENDING,
     bankName,
     bankIcon,
     timestamp: new Date().getTime(),

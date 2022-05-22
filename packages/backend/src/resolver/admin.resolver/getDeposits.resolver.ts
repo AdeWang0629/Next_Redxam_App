@@ -1,5 +1,10 @@
 import { verify } from 'jsonwebtoken';
-import { Admin, Transactions, TransactionTypes } from '@/database';
+import {
+  Admin,
+  Transactions,
+  TransactionTypes,
+  TransactionStatus
+} from '@/database';
 import { Request } from 'express';
 import getAuthorizationToken from '../share/getAuthorizationToken';
 
@@ -24,7 +29,7 @@ export const getDeposits = async (_: void, req: Request) => {
     const deposits = await Transactions.aggregate([
       {
         $match: {
-          status: 'pending',
+          status: TransactionStatus.PENDING,
           direction: TransactionTypes.DEPOSIT
         }
       },

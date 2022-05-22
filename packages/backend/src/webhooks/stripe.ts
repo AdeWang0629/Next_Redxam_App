@@ -3,6 +3,7 @@ import { stripeInstance } from '@/apis/stripe';
 import {
   Transactions,
   TransactionTypes,
+  TransactionStatus,
   DepositsCurrencyType,
   DepositsType
 } from '@/database';
@@ -48,7 +49,7 @@ const stripeWebhook = async (req, res) => {
           direction: TransactionTypes.DEPOSIT,
           amount: checkoutSession.amount_total / 100,
           timestamp: new Date().getTime(),
-          status: 'completed',
+          status: TransactionStatus.COMPLETED,
           stripeChargeId: checkoutSession.id,
           bankName: 'Card',
           bankIcon: cardsBrands?.[paymentMethod.card.brand] || '',
@@ -60,7 +61,7 @@ const stripeWebhook = async (req, res) => {
       if (charge.status === 'succeeded') {
         Transactions.updateOne(
           { userId: charge.metadata.user_id, stripeChargeId: charge.id },
-          { $set: { status: 'completed' } }
+          { $set: { status: TransactionStatus.COMPLETED } }
         );
       }
     }

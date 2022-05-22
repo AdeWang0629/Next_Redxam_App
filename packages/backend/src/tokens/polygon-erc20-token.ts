@@ -11,6 +11,7 @@ import {
   Transactions,
   TransactionsProps,
   TransactionTypes,
+  TransactionStatus,
   DepositsType,
   UserProps
 } from '@/database';
@@ -140,7 +141,7 @@ export class PolygonToken implements Token {
             amount: deposit.value,
             network: this.network,
             timestamp: Date.now(),
-            status: 'pending',
+            status: TransactionStatus.PENDING,
             direction: TransactionTypes.DEPOSIT
           }
         },
@@ -237,7 +238,7 @@ export class PolygonToken implements Token {
               direction: TransactionTypes.INTERNAL,
               type: DepositsType.CRYPTO,
               currency: this.symbol,
-              status: 'pending',
+              status: TransactionStatus.PENDING,
               processedByRedxam: false
             });
           })

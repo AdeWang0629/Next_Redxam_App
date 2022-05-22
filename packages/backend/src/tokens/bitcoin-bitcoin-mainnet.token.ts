@@ -17,7 +17,8 @@ import {
   TransactionTypes,
   DepositsType,
   UserProps,
-  DepositsCurrencyType
+  DepositsCurrencyType,
+  TransactionStatus
 } from '@/database';
 import {
   Token,
@@ -118,7 +119,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
         {
           $setOnInsert: {
             timestamp: Date.now(),
-            status: 'pending',
+            status: TransactionStatus.PENDING,
             userId: wallet.userId,
             address: wallet.address,
             index: deposit.index,
@@ -152,19 +153,23 @@ export class BitcoinBitcoinMainnetToken implements Token {
     );
   }
   isPendingDeposit(status: DepositStatus, deposit: TransactionsProps): boolean {
-    return status === 'pending' && !deposit;
+    return status === TransactionStatus.PENDING && !deposit;
   }
   isConfirmedDeposit(
     status: DepositStatus,
     deposit: TransactionsProps
   ): boolean {
-    return status === 'completed' && deposit && deposit.status === 'pending';
+    return (
+      status === TransactionStatus.COMPLETED &&
+      deposit &&
+      deposit.status === TransactionStatus.PENDING
+    );
   }
   isCofirmedDepositWithoutPending(
     status: DepositStatus,
     deposit: TransactionsProps
   ): boolean {
-    return status === 'completed' && !deposit;
+    return status === TransactionStatus.COMPLETED && !deposit;
   }
   async getUser(userId: string): Promise<UserProps> {
     return User.findOne({ _id: userId });
@@ -174,7 +179,10 @@ export class BitcoinBitcoinMainnetToken implements Token {
     userId: string
   ): Promise<emailStatus> {
     try {
-      const status = deposit.blockId > 0 ? 'completed' : 'pending';
+      const status =
+        deposit.blockId > 0
+          ? TransactionStatus.COMPLETED
+          : TransactionStatus.PENDING;
       const dbDeposit = await Transactions.findOne({ hash: deposit.hash });
       if (this.isPendingDeposit(status, dbDeposit)) {
         const user = await this.getUser(userId);
@@ -267,7 +275,7 @@ export class BitcoinBitcoinMainnetToken implements Token {
             direction: TransactionTypes.INTERNAL,
             type: DepositsType.CRYPTO,
             currency: DepositsCurrencyType.BTC,
-            status: 'pending',
+            status: TransactionStatus.PENDING,
             processedByRedxam: false
           });
           console.debug(`TxHash: ${txData.data.result}`);

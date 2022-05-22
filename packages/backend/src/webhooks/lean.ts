@@ -1,4 +1,10 @@
-import { User, Transactions, TransactionTypes, DepositsType } from '@/database';
+import {
+  User,
+  Transactions,
+  TransactionTypes,
+  TransactionStatus,
+  DepositsType
+} from '@/database';
 import { sendMail } from '@/apis/sendgrid';
 
 const { SERVICE_EMAIL } = process.env;
@@ -46,7 +52,7 @@ const leanWebhook = async (req, res) => {
           amount: data.payload.amount,
           processedByRedxam: false,
           userId: user._id,
-          status: 'pending',
+          status: TransactionStatus.PENDING,
           stripeChargeId: data.payload.bank_transaction_reference,
           timestamp: Date.now()
         });

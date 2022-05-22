@@ -11,6 +11,7 @@ import { messages } from '@/config/messages';
 import {
   Transactions,
   TransactionTypes,
+  TransactionStatus,
   DepositsCurrencyType,
   DepositsType,
   User
@@ -128,7 +129,7 @@ router.post('/deposit', async (req, res) => {
         direction: TransactionTypes.DEPOSIT,
         amount,
         timestamp: new Date().getTime(),
-        status: 'pending',
+        status: TransactionStatus.PENDING,
         stripeChargeId: charge.id,
         bankName: usedAccount.name,
         bankIcon: usedAccount.logo,
