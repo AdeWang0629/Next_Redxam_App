@@ -88,6 +88,10 @@ export class PolygonToken implements Token {
   }
 
   async getWalletTxs(address: string): Promise<TransactionMatic[]> {
+    /* 
+      PolygonScan API only allows 5 calls per second, 
+      so we use the timeout to avoid overpassing this limit
+    */
     await setTimeout(500);
     const txs: MaticTx[] = await matic.getWalletTxs(
       address,
