@@ -108,7 +108,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
           selectedAccount.id,
           value,
           selectedAccount.name,
-          userId,
+          userId
         );
 
         if (tellerPayment.connect_token) {
