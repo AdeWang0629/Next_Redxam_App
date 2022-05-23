@@ -1,6 +1,12 @@
 import { verify } from 'jsonwebtoken';
 import { Request } from 'express';
-import { Admin } from '@/database';
+import {
+  Admin,
+  InternalDeposits,
+  Transactions,
+  TransactionStatus,
+  TransactionTypes
+} from '@/database';
 import getAuthorizationToken from '../share/getAuthorizationToken';
 import { generateWallets } from '@/service/wallets';
 
@@ -29,4 +35,22 @@ export const updateWallets = async (_: void, req: Request) => {
   }
 };
 
-const updateWalletsScript = async () => {};
+const updateWalletsScript = async () => {
+  const txs = await Transactions.find({});
+  for (const tx of txs) {
+    tx.updateOne({
+      $set: {
+        direction: TransactionTypes.DEPOSIT
+      }
+    });
+  }
+  const internals = await InternalDeposits.find({});
+  for (const internal of internals) {
+    Transactions.create({
+      ...internal.toObject(),
+      direction: TransactionTypes.DEPOSIT,
+      status: TransactionStatus.PENDING,
+      processedByRedxam: false
+    });
+  }
+};
