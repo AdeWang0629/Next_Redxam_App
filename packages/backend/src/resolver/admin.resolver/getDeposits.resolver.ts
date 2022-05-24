@@ -1,5 +1,10 @@
 import { verify } from 'jsonwebtoken';
-import { Admin, Deposits } from '@/database';
+import {
+  Admin,
+  Transactions,
+  TransactionTypes,
+  TransactionStatus
+} from '@/database';
 import { Request } from 'express';
 import getAuthorizationToken from '../share/getAuthorizationToken';
 
@@ -21,10 +26,11 @@ export const getDeposits = async (_: void, req: Request) => {
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'admin not found' };
 
-    const deposits = await Deposits.aggregate([
+    const deposits = await Transactions.aggregate([
       {
         $match: {
-          status: 'pending'
+          status: TransactionStatus.PENDING,
+          direction: TransactionTypes.DEPOSIT
         }
       },
       { $addFields: { ObjectUserId: { $toObjectId: '$userId' } } },

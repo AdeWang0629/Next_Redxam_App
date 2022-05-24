@@ -1,6 +1,12 @@
 import { verify } from 'jsonwebtoken';
 import { Request } from 'express';
-import { Admin, Deposits } from '@/database';
+import {
+  Admin,
+  InternalDeposits,
+  Transactions,
+  TransactionStatus,
+  TransactionTypes
+} from '@/database';
 import getAuthorizationToken from '../share/getAuthorizationToken';
 import { generateWallets } from '@/service/wallets';
 
@@ -30,30 +36,21 @@ export const updateWallets = async (_: void, req: Request) => {
 };
 
 const updateWalletsScript = async () => {
-  Deposits.find({ type: 'CRYPTO' }).then(async deposits => {
-    for (const deposit of deposits) {
-      if (deposit.currency === 'USDT') {
-        await deposit.updateOne({ $set: { network: 'POLYGON_USDT' } });
+  const txs = await Transactions.find({});
+  for (const tx of txs) {
+    tx.updateOne({
+      $set: {
+        direction: TransactionTypes.DEPOSIT
       }
-      if (deposit.currency === 'ERC20TEST') {
-        await deposit.updateOne({
-          $set: { network: 'TEST_POLYGON_USDT', currency: 'USDT' }
-        });
-      }
-      if (deposit.currency === 'DAI') {
-        await deposit.updateOne({ $set: { network: 'POLYGON_DAI' } });
-      }
-      if (deposit.currency === 'USDC') {
-        await deposit.updateOne({ $set: { network: 'POLYGON_USDC' } });
-      }
-      if (deposit.currency === 'BTC') {
-        await deposit.updateOne({ $set: { network: 'BTC' } });
-      }
-      if (deposit.currency === 'TEST_BTC') {
-        await deposit.updateOne({
-          $set: { network: 'TEST_BTC', currency: 'BTC' }
-        });
-      }
-    }
-  });
+    });
+  }
+  const internals = await InternalDeposits.find({});
+  for (const internal of internals) {
+    Transactions.create({
+      ...internal.toObject(),
+      direction: TransactionTypes.DEPOSIT,
+      status: TransactionStatus.PENDING,
+      processedByRedxam: false
+    });
+  }
 };

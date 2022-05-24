@@ -11,7 +11,7 @@ type SimpleWallet {
   wif: String
   txsCount: Int
 }
-type Deposits {
+type Transaction {
   _id: String
   userId: String
   type: String
@@ -28,19 +28,11 @@ type Deposits {
   bankType: String
   network: String
   email: String
-}
-type InternalDeposits {
-  userId: String
-  type: String
-  amount: Float
-  currency: String
-  timestamp: Float
-  hash: String
-  address: String
+  direction: String
 }
 
 type InternalDepositsResponse {
-  internalDeposits: [InternalDeposits]
+  internalDeposits: [Transaction]
   success: Boolean
   message: String
 }
@@ -187,7 +179,7 @@ type admin {
 }
 
 type home {
-  deposits: [Deposits]
+  deposits: [Transaction]
   balance: Float
   percentChange: Float
   dolarChange: Float
@@ -304,7 +296,7 @@ type CreatePaymentIntent {
 }
 
 type AdminDeposit {
-  deposits: [Deposits]
+  deposits: [Transaction]
   success: Boolean
   message: String
 }
@@ -320,7 +312,7 @@ type Query {
   users: [User]
   user: [User]
   getWaitList: [Referrer]
-  userDeposits: [Deposits]
+  userDeposits: [Transaction]
   vaults: Vaults
   balanceRecords: [BalanceRecords]
   adminLogin: adminToken

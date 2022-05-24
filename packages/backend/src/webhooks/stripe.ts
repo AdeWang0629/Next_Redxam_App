@@ -1,6 +1,12 @@
 import express from 'express';
 import { stripeInstance } from '@/apis/stripe';
-import { Deposits, DepositsCurrencyType, DepositsType } from '@/database';
+import {
+  Transactions,
+  TransactionTypes,
+  TransactionStatus,
+  DepositsCurrencyType,
+  DepositsType
+} from '@/database';
 import Stripe from 'stripe';
 import cardsBrands from '@/assets/cardsBrands';
 
@@ -36,13 +42,14 @@ const stripeWebhook = async (req, res) => {
         let paymentMethod =
           paymentIntent.payment_method as Stripe.PaymentMethod;
 
-        await Deposits.create({
+        await Transactions.create({
           userId: checkoutSession.metadata.user_id,
           type: DepositsType.FIAT,
           currency: DepositsCurrencyType.USD,
+          direction: TransactionTypes.DEPOSIT,
           amount: checkoutSession.amount_total / 100,
           timestamp: new Date().getTime(),
-          status: 'completed',
+          status: TransactionStatus.COMPLETED,
           stripeChargeId: checkoutSession.id,
           bankName: 'Card',
           bankIcon: cardsBrands?.[paymentMethod.card.brand] || '',
@@ -52,9 +59,9 @@ const stripeWebhook = async (req, res) => {
     } else if (event.type === 'charge.succeeded') {
       const charge = event.data.object as Stripe.Charge;
       if (charge.status === 'succeeded') {
-        Deposits.updateOne(
+        Transactions.updateOne(
           { userId: charge.metadata.user_id, stripeChargeId: charge.id },
-          { $set: { status: 'completed' } }
+          { $set: { status: TransactionStatus.COMPLETED } }
         );
       }
     }

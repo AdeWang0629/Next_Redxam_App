@@ -3,7 +3,6 @@ import { ContributionResolver } from './contribution.resolver';
 import { ManualUserResolver } from './manualUser.resolver';
 import { ReferralResolver } from './referral.resolver';
 import { UserResolver } from './user.resolver';
-import { depositsResolver } from './deposits.resolver';
 import { vaultsResolver } from './vault.resolver';
 import { AdminResolver } from './admin.resolver';
 import { changeRequestResolver } from './changeRequest.resolver';
@@ -19,7 +18,6 @@ export const resolver = {
   ...ManualUserResolver,
   ...ReferralResolver,
   ...UserResolver,
-  ...depositsResolver,
   ...vaultsResolver,
   ...AdminResolver,
   ...changeRequestResolver,

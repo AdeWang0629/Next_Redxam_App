@@ -1,10 +1,9 @@
-// TODO: DELETE THIS FILE
 import { JWT } from '@/config/jwt';
-import { Deposits } from '@/database';
+import { Transactions, TransactionTypes } from '@/database';
 import { Request } from 'express';
 
 const getUserDeposits = async (userId: string) => {
-  return Deposits.find({ userId });
+  return Transactions.find({ userId, direction: TransactionTypes.DEPOSIT });
 };
 
 const getData = async (userId: string) => {
@@ -24,7 +23,6 @@ export const userDeposits = async (_: void, req: Request) => {
     const data = await getData(payload.userId);
 
     const [userDepositsData] = data;
-    console.log(Deposits);
     return [...userDepositsData];
   } catch {
     return null;

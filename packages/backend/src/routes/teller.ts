@@ -8,7 +8,14 @@ import { JWT } from '@/config/jwt';
 import sendGrid from '@/apis/sendgrid';
 import { stripeInstance } from '@/apis/stripe';
 import { messages } from '@/config/messages';
-import { Deposits, DepositsCurrencyType, DepositsType, User } from '@/database';
+import {
+  Transactions,
+  TransactionTypes,
+  TransactionStatus,
+  DepositsCurrencyType,
+  DepositsType,
+  User
+} from '@/database';
 const { SERVICE_EMAIL } = process.env;
 
 const templatePath = resolve(__dirname, '../emails/plaid.hjs');
@@ -115,13 +122,14 @@ router.post('/deposit', async (req, res) => {
         }
       });
 
-      await Deposits.create({
+      await Transactions.create({
         userId: payload.userId,
         type: DepositsType.FIAT,
         currency: DepositsCurrencyType.USD,
+        direction: TransactionTypes.DEPOSIT,
         amount,
         timestamp: new Date().getTime(),
-        status: 'pending',
+        status: TransactionStatus.PENDING,
         stripeChargeId: charge.id,
         bankName: usedAccount.name,
         bankIcon: usedAccount.logo,
