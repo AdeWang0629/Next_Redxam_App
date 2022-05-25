@@ -6,6 +6,7 @@ import { Attachment } from 'nodemailer/lib/mailer';
 import { messages } from '@/config/messages';
 import { sanitize, isValidEmail } from '@/utils/helpers';
 import userCreate from '../share/userCreate';
+import { getLanguage } from '../share/getLanguage';
 import { Argument, NewUser } from '../types';
 import { User, UserProps } from '@/database';
 import { JWT } from '@/config/jwt';
@@ -32,17 +33,7 @@ export const signup = async ({ arg }: Argument<NewUser>, req: Request) => {
       type: 'login'
     }).sign();
     const loginUrl = getLoginUrl(loginToken, req.headers.origin);
-    await sendMail(
-      form.email,
-      loginUrl,
-      req.headers.origin.includes('redxam.ae') ||
-        req.headers.referer.includes('/ar/') ||
-        req.headers.referer.endsWith('/ar') ||
-        req.headers.currenturl.includes('/ar/') ||
-        (req.headers.currenturl as string).endsWith('/ar')
-        ? 'ar'
-        : 'en'
-    );
+    await sendMail(form.email, loginUrl, getLanguage(req));
 
     return messages.success.register;
   } catch (error) {

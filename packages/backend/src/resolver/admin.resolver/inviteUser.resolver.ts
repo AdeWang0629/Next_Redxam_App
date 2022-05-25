@@ -3,6 +3,7 @@ import { messages } from '@/config/messages';
 import { sanitize, isValidEmail } from '@/utils/helpers';
 import { isValidAdmin } from './adminHelpers';
 import userCreate from '../share/userCreate';
+import { getLanguage } from '../share/getLanguage';
 import { User, UserProps } from '@/database';
 import { Argument, NewUser } from '../types';
 
@@ -43,13 +44,7 @@ export const inviteUser = async ({ arg }: Argument<NewUser>, req: Request) => {
         form.email,
         req.headers.origin,
         invitationCode,
-        req.headers.origin.includes('redxam.ae') ||
-          req.headers.referer.includes('/ar/') ||
-          req.headers.referer.endsWith('/ar') ||
-          req.headers.currenturl.includes('/ar/') ||
-          (req.headers.currenturl as string).endsWith('/ar')
-          ? 'ar'
-          : 'en'
+        getLanguage(req)
       );
 
       jobs.push(jobCreate);
@@ -59,13 +54,7 @@ export const inviteUser = async ({ arg }: Argument<NewUser>, req: Request) => {
         form.email,
         req.headers.origin,
         lastOrder.invitationCode,
-        req.headers.origin.includes('redxam.ae') ||
-          req.headers.referer.includes('/ar/') ||
-          req.headers.referer.endsWith('/ar') ||
-          req.headers.currenturl.includes('/ar/') ||
-          (req.headers.currenturl as string).endsWith('/ar')
-          ? 'ar'
-          : 'en'
+        getLanguage(req)
       );
       jobs.push(jobMail);
     }

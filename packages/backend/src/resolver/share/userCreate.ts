@@ -5,7 +5,7 @@ import { sendUserEmail } from './UserEmail';
 import { NewUser } from '../types';
 
 const { NODE_ENV } = process.env;
-const IS_PRODUCTION = NODE_ENV === 'production';
+const isProduction = NODE_ENV === 'production';
 
 export const fetchLastOrder = async (email: string) => {
   const userByEmail = await User.findOne(
@@ -181,7 +181,7 @@ export const sendWaitlistMail = async (
   language: string
 ) => {
   if (!origin) {
-    origin = IS_PRODUCTION ? 'https://redxam.com' : 'http://localhost:3000';
+    origin = isProduction ? 'https://redxam.com' : 'http://localhost:3000';
   }
   await sendUserEmail(__dirname, '../../emails/simplewaitlist.hjs', {
     origin,

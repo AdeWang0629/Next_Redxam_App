@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { JWT } from '@/config/jwt';
 import { User } from '@/database';
 import { sendWaitlistMail } from '../share/userCreate';
+import { getLanguage } from '../share/getLanguage';
 
 export const invitationCode = async (
   { code }: { code: string },
@@ -23,13 +24,7 @@ export const invitationCode = async (
       req.headers.origin,
       user.waitlistToken,
       user.referralCode,
-      req.headers.origin.includes('redxam.ae') ||
-        req.headers.referer.includes('/ar/') ||
-        req.headers.referer.endsWith('/ar') ||
-        req.headers.currenturl.includes('/ar/') ||
-        (req.headers.currenturl as string).endsWith('/ar')
-        ? 'ar'
-        : 'en'
+      getLanguage(req)
     );
     const token = new JWT({ userId: user._id, type: 'login' }).signSync();
     await user.updateOne({

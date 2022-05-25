@@ -9,6 +9,7 @@ import { sendMail } from '@/apis/sendgrid/index';
 import { messages } from '@/config/messages';
 import { createWaitlist } from '../referral.resolver/createWaitlist.resolver';
 import getAuthorizationToken from '../share/getAuthorizationToken';
+import { getLanguage } from '../share/getLanguage';
 import { Argument, NewUser } from '../types';
 
 const { TOKEN_SECURITY_KEY, SERVICE_EMAIL } = process.env;
@@ -25,14 +26,7 @@ export const emailValidation = async (
     const verificationToken = sign({ ...arg }, TOKEN_SECURITY_KEY, {
       expiresIn: '1h'
     });
-    const language =
-      req.headers.origin.includes('redxam.ae') ||
-      req.headers.referer.includes('/ar/') ||
-      req.headers.referer.endsWith('/ar') ||
-      req.headers.currenturl.includes('/ar/') ||
-      (req.headers.currenturl as string).endsWith('/ar')
-        ? 'ar'
-        : 'en';
+    const language = getLanguage(req);
 
     await sendMail({
       from: `redxam.com <${SERVICE_EMAIL}>`,
