@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import tdbankIcon from '@public/icons/banks/tdbank.svg';
+import bankIcon from '@public/icons/bank.svg';
 
 interface CustomSelectProps {
   accounts: [
@@ -49,7 +51,11 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
         <div className="flex flex-col rounded-3xl border px-6 pt-6 pb-3 min-w-[15.0625rem]">
           <div className="flex cursor-pointer">
             <Image
-              src={`data:image/png;base64,${value?.logo}`}
+              src={
+                value.name.includes('TD')
+                  ? tdbankIcon
+                  : bankIcon || `data:image/png;base64,${value?.logo}`
+              }
               className="rounded-full"
               width="40px"
               height="40px"
@@ -76,7 +82,7 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
       </div>
       {showOptions && (
         <div
-          className="flex flex-col max-h-[6rem] overflow-y-auto overflow-x-hidden rounded-3xl absolute z-50 bg-light-gray"
+          className="flex flex-col overflow-y-auto overflow-x-hidden rounded-3xl absolute z-50 bg-light-gray"
           id="deposit-banks-list"
           style={{ boxShadow: '0px 12px 60px rgba(0, 0, 0, 0.12)' }}
         >
@@ -94,7 +100,11 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
               role="listitem"
             >
               <Image
-                src={`data:image/png;base64,${account?.logo}`}
+                src={
+                  account.name.includes('TD')
+                    ? tdbankIcon
+                    : bankIcon || `data:image/png;base64,${account?.logo}`
+                }
                 className="rounded-full"
                 width="40px"
                 height="40px"

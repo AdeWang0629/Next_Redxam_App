@@ -14,10 +14,6 @@ export const SimpleWalletSchema = new Schema(
     txsCount: {
       type: Number,
       default: 0
-    },
-    hasPendingTxs: {
-      type: Boolean,
-      default: false
     }
   },
   {
@@ -117,17 +113,9 @@ export const UserSchema = new Schema(
       type: String,
       required: true
     },
-    deposited: {
-      type: Number,
-      default: 0
-    },
     withdrawn: {
       type: Number,
       default: 0
-    },
-    hasPendingTxs: {
-      type: Boolean,
-      default: false
     },
     balanceRecords: {
       type: [balanceRecordsSchema],

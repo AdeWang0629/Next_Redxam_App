@@ -26,7 +26,6 @@ export const getUserData = async token => {
       phone
       contribution
       level
-      deposited
       balance
       accountStatus
       referralCode

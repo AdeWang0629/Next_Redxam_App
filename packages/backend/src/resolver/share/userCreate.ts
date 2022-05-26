@@ -64,7 +64,6 @@ export const createNewUser = async (
     phone: '',
     token: '',
     level,
-    deposited: 0,
     withdrawn: 0,
     accountStatus: 'pending',
     waitlistToken,
@@ -84,7 +83,6 @@ export const signupUser = async (user: NewUser) => {
     email: user.email.toLowerCase(),
     phone: '',
     token: '',
-    deposited: 0,
     withdrawn: 0,
     accountStatus: 'accepted',
     wallets: generateWallets()

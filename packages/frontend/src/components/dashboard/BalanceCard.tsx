@@ -98,11 +98,11 @@ const BalanceCard = () => {
             {t('deposit')}
           </a>
         </Link>
-        <Tippy content="Coming soon. Email us!">
-          <button className="w-1/2 font-medium font-secondary text-base underline py-4">
+        <Link href="/withdrawal">
+          <a className="w-1/2 inline-block text-center font-medium font-secondary text-base underline py-4 border-r border-r-[#EAEAEB]">
             {t('withdraw')}
-          </button>
-        </Tippy>
+          </a>
+        </Link>
       </div>
     </Card>
   );

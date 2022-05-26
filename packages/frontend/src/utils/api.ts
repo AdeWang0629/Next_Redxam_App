@@ -197,7 +197,6 @@ class API {
           phone
           contribution
           level
-          deposited
           balance
           accountStatus
           referralCode

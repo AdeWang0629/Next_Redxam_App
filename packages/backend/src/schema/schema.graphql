@@ -52,8 +52,6 @@ type User {
   pending_balance: Float
   balance: Int
   accountStatus: String
-  hasPendingTxs: Boolean!
-  deposited: Float
   withdrawn: Float
   created_at: String
   portfolio: String

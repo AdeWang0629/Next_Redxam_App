@@ -24,10 +24,10 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
 import Loader from '@components/global/Loader';
+import tdbankIcon from '@public/icons/banks/tdbank.svg';
 import TsxsTable from './TransactionsTable';
 import Card from '../Card';
 import LocaleDropdown from './LocaleDropdown';
-import tdbankIcon from './icons/tdbank.svg';
 
 const TELLER_APPLICATION_ID = 'app_nu123i0nvg249720i8000';
 const LEAN_APPLICATION_ID = '94e54b49-973c-47c8-8b11-f0d9bba2c6d5';

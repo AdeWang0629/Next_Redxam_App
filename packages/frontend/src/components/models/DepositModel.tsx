@@ -18,7 +18,7 @@ import { getCookie } from 'cookies-next';
 import IconButton from '@components/dashboard/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CustomSelect from '@components/dashboard/CustomSelect';
-
+import tdbankIcon from '@public/icons/banks/tdbank.svg';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import TimesIcon from '@public/icons/times.svg';
 import RedxamLogo from '@public/images/circular-white-redxam-logo.svg';
@@ -61,7 +61,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
     logo?: string | undefined;
     type: string;
   }>(accounts[0]);
-  const [value, setValue] = useState<number>(10);
+  const [value, setValue] = useState<number>(0);
   const [depositLoading, setDepositLoading] = useState<boolean>(false);
   const [updateToken, setUpdateToken] = useState('');
 
@@ -91,11 +91,6 @@ const DepositModel: NextPage<DepositModelProps> = ({
   }
 
   const deposit = async () => {
-    const confirmation = confirm(
-      `Are you sure you want to deposit $${value} from ${selectedAccount.name}?`
-    );
-    if (!confirmation) return;
-
     setDepositLoading(true);
 
     switch (paymentApi) {
@@ -140,7 +135,6 @@ const DepositModel: NextPage<DepositModelProps> = ({
         break;
       case 'LEAN':
         const res = await api.createPaymentIntent(user?._id as string, value);
-        console.log(res);
         const payment_intent_id =
           res.data.data.createPaymentIntent.paymentIntentId;
         // @ts-ignore typescript does not recognize CDN script types
@@ -222,14 +216,13 @@ const DepositModel: NextPage<DepositModelProps> = ({
                     style={{ width: `${value.toString().length}ch` }}
                     onChange={({ target }) => {
                       const newValue = +target.value.replace(/[^0-9]/g, '');
-                      console.log(newValue);
                       setValue(newValue);
                     }}
                   />
                   <span>.00</span>
                 </div>
                 <span className="font-secondary text-sm text-[#95989B]">
-                  Enter amount you want to deposit
+                  Enter amount you want to deposit of $20 or greater
                 </span>
               </div>
 
@@ -239,10 +232,10 @@ const DepositModel: NextPage<DepositModelProps> = ({
                   boxShadow:
                     '0px 20px 13px rgba(56, 176, 0, 0.1), 0px 8.14815px 6.51852px rgba(56, 176, 0, 0.05), 0px 1.85185px 3.14815px rgba(56, 176, 0, 0.025)'
                 }}
-                disabled={value < 10 || depositLoading}
+                disabled={value < 20 || depositLoading}
                 onClick={deposit}
               >
-                Deposit
+                {depositLoading ? 'Processing' : 'Deposit'}
               </button>
             </div>
           </div>

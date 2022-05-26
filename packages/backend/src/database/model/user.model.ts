@@ -15,10 +15,8 @@ export interface User {
   token: string;
   balance: number;
   accountStatus?: string;
-  hasPendingTxs?: boolean;
   balanceRecords?: [BalanceRecords];
   bankAccounts?: [bankAccount];
-  deposited: number;
   withdrawn: number;
   birthPlace?: string;
   title?: string;
