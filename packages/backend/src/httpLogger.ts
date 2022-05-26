@@ -5,14 +5,22 @@ const format = json({
   url: ':url',
   status: ':status',
   contentLength: ':res[content-length]',
-  responseTime: ':response-time',
+  remoteAddress: ':remote-addr',
+  responseTime: ':response-time'
 });
 
 const wistonLoger = require('./logger');
 const httpLogger = morgan(format, {
   stream: {
     write: message => {
-      const { method, url, status, contentLength, responseTime } = JSON.parse(message);
+      const {
+        method,
+        url,
+        status,
+        contentLength,
+        remoteAddress,
+        responseTime
+      } = JSON.parse(message);
 
       wistonLoger.info('HTTP Access Log', {
         timestamp: new Date().toString(),
@@ -20,10 +28,11 @@ const httpLogger = morgan(format, {
         url,
         status: Number(status),
         contentLength,
-        responseTime: Number(responseTime),
+        remoteAddress,
+        responseTime: Number(responseTime)
       });
-    },
-  },
+    }
+  }
 });
 
 module.exports = httpLogger;

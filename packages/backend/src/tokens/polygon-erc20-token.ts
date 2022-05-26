@@ -2,7 +2,6 @@
 import { ethers } from 'ethers';
 import crypto from 'crypto';
 import Web3 from 'web3';
-import { setTimeout } from 'timers/promises';
 import matic from '@/apis/polygon';
 import { MaticTx } from '@/apis/polygon/types';
 import { sendPendingTxEmail, emailStatus } from '@/apis/sendgrid';
@@ -92,7 +91,7 @@ export class PolygonToken implements Token {
       PolygonScan API only allows 5 calls per second, 
       so we use the timeout to avoid overpassing this limit
     */
-    await setTimeout(500);
+    await setTimeout(() => null, 500);
     const txs: MaticTx[] = await matic.getWalletTxs(
       address,
       this.contract,
