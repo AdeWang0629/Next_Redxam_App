@@ -59,7 +59,7 @@ const Switcher: NextPage<SwitcherProps> = ({
             : undefined
       }}
     >
-      Bank
+      Zelle
     </button>
   </div>
 );
