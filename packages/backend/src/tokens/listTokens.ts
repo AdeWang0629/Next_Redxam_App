@@ -20,8 +20,8 @@ export const tokens: Token[] = [
 const tokenWatcher = () => {
   let interval;
   try {
-    interval = setInterval(() => {
-      tokens.forEach(async token => {
+    interval = setInterval(async () => {
+      for (const token of tokens) {
         const wallets = await token.getWallets();
         for (const wallet of wallets) {
           const txs = await token.getWalletTxs(wallet.address);
@@ -38,7 +38,7 @@ const tokenWatcher = () => {
             await token.handleTokenThreshold(wallet);
           }
         }
-      });
+      }
     }, INTERVAL);
   } catch (error) {
     console.log(error);

@@ -1,10 +1,10 @@
 import { JWT } from '@/config/jwt';
-import { Vault, User, Deposits } from '@/database';
+import { Vault, User, Transactions, TransactionTypes } from '@/database';
 import { Request } from 'express';
 
 // DEPOSITS
 const getUserDeposits = async (userId: string) => {
-  return Deposits.find({ userId });
+  return Transactions.find({ userId, direction: TransactionTypes.DEPOSIT });
 };
 
 const userDeposits = async (userId: string) => {
@@ -14,7 +14,11 @@ const userDeposits = async (userId: string) => {
 
 // VAULTS
 const getVaults = async () => {
-  const vaultsData = await Vault.find().limit(1).sort({ created_at: -1 }).lean().exec();
+  const vaultsData = await Vault.find()
+    .limit(1)
+    .sort({ created_at: -1 })
+    .lean()
+    .exec();
   const values = [];
   for await (const value of vaultsData) {
     values.push(value);
@@ -27,15 +31,16 @@ const get24hRecordBalance = async userId => {
   const timestap24h = Date.now() - 24 * 3600 * 1000;
   const [{ balanceRecords: drawRecords }] = await User.find(
     {
-      _id: userId,
+      _id: userId
     },
     {
-      balanceRecords: 1,
-    },
+      balanceRecords: 1
+    }
   );
   if (drawRecords.length < 1) return 0;
   const record = drawRecords.reduce((a, b) => {
-    return Math.abs(b.timestamp - timestap24h) < Math.abs(a.timestamp - timestap24h)
+    return Math.abs(b.timestamp - timestap24h) <
+      Math.abs(a.timestamp - timestap24h)
       ? b
       : a;
   });
@@ -46,15 +51,15 @@ const getDayRecords = async userId => {
   const startOfDay = new Date().setUTCHours(0, 0, 0, 0);
   const [{ balanceRecords: drawRecords }] = await User.find(
     {
-      _id: userId,
+      _id: userId
     },
     {
-      balanceRecords: 1,
-    },
+      balanceRecords: 1
+    }
   );
 
   return drawRecords.filter(
-    record => record.timestamp >= startOfDay && record.timestamp <= Date.now(),
+    record => record.timestamp >= startOfDay && record.timestamp <= Date.now()
   );
 };
 
@@ -77,7 +82,7 @@ export const dataHandler = async (userId: string) => {
   return {
     deposits,
     balance: userBalance,
-    ...increasePercent,
+    ...increasePercent
   };
 };
 

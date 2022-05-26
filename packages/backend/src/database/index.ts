@@ -6,7 +6,7 @@ const MONGO_OPTS: ConnectionOptions = {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false,
+  useFindAndModify: false
 };
 
 connect(MONGODB_URL, MONGO_OPTS);
@@ -23,7 +23,7 @@ export * from './model/totalPrice.model';
 export * from './model/user.model';
 export * from './model/wallet.model';
 export * from './model/vault.model';
-export * from './model/deposits.model';
+export * from './model/transactions.model';
 export * from './model/internalDeposits.model';
 export * from './model/admin.model';
 export * from './model/changeRequest.model';

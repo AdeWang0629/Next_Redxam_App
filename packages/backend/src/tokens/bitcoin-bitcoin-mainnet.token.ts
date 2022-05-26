@@ -12,11 +12,13 @@ import {
 import blockchain from '@/apis/blockchain';
 import {
   User,
-  Deposits,
-  InternalDeposits,
+  Transactions,
+  TransactionsProps,
+  TransactionTypes,
   DepositsType,
   UserProps,
-  DepositsProps
+  DepositsCurrencyType,
+  TransactionStatus
 } from '@/database';
 import {
   Token,
@@ -112,23 +114,22 @@ export class BitcoinBitcoinMainnetToken implements Token {
     for (const deposit of deposits) {
       if (deposit.blockId === -1) hasPendingTxs = true;
       await this.depositConfirmationMailing(deposit, wallet.userId);
-      const updatedDeposit = await Deposits.updateOne(
+      const updatedDeposit = await Transactions.updateOne(
         { userId: wallet.userId, hash: deposit.hash },
         {
-          $set: {
+          $setOnInsert: {
+            timestamp: Date.now(),
+            status: TransactionStatus.PENDING,
             userId: wallet.userId,
             address: wallet.address,
             index: deposit.index,
             type: DepositsType.CRYPTO,
+            direction: TransactionTypes.DEPOSIT,
             currency: this.symbol,
             processedByRedxam: false,
             hash: deposit.hash,
             amount: deposit.value,
             network: this.network
-          },
-          $setOnInsert: {
-            timestamp: Date.now(),
-            status: 'pending'
           }
         },
         {
@@ -151,17 +152,24 @@ export class BitcoinBitcoinMainnetToken implements Token {
       }
     );
   }
-  isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
-    return status === 'pending' && !deposit;
+  isPendingDeposit(status: DepositStatus, deposit: TransactionsProps): boolean {
+    return status === TransactionStatus.PENDING && !deposit;
   }
-  isConfirmedDeposit(status: DepositStatus, deposit: DepositsProps): boolean {
-    return status === 'completed' && deposit && deposit.status === 'pending';
+  isConfirmedDeposit(
+    status: DepositStatus,
+    deposit: TransactionsProps
+  ): boolean {
+    return (
+      status === TransactionStatus.COMPLETED &&
+      deposit &&
+      deposit.status === TransactionStatus.PENDING
+    );
   }
   isCofirmedDepositWithoutPending(
     status: DepositStatus,
-    deposit: DepositsProps
+    deposit: TransactionsProps
   ): boolean {
-    return status === 'completed' && !deposit;
+    return status === TransactionStatus.COMPLETED && !deposit;
   }
   async getUser(userId: string): Promise<UserProps> {
     return User.findOne({ _id: userId });
@@ -171,8 +179,11 @@ export class BitcoinBitcoinMainnetToken implements Token {
     userId: string
   ): Promise<emailStatus> {
     try {
-      const status = deposit.blockId > 0 ? 'completed' : 'pending';
-      const dbDeposit = await Deposits.findOne({ hash: deposit.hash });
+      const status =
+        deposit.blockId > 0
+          ? TransactionStatus.COMPLETED
+          : TransactionStatus.PENDING;
+      const dbDeposit = await Transactions.findOne({ hash: deposit.hash });
       if (this.isPendingDeposit(status, dbDeposit)) {
         const user = await this.getUser(userId);
         return sendPendingTxEmail(
@@ -255,12 +266,17 @@ export class BitcoinBitcoinMainnetToken implements Token {
             this.symbol
           );
 
-          await InternalDeposits.create({
+          await Transactions.create({
             amount: unspentInfo.balance - this.txFee,
             hash: txData.data.result,
             userId: wallet.userId,
             address: wallet.address,
-            timestamp: new Date().getTime()
+            timestamp: new Date().getTime(),
+            direction: TransactionTypes.INTERNAL,
+            type: DepositsType.CRYPTO,
+            currency: DepositsCurrencyType.BTC,
+            status: TransactionStatus.PENDING,
+            processedByRedxam: false
           });
           console.debug(`TxHash: ${txData.data.result}`);
         } else {

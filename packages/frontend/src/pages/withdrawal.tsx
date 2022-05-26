@@ -1,20 +1,16 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '@providers/User';
 import { useRouter } from 'next/router';
-import api from '@utils/api';
+import { useContext, useEffect, useState } from 'react';
 import InternalLayout from '@components/global/InternalLayout';
 import IconButton from '@components/dashboard/IconButton';
+import { useTranslation } from 'next-i18next';
+import { UserContext } from '@providers/User';
+import BackIcon from '@public/icons/back.svg';
 import Switcher from '@components/dashboard/deposits/Switcher';
-import KYC from '@components/dashboard/deposits/KYC';
-import Banks from '@components/dashboard/deposits/Banks';
-import Cards from '@components/dashboard/deposits/Cards';
 import Crypto from '@components/dashboard/deposits/Crypto';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
-import BackIcon from '@public/icons/back.svg';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -23,20 +19,16 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['dashboard']))
+      ...(await serverSideTranslations(locale, ['withdrawals']))
     }
   };
 };
 
-const Deposit: NextPage = () => {
-  const { t } = useTranslation('dashboard');
+const Withdrawal: NextPage = () => {
+  const { t } = useTranslation('withdrawal');
   const { user, loading, noUser } = useContext(UserContext);
   const router = useRouter();
-
   const [activeSection, setActiveSection] = useState('crypto');
-  const [isApplicant, setIsApplicant] = useState(false);
-  const [isValidApplicant, setIsValidApplicant] = useState(false);
-  const [isInit, setIsInit] = useState(false);
 
   // @ts-ignore
   useEffect(() => {
@@ -44,7 +36,6 @@ const Deposit: NextPage = () => {
 
     return null;
   }, [noUser, router]);
-
   useEffect(() => {
     if (
       !noUser &&
@@ -56,22 +47,6 @@ const Deposit: NextPage = () => {
     }
   }, [user?.accountStatus, router, loading, noUser]);
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await api.getApplicantData();
-
-      if (data.status !== 200) return;
-
-      setIsApplicant(true);
-      if (!data.review) return;
-
-      setIsInit(data.review.reviewStatus === 'init');
-
-      if (data.review.reviewResult)
-        setIsValidApplicant(data.review.reviewResult.reviewAnswer === 'GREEN');
-    })();
-  });
-
   if (loading) return <span>loading</span>;
 
   let depositContent = null;
@@ -81,20 +56,26 @@ const Deposit: NextPage = () => {
       depositContent = <Crypto />;
       break;
 
-    case 'card':
-      depositContent = (
-        <div>
-          {isValidApplicant && <Cards />}
-          {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
-        </div>
-      );
-      break;
+    // case 'card':
+    //   depositContent = (
+    //     <div>
+    //       {isValidApplicant && <Cards />}
+    //       {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
+    //     </div>
+    //   );
+    //   break;
 
     default:
       depositContent = (
         <div>
-          {isValidApplicant && <Banks />}
-          {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
+          {t('withdrawals')}
+          <br />
+          {t('desc-w')}
+          <br />
+          1. user has balance <br />
+          2. user requests transfer <br />
+          4. they need to verify zelle number or phone number <br />
+          3. send money to zelle email
         </div>
       );
       break;
@@ -103,12 +84,12 @@ const Deposit: NextPage = () => {
   return (
     <InternalLayout>
       <Head>
-        <title>redxam - Deposit</title>
+        <title>redxam - Withdrawal</title>
       </Head>
       <div className="max-w-[900px] my-0 mx-auto px-3 lg:px-0">
         <div className="flex flex-col lg:flex-row justify-between items-center mb-10">
           <IconButton
-            buttonText={t('deposits')}
+            buttonText={t('withdrawals')}
             buttonIcon={BackIcon}
             buttonHref="/home"
           />
@@ -123,4 +104,4 @@ const Deposit: NextPage = () => {
   );
 };
 
-export default Deposit;
+export default Withdrawal;

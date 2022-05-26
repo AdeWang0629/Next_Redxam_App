@@ -1,6 +1,13 @@
 import { Request } from 'express';
 import axios from 'axios';
-import { User, Deposits, DepositsCurrencyType, DepositsType } from '@/database';
+import {
+  User,
+  Transactions,
+  TransactionTypes,
+  TransactionStatus,
+  DepositsCurrencyType,
+  DepositsType
+} from '@/database';
 import { getPayee } from './getPayee.resolver';
 import https from 'https';
 import fs from 'fs';
@@ -113,13 +120,14 @@ const saveDeposit = async (
   let bankIcon = bankIconAsBase64;
   if (bankName.includes('America')) bankIcon = boaIconAsBase64;
   if (bankName.includes('TD')) bankIcon = tdbankIconAsBase64;
-  await Deposits.create({
+  await Transactions.create({
     type: DepositsType.FIAT,
     currency: DepositsCurrencyType.USD,
+    direction: TransactionTypes.DEPOSIT,
     amount,
     processedByRedxam: false,
     userId,
-    status: 'pending',
+    status: TransactionStatus.PENDING,
     bankName,
     bankIcon,
     timestamp: new Date().getTime(),
