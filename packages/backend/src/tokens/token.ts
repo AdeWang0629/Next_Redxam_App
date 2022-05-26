@@ -1,4 +1,4 @@
-import { UserProps, DepositsProps } from '@/database';
+import { UserProps, TransactionsProps } from '@/database';
 import { emailStatus } from '@/apis/sendgrid';
 
 export interface Token {
@@ -18,11 +18,14 @@ export interface Token {
   hasWalletNewTxs(wallet: Wallet, txs: Deposit[]): boolean;
   getWalletDeposits(txs: Transaction[], address: string): Deposit[];
   updateWalletDeposits(deposits: Deposit[], wallet: Wallet): Promise<void>;
-  isPendingDeposit(status: DepositStatus, deposit: DepositsProps): boolean;
-  isConfirmedDeposit(status: DepositStatus, deposit: DepositsProps): boolean;
+  isPendingDeposit(status: DepositStatus, deposit: TransactionsProps): boolean;
+  isConfirmedDeposit(
+    status: DepositStatus,
+    deposit: TransactionsProps
+  ): boolean;
   isCofirmedDepositWithoutPending(
     status: DepositStatus,
-    deposit: DepositsProps
+    deposit: TransactionsProps
   ): boolean;
   getUser(userId: string): Promise<UserProps>;
   depositConfirmationMailing(
