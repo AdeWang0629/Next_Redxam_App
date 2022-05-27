@@ -86,11 +86,6 @@ const LevelScreen = ({navigation}) => {
             }
           />
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Login')}
-          activeOpacity={0.5}>
-          <Text style={styles.homeText}>Go to home</Text>
-        </TouchableOpacity>
         <SocialBar type="secondary" />
       </ImageBackground>
     </View>
