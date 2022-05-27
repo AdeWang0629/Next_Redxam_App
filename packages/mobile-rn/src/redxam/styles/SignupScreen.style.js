@@ -14,7 +14,7 @@ export default StyleSheet.create({
     fontSize: 40,
     lineHeight: 40,
     textAlign: 'left',
-    fontFamily: 'Rubik',
+    fontFamily: 'Arial',
   },
   underline: {
     textDecorationLine: 'underline',

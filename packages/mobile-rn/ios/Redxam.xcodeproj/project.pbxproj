@@ -9,15 +9,11 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* RedxamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RedxamTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		42A4729865C5619234029042 /* libPods-Redxam-RedxamTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F406B8528853C349316C5BA4 /* libPods-Redxam-RedxamTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		E536F10E189B7F0536529375 /* libPods-Redxam.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DEFA177793E81C3C04AB339 /* libPods-Redxam.a */; };
 		F1E2B3552836FE6D00CDDDD8 /* Pods-Redxam-RedxamTests.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B4C4A8E5F2340B52FF5BCB30 /* Pods-Redxam-RedxamTests.release.xcconfig */; };
 		F1E2B3562836FE6F00CDDDD8 /* Pods-Redxam-RedxamTests.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 859895826D11C979E39FC46C /* Pods-Redxam-RedxamTests.debug.xcconfig */; };
-		F1E2B3592836FE9300CDDDD8 /* Pods-Redxam.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 247D5A110F9EF61F515FDCAE /* Pods-Redxam.debug.xcconfig */; };
-		F1E2B35A2836FE9500CDDDD8 /* Pods-Redxam.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5E500D4ADAC30ABC12E6DB5F /* Pods-Redxam.release.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,14 +36,31 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Redxam/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Redxam/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Redxam/main.m; sourceTree = "<group>"; };
+		1B7F1CCC04334EAA991B8250 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		20EC3F40562F4EB9A0F28813 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../assets/fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		247D5A110F9EF61F515FDCAE /* Pods-Redxam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Redxam.debug.xcconfig"; path = "Target Support Files/Pods-Redxam/Pods-Redxam.debug.xcconfig"; sourceTree = "<group>"; };
+		2FC1733CEFA44188BD4B6842 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		37C2AF0CF9734B288DF7BF47 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		5DEFA177793E81C3C04AB339 /* libPods-Redxam.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Redxam.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E500D4ADAC30ABC12E6DB5F /* Pods-Redxam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Redxam.release.xcconfig"; path = "Target Support Files/Pods-Redxam/Pods-Redxam.release.xcconfig"; sourceTree = "<group>"; };
+		6446A608D335406CAC628069 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Redxam/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		859895826D11C979E39FC46C /* Pods-Redxam-RedxamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Redxam-RedxamTests.debug.xcconfig"; path = "Target Support Files/Pods-Redxam-RedxamTests/Pods-Redxam-RedxamTests.debug.xcconfig"; sourceTree = "<group>"; };
+		885C322646E0489AAED89234 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		889DC466DE2F4373A71FC315 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		9141C0E32D7F482687A1448F /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		9FDC882BF8E14766B3944816 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		A941A1751F144005845D3236 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		B4C4A8E5F2340B52FF5BCB30 /* Pods-Redxam-RedxamTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Redxam-RedxamTests.release.xcconfig"; path = "Target Support Files/Pods-Redxam-RedxamTests/Pods-Redxam-RedxamTests.release.xcconfig"; sourceTree = "<group>"; };
+		BD3BE6E9F2B94CF2BF530029 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		BDBE94CC46A44F83A9E1ED29 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		BED91D9327AD464C99B68D1B /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		C8FA72D8C0B54C2EB80A197A /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		CF77678DEB754B3782276369 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		E7FF250391814F3AA6E5B99A /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F406B8528853C349316C5BA4 /* libPods-Redxam-RedxamTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Redxam-RedxamTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF44B113C47D43DC898347E6 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +169,23 @@
 		FC57821538B54BD4A8008C73 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				20EC3F40562F4EB9A0F28813 /* Rubik-Regular.ttf */,
+				A941A1751F144005845D3236 /* AntDesign.ttf */,
+				37C2AF0CF9734B288DF7BF47 /* Entypo.ttf */,
+				CF77678DEB754B3782276369 /* EvilIcons.ttf */,
+				BED91D9327AD464C99B68D1B /* Feather.ttf */,
+				889DC466DE2F4373A71FC315 /* FontAwesome.ttf */,
+				BD3BE6E9F2B94CF2BF530029 /* FontAwesome5_Brands.ttf */,
+				9141C0E32D7F482687A1448F /* FontAwesome5_Regular.ttf */,
+				1B7F1CCC04334EAA991B8250 /* FontAwesome5_Solid.ttf */,
+				9FDC882BF8E14766B3944816 /* Fontisto.ttf */,
+				885C322646E0489AAED89234 /* Foundation.ttf */,
+				FF44B113C47D43DC898347E6 /* Ionicons.ttf */,
+				E7FF250391814F3AA6E5B99A /* MaterialCommunityIcons.ttf */,
+				BDBE94CC46A44F83A9E1ED29 /* MaterialIcons.ttf */,
+				2FC1733CEFA44188BD4B6842 /* Octicons.ttf */,
+				C8FA72D8C0B54C2EB80A197A /* SimpleLineIcons.ttf */,
+				6446A608D335406CAC628069 /* Zocial.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -192,7 +222,6 @@
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
-				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				E5DD451FCC0B532A923C609A /* [CP] Embed Pods Frameworks */,
 				58A0C350CC25B048F1E08DCE /* [CP] Copy Pods Resources */,
@@ -249,17 +278,6 @@
 			files = (
 				F1E2B3552836FE6D00CDDDD8 /* Pods-Redxam-RedxamTests.release.xcconfig in Resources */,
 				F1E2B3562836FE6F00CDDDD8 /* Pods-Redxam-RedxamTests.debug.xcconfig in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		13B07F8E1A680F5B00A75B9A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F1E2B3592836FE9300CDDDD8 /* Pods-Redxam.debug.xcconfig in Resources */,
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				F1E2B35A2836FE9500CDDDD8 /* Pods-Redxam.release.xcconfig in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,7 +598,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -646,7 +664,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

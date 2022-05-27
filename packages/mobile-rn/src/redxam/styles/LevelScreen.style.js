@@ -14,7 +14,7 @@ export default StyleSheet.create({
     fontSize: 40,
     lineHeight: 40,
     textAlign: 'left',
-    fontFamily: 'Rubik',
+    fontFamily: 'Arial',
   },
   underline: {
     textDecorationLine: 'underline',
@@ -25,7 +25,7 @@ export default StyleSheet.create({
   text: {
     color: '#818181',
     fontSize: 18,
-    fontFamily: 'Rubik',
+    fontFamily: 'Arial',
   },
   buttonTextContainer: {
     width: '100%',
