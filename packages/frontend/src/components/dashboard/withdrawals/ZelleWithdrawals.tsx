@@ -25,9 +25,8 @@ import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
 import Loader from '@components/global/Loader';
 import tdbankIcon from '@public/icons/banks/tdbank.svg';
-import TsxsTable from './TransactionsTable';
 import Card from '../Card';
-import LocaleDropdown from './LocaleDropdown';
+import TsxsTable from '../deposits/TransactionsTable';
 
 const TELLER_APPLICATION_ID = 'app_nu123i0nvg249720i8000';
 const LEAN_APPLICATION_ID = '94e54b49-973c-47c8-8b11-f0d9bba2c6d5';
@@ -47,7 +46,7 @@ interface Teller {
 
 type PaymentApi = 'LEAN' | 'TELLER' | 'MX';
 
-const BanksView: NextPage = () => {
+const ZelleWithdrawals: NextPage = () => {
   const { t } = useTranslation('dashboard');
   const { user } = useContext(UserContext);
   let userId = '';
@@ -104,7 +103,14 @@ const BanksView: NextPage = () => {
     const { data: userDepositsData } = await api.getUserDeposits();
     setDeposits(
       userDepositsData.data.userTransactions
-        .filter((deposit: { type: string }) => deposit.type === 'FIAT')
+        .map(v => {
+          console.log(v);
+          return v;
+        })
+        .filter(
+          (deposit: { type: string; direction: string }) =>
+            deposit.type === 'FIAT' && deposit.direction === 'WITHDRAWAL'
+        )
         .sort(
           (
             firstTimestamp: { timestamp: number },
@@ -357,7 +363,6 @@ const BanksView: NextPage = () => {
               <h1 className="font-secondary font-medium text-lg">
                 {t('addedBanks')}
               </h1>
-              <LocaleDropdown setPaymentApi={setPaymentApi} />
 
               {accounts.length ? (
                 unlinkMode ? (
@@ -577,7 +582,7 @@ const BanksView: NextPage = () => {
                       disabled={teller.depositValue < 10}
                       onClick={() => handleBankDeposit()}
                     >
-                      {t('depositToWallet')}
+                      {t('withdrawZelle')}
                     </button>
                   </div>
                 </Card>
@@ -593,7 +598,7 @@ const BanksView: NextPage = () => {
               }}
               onClick={() => setShowDepositModel(true)}
             >
-              {t('depositToWallet')}
+              {t('withdrawZelle')}
             </button>
           ) : null}
         </div>
@@ -681,4 +686,4 @@ const BanksView: NextPage = () => {
   );
 };
 
-export default BanksView;
+export default ZelleWithdrawals;

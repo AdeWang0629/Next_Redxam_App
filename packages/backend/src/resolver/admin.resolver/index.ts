@@ -7,9 +7,10 @@ import { updateUserStatus } from './updateUserStatus.resolver';
 import { updateDepositStatus } from './updateDepositStatus.resolver';
 import { updateWallets } from './updateWallets.resolver';
 import { inviteUser } from './inviteUser.resolver';
-import { getDeposits } from './getDeposits.resolver';
+import { getTransactions } from './getTransactions.resolver';
 import { spoofAccount } from './spoofAccount.resolver';
 import { addContributionFromValue } from './addContributionFromValue.resolver';
+import { confirmWithdrawal } from './confirmWithdrawal.resolver';
 
 export const AdminResolver = {
   adminLogin,
@@ -19,9 +20,10 @@ export const AdminResolver = {
   updateReferral,
   updateUserStatus,
   updateDepositStatus,
+  confirmWithdrawal,
   updateWallets,
   inviteUser,
-  getDeposits,
+  getTransactions,
   spoofAccount,
   addContributionFromValue
 };

@@ -63,7 +63,7 @@ const TransactionsTable = ({
         </div>
       ) : depositsType === 'crypto' ? (
         <h2 className="px-8 py-6 font-secondary font-medium text-lg">
-          {t('recentDepositsWallet')}
+          {t('recentTxWallet')}
         </h2>
       ) : (
         <h2 className="px-8 py-6 font-secondary font-medium text-lg">

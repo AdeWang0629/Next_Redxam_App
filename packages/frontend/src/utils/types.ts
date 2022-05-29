@@ -14,6 +14,7 @@ export interface Deposit {
   bankName: string | null;
   bankType: string | null;
   network?: string;
+  direction?: string;
 }
 
 export interface Users {

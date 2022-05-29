@@ -29,7 +29,7 @@ export enum UsersPortfolios {
 
 export enum TransactionTypes {
   DEPOSIT = 'DEPOSIT',
-  WITHDRAW = 'WITHDRAW',
+  WITHDRAWAL = 'WITHDRAWAL',
   INTERNAL = 'INTERNAL'
 }
 

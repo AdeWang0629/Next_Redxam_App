@@ -247,11 +247,11 @@ class API {
     );
   }
 
-  getDeposits(adminToken: string) {
+  getTransactions(adminToken: string) {
     const query = `
     query { 
-      getDeposits {
-        deposits {
+      getTransactions {
+        transactions {
           _id
           userId
           type
@@ -268,6 +268,7 @@ class API {
           bankType
           network
           email
+          direction
         }
         success
         message
@@ -335,6 +336,22 @@ class API {
       { query },
       {
         headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+  }
+
+  confirmWithdrawal(adminToken: string, depositId: string) {
+    const mutation = `mutation {
+      confirmWithdrawal (arg: {depositId: "${depositId}"}) {
+        message
+        success
+      }
+    }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { Authorization: `Bearer ${adminToken}` }
       }
     );
   }
@@ -429,7 +446,7 @@ class API {
   getUserDeposits() {
     const query = `
       query {
-        userDeposits {
+        userTransactions {
           _id
           type
           amount
@@ -443,6 +460,7 @@ class API {
           bankIcon
           bankName
           bankType
+          direction
         }
       }`;
 

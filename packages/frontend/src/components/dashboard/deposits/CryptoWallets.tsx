@@ -8,8 +8,9 @@ import TokenSelector from './TokenSelector';
 import NetworkSelector from './NetworkSelector';
 import CryptoAddress from './CryptoAddress';
 import Card from '../Card';
+import CryptoInput from '../withdrawals/CryptoInput';
 
-const CryptoWallets = () => {
+const CryptoWallets = type => {
   const { t } = useTranslation('dashboard');
 
   const [token, setToken] = useState<Token | null>(null);
@@ -34,7 +35,7 @@ const CryptoWallets = () => {
     <Card otherClasses="md:w-1/2 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
       <div className="flex items-center justify-between px-8">
         <h1 className="font-secondary font-medium text-lg py-6">
-          {t('depositToWallet')}
+          {type === 'deposit' ? t('depositToWallet') : t('withdrawToWallet')}
         </h1>
       </div>
       <hr />
@@ -53,13 +54,21 @@ const CryptoWallets = () => {
         network={network}
         handleNetwork={handleNetwork}
       />
-
-      {token && network.address && (
+      {token && network.address && type === 'deposit' ? (
         <CryptoAddress
           address={network.address}
           tokenSymbol={token.symbol}
           network={network.name}
         />
+      ) : (
+        token &&
+        network.address && (
+          <CryptoInput
+            address={network.address}
+            tokenSymbol={token.symbol}
+            network={network.name}
+          />
+        )
       )}
     </Card>
   );

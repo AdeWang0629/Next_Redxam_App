@@ -20,7 +20,7 @@ const CardsView: NextPage = () => {
     (async () => {
       const { data: userDepositsData } = await api.getUserDeposits();
       setDeposits(
-        userDepositsData.data.userDeposits
+        userDepositsData.data.userTransactions
           .filter((deposit: { type: string }) => deposit.type === 'FIAT')
           .sort(
             (

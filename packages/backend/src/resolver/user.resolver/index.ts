@@ -15,7 +15,7 @@ import { addDiscord } from './addDiscord.resolver';
 import { contactForm } from './contactForm.resolver';
 import { invitationCode } from './invitationCode.resolver';
 import { signup } from './signup.resolver';
-import { userDeposits } from './userDeposits.resolver';
+import { userTransactions } from './userTransactions.resolver';
 
 export const UserResolver = {
   checkRole,
@@ -33,5 +33,5 @@ export const UserResolver = {
   contactForm,
   invitationCode,
   signup,
-  userDeposits
+  userTransactions
 };

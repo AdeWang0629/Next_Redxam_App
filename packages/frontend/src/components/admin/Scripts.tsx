@@ -10,6 +10,7 @@ const Scripts: NextPage = () => {
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [users, setUsers] = useState<[] | Users[]>([]);
   const [status, setStatus] = useState<'invited' | 'accepted'>('invited');
+  const [spoofURL, setspoofURL] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -31,10 +32,7 @@ const Scripts: NextPage = () => {
           api.admin
             .spoofAccount(getCookie('admin_token') as String, email)
             .then(res => {
-              // eslint-disable-next-line no-alert
-              alert('success, check the console');
-              // eslint-disable-next-line no-console
-              console.log(res.data.data.spoofAccount.message);
+              setspoofURL(res.data.data.spoofAccount.message);
             })
             // eslint-disable-next-line no-alert
             .catch(err => alert(err));
@@ -162,6 +160,16 @@ const Scripts: NextPage = () => {
           onChange={e => setEmail(e.target.value.toLowerCase())}
         />
       )}
+      {spoofURL ? (
+        <a target="_blank" href={spoofURL} rel="noreferrer">
+          <input
+            type="button"
+            value="Open account"
+            className="mt-2 text-white rounded-full px-12 py-3 self-center transition-opacity duration-300 hover:opacity-70 disabled:opacity-50 cursor-pointer"
+            style={{ backgroundColor: 'rgba(62,180,2,1)' }}
+          />
+        </a>
+      ) : null}
     </div>
   );
 };

@@ -3,12 +3,12 @@ import { Vault, User, Transactions, TransactionTypes } from '@/database';
 import { Request } from 'express';
 
 // DEPOSITS
-const getUserDeposits = async (userId: string) => {
+const getUserTransactions = async (userId: string) => {
   return Transactions.find({ userId, direction: TransactionTypes.DEPOSIT });
 };
 
-const userDeposits = async (userId: string) => {
-  const deposits = await getUserDeposits(userId);
+const userTransactions = async (userId: string) => {
+  const deposits = await getUserTransactions(userId);
   return deposits;
 };
 
@@ -64,19 +64,18 @@ const getDayRecords = async userId => {
 };
 
 // USER
-const getUserContribution = async userId => {
-  const user = await User.findOne({ _id: userId }, { contribution: 1 });
-  return user.contribution;
+const getUserBalance = async userId => {
+  const user = await User.findOne({ _id: userId }, { balance: 1 });
+  return user.balance;
 };
 
 export const dataHandler = async (userId: string) => {
-  const deposits = await userDeposits(userId);
+  const deposits = await userTransactions(userId);
   const vaultsData = await getVaults();
   const lastDayBalance = await get24hRecordBalance(userId);
   const dayRecords = await getDayRecords(userId);
-  const userContribution = await getUserContribution(userId);
 
-  const userBalance = calcBalance(userContribution, vaultsData);
+  const userBalance = await getUserBalance(userId);
 
   const increasePercent = getPercentageChange(lastDayBalance, userBalance);
   return {
@@ -103,15 +102,6 @@ export const home = async (_: void, req: Request) => {
 };
 
 // HELPERS
-const calcBalance = (contribution, vaultData) => {
-  const { vaults, totalContribution } = vaultData;
-  let totalBalance = 0;
-  Object.keys(vaults).forEach(key => {
-    totalBalance += vaults[key].balance;
-  });
-  return (totalBalance * contribution) / totalContribution;
-};
-
 const getPercentageChange = (lastDayBalance, currentBalance) => {
   let increase = currentBalance - lastDayBalance;
   let percentChange = 0;

@@ -14,7 +14,7 @@ export interface adminToken {
   adminId: string;
 }
 
-export const getDeposits = async (_: void, req: Request) => {
+export const getTransactions = async (_: void, req: Request) => {
   console.debug('[Resolve] admin called');
   const auth = getAuthorizationToken(req.headers.authorization);
 
@@ -26,11 +26,10 @@ export const getDeposits = async (_: void, req: Request) => {
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'admin not found' };
 
-    const deposits = await Transactions.aggregate([
+    const transactions = await Transactions.aggregate([
       {
         $match: {
-          status: TransactionStatus.PENDING,
-          direction: TransactionTypes.DEPOSIT
+          status: TransactionStatus.PENDING
         }
       },
       { $addFields: { ObjectUserId: { $toObjectId: '$userId' } } },
@@ -47,7 +46,7 @@ export const getDeposits = async (_: void, req: Request) => {
       { $addFields: { email: '$user.email' } }
     ]);
 
-    return { deposits, success: true, message: '' };
+    return { transactions, success: true, message: '' };
   } catch (err) {
     return { success: false, message: err.message };
   }

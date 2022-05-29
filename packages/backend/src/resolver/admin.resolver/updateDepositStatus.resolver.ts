@@ -50,7 +50,9 @@ export const updateDepositStatus = async (
       };
 
     const user = await User.findOne({ _id: deposit.userId });
-
+    if (!user) throw new Error('User does not exist');
+    const newBalance = deposit.amount + user.balance;
+    await user.updateOne({ balance: newBalance });
     await handleChangeDepositStatus(deposit, arg.status, user);
 
     return { success: true, message: 'deposit status updated succesfully' };
@@ -87,7 +89,10 @@ const handleEmail = async (userEmail: string) => {
   });
 };
 
-const templatePath = resolve(__dirname, '../../emails/depositStatus.hjs');
+const templatePath = resolve(
+  __dirname,
+  '../../emails/templates/depositStatus.hjs'
+);
 const templateData = readFileSync(templatePath, 'utf-8');
 
 const facebookIcon: Readonly<Attachment> = Object.freeze({

@@ -11,6 +11,7 @@ import Switcher from '@components/dashboard/deposits/Switcher';
 import Crypto from '@components/dashboard/deposits/Crypto';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import ZelleWithdrawals from '@components/dashboard/withdrawals/ZelleWithdrawals';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   if (!locale) {
@@ -56,26 +57,20 @@ const Withdrawal: NextPage = () => {
       depositContent = <Crypto />;
       break;
 
-    // case 'card':
-    //   depositContent = (
-    //     <div>
-    //       {isValidApplicant && <Cards />}
-    //       {(!isApplicant || isInit || !isValidApplicant) && <KYC />}
-    //     </div>
-    //   );
-    //   break;
-
     default:
       depositContent = (
         <div>
-          {t('withdrawals')}
-          <br />
-          {t('desc-w')}
-          <br />
-          1. user has balance <br />
-          2. user requests transfer <br />
-          4. they need to verify zelle number or phone number <br />
-          3. send money to zelle email
+          <div>
+            {t('withdrawals')}
+            <br />
+            {t('desc-w')}
+            <br />
+            1. user has balance <br />
+            2. user requests transfer <br />
+            4. they need to verify zelle number or phone number <br />
+            3. send money to zelle email
+          </div>
+          <ZelleWithdrawals />
         </div>
       );
       break;

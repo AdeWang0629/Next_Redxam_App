@@ -10,7 +10,7 @@ const RecentActivity = () => {
   useEffect(() => {
     (async () => {
       const { data: userDepositsData } = await api.getUserDeposits();
-      setDeposits(userDepositsData.data.userDeposits);
+      setDeposits(userDepositsData.data.userTransactions);
       setLoading(false);
     })();
   }, []);

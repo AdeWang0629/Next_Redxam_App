@@ -2,16 +2,16 @@ import { JWT } from '@/config/jwt';
 import { Transactions, TransactionTypes } from '@/database';
 import { Request } from 'express';
 
-const getUserDeposits = async (userId: string) => {
+const getUserTransactions = async (userId: string) => {
   return Transactions.find({ userId, direction: TransactionTypes.DEPOSIT });
 };
 
 const getData = async (userId: string) => {
-  const userDeposits = getUserDeposits(userId);
-  return Promise.all([userDeposits]);
+  const userTransactions = getUserTransactions(userId);
+  return Promise.all([userTransactions]);
 };
 
-export const userDeposits = async (_: void, req: Request) => {
+export const userTransactions = async (_: void, req: Request) => {
   console.debug('[Resolve] deposits called');
   const payload = await new JWT().authorize(req.headers.authorization);
 
@@ -22,8 +22,8 @@ export const userDeposits = async (_: void, req: Request) => {
   try {
     const data = await getData(payload.userId);
 
-    const [userDepositsData] = data;
-    return [...userDepositsData];
+    const [userTransactionsData] = data;
+    return [...userTransactionsData];
   } catch {
     return null;
   }
