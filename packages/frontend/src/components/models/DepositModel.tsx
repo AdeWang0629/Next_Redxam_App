@@ -18,7 +18,6 @@ import { getCookie } from 'cookies-next';
 import IconButton from '@components/dashboard/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CustomSelect from '@components/dashboard/CustomSelect';
-import tdbankIcon from '@public/icons/banks/tdbank.svg';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import TimesIcon from '@public/icons/times.svg';
 import RedxamLogo from '@public/images/circular-white-redxam-logo.svg';

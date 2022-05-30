@@ -1,42 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'next-i18next';
-import Image from 'next/image';
-import QRCode from 'qrcode';
 
-import copyIcon from '@public/images/dashboard/deposits/copy.svg';
+import Tippy from '@tippyjs/react';
 
-type Props = { address: string; tokenSymbol: string; network: string };
+type Props = { tokenSymbol: string; network: string };
 
-const CryptoInput = ({ address, tokenSymbol, network }: Props) => {
+const CryptoInput = ({ tokenSymbol, network }: Props) => {
   const { t } = useTranslation('dashboard');
-
-  const [qrCode, setQrCode] = useState('');
-  const [isCopied, setIsCopied] = useState<boolean>(false);
-  const [qrCodeModal, setQrCodeModal] = useState<boolean>(false);
-
-  useEffect(() => {
-    async function generateQrCode() {
-      try {
-        const addressQrCode = await QRCode.toDataURL(address);
-        setQrCode(addressQrCode);
-      } catch (error) {
-        return null;
-      }
-      return null;
-    }
-
-    generateQrCode();
-  }, [address]);
 
   return (
     <>
       <div className="px-8 mt-4">
-        <div className="input-wrapper">
-          <input type="text" className="font-secondary" />
-          <label className="font-primary" htmlFor="firstName">
-            Enter wallet address
-          </label>
-        </div>
+        <Tippy content="Crypto withdrawal unavailable">
+          <div className="input-wrapper">
+            <input disabled type="text" className="font-secondary" />
+            <label className="font-primary" htmlFor="firstName">
+              {t('Enter wallet address')}
+            </label>
+          </div>
+        </Tippy>
       </div>
       <div className="pb-6 px-8">
         <ul>

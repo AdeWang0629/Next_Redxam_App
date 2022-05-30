@@ -22,7 +22,7 @@ const TokenSelector = ({ token, handleToken }: Props) => {
           htmlFor="token"
           className="mb-5 font-secondary font-medium text-xl"
         >
-          {t('token')}
+          {t('Token')}
         </label>
 
         <button

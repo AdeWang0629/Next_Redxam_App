@@ -4,12 +4,12 @@ import { Request } from 'express';
 
 // DEPOSITS
 const getUserTransactions = async (userId: string) => {
-  return Transactions.find({ userId, direction: TransactionTypes.DEPOSIT });
+  return Transactions.find({ userId });
 };
 
 const userTransactions = async (userId: string) => {
-  const deposits = await getUserTransactions(userId);
-  return deposits;
+  const txs = await getUserTransactions(userId);
+  return txs;
 };
 
 // VAULTS
@@ -70,7 +70,7 @@ const getUserBalance = async userId => {
 };
 
 export const dataHandler = async (userId: string) => {
-  const deposits = await userTransactions(userId);
+  const txs = await userTransactions(userId);
   const vaultsData = await getVaults();
   const lastDayBalance = await get24hRecordBalance(userId);
   const dayRecords = await getDayRecords(userId);
@@ -79,7 +79,7 @@ export const dataHandler = async (userId: string) => {
 
   const increasePercent = getPercentageChange(lastDayBalance, userBalance);
   return {
-    deposits,
+    txs,
     balance: userBalance,
     ...increasePercent
   };

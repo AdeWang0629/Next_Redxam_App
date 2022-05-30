@@ -29,7 +29,7 @@ const NetworkSelector = ({ networks, network, handleNetwork }: Props) => {
           htmlFor="network"
           className="mb-5 font-secondary font-medium text-xl"
         >
-          {t('network')}
+          {t('Network')}
         </label>
 
         <button

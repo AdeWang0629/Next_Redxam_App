@@ -18,6 +18,7 @@ export type Context = {
     accountStatus: string;
     referralCode: string;
     pending_balance: number;
+    balance: number;
     wallets: {
       [key: string]: {
         address: string;

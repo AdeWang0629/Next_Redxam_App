@@ -22,8 +22,6 @@ import {
   DepositsType,
   User
 } from '@/database';
-import Stripe from 'stripe';
-import { bankAccount } from '@/database/schema/user.schema';
 
 const { SERVICE_EMAIL } = process.env;
 

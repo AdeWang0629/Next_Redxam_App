@@ -3,11 +3,13 @@ import type { NextPage } from 'next';
 interface SwitcherProps {
   activeSection: string;
   setActiveSection: (section: string) => void;
+  type?: 'deposit' | 'withdrawal';
 }
 
 const Switcher: NextPage<SwitcherProps> = ({
   activeSection,
-  setActiveSection
+  setActiveSection,
+  type = 'deposit'
 }) => (
   <div className="flex justify-center rounded-3xl border border-[#EAEAEB] mt-8 lg:mt-0">
     <button
@@ -59,7 +61,7 @@ const Switcher: NextPage<SwitcherProps> = ({
             : undefined
       }}
     >
-      Zelle
+      {type === 'deposit' ? 'Zelle' : 'Bank'}
     </button>
   </div>
 );

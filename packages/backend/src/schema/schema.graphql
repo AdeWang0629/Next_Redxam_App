@@ -177,7 +177,7 @@ type admin {
 }
 
 type home {
-  deposits: [Transaction]
+  txs: [Transaction]
   balance: Float
   percentChange: Float
   dolarChange: Float
@@ -265,7 +265,13 @@ input addContributionInput {
 }
 
 input withdrawalInput {
-  depositId: String!
+  txId: String!
+}
+
+input withdrawalReqInput {
+  amount: Int
+  zelleEmail: String
+  userId: String!
 }
 
 type InvitationCode {
@@ -361,5 +367,7 @@ type Mutation {
   updateDepositStatus(arg: UpdateDeposit): Response
   spoofAccount(arg: SpoofInput): Response
   addContributionFromValue(arg: addContributionInput): Response
+
   confirmWithdrawal(arg: withdrawalInput): Response
+  requestWithdrawal(arg: withdrawalReqInput): Response
 }

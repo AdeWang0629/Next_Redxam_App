@@ -78,7 +78,7 @@ const Deposit: NextPage = () => {
 
   switch (activeSection) {
     case 'crypto':
-      depositContent = <Crypto />;
+      depositContent = <Crypto type="deposit" />;
       break;
 
     case 'card':

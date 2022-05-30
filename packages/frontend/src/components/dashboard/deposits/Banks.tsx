@@ -24,10 +24,10 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
 import Loader from '@components/global/Loader';
-import tdbankIcon from '@public/icons/banks/tdbank.svg';
+import tdbankIcon from '@public/icons/banks/tdbank200.png';
+import bankofamericaIcon from '@public/icons/banks/boa200.png';
 import TsxsTable from './TransactionsTable';
 import Card from '../Card';
-import LocaleDropdown from './LocaleDropdown';
 
 const TELLER_APPLICATION_ID = 'app_nu123i0nvg249720i8000';
 const LEAN_APPLICATION_ID = '94e54b49-973c-47c8-8b11-f0d9bba2c6d5';
@@ -54,7 +54,7 @@ const BanksView: NextPage = () => {
   if (user) {
     userId = user._id;
   }
-  const [paymentApi, setPaymentApi] = useState<PaymentApi>('TELLER');
+  const [paymentApi] = useState<PaymentApi>('TELLER');
   const [mxConnect, setMxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
   const [leanConnect, setLeanConnect] = useState(null);
@@ -104,7 +104,10 @@ const BanksView: NextPage = () => {
     const { data: userDepositsData } = await api.getUserDeposits();
     setDeposits(
       userDepositsData.data.userTransactions
-        .filter((deposit: { type: string }) => deposit.type === 'FIAT')
+        .filter(
+          (deposit: { type: string; direction: string }) =>
+            deposit.type === 'FIAT' && deposit.direction === 'DEPOSIT'
+        )
         .sort(
           (
             firstTimestamp: { timestamp: number },
@@ -357,7 +360,6 @@ const BanksView: NextPage = () => {
               <h1 className="font-secondary font-medium text-lg">
                 {t('addedBanks')}
               </h1>
-              <LocaleDropdown setPaymentApi={setPaymentApi} />
 
               {accounts.length ? (
                 unlinkMode ? (
@@ -410,6 +412,8 @@ const BanksView: NextPage = () => {
                         src={
                           account.name.includes('TD')
                             ? tdbankIcon
+                            : account.name.includes('America')
+                            ? bankofamericaIcon
                             : account.logo
                             ? `data:image/png;base64,${account.logo}`
                             : bankIcon

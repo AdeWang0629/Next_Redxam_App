@@ -2,7 +2,6 @@
 /* eslint-disable max-len */
 import { useEffect, useState } from 'react';
 import api from '@utils/api';
-import tokensData from '@utils/Tokens.json';
 
 import { getCookie } from 'cookies-next';
 import { Deposit } from '@utils/types';

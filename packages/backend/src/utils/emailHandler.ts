@@ -50,7 +50,12 @@ const facebookIcon: Readonly<Attachment> = Object.freeze({
   disposition: 'inline'
 });
 
-export const handleEmail = async (userEmail: string, templateName: string) => {
+export const handleEmail = async (
+  userEmail: string,
+  templateName: string,
+  subject: string,
+  data: any = {}
+) => {
   const templatePath = resolve(
     __dirname,
     `../emails/templates/${templateName}.hjs`
@@ -60,9 +65,10 @@ export const handleEmail = async (userEmail: string, templateName: string) => {
   await sendMail({
     from: `redxam.com <${SERVICE_EMAIL}>`,
     to: userEmail,
-    subject: 'Your deposit got processed by redxam 🎉',
+    subject: subject,
     html: render(templateData, {
-      randomText: `Ref #: ${Date.now()}`
+      randomText: `Ref #: ${Date.now()}`,
+      ...data
     }),
     attachments: [
       facebookIcon,

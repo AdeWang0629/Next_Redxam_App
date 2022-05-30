@@ -3,7 +3,7 @@ import { Transactions, TransactionTypes } from '@/database';
 import { Request } from 'express';
 
 const getUserTransactions = async (userId: string) => {
-  return Transactions.find({ userId, direction: TransactionTypes.DEPOSIT });
+  return Transactions.find({ userId });
 };
 
 const getData = async (userId: string) => {
@@ -12,7 +12,7 @@ const getData = async (userId: string) => {
 };
 
 export const userTransactions = async (_: void, req: Request) => {
-  console.debug('[Resolve] deposits called');
+  console.debug('[Resolve] transactions called');
   const payload = await new JWT().authorize(req.headers.authorization);
 
   if (!payload || payload.type !== 'verified') {

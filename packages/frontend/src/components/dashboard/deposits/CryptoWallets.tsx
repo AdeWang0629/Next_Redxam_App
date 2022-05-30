@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
@@ -10,7 +11,7 @@ import CryptoAddress from './CryptoAddress';
 import Card from '../Card';
 import CryptoInput from '../withdrawals/CryptoInput';
 
-const CryptoWallets = type => {
+const CryptoWallets = (props: { type: string }) => {
   const { t } = useTranslation('dashboard');
 
   const [token, setToken] = useState<Token | null>(null);
@@ -35,7 +36,9 @@ const CryptoWallets = type => {
     <Card otherClasses="md:w-1/2 w-full h-[fit-content] bg-white flex flex-col rounded-[25px] shadow-card mr-3">
       <div className="flex items-center justify-between px-8">
         <h1 className="font-secondary font-medium text-lg py-6">
-          {type === 'deposit' ? t('depositToWallet') : t('withdrawToWallet')}
+          {props.type === 'deposit'
+            ? t('Deposit To Wallet')
+            : t('Withdraw To Wallet')}
         </h1>
       </div>
       <hr />
@@ -54,7 +57,7 @@ const CryptoWallets = type => {
         network={network}
         handleNetwork={handleNetwork}
       />
-      {token && network.address && type === 'deposit' ? (
+      {token && network.address && props.type === 'deposit' ? (
         <CryptoAddress
           address={network.address}
           tokenSymbol={token.symbol}
@@ -63,11 +66,7 @@ const CryptoWallets = type => {
       ) : (
         token &&
         network.address && (
-          <CryptoInput
-            address={network.address}
-            tokenSymbol={token.symbol}
-            network={network.name}
-          />
+          <CryptoInput tokenSymbol={token.symbol} network={network.name} />
         )
       )}
     </Card>

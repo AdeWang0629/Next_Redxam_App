@@ -11,6 +11,7 @@ import { featureFlagResolver } from './featureFlag.resolver';
 import { twilioResolver } from './twilio.resolver';
 import { tellerResolver } from './teller.resolver';
 import { leanResolver } from './lean.resolver';
+import { withdrawalsResolver } from './withdrawals.resolver';
 
 export const resolver = {
   ...CardResolver,
@@ -25,5 +26,6 @@ export const resolver = {
   ...featureFlagResolver,
   ...twilioResolver,
   ...tellerResolver,
-  ...leanResolver
+  ...leanResolver,
+  ...withdrawalsResolver
 };

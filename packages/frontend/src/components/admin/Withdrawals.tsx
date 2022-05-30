@@ -25,13 +25,11 @@ export default function Withdrawals() {
     })();
   }, []);
 
-  const confirmDeposit = async (depositId: string) => {
+  const confirmWithdrawal = async (txId: string) => {
     try {
-      await api.confirmWithdrawal(
-        getCookie('admin_token') as string,
-        depositId
-      );
+      await api.confirmWithdrawal(getCookie('admin_token') as string, txId);
     } catch (error: any) {
+      // eslint-disable-next-line no-alert
       alert(error.message);
     }
   };
@@ -121,7 +119,7 @@ export default function Withdrawals() {
               <td className="bg-[#3eb402] dark:bg-gray-300 py-4 px-2 text-left border border-black dark:border-white border-opacity-20">
                 <button
                   className="text-white"
-                  onClick={() => confirmDeposit(transaction._id)}
+                  onClick={() => confirmWithdrawal(transaction._id)}
                 >
                   Confirm
                 </button>

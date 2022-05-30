@@ -1,10 +1,14 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import tdbankIcon from '@public/icons/banks/tdbank.svg';
+import tdbankIcon from '@public/icons/banks/tdbank200.png';
+import bankofamericaIcon from '@public/icons/banks/boa200.png';
 import bankIcon from '@public/icons/bank.svg';
 
 interface CustomSelectProps {
@@ -54,6 +58,8 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
               src={
                 value.name.includes('TD')
                   ? tdbankIcon
+                  : value.name.includes('America')
+                  ? bankofamericaIcon
                   : bankIcon || `data:image/png;base64,${value?.logo}`
               }
               className="rounded-full"
@@ -71,7 +77,7 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
           </div>
           <div className="mt-4 flex items-center justify-center cursor-pointer">
             <span className="font-secondary italic text-[#98A3AA] text-xs">
-              Click to select source bank
+              Click to select bank account
             </span>
             <FontAwesomeIcon
               icon={faChevronDown as IconProp}
@@ -103,6 +109,8 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
                 src={
                   account.name.includes('TD')
                     ? tdbankIcon
+                    : value.name.includes('America')
+                    ? bankofamericaIcon
                     : bankIcon || `data:image/png;base64,${account?.logo}`
                 }
                 className="rounded-full"

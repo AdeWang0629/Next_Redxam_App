@@ -13,7 +13,7 @@ import api from '@utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import UnlinkModel from '@components/models/UnlinkModel';
-import DepositModel from '@components/models/DepositModel';
+import WithdrawalModal from '@components/models/WithdrawalModal';
 import { UserContext } from '@providers/User';
 import { getCookie } from 'cookies-next';
 import { useTranslation } from 'next-i18next';
@@ -24,7 +24,7 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
 import Loader from '@components/global/Loader';
-import tdbankIcon from '@public/icons/banks/tdbank.svg';
+import tdbankIcon from '@public/icons/banks/tdbank200.png';
 import Card from '../Card';
 import TsxsTable from '../deposits/TransactionsTable';
 
@@ -53,10 +53,10 @@ const ZelleWithdrawals: NextPage = () => {
   if (user) {
     userId = user._id;
   }
-  const [paymentApi, setPaymentApi] = useState<PaymentApi>('TELLER');
-  const [mxConnect, setMxConnect] = useState(null);
+  const [paymentApi] = useState<PaymentApi>('TELLER');
+  const [mxConnect] = useState(null);
   const [tellerConnect, setTellerConnect] = useState(null);
-  const [leanConnect, setLeanConnect] = useState(null);
+  const [leanConnect] = useState(null);
   const [plaidToken, setPlaidToken] = useState('');
   const [deposits, setDeposits] = useState<[] | Deposit[]>([]);
   const [loading, setLoading] = useState(true);
@@ -69,8 +69,6 @@ const ZelleWithdrawals: NextPage = () => {
   const [unlinkMode, setUnlinkMode] = useState(false);
   const [showUnlinkModel, setShowUnlinkModel] = useState(false);
   const [showDepositModel, setShowDepositModel] = useState(false);
-  const [openMx, setOpenMx] = useState(false);
-  const [mxWidgetError, setMxWidgetError] = useState(false);
   const [teller, setTeller] = useState<Teller>({
     accessToken: '',
     invalidAccessToken: false,
@@ -103,10 +101,6 @@ const ZelleWithdrawals: NextPage = () => {
     const { data: userDepositsData } = await api.getUserDeposits();
     setDeposits(
       userDepositsData.data.userTransactions
-        .map(v => {
-          console.log(v);
-          return v;
-        })
         .filter(
           (deposit: { type: string; direction: string }) =>
             deposit.type === 'FIAT' && deposit.direction === 'WITHDRAWAL'
@@ -146,9 +140,8 @@ const ZelleWithdrawals: NextPage = () => {
         const { data: widgetUrl } = await api.getMXWidgetUrl();
         if (widgetUrl.errors) {
           Sentry.captureEvent(widgetUrl.errors);
-          return setMxWidgetError(true);
+          return;
         }
-        setOpenMx(true);
         setTimeout(() => {
           // @ts-ignore
           mxConnect?.load(widgetUrl.data.mxWidgetConnect.widgetUrl);
@@ -175,8 +168,6 @@ const ZelleWithdrawals: NextPage = () => {
       default:
         break;
     }
-
-    return null;
   };
 
   const handleTellerAccount = async (accessToken: string): Promise<string> => {
@@ -288,22 +279,7 @@ const ZelleWithdrawals: NextPage = () => {
 
   return (
     <>
-      {paymentApi === 'MX' ? (
-        <Script
-          id="widget"
-          src="https://atrium.mx.com/connect.js"
-          onLoad={() => {
-            setMxConnect(
-              // @ts-ignore
-              new window.MXConnect({
-                id: 'widget',
-                iframeTitle: 'Connect',
-                targetOrigin: '*'
-              })
-            );
-          }}
-        />
-      ) : paymentApi === 'TELLER' ? (
+      {paymentApi === 'TELLER' ? (
         <Script
           id="teller"
           src="https://cdn.teller.io/connect/connect.js"
@@ -340,21 +316,7 @@ const ZelleWithdrawals: NextPage = () => {
             );
           }}
         />
-      ) : paymentApi === 'LEAN' ? (
-        <>
-          <Script
-            id="lean"
-            src="https://cdn.leantech.me/link/sdk/web/latest/Lean.min.js"
-            onLoad={() => {
-              // @ts-ignore
-              setLeanConnect(window.Lean);
-            }}
-          />
-          <div id="lean-link" />
-        </>
-      ) : (
-        ''
-      )}
+      ) : null}
 
       <div className="flex flex-col ltr:lg:flex-row rtl:lg:flex-row-reverse lg:gap-x-3">
         <div className="flex-1 flex flex-col">
@@ -604,59 +566,7 @@ const ZelleWithdrawals: NextPage = () => {
         </div>
 
         <TsxsTable deposits={deposits} depositsType="fiat" loading={loading} />
-
-        {openMx && (
-          <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
-            <Card
-              width="w-[350px] sm:w-[450px]"
-              height="h-[720px]"
-              p="p-3 sm:p-7"
-              otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center"
-            >
-              <div className="flex justify-end mb-6">
-                <button
-                  className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px]"
-                  onClick={() => setOpenMx(false)}
-                >
-                  <Image
-                    src={closeIcon || ''}
-                    alt="Close Icon"
-                    width="14px"
-                    height="14px"
-                  />
-                </button>
-              </div>
-              <div id="widget" className="z-10" />
-            </Card>
-          </div>
-        )}
       </div>
-
-      {mxWidgetError && (
-        <div className="fixed bg-black/50 w-screen h-screen z-10 ml-auto mr-auto left-0 right-0 top-0 text-center">
-          <Card
-            width="w-[210px]"
-            height="h-[210px]"
-            p="p-3 sm:p-7"
-            otherClasses="bg-white fixed m-auto top-0 right-0 left-0 bottom-0 text-center"
-          >
-            <button
-              className="bg-[#2A3037] w-[40px] h-[40px] rounded-[500px] mb-4"
-              onClick={() => setMxWidgetError(false)}
-            >
-              <Image
-                src={closeIcon || ''}
-                alt="Close Icon"
-                width="14px"
-                height="14px"
-              />
-            </button>
-            <p className="font-bold text-xl font-secondary text-red-600">
-              Something wrong happened
-            </p>
-          </Card>
-        </div>
-      )}
 
       {showUnlinkModel ? (
         <UnlinkModel
@@ -674,12 +584,11 @@ const ZelleWithdrawals: NextPage = () => {
       ) : null}
 
       {showDepositModel ? (
-        <DepositModel
+        <WithdrawalModal
           isOpened={showDepositModel}
           setOpened={setShowDepositModel}
           accounts={accounts as any}
           paymentApi={paymentApi}
-          reloadDeposits={getUserDeposits}
         />
       ) : null}
     </>

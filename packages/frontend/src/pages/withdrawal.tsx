@@ -54,7 +54,7 @@ const Withdrawal: NextPage = () => {
 
   switch (activeSection) {
     case 'crypto':
-      depositContent = <Crypto />;
+      depositContent = <Crypto type="withdrawal" />;
       break;
 
     default:
@@ -91,6 +91,7 @@ const Withdrawal: NextPage = () => {
           <Switcher
             activeSection={activeSection}
             setActiveSection={setActiveSection}
+            type="withdrawal"
           />
         </div>
         {depositContent}

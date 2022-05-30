@@ -340,9 +340,9 @@ class API {
     );
   }
 
-  confirmWithdrawal(adminToken: string, depositId: string) {
+  confirmWithdrawal(adminToken: string, txId: string) {
     const mutation = `mutation {
-      confirmWithdrawal (arg: {depositId: "${depositId}"}) {
+      confirmWithdrawal (arg: {txId: "${txId}"}) {
         message
         success
       }
@@ -352,6 +352,22 @@ class API {
       { query: mutation },
       {
         headers: { Authorization: `Bearer ${adminToken}` }
+      }
+    );
+  }
+
+  requestWithdrawal(userId: string, zelleEmail: string, amount: number) {
+    const mutation = `mutation {
+      requestWithdrawal (arg: {userId: "${userId}", zelleEmail: "${zelleEmail}", amount: ${amount}}) {
+        message
+        success
+      }
+    }`;
+    return this.axios.post(
+      `${this.baseURL}/api/v1`,
+      { query: mutation },
+      {
+        headers: { ...this.getAuthorizationHeader() }
       }
     );
   }

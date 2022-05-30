@@ -22,7 +22,7 @@ interface Response {
 }
 
 export const confirmWithdrawal = async (
-  { arg }: { arg: { depositId: string; amount: number } },
+  { arg }: { arg: { txId: string; amount: number } },
   req: Request
 ): Promise<Response> => {
   console.debug('[Resolve] admin called');
@@ -35,7 +35,7 @@ export const confirmWithdrawal = async (
     const adminData = await Admin.findOne({ _id: payload.adminId });
     if (!adminData) return { success: false, message: 'invalid admin token' };
 
-    const tx = await Transactions.findOne({ _id: arg.depositId });
+    const tx = await Transactions.findOne({ _id: arg.txId });
     if (!tx)
       return { success: false, message: 'deposit is not in the waitlist' };
 
@@ -66,5 +66,9 @@ const handleChangeDepositStatus = async (
   await tx.updateOne({
     $set: { status: 'completed', processedByRedxam: true }
   });
-  await handleEmail(user.email, 'withdrawalConfirmation');
+  await handleEmail(
+    user.email,
+    'withdrawalConfirmation',
+    'Your deposit got processed by redxam 🎉'
+  );
 };

@@ -79,13 +79,14 @@ const BalanceCard = () => {
           height="154px"
         />
       </div>
-
-      <div className="py-6 px-6">
-        <p className="font-secondary text-base text-lighter-black opacity-50 mb-1">
-          {t('totalBalance')}
-        </p>
-        {balanceInfo}
-      </div>
+      <Tippy content="Interest is not showing properly. Backend is accounting the balance but UI isn't showing correctly. This should be fix soon!">
+        <div className="py-6 px-6">
+          <p className="font-secondary text-base text-lighter-black opacity-50 mb-1">
+            {t('totalBalance')}
+          </p>
+          {balanceInfo}
+        </div>
+      </Tippy>
       <p className="text-center bg-light-gray py-1 font-secondary text-sm text-[#95989B]">
         {t('pendingBalance')}{' '}
         <span className="text-lighter-black font-medium ml-1.5">

@@ -1,7 +1,7 @@
 {
   "totalBalance": "رصيد ردزام الاجمالي",
   "pendingBalance": "رصيدك المعلق هو",
-  "deposit": "ايداع",
+  "Deposit": "ايداع",
   "withdraw": "سحب",
   "getRewarded": "احصل على جوائز عندما يودع اصدقائك اموال في ردزام. ارباحك هي:",
   "referAndEarn": "قم بالاحالة اربح الآن",
@@ -40,5 +40,4 @@
   "invalidAccessToken": "كود وصول خاطئ",
   "enterADescription": "ادخل وصف",
   "somethingWentWrong": "حدث شيء ما"
-
 }

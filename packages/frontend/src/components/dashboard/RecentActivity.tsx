@@ -15,7 +15,13 @@ const RecentActivity = () => {
     })();
   }, []);
 
-  return <TsxsTable deposits={deposits} depositsType="all" loading={loading} />;
+  return (
+    <TsxsTable
+      deposits={deposits.filter(val => val.direction === 'DEPOSIT')}
+      depositsType="all"
+      loading={loading}
+    />
+  );
 };
 
 export default RecentActivity;
