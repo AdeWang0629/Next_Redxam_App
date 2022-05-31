@@ -11,25 +11,13 @@ import {
 import { getPayee } from './getPayee.resolver';
 import https from 'https';
 import fs from 'fs';
-import path from 'path';
+import getBase64Icon from '@/utils/bankIconBase64';
 
 const baseUrl = 'https://api.teller.io';
 const httpsAgent = new https.Agent({
   cert: fs.readFileSync(__dirname + '/certificates/certificate.pem'),
   key: fs.readFileSync(__dirname + '/certificates/private_key.pem')
 });
-const bankIconAsBase64 = fs.readFileSync(
-  path.join(__dirname, 'bankIcons', 'bankIcon.png'),
-  'base64'
-);
-const boaIconAsBase64 = fs.readFileSync(
-  path.join(__dirname, 'bankIcons', 'boa200.png'),
-  'base64'
-);
-const tdbankIconAsBase64 = fs.readFileSync(
-  path.join(__dirname, 'bankIcons', 'tdbank.png'),
-  'base64'
-);
 
 export const tellerPayment = async (
   {
@@ -117,9 +105,7 @@ const saveDeposit = async (
   userId: string,
   bankName: string
 ) => {
-  let bankIcon = bankIconAsBase64;
-  if (bankName.includes('America')) bankIcon = boaIconAsBase64;
-  if (bankName.includes('TD')) bankIcon = tdbankIconAsBase64;
+  const bankIcon = getBase64Icon(bankName);
   await Transactions.create({
     type: DepositsType.FIAT,
     currency: DepositsCurrencyType.USD,

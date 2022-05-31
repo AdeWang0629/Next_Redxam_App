@@ -148,6 +148,7 @@ const DepositModel: NextPage<DepositModelProps> = ({
     }
 
     setOpened(false);
+    document.body.style.overflow = 'auto';
   };
 
   return (

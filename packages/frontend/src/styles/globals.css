@@ -55,6 +55,11 @@ p {
   @apply bg-card-button cursor-pointer rounded-3xl;
 }
 
+.inside-scroll::-webkit-scrollbar-track {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
 .input-wrapper {
   position: relative;
   line-height: 14px;

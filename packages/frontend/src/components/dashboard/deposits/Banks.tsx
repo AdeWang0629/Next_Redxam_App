@@ -24,8 +24,8 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
 import Loader from '@components/global/Loader';
-import tdbankIcon from '@public/icons/banks/tdbank200.png';
-import bankofamericaIcon from '@public/icons/banks/boa200.png';
+import banks from '@utils/banks';
+
 import TsxsTable from './TransactionsTable';
 import Card from '../Card';
 
@@ -410,13 +410,10 @@ const BanksView: NextPage = () => {
                     <div className="flex-1 flex items-center">
                       <Image
                         src={
-                          account.name.includes('TD')
-                            ? tdbankIcon
-                            : account.name.includes('America')
-                            ? bankofamericaIcon
-                            : account.logo
-                            ? `data:image/png;base64,${account.logo}`
-                            : bankIcon
+                          banks[account.name]?.ico ||
+                          account.logo ||
+                          `data:image/png;base64,${account.logo}` ||
+                          bankIcon
                         }
                         width="40"
                         height="40"

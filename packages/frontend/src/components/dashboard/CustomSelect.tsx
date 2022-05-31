@@ -7,8 +7,7 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import tdbankIcon from '@public/icons/banks/tdbank200.png';
-import bankofamericaIcon from '@public/icons/banks/boa200.png';
+import banks from '@utils/banks';
 import bankIcon from '@public/icons/bank.svg';
 
 interface CustomSelectProps {
@@ -56,11 +55,9 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
           <div className="flex cursor-pointer">
             <Image
               src={
-                value.name.includes('TD')
-                  ? tdbankIcon
-                  : value.name.includes('America')
-                  ? bankofamericaIcon
-                  : bankIcon || `data:image/png;base64,${value?.logo}`
+                banks[value.name]?.ico ||
+                bankIcon ||
+                `data:image/png;base64,${value?.logo}`
               }
               className="rounded-full"
               width="40px"
@@ -88,7 +85,7 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
       </div>
       {showOptions && (
         <div
-          className="flex flex-col overflow-y-auto overflow-x-hidden rounded-3xl absolute z-50 bg-light-gray"
+          className="flex flex-col overflow-y-auto overflow-x-hidden rounded-3xl absolute z-50 bg-light-gray h-[400px] inside-scroll"
           id="deposit-banks-list"
           style={{ boxShadow: '0px 12px 60px rgba(0, 0, 0, 0.12)' }}
         >
@@ -107,11 +104,9 @@ const CustomSelect: NextPage<CustomSelectProps> = ({
             >
               <Image
                 src={
-                  account.name.includes('TD')
-                    ? tdbankIcon
-                    : value.name.includes('America')
-                    ? bankofamericaIcon
-                    : bankIcon || `data:image/png;base64,${account?.logo}`
+                  banks[account.name]?.ico ||
+                  bankIcon ||
+                  `data:image/png;base64,${account?.logo}`
                 }
                 className="rounded-full"
                 width="40px"
