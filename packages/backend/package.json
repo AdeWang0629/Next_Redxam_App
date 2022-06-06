@@ -32,7 +32,7 @@
     "build:schema": "cp src/schema/schema.graphql dist/schema",
     "build:docker": "docker build . --tag \"redxam-api:latest\"",
     "build:certificates": "cp -R src/resolver/teller.resolver/certificates dist/resolver/teller.resolver/certificates",
-    "build:bankIcons": "cp -R src/utils/bankIcons dist/utils/bankIcons",
+    "build:bankIcons": "cp -R src/resolver/teller.resolver/bankIcons dist/resolver/teller.resolver/bankIcons",
     "build": "npm run build:ts && npm run build:assets && npm run build:schema && npm run build:certificates && npm run build:bankIcons",
     "lint": "eslint --fix .",
     "script": "NODE_ENV='development' tsnd -r tsconfig-paths/register src/cli/dumpTxs",
