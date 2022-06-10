@@ -6,6 +6,7 @@ import {
   DepositsType,
   User
 } from '@/database';
+import { Request } from 'express';
 import { CpsInstance } from 'twilio/lib/rest/preview/trusted_comms/cps';
 import { handleEmail } from '../../utils/emailHandler';
 

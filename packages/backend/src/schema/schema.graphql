@@ -316,6 +316,12 @@ type CreateWaitlist {
   message: String
 }
 
+type UserList {
+  firstName: String
+  lastName: String
+  email: String
+}
+
 type Query {
   users: [User]
   user: [User]
@@ -345,6 +351,7 @@ type Query {
   getLeanCustomerId(userId: String): GetLeanCustomerId
   createPaymentIntent(arg: CreatePaymentIntentInput): CreatePaymentIntent
   getTransactions: AdminDeposit
+  userList: [UserList]
 }
 
 type Mutation {
