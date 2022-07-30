@@ -1,7 +1,7 @@
 {
   "totalBalance": "Total redxam balance",
   "pendingBalance": "Your pending balance is",
-  "Deposit": "Deposit",
+  "deposit": "Deposit",
   "withdraw": "Withdraw",
   "getRewarded": "Get rewarded when a friend adds money to redxam. Your earnings are:",
   "referAndEarn": "Refer & Earn Now",
