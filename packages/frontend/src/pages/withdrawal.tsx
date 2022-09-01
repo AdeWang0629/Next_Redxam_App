@@ -60,16 +60,6 @@ const Withdrawal: NextPage = () => {
     default:
       depositContent = (
         <div>
-          <div>
-            {t('withdrawals')}
-            <br />
-            {t('desc-w')}
-            <br />
-            1. user has balance <br />
-            2. user requests transfer <br />
-            4. they need to verify zelle number or phone number <br />
-            3. send money to zelle email
-          </div>
           <ZelleWithdrawals />
         </div>
       );

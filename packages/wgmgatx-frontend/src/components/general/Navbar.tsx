@@ -17,7 +17,7 @@ import {
 // Contact = BiMessageRoundedDetail
 
 // Imgs
-import wgmgLogo from '@public/logo-wgmg.png';
+import Logo from '@public/brand_icon.png';
 
 const Navbar = ({ title }: { title?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,23 +36,17 @@ const Navbar = ({ title }: { title?: string }) => {
   return (
     <>
       <Head>
-        <title>WGMGATX{title ? ` | ${title}` : ''}</title>
+        <title>Terra{title ? ` | ${title}` : ''}</title>
       </Head>
       <div className="bg-[#181818] w-[12%] 2xl:w-[8%] justify-center hidden md:flex -ml-4">
         <nav className="flex flex-col items-center fixed">
           <div className="mb-8 rounded-full mt-[6vh]">
-            <Image
-              src={wgmgLogo}
-              alt="WGMG Logo"
-              width="70%"
-              height="70%"
-              className="rounded-full"
-            />
+            <Image src={Logo} alt="WGMG Logo" />
           </div>
           <ul>
             {routes.map(route => (
               <li key={route.name} className="mb-8 text-center">
-                <Link href={route.path}>
+                <Link href={route.path} passHref>
                   <route.icon
                     className="hover:fill-white ease-in-out duration-150 cursor-pointer"
                     size={'30px'}

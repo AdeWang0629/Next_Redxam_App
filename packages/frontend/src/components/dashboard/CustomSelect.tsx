@@ -15,7 +15,7 @@ interface CustomSelectProps {
     {
       _id: string;
       id: string;
-      name: string;
+      name: any;
       logo?: string | undefined;
       type: string;
     }
@@ -23,7 +23,7 @@ interface CustomSelectProps {
   value: {
     _id: string;
     id: string;
-    name: string;
+    name: any;
     logo?: string | undefined;
     type: string;
   };
