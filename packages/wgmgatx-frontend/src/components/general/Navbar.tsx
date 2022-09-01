@@ -46,7 +46,7 @@ const Navbar = ({ title }: { title?: string }) => {
           <ul>
             {routes.map(route => (
               <li key={route.name} className="mb-8 text-center">
-                <Link href={route.path}>
+                <Link href={route.path} passHref>
                   <route.icon
                     className="hover:fill-white ease-in-out duration-150 cursor-pointer"
                     size={'30px'}

@@ -1,13 +1,22 @@
-FROM node:14.18.1-alpine
+## BASE ##
+FROM node:14.18.1-alpine AS base
 
-RUN mkdir -p /usr/src/api
-WORKDIR /usr/src/api
+RUN apt-get update && apt-get install --no-install-recommends --yes openssl
 
-COPY package.json /usr/src/api
+WORKDIR /app
 
-RUN npm install -g npm@6.14.15
-RUN npm install
+## BUILDER ##
+FROM base AS builder
 
-COPY . /usr/src/api
+# Install production dependencies
+COPY *.json yarn.lock ./
+COPY packages/backend/*.json ./packages/backend/
+
+
+RUN yarn install --production --pure-lockfile
+RUN cp -RL packages/backend/node_modules/ /tmp/node_modules/
+
+
+COPY . /app
 
 CMD [ "npm", "run", "start:prod" ]
