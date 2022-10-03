@@ -15,10 +15,10 @@ export default function Home() {
         <h1 className={styles.title}>Welcome to the world of Max Awad!</h1>
 
         <p className={styles.description}>
-          Get started by checking out my 📸 Instagram{' '}
-          <code className={styles.code}>
-            <a href="https://instagram.com/max_in_ecu">@max_in_ecu</a>
-          </code>
+          Get started by checking out my{' '}
+          <a href="https://instagram.com/max_acting_up" target="_blank">
+            📸 Instagram <code className={styles.code}>@max_acting_up</code>
+          </a>
         </p>
 
         <div className={styles.grid}>
@@ -30,9 +30,9 @@ export default function Home() {
             <p>Click to start composing an email on your favorite app. </p>
           </a>
 
-          <a href="https://bitcoin.org/" className={styles.card}>
-            <h2>Learn about Crypto &rarr;</h2>
-            <p>Learn about bitcoin and other cryptocurrency!</p>
+          <a href="https://nohello.com/" className={styles.card}>
+            <h2>No hello &rarr;</h2>
+            <p>Learn about some standards in communications!</p>
           </a>
 
           <a href="https://googlemaps.com" className={styles.card}>
@@ -43,9 +43,28 @@ export default function Home() {
             </p>
           </a>
 
+          <a href="/ski" className={styles.card}>
+            <h2>Max and the snow 🎿 &rarr;</h2>
+            <p>
+              Read through a few of my accomplishments and goals for my skiing
+              careers.
+            </p>
+          </a>
+
           <a href="https://linkedin.com/in/maxawad" className={styles.card}>
             <h2>LinkedIn &rarr;</h2>
-            <p>Find out what I have been doing for the past 10 years.</p>
+            <p>
+              Find out what I have been doing for the past 10 years. I am
+              currently working for software firms.
+            </p>
+          </a>
+
+          <a href="https://redxam.com" className={styles.card}>
+            <h2>Crypto Bank &rarr;</h2>
+            <p>
+              During the 2020 lockdown, I decided to create a bank that has no
+              borders or lockdowns.
+            </p>
           </a>
         </div>
       </main>
