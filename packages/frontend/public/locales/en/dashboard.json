@@ -19,7 +19,7 @@
   "pending": "Pending",
   "processing": "Processing",
   "processed": "Processed",
-  "noTransactions": "No transactions has been made from wallet.",
+  "noTransactions": "No transactions has been made yet.",
   "viewAll": "View all",
   "enterAmountToDeposit": "Enter amount you want to deposit",
   "depositToWallet": "Deposit",

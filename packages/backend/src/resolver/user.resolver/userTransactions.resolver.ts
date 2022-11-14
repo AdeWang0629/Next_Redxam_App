@@ -14,6 +14,7 @@ const getData = async (userId: string) => {
 export const userTransactions = async (_: void, req: Request) => {
   console.debug('[Resolve] transactions called');
   const payload = await new JWT().authorize(req.headers.authorization);
+  console.log(payload);
 
   if (!payload || payload.type !== 'verified') {
     return null;

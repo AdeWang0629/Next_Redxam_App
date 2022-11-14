@@ -13,8 +13,12 @@ router.post('/sumsubAccesToken', async (req, res) => {
   const { userToken } = req.body;
   const { userId }: any = verify(userToken, key);
 
-  const accessData = await axios({ ...createAccessToken(userId), method: 'post' })
+  const accessData = await axios({
+    ...createAccessToken(userId),
+    method: 'post'
+  })
     .then(function (response) {
+      console.log(response);
       return response.data;
     })
     .catch(function (error) {
@@ -26,7 +30,7 @@ router.post('/sumsubAccesToken', async (req, res) => {
 const createAccessToken = (
   externalUserId,
   levelName = 'basic-kyc-level',
-  ttlInSecs = 600,
+  ttlInSecs = 600
 ) => {
   console.log('Creating an access token for initializng SDK...');
 
@@ -37,7 +41,7 @@ const createAccessToken = (
     url,
     method,
     headers: {},
-    data: null,
+    data: null
   };
 
   return createSignature(config);
@@ -73,7 +77,7 @@ router.post('/applicantData', async (req, res) => {
       url: `/resources/applicants/-;externalUserId=${userId}/one`,
       method: 'get',
       headers: {},
-      data: null,
+      data: null
     };
 
     const applicant = await axios(createSignature(config))
@@ -83,7 +87,8 @@ router.post('/applicantData', async (req, res) => {
     else res.status(200).send({ status: 404 });
   } catch (error) {
     console.log(error.name);
-    if (error.name === 'TokenExpiredError') res.status(500).send({ error: error.name });
+    if (error.name === 'TokenExpiredError')
+      res.status(500).send({ error: error.name });
   }
 });
 

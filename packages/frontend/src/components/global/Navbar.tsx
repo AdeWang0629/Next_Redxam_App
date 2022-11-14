@@ -131,11 +131,6 @@ const Navbar: NextPage<NavbarProps> = ({
                   <a>{t('security')}</a>
                 </Link>
               </li>
-              <li className="mt-[25px] md:mt-0 md:mr-[50px]">
-                <button onClick={() => setSignupModelOpened(true)}>
-                  <a>{t('signup')}</a>
-                </button>
-              </li>
               <li
                 className={`mt-[25px] md:mt-0 md:mr-[50px] ${
                   locale === 'ar' && 'md:ml-[50px]'
@@ -146,10 +141,15 @@ const Navbar: NextPage<NavbarProps> = ({
                     transparentBackground && scrollTop <= 0 && !navMobile
                       ? 'text-white'
                       : 'text-black'
-                  } bg-buttons-green px-16 py-4 text-[15px] font-bold text-center rounded-[30px]`}
+                  } `}
                   onClick={() => setLoginModelOpened(true)}
                 >
                   {t('login')}
+                </button>
+              </li>
+              <li className="mt-[25px] md:mt-0 md:mr-[50px] bg-buttons-green px-16 py-4 text-[15px] font-bold text-center rounded-[30px]">
+                <button onClick={() => setSignupModelOpened(true)}>
+                  <a>{t('signup')}</a>
                 </button>
               </li>
             </ul>

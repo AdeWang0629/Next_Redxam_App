@@ -143,6 +143,8 @@ const DepositModel: NextPage<DepositModelProps> = ({
           sandbox: 'true'
         });
         break;
+      case 'APPLEPAY': // TODO(max): Add Apple Pay
+        break;
       default:
         break;
     }

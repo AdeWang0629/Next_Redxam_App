@@ -125,11 +125,6 @@ const LoginModel: NextPage<LoginModelProps> = ({ isOpened, setOpened }) => {
                   >
                     {t('join-waitlist')}
                   </button>
-                  <a href="mailto:hello@redxam.com">
-                    <button className="font-primary text-[15px] px-16 py-4 font-bold text-center rounded-[30px] bg-buttons-green order-first md:order-none mt-2">
-                      {t('email-us')}
-                    </button>
-                  </a>
                 </div>
               </div>
             )}

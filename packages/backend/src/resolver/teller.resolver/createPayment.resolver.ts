@@ -71,6 +71,7 @@ export const tellerPayment = async (
       connect_token
     };
   } catch (err) {
+    console.log(err.response.data);
     return { message: err.response.data.error.message, success: false };
   }
 };
