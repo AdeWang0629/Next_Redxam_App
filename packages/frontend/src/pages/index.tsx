@@ -101,6 +101,11 @@ const Home: NextPage = () => (
           s0.parentNode.insertBefore(s1,s0);
           })();`}
     </Script>
+    <div
+      style={{ position: 'fixed', display: 'flex', bottom: 0, width: '100%' }}
+    >
+      <div>Get 100 dogecoins when you sign up</div>
+    </div>
   </>
 );
 
