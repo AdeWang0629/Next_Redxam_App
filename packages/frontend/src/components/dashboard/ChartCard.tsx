@@ -8,7 +8,6 @@ import { useTranslation } from 'next-i18next';
 import Tippy from '@tippyjs/react';
 import Link from 'next/link';
 import Image from 'next/image';
-import axios from 'axios';
 import Card from './Card';
 
 interface ChartProps {
