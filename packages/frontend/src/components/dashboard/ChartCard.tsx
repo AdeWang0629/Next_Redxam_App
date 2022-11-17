@@ -139,11 +139,14 @@ const Chart: NextPage<ChartProps> = ({ data }) => {
               </ReactPlaceholder>
             </div>
             <div className="flex flex-col">
-              <Link href="https://coinmarketcap.com/currencies/dogecoin/">
-                <a className="font-secondary text-xs text-lighter-black underline">
-                  See $USD value
-                </a>
-              </Link>
+              <a
+                href="https://coinmarketcap.com/currencies/dogecoin/"
+                target="_blank"
+                className="font-secondary text-xs text-lighter-black underline"
+                rel="noreferrer"
+              >
+                See $USD value
+              </a>
               <span className="font-secondary text-2xl font-bold">
                 <a>100 DC</a>
               </span>
