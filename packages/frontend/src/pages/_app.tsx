@@ -57,21 +57,21 @@ function MyApp({ Component, pageProps }: AppProps) {
           <>
             <meta
               name="title"
-              content="redxam | Your Personal Crypto Investment Assistant."
+              content="redxam | Your International Crypto Checkings Account."
             />
             <meta
               name="description"
-              content="Your Personal Crypto Investment Assistant."
+              content="Your International Crypto Checkings Account."
             />
             <meta
               property="og:title"
-              content="redxam | Your Personal Crypto Investment Assistant."
+              content="redxam | Your International Crypto Checkings Account."
             />
             <meta property="og:site_name" content="redxam" />
             <meta property="twitter:title" content="redxam" />
             <meta
               property="twitter:description"
-              content="Your Personal Crypto Investment Assistant."
+              content="Your International Crypto Checkings Account."
             />
             <meta
               property="og:image"
