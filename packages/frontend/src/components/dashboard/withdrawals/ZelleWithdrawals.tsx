@@ -24,7 +24,7 @@ import closeIcon from '@public/images/dashboard/deposits/close.svg';
 import { Deposit } from '@utils/types';
 import bankIcon from '@public/icons/bank.svg';
 import Loader from '@components/global/Loader';
-import tdbankIcon from '@public/icons/banks/tdbank200.png';
+import tdbankIcon from '@public/icons/banks/tdbank200_down.png';
 import Card from '../Card';
 import TsxsTable from '../deposits/TransactionsTable';
 

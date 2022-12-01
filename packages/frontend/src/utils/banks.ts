@@ -1,6 +1,6 @@
 const banks = {
   'TD Bank': {
-    ico: '/icons/banks/tdbank200.png'
+    ico: '/icons/banks/tdbank200_down.png'
   },
   'Bank of America': {
     ico: '/icons/banks/boa200.png'
