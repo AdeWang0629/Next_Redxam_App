@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "Word Count",
+  "version": "1.0",
+  "description": "A Chrome extension that counts the number of words on a webpage.",
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab"]
+}

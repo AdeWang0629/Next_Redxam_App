@@ -9,7 +9,8 @@
     "server:install": "cd packages/backend && yarn",
     "install": "concurrently \"yarn run client:install\" \"yarn run server:install\"",
     "start": "concurrently \"yarn run client\" \"yarn run server\"",
-    "new": "cd packages && npx create-next-app@latest"
+    "new": "cd packages && npx create-next-app@latest",
+    "max": "cd packages/maxawad.com && yarn dev"
   },
   "devDependencies": {
     "concurrently": "^7.0.0",
