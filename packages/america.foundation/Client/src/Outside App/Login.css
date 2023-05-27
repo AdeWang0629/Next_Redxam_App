@@ -1,0 +1,298 @@
+.login {
+  display: flex;
+}
+
+.login_image_container {
+  width: 50%;
+  height: 100vh;
+  position: fixed;
+  background: linear-gradient(
+    0deg,
+    black 2%,
+    #8134af 49%,
+    #00c9ff 62%,
+    pink 108%
+  );
+  display: flex;
+  flex-direction: column;
+}
+.login_image_text {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 200%;
+  color: black;
+  font-weight: 100;
+}
+.login_image_text_space {
+  height: 5%;
+}
+.login_image {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+}
+.login_image_space {
+  width: 50%;
+  height: 100vh;
+}
+.login_container {
+  width: 50%;
+  background: white;
+  color: black;
+}
+
+.loginfarm {
+  width: 85%;
+}
+.login_holder {
+  border: 2px solid black;
+  padding: 10%;
+}
+.login_holder2 {
+  margin: 5%;
+  padding: 0.5%;
+  border: 2px solid black;
+}
+.login_title {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10%;
+  font-size: 200%;
+  font-weight: bold;
+}
+.login_email_container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 5%;
+}
+.login_email {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 45%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.login_email:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.login_password_container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10%;
+}
+.login_password {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 45%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.login_password:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.login_fp_container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10%;
+}
+.login_fp {
+  color: gray;
+  text-decoration: none;
+  display: flex;
+  border-radius: 10px;
+  padding: 3%;
+  transition: background-color 0.5s, border 0.5s;
+}
+.login_fp:hover {
+  color: black;
+  background-color: rgba(128, 128, 128, 0.232);
+}
+
+.login_button_container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10%;
+}
+.login_button {
+  border-radius: 40px;
+  border: 1px solid #000000;
+  height: 50px;
+  width: 400px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  transition: background-color 1s;
+}
+.login_button:hover {
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+}
+.login_dhaay_container {
+  height: 5%;
+  width: 100%;
+  padding-top: 5%;
+  display: flex;
+  justify-content: space-around;
+}
+.login_dhaay_text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding-right: 5%;
+}
+
+.login_dhaay {
+  color: gray;
+  text-decoration: none;
+  display: flex;
+  padding: 1%;
+}
+.login_dhaay:hover {
+  color: black;
+  background-color: rgba(128, 128, 128, 0.232);
+  border-radius: 10px;
+  padding: 1%;
+}
+.login_dhaay:hover .ahaa1,
+.login_dhaay:hover .ahaa2 {
+  fill: #d37328;
+}
+
+.login_dhaay:hover .ahaa3 {
+  fill: #fed136;
+}
+
+.login_dhaay:hover .ahaa4 {
+  fill: #d54927;
+}
+
+.login_dhaay:hover .ahaa5 {
+  fill: #d54927;
+}
+
+.fp {
+  background-color: white;
+  height: 100vh;
+  padding: 10%;
+  color: black;
+}
+.fp_topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 2.5%;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+.fp_container {
+  border: 2px solid black;
+  padding: 0.5%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.fp_page {
+  border: 2px solid black;
+}
+
+.fp_title {
+  display: flex;
+  justify-content: center;
+  font-size: 200%;
+  font-weight: 600;
+  padding-bottom: 5%;
+  padding-top: 10%;
+}
+.fp_email_container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 5%;
+}
+.fp_email {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 45%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.fp_email:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.fp_button_container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10%;
+}
+.fp_button {
+  border-radius: 40px;
+  border: 1px solid #000000;
+  height: 50px;
+  width: 400px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  transition: background-color 1s;
+}
+.fp_button:hover {
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+}
+.fp_login_container {
+  display: flex;
+}
+.fp_login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 15%;
+  text-decoration: none;
+  color: gray;
+}
+.fp_login:hover {
+  color: black;
+  background-color: rgba(128, 128, 128, 0.232);
+  border-radius: 5px;
+}
+.fp_naa_container {
+  display: flex;
+}
+.fp_naa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 15%;
+  text-decoration: none;
+  color: gray;
+}
+.fp_naa:hover {
+  color: black;
+  background-color: rgba(128, 128, 128, 0.232);
+  border-radius: 5px;
+}

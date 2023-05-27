@@ -1,0 +1,42 @@
+.cash_body {
+  width: 60%;
+  height: 90%;
+  border-radius: 25px;
+  color: white;
+}
+
+.history {
+  border-bottom: 1px solid grey;
+}
+.history_item {
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history_item:hover {
+  background-color: rgba(125, 125, 125, 0.204);
+}
+
+.history_left {
+  padding-left: 2%;
+  width: 50%;
+}
+.history_right {
+  padding-right: 2%;
+  width: 50%;
+}
+.history_date {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.history_quantity_amount {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.history_quantity {
+  padding-right: 20%;
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,57 @@
+.modal_addaccount {
+  background: #2c2c2c;
+  width: 25%;
+  border-radius: 25px;
+}
+
+.addaccount_close {
+  display: flex;
+  padding-top: 5%;
+  padding-right: 5%;
+  flex-direction: row-reverse;
+}
+
+.addaccount_close_container {
+  border-radius: 5px;
+  background: gray;
+  padding: 2%;
+}
+
+.addaccount_title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 120%;
+  font-weight: 700;
+  padding: 3%;
+}
+
+.addaccount_zelle {
+  display: flex;
+  padding: 4%;
+  flex-direction: row;
+  border-radius: 10px;
+}
+.addaccount_zelle:hover {
+  background-color: #b2b2b22c;
+}
+
+.addaccount_zelle_description {
+  font-size: 80%;
+  color: #b2b2b2;
+}
+.addaccount_zelle_container {
+  font-size: 120%;
+  font-weight: 600;
+}
+.addaccount_zelle_logo_container {
+  padding-right: 2.5%;
+}
+.addaccount_logos {
+  fill: rgb(59, 59, 59);
+}
+.addaccount_description {
+  font-size: 80%;
+  color: #b2b2b2;
+  padding: 5%;
+}

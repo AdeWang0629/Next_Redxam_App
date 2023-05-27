@@ -1,0 +1,110 @@
+.contact_info {
+  border-bottom: 1px solid #31363a;
+  padding-bottom: 3%;
+  font-weight: bold;
+}
+
+.name_container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #31363a;
+  padding: 2%;
+}
+.customer_name {
+  color: #6f6f6f;
+}
+
+.email_address_container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #31363a;
+  padding: 2%;
+  border-radius: 10px;
+}
+
+.email_address_container:hover {
+  background-color: #6d6d6d71;
+}
+
+.customer_email_address {
+  color: #6f6f6f;
+}
+.customer_email_address_container {
+  display: flex;
+}
+.email_vefication_mark {
+  padding-left: 10px;
+}
+.email_vefication_mark.verified {
+  color: #00ff1e;
+}
+
+.email_vefication_mark.not-verified {
+  color: rgb(255, 0, 0);
+}
+
+.phone_number_container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #31363a;
+  padding: 2%;
+  border-radius: 10px;
+}
+
+.phone_number_container:hover {
+  background-color: #6d6d6d71;
+}
+
+.customer_phone_number {
+  color: #6f6f6f;
+}
+.customer_phone_number_container {
+  display: flex;
+}
+.phone_number_vefication_mark {
+  padding-left: 10px;
+}
+.phone_number_vefication_mark {
+  color: #00ff1e;
+}
+
+.customer_address_container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #31363a;
+  padding: 2%;
+  border-radius: 10px;
+}
+.customer_address_container:hover {
+  background-color: #6d6d6d71;
+}
+
+.trusted_contact_container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #31363a;
+  padding: 2%;
+  border-radius: 10px;
+}
+.trusted_contact_container:hover {
+  background-color: #6d6d6d71;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: rgb(0, 0, 0);
+  padding: 20px;
+  border-radius: 5px;
+  border: solid 1px #ffffff;
+}

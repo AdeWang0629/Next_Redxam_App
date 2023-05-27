@@ -1,0 +1,66 @@
+.security_advice{
+    border-bottom: 1px solid #31363A;
+    padding-bottom: 3%;
+    font-weight: bold;
+}
+
+.password_container{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #31363A;
+    padding: 2%;
+}
+.password_container:hover { background-color: #6d6d6d71;}
+
+
+.email_address_container{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #31363A;
+    padding: 2%;
+    border-radius: 10px;
+}
+.email_address_container:hover { background-color: #6d6d6d71;}
+
+.two-factor_authentication_container{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #31363A;
+    padding: 2%;
+    border-radius: 10px;
+}
+.two-factor_authentication_container:hover { background-color: #6d6d6d71;}
+
+
+.privacy_advice{
+    border-bottom: 1px solid #31363A;
+    padding-bottom: 3%;
+    font-weight: bold;
+}
+.request_data_deletion_container{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #31363A;
+    padding: 2%;
+    border-radius: 10px;
+}
+.request_data_deletion_container:hover { background-color: #6d6d6d71;}
+
+.privacy_policy_container{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #31363A;
+    padding: 2%;
+    border-radius: 10px;
+}
+.privacy_policy_container:hover { background-color: #6d6d6d71;}
+
+
+.deactivate_your_account_container{
+    display: flex;
+    justify-content: space-between;
+    padding: 2%;
+    border-radius: 10px;
+}
+.deactivate_your_account {color: red;}
+.deactivate_your_account:hover { color: #ff4d4d;}

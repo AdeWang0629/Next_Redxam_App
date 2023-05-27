@@ -1,0 +1,15 @@
+.account_menuItems {
+    font-weight: bold;
+    text-decoration: none;
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-around;
+}
+  .account_menuItems > a {
+    color: white;
+     font-weight: bold;
+     text-decoration: none;
+     white-space: nowrap;
+  }
+  .account_menuItems > a:hover { color: #5ac53b;}
+

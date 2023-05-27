@@ -1,0 +1,22 @@
+.account {
+    display: flex;
+    flex-direction: column;
+}
+
+.account_outer_header {
+    border-bottom: 1px solid #31363A;
+}
+
+.account_header {
+    padding-left: 7.5%;
+    padding-right: 7.5%;
+}
+
+.account_header_container {
+    height: 100px;
+}
+
+.account_body {
+    padding-left: 7.5%;
+    padding-right: 7.5%;
+}

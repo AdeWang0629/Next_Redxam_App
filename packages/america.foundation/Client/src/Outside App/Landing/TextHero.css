@@ -1,0 +1,29 @@
+.text-hero-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left, .right{
+    width: 50%;
+
+}
+
+.left{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.right{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+}
+.title, .title-extended{
+    font-size: 52px;
+    width: 450px;
+}
+.left img{
+    padding: 30px;
+}

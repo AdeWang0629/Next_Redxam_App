@@ -1,0 +1,515 @@
+.signup_page_container {
+  width: 50%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+.signup_ahaa_container {
+  height: 5%;
+  width: 100%;
+  padding-top: 5%;
+  display: flex;
+  justify-content: space-around;
+}
+.signup_ahaa {
+  color: gray;
+  text-decoration: none;
+  display: flex;
+  padding: 1%;
+}
+.signup_ahaa:hover {
+  color: black;
+  background-color: rgba(128, 128, 128, 0.232);
+  border-radius: 10px;
+  padding: 1%;
+}
+
+.ahaa1 {
+  fill: #454545;
+}
+.ahaa2 {
+  fill: #454545;
+}
+.ahaa3 {
+  fill: #eaeaea;
+}
+.ahaa4 {
+  fill: #464646;
+}
+.ahaa5 {
+  fill: #464646;
+}
+.signup_ahaa:hover .ahaa1,
+.signup_ahaa:hover .ahaa2 {
+  fill: #d37328;
+}
+
+.signup_ahaa:hover .ahaa3 {
+  fill: #fed136;
+}
+
+.signup_ahaa:hover .ahaa4 {
+  fill: #d54927;
+}
+
+.signup_ahaa:hover .ahaa5 {
+  fill: #d54927;
+}
+
+.signup_ahaa_text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding-right: 5%;
+}
+.signup_ahaa_container_space {
+  width: 20%;
+  height: 100%;
+}
+.signup_ahaa_svg {
+  height: 100%;
+}
+.signup_page_holder {
+  padding: 5%;
+}
+.signup_page_holder2 {
+  padding: 0.5%;
+  border: 2px solid black;
+}
+.signup_page {
+  border: 2px solid black;
+  padding: 10%;
+}
+.signup_names {
+  padding-bottom: 5%;
+}
+.signup_names_container {
+  display: flex;
+  justify-content: space-between;
+}
+.signup_names_container > input {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 45%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_names_container > input:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.signup_names_text {
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+}
+
+.PhoneInputCountry {
+  display: flex;
+  width: 45%;
+  flex-direction: row-reverse;
+}
+.PhoneInputCountryIconImg {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.PhoneInput {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.PhoneInput > input {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 45%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.PhoneInput > input:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.PhoneInputCountrySelect {
+  width: 300%;
+  font-size: 93%;
+  border: 3px solid #e6e3e3;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  outline: none;
+  transition: background-color 0.5s, border 0.5s;
+}
+.PhoneInputCountrySelect:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.phonenumber_container {
+  padding-bottom: 5%;
+}
+.phonenumber_text {
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+}
+.sign-in-container {
+  display: flex;
+}
+.signup_image_space {
+  width: 50%;
+  height: 100vh;
+}
+.signup_image {
+  background: linear-gradient(to bottom, #00ffb7, #0000ff);
+  width: 50%;
+  height: 100vh;
+  position: fixed;
+}
+.signup_image_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 10%;
+  padding-left: 10%;
+  height: 25%;
+  justify-content: center;
+  color: black;
+}
+.signup_image_title {
+  font-size: 400%;
+  font-weight: 450;
+  height: 50%;
+  display: flex;
+  align-items: center;
+}
+.signup_image_description {
+  padding-top: 2.5%;
+  height: 50%;
+}
+.signup_image1 {
+  height: 25%;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 15%;
+}
+.tree1 > svg {
+  height: 100%;
+}
+.signup_image2 {
+  height: 25%;
+  padding-left: 12%;
+}
+.tree2 {
+  height: 100%;
+}
+.tree2 > svg {
+  height: 100%;
+}
+.signup_image3 {
+  height: 25%;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 15%;
+}
+.tree3 > svg {
+  height: 100%;
+}
+
+.signup_login {
+  padding-bottom: 5%;
+}
+.signup_email {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 97%;
+  transition: background-color 0.5s, border 0.5s;
+
+  cursor: default;
+}
+.signup_email:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.passwords {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-top: 2%;
+}
+.passwords > input {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 45%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.passwords > input:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.usertype_select {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signup_individual_button {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 49%;
+  cursor: pointer;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_individual_button:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.signup_individual_button_active {
+  font-size: 125%;
+  border: 3px solid #c0c0c0;
+  outline: none;
+  border-radius: 5px;
+  background: #cacaca;
+  padding: 1%;
+  text-align: center;
+  width: 49%;
+}
+.signup_business_button {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 49%;
+  cursor: pointer;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_business_button:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.signup_business_button_active {
+  font-size: 125%;
+  border: 3px solid #c0c0c0;
+  outline: none;
+  border-radius: 5px;
+  background: #cacaca;
+  padding: 1%;
+  text-align: center;
+  width: 49%;
+}
+.usertype_buttons_container {
+  width: 48%;
+}
+.usertype_buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signup_country_dropdown {
+  width: 48%;
+  font-size: 120%;
+  border: 3px solid #e6e3e3;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  outline: none;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_country_dropdown:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.usertype_select_text {
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  font-size: 70%;
+}
+.signup_taxes_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 170%;
+}
+.signup_taxes_description {
+  padding: 2.5%;
+}
+.usertype_select_container {
+  padding-bottom: 2%;
+}
+.signup_tax_details {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5%;
+}
+.signup_tax_details > input:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.signup_first_tax_input_individual {
+  width: 100%;
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_first_tax_input_individual2 {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 45%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_first_tax_input_bussines3 {
+  width: 28%;
+  cursor: default;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_first_tax_input_bussines2 {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 45%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_business_name2 {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 45%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_business_name3 {
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 28%;
+  cursor: default;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_street {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 97%;
+  cursor: default;
+  margin-top: 2%;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_street:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+.signup_zipcode_container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 3%;
+}
+.signup_zipcode {
+  font-size: 125%;
+  border: 3px solid #e6e3e3;
+  outline: none;
+  border-radius: 5px;
+  background: #e7e7e7;
+  padding: 1%;
+  text-align: center;
+  width: 28%;
+  cursor: default;
+  margin-top: 2%;
+  transition: background-color 0.5s, border 0.5s;
+}
+.signup_zipcode:hover {
+  border: 3px solid #c0c0c0;
+  background: #cacaca;
+}
+
+.signup_clbutton {
+  display: flex;
+  padding-top: 5%;
+  justify-content: center;
+}
+
+.signup_clbutton > button {
+  border-radius: 40px;
+  border: 1px solid #000000;
+  height: 50px;
+  width: 400px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  transition: background-color 1s;
+}
+
+.signup_clbutton > button:hover {
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+}

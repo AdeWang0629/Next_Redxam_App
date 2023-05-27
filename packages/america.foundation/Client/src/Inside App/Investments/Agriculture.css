@@ -1,0 +1,55 @@
+.agriculture_header {
+  height: 200px;
+  background-color: #43e100;
+}
+.agriculture_description {
+  height: 50px;
+}
+.agriculture_container {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 2%;
+}
+.agriculture_list {
+  width: 60%;
+}
+.agriculture_sidebar {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  background-color: #1e2023;
+  border-radius: 5px;
+  border: 1px solid #42494d;
+}
+a > table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+table {
+  border-collapse: collapse;
+}
+table th {
+  padding: 10px;
+  text-align: left;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 1px solid #31363a;
+}
+a > table td {
+  padding: 10px;
+  border-bottom: 1px solid #31363a;
+}
+
+table td,
+table th {
+  width: 10%;
+}
+
+a > table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}

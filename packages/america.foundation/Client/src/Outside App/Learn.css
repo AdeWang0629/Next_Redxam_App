@@ -1,0 +1,117 @@
+.learn-page{
+    background-color: rgb(225, 235, 220);
+    padding-top: 64px;
+    border-bottom: 1px solid black;
+}
+.learn-title{
+    padding: 24px 0;
+    font-size: 32px;
+    border-bottom: 1px solid black;
+}
+
+.learn-title span{
+    margin-left: 24px;
+}
+.investing-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 84px ;
+}
+.investing-section .title{
+    font-size: 52px;
+}
+.investing-section .tagline{
+    margin-top: 24px;
+    width: 300px;
+    font-size: 24px;
+}
+
+.invest-questions-section{
+    margin-top: 68px;
+    display: flex;
+    gap: 24px;
+}
+.second-title{
+    font-size: 32px;
+    padding-top: 68px;
+}
+
+.invest-questions-section .card{
+    background-color:black ;
+    width: 322px;
+    height: 540px;
+    border-radius: 24px;
+}
+.articles{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.question{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-top: 1px solid rgb(227, 233, 237);
+    border-bottom: 1px solid rgb(227, 233, 237);
+    width: 800px;
+    height: 61px;
+    font-size: 18px;
+}
+
+.btn{
+    color: white;
+    font-weight: 700;
+    width: 250px;
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    height: 48px;
+    border-radius: 24px;
+    cursor: pointer;
+    background-color: rgb(0, 0, 0);
+}
+.btns{
+    display: flex;
+    flex-direction: column;
+    margin-top: 54px;
+    padding-bottom: 84px;
+    gap: 16px;
+    border-bottom: 1px solid rgb(227, 233, 237);
+}
+.library-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 54px 0;
+}
+.library-title{
+    font-size: 52px;
+    width: 600px;
+}
+.library-tagline{
+    font-size: 24px;
+    width: 600px;
+    margin: 24px 0;
+}
+.library-items{
+    width: 1000px;
+    gap: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 54px 0;
+
+}
+.library-item{
+    background-color: black;
+    width: 490px;
+    height: 220px;
+    border-radius: 24px;
+}

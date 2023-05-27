@@ -1,0 +1,19 @@
+.beneficiaries_info{
+    border-bottom: 1px solid #31363A;
+    padding-bottom: 3%;
+    font-weight: bold;
+}
+
+.beneficiaries_container{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #31363A;
+    padding: 2%;
+    border-radius: 10px;
+}
+.beneficiaries_container:hover { background-color: #6d6d6d71;}
+
+.add_beneficiaries {
+    color: #00ff08;
+}
+
